@@ -1,0 +1,7 @@
+<svg id="Search" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <rect id="Rectangle" width="24" height="24" fill="rgba(216,216,216,0)"/>
+  <g id="Search_Copy" data-name="Search Copy" transform="translate(2 2)">
+    <path id="Shape" d="M9,18a9,9,0,1,1,9-9A9.01,9.01,0,0,1,9,18ZM9,2a7,7,0,1,0,7,7A7.008,7.008,0,0,0,9,2Z" fill="#43484b"/>
+    <path id="Path" d="M.293.293a1,1,0,0,1,1.414,0l4.35,4.35A1,1,0,0,1,4.643,6.057L.293,1.707A1,1,0,0,1,.293.293Z" transform="translate(13.65 13.65)" fill="#414551"/>
+  </g>
+</svg>

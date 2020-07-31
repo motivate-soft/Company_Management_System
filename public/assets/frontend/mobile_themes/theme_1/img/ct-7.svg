@@ -1,0 +1,8 @@
+<svg id="Wardrobe" xmlns="http://www.w3.org/2000/svg" width="27.2" height="32" viewBox="0 0 27.2 32">
+  <g id="Group-1" transform="translate(1.28 1.28)">
+    <path id="Path" d="M1.6,1.6h9.92V25.28h1.6V1.6h9.6V25.28h1.6V0H0V25.28H1.6Z" fill="#43484b"/>
+    <path id="Path-2" data-name="Path" d="M0,0V2.88H1.6V1.6H23.04V2.88h1.6V0Z" transform="translate(0 26.56)" fill="#43484b"/>
+    <path id="Path-3" data-name="Path" d="M2.452,1.6V0a2.434,2.434,0,1,0,0,4.868v-1.6a.74.74,0,0,1-.834-.834A.74.74,0,0,1,2.452,1.6Z" transform="translate(8.108 11.795)" fill="#43484b"/>
+    <path id="Path-4" data-name="Path" d="M0,3.268v1.6A2.478,2.478,0,0,0,2.434,2.434,2.478,2.478,0,0,0,0,0V1.6a.74.74,0,0,1,.834.834A.74.74,0,0,1,0,3.268Z" transform="translate(14.08 11.795)" fill="#43484b"/>
+  </g>
+</svg>

@@ -1,0 +1,46 @@
+
+.loadingMask {
+    display: none;
+}
+.loadingMask {
+    display: none;
+}
+
+.loadingMask img {
+    width: 25px;
+    height: 25px;
+    margin-left: 10px;
+}
+
+.loadingMask p {
+    display: inline-block;
+    margin-left: 10px;
+}
+.errors-m {
+    background-color: #ff5959;
+    z-index: 5;
+    max-width: 100%;
+    padding: .25rem .5rem;
+    margin-top: 5px;
+    font-size: .875rem;
+    line-height: 1.5;
+    color: #fff;
+    border-radius: .25rem;
+}
+.btn-plus, .btn-remove{
+    height: calc(1.5em + .75rem + 2px);
+}
+.card-code, .btn-digital-codes{
+    display: none;
+}
+.swal2-modal .swal2-title{
+    font-size: 18px;
+}
+.table-sizes tbody tr:nth-of-type(odd){
+background-color: #fff;
+}
+.size-price-input{
+    width: 80px;
+    margin: auto;
+    border-color: #cacaca;
+}

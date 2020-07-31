@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="37" height="22" viewBox="0 0 37 22">
+  <g id="Group_666" data-name="Group 666" transform="translate(-31 -12)">
+    <path id="Path" d="M2,0A2,2,0,0,0,0,2V5H37V2a2,2,0,0,0-2-2Z" transform="translate(31 12)" fill="#6e768a"/>
+    <path id="Shape" d="M35,12H2a2,2,0,0,1-2-2V0H37V10A2,2,0,0,1,35,12ZM10.5,5a1.5,1.5,0,1,0,0,3h4a1.5,1.5,0,1,0,0-3Zm-6,0a1.5,1.5,0,1,0,0,3h1a1.5,1.5,0,1,0,0-3Z" transform="translate(31 22)" fill="#6e768a"/>
+  </g>
+</svg>
