@@ -26,4 +26,5 @@ return [
     'invoice' => 'Invoice',
     'invoiceList' => 'Invoice List',
     'invoiceTemplateList' => 'Template List',
+    'brands' => 'Brands',
 ];
