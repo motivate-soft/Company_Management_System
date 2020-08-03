@@ -22,9 +22,9 @@
                         <img src="{{ asset('assets/dashboard/images/svg-icon/ecommerce.svg') }}" class="img-fluid" alt="Products"><span>{{ __('side.products') }}</span><i class="feather icon-chevron-right pull-right"></i>
                     </a>
                     <ul class="vertical-submenu">
-                        <li><a href="{{ route('products.index') }}"> {{ __('side.productList') }} </a></li>
-                        
-                         <li><a href="{{ route('categories.index') }}">{{ __('side.categories') }}</a></li>
+                        <li><a href="{{ route('categories.index') }}">{{ __('side.categories') }}</a></li>
+                        <li><a href="{{ route('brands.index') }}">{{ __('side.brands') }}</a></li>
+                        <li><a href="{{ route('products.index') }}"> {{ __('side.products') }} </a></li>
                     </ul>
                 </li>
 
