@@ -66,16 +66,33 @@
             Route::post('dashboard/codes/destroy', 'dashboard\products\CodeController@destroy')->name('codes.destroy');
         
         /********** Categories ***********/
-        Route::post('dashboard/categories', 'dashboard\categories\CategoriesController@index')->name('categories.index');
-        Route::get('dashboard/categories', function () {
-            $cuttings = \App\Model\Category::all();
-            return view('dashboard.categories.index', compact('cuttings'));
-        });
-        Route::post('dashboard/add_categories', 'dashboard\categories\CategoriesController@add_categories')->name('categories.add');
-        Route::post('dashboard/edit_category', 'dashboard\categories\CategoriesController@edit_category')->name('categories.edit');
-        Route::get('dashboard/delete_category/{id}', 'dashboard\categories\CategoriesController@delete_category');
+        Route::get('dashboard/categories', 'Systems\SystemThree\CategoriesController@index')->name('categories.index');
+        Route::get('dashboard/category/create', 'Systems\SystemThree\CategoriesController@create')->name('categories.create');
+        Route::post('dashboard/add_category', 'Systems\SystemThree\CategoriesController@add_categories')->name('categories.add');
+        Route::get('dashboard/category/edit/{id}', 'Systems\SystemThree\CategoriesController@edit')->name('categories.editview');
+        Route::post('dashboard/category/edit', 'Systems\SystemThree\CategoriesController@edit_category')->name('categories.edit');
+        Route::get('dashboard/delete_category/{id}', 'Systems\SystemThree\CategoriesController@delete_category');
+        Route::get('dashboard/category/detail/{id}', 'Systems\SystemThree\CategoriesController@detail_category')->name('categories.detail');
 
-        /********** Sliders ***********/
+        /********** Brands ***********/
+        Route::get('dashboard/brands', 'Systems\SystemThree\BrandsController@index')->name('brands.index');
+        Route::get('dashboard/brand/create', 'Systems\SystemThree\BrandsController@create')->name('brands.create');
+        Route::post('dashboard/add_brand', 'Systems\SystemThree\BrandsController@add_brands')->name('brands.add');
+        Route::get('dashboard/brand/edit/{id}', 'Systems\SystemThree\BrandsController@edit')->name('brands.editview');
+        Route::post('dashboard/brand/edit', 'Systems\SystemThree\BrandsController@edit_brand')->name('brands.edit');
+        Route::get('dashboard/delete_brand/{id}', 'Systems\SystemThree\BrandsController@delete_brand');
+        Route::get('dashboard/brand/detail/{id}', 'Systems\SystemThree\BrandsController@detail_brand')->name('brands.detail');
+
+            /********** Products ***********/
+        Route::get('dashboard/products', 'Systems\SystemThree\ProductsController@index')->name('products.index');
+        Route::get('dashboard/product/create', 'Systems\SystemThree\ProductsController@create')->name('products.create');
+        Route::post('dashboard/add_product', 'Systems\SystemThree\ProductsController@add_products')->name('products.add');
+        Route::get('dashboard/product/edit/{id}', 'Systems\SystemThree\ProductsController@edit')->name('products.editview');
+        Route::post('dashboard/product/edit', 'Systems\SystemThree\ProductsController@edit_product')->name('products.edit');
+        Route::get('dashboard/delete_product/{id}', 'Systems\SystemThree\ProductsController@delete_product');
+        Route::get('dashboard/product/detail/{id}', 'Systems\SystemThree\ProductsController@detail_product')->name('products.detail');
+
+            /********** Sliders ***********/
         Route::Resource('dashboard/sliders', 'dashboard\sliders\MobileThemesSliderController')->except('update', 'destroy');
         Route::get('dashboard/sliders', 'dashboard\sliders\MobileThemesSliderController@index')->name('sliders.index');
         Route::post('dashboard/sliders/update', 'dashboard\sliders\MobileThemesSliderController@update')->name('sliders.update');
