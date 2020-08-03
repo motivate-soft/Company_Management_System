@@ -1,5 +1,7 @@
 <?php
 namespace App\Http\Controllers\dashboard\customers;
+use App\Model\Customers;
+use App\Model\purchases;
 use Illuminate\Http\Request;
 use Validator;
 use DB;
@@ -12,200 +14,173 @@ class CustomerController extends Controller
 {
     public $successStatus = 200;
 
-    
+
     public function index()
-    {   
-        $customers['customers'] = DB::table('users')->where('user_type','customer')->orderBy('id','desc')->get();
-        return view('dashboard.customers.list',$customers);  
+    {
+        $customers['customers'] = Customers::all();
+        return view('dashboard.customers.index', $customers);
     }
 
-    public function add(Request $request){
-      dd($request->all());
-      $request->validate([
-            'email' => 'required|email|unique:users,email,unique:users',
-            'phone' => 'required|string|unique:users,phone,unique:users',
-            'name' => ['required','max:255'],
-            'password' => ['required', 'string', 'min:8']
-      ]);
+    public function create()
+    {
+        return view('dashboard.customers.create');
+    }
 
-      $if_phone_exists = DB::table('users')->where('phone',$request->phone)->first();
+    public function store(Request $request){
 
-      if(!is_null($if_phone_exists)){    
-        return redirect('add-customer')->with('error', 'Phone number already exists!');
-      }
-
-        $inserted = User::create([
-              'password' => Hash::make($request->password),
-              'name' => $request->name,
-              'user_type' => 'customer',
-              'phone' => $request->phone,
-              'email' => $request->email,
-              'notes' => $request->note,
-              'status' => 1,
-              'address' => $request->address  
+        $inserted = ([
+            'sales_employee'=> $request->salesemployee,
+            'nickname' => $request->nickname,
+            'customer_name' => $request->name,
+            'entity_type' => $request->entrytype,
+            'entity_name' => $request->entryname,
+            'position' => $request->position,
+            'mobile_number' => $request->mobilenumber,
+            'landline_number' => $request->landlinenumber,
+//          'status' => 1,
+            'fax' => $request->fax,
+            'email' => $request->email,
+            'zipcode' => $request->zipcode,
+            'country' => $request->country,
+            'city' => $request->city,
+            'district' => $request->district,
+            'street' => $request->street,
+            'address' => $request->address,
             ]);
-        if ($inserted) {
-          return redirect('list-customers')->with('success', 'Customer Successfully Added!');
+        $data = Customers::create($inserted);
+        if ($data) {
+          return redirect('dashboard/customers')->with('success', 'Customer Successfully Added!');
         }else{
-          return redirect('list-customers')->with('error', 'Something Went Wrong!');
-        }
-
-    }
-
-    public function customer_status(Request $request){
-      
-        $created = DB::table('users')->where('id', $request->id)->first();
-        if ($created->status == 0) {
-            DB::table('users')->where('id', $request->id)->update(['status' => 1]);
-        }else{
-            DB::table('users')->where('id', $request->id)->update(['status' => 0]);
+          return redirect('dashboard/customers')->with('error', 'Something Went Wrong!');
         }
     }
 
-    public function delete($id){
-        $client = User::where('id',$id)->first();
-        if (!is_null($client)) {
-          $deleted = User::where('id',$id)->delete();
+    public function destroy($id){
+        $client = Customers::where('id', $id)->first();
+
+        if ($client) {
+          $deleted = Customers::where('id',$id)->delete();
           if ($deleted) {
-            return redirect('list-customers')->with('success', 'Customer Successfully Delete!');
+            return redirect('dashboard/customers')->with('success', 'Customer Successfully Delete!');
           }else{
-            return redirect('list-customers')->with('error', 'Something Went Wrong!');
+            return redirect('dashboard/customers')->with('error', 'Something Went Wrong!');
           }
         }
-        return redirect('list-customers')->with('error', 'Customer Not Found!');
-    }
-
-    public function del_product($id)
-    {   
-        $del_product = DB::table('products')->where('id',$id)->first();
-        if(!is_null($del_product)){
-            DB::table('products')->where('id',$id)->delete();
-            return redirect()->back()->with('success','Product Successfully Delete!'); 
-        }else{ 
-            return redirect()->back()->with('error','Product not found!');
-        }
-    }
-
-    public function add_product_view()
-    {   
-        return view('products.add');
+        return redirect('dashboard/customers');
     }
 
     /**
-     * single product detail
+     * single customer detail
      */
-    public function product_detail(Request $request){
-
-        $validator = Validator::make($request->all(),
-        [
-             'id' => 'required',
-        ]);
-        $attributeNames = array(
-             'id' => 'Product ID Required',
-        );
-        if($validator->fails()){
-          return response()->json(['error'=>$validator->errors()],401);
-        }
-
-          
-          $product = DB::table('products')->where('id', $request->id)->first();
-
-          if(!is_null($product)){
-             if($request->header("Authorization")){
-                return response()->json(['product' => $product],$this->successStatus);
-            }
-          }else{
-             return response()->json(['error' => 'Product not found']);
-          }
+    public function edit ($id) {
+        $customer = Customers::where('id', $id)->first();
+        return view('dashboard.customers.edit', [ 'customer' => $customer ]);
     }
 
-
-    /**
-     * Add product
-     */
-    public function add_product(Request $request)
-    {   
-        if($request->header("Authorization")){
-            $request_data = json_decode( $request->data,true );
-        }else{
-            $request_data = $request->all();
-        }
-        
-        $validator = Validator::make($request_data,
-        [
-             'name' => 'required|string|max:254',
-             'price' => 'required|max:10',
-             'packaging_method' => 'required',
-             'cutting_method' => 'required',
-             //'image' => 'required'
-        ]);
-
-        if($validator->fails()){
-            if($request->header("Authorization")){
-                return response()->json(['error'=>$validator->errors()],401);
-            }else{
-                return redirect()->back()->with('error',$validator->errors()->first());
-            }
-        }
-        
-        $filename = null;
-         if ($request->hasFile('image')) {
-                $validator = Validator::make($request->all(),
+    public function update(Request $request, $id)
+    {
+        /*$filename = null;
+        if ($request->hasFile('image')) {
+            $validator = Validator::make($request->all(),
                 [
-                  'image' => 'image|mimes:jpeg,png,jpg,gif|max:10000',
+                    'image' => 'image|mimes:jpeg,png,jpg,gif|max:10000',
                 ]);
-            
-            if($validator->fails()){
-                if($request->header("Authorization")){
-                return response()->json(['error'=>$validator->errors()],401);
-                }else{
-                    return redirect()->back()->with('error',$validator->errors()->first());
-                }
+
+            if ($validator->fails()) {
+                return response()->json(['errors' => $validator->messages()]);
             }
-  
-          $image = $request->image;
-          $extension = $image->getClientOriginalExtension(); 
-          $filename = uniqid() . '_' . time() . '.' . $extension;
 
-          $image->move('uploads/product_images/', $filename);
-           
-          }
+            $image = $request->image;
+            $extension = $image->getClientOriginalExtension();
+            $filename = uniqid() . '_' . time() . '.' . $extension;
 
-        $userId = $request->user_id;
-        
-        if($request->header("Authorization")){
-           $userId = $request->user()->id;
-        } 
+            $image->move('uploads/product_images/', $filename);
+
+        }*/
 
         $data = ([
-            "user_id" => $userId,
-            "name" => $request_data['name'],
-            "price" => $request_data['price'],  
-            "packaging_method" => $request_data['packaging_method'],  
-            "cutting_method" => $request_data['cutting_method'],
-            "image" => $filename
+            'id' => $id,
+            'sales_employee'=> $request->salesemployee,
+            'nickname' => $request->nickname,
+            'customer_name' => $request->name,
+            'entity_type' => $request->entrytype,
+            'entity_name' => $request->entryname,
+            'position' => $request->position,
+            'mobile_number' => $request->mobilenumber,
+            'landline_number' => $request->landlinenumber,
+//          'status' => 1,
+            'fax' => $request->fax,
+            'email' => $request->email,
+            'zipcode' => $request->zipcode,
+            'country' => $request->country,
+            'city' => $request->city,
+            'district' => $request->district,
+            'street' => $request->street,
+            'address' => $request->address,
         ]);
 
-        $count = DB::table('products')->where('user_id', $userId)->count();
-        if($count >= 15){
-            if($request->header("Authorization")){
-                return response()->json(['error' => 'Your product limit reached.']);
-            } 
-            return redirect()->back()->with('error','This customer product limit reached.');
-        }
-        $created = DB::table('products')->insert($data);
-        if($created){
-            if($request->header("Authorization")){
-                return response()->json(['success' => 'Created'],$this->successStatus);
-            }
-            return redirect()->back()->with('success','Product Created');
-        }else{
-            if($request->header("Authorization")){
-              return response()->json(['error'=>'Something went wrong!'],401);
-            }
-              return redirect()->back()->with('error','Something went wrong!');
-        }
+
+        $customer = Customers::where('id', $id)->first();
+
+        // saving images
+//        $customerImages = explode(',', $customer->image);
+//        $fileNames = [];
+//
+//        if ($request->hasFile('images')) {
+//            $files = $request->file('images');
+//            foreach($files as $file) {
+//                $validator = Validator::make($request->all(),
+//                    [
+//                        'image' => 'image|mimes:jpeg,png,jpg,gif|max:10000',
+//                    ]);
+//
+//                if ($validator->fails()) {
+//                    return response()->json(['errors' => $validator->messages()]);
+//                }
+//
+//                $extension = $file->getClientOriginalExtension();
+//                $fileName = uniqid() . '_' . time() . '.' . $extension;
+//                $file->move('uploads/product_images/', $fileName);
+//                $fileNames[] = $fileName;
+//            }
+//        }
+//
+//        if ($request->has('image_removed')) {
+//            $removedImages = explode(',', $request->image_removed);
+//            if (sizeof($removedImages)) {
+//                foreach($removedImages as $removedImage) {
+//                    // unlink('uploads/product_images/' . $removedImage);
+//                }
+//            }
+//        }
+//
+//        $imageFileNames = array_diff(array_merge($customerImages, $fileNames), $removedImages);
+//
+//        $data += ["image" => implode(',', $imageFileNames)];
+
+        $customer -> update($data);
+
+        return redirect('dashboard/customers')->with('success', 'Customer Successfully Updated!');
     }
+
+    public function profile ($id) {
+        $purchases = Purchases::where('customer_id', $id)->get();
+
+        return view('dashboard.customers.profile', compact('purchases'));
+    }
+
+    public function purchases () {
+
+        $purchases['purchases'] = Purchases::all();
+
+        return view('dashboard.customers.purchases', $purchases);
+    }
+
+    public function disbursements () {
+        $customers['customers'] = Purchases::all();
+        return view('dashboard.customers.disbursements', $customers);
+    }
+
     public function SendNotification()
     {
         return view('sendnotification');

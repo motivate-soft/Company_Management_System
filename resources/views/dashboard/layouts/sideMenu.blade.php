@@ -83,13 +83,15 @@
                 
 
                 <li>
-                    <a href="javaScript:void(0)">
+                    <a href="{{ route('customers.index') }}">
                       <img src="{{ url('/') }}/assets/dashboard/images/svg-icon/user.svg" class="img-fluid" alt="dashboard"><span>{{ __('side.customers') }}</span><i class="feather icon-chevron-right pull-right"></i>
                     </a>
                     <ul class="vertical-submenu">
-                    <li><a href="{{ route('customer.create') }}">{{ __('customers/customers.customerAdd') }}</a></li>
+{{--                    <li><a href="{{ route('customer.create') }}">{{ __('customers/customers.customerAdd') }}</a></li>--}}
                     <li><a href="{{ route('customers.index') }}">{{ __('side.customersList') }}</a></li>
-                        
+                    <li><a href="{{ route('customers.purchases') }}">Customer Purchases</a></li>
+                    <li><a href="{{ route('customers.disbursements') }}">Customer Disbursements</a></li>
+
                     </ul>
                 </li>
                 
