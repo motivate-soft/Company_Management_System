@@ -24,7 +24,7 @@
         </div>
         <div class="col-md-4 col-lg-4">
             <div class="widgetbar">
-                <a class="btn btn-primary-rgba" href="{{ url('list-customers') }}" >{{ __('customers/customers.back') }}</a>
+                <a class="btn btn-primary-rgba" href="{{ route('customers.index') }}" >{{ __('customers/customers.back') }}</a>
             </div>                        
         </div>
     </div>          
@@ -43,7 +43,7 @@
                 <div class="card-body">
                     <div class="row justify-content-center">
                         <div class="col-lg-8 col-xl-6">
-                            <form id="basic-form-wizard" action="{{ url('add-customer') }}" method="post">
+                            <form id="basic-form-wizard" action="{{ route('customers.store') }}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div>
                                     <h3>Basic</h3>
@@ -78,20 +78,20 @@
                                     <section>
                                         <h4 class="font-22 mb-3">Contact Information</h4>
                                         <div class="form-group">
-                                            <label for="mobilenumber">{{ __('customers/customers.mobileNumber') }}</label>
-                                            <input type="number" class="form-control" name="mobilenumber" placeholder="{{ __('customers/customers.mobileNumber') }}" required="">
+                                            <label for="tel">{{ __('customers/customers.mobileNumber') }}</label>
+                                            <input type="tel" class="form-control" name="mobilenumber" id="mobilenumber" placeholder="123-45-678" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required="">
                                         </div>
                                         <div class="form-group">
                                             <label for="landlinenumber">{{ __('customers/customers.landlineNumber') }}</label>
-                                            <input type="number" class="form-control" name="landlinenumber" placeholder="{{ __('customers/customers.landlineNumber') }}" required="">
+                                            <input type="tel" class="form-control" name="landlinenumber" id="landlinenumber" placeholder="123-45-678" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required="">
                                         </div>
                                         <div class="form-group">
                                             <label for="fax">{{ __('customers/customers.fax') }}</label>
-                                            <input type="number" class="form-control" name="fax" placeholder="{{ __('customers/customers.fax') }}" required="">
+                                            <input type="number" class="form-control" id="fax" name="fax" placeholder="{{ __('customers/customers.fax') }}" required="">
                                         </div>
                                         <div class="form-group">
                                             <label for="email">{{ __('customers/customers.customerEmail') }}</label>
-                                            <input type="email" class="form-control" name="email" placeholder="{{ __('customers/customers.customerEmail') }}" required="">
+                                            <input type="email" class="form-control" id="email" name="email" placeholder="{{ __('customers/customers.customerEmail') }}" required="">
                                         </div>
                                     </section>
                                     <h3>Address</h3>
@@ -99,42 +99,50 @@
                                         <h4 class="font-22 mb-3">Address !!!</h4>
                                         <div class="form-group">
                                             <label for="zipcode">{{ __('customers/customers.zipcode') }}</label>
-                                            <input type="number" class="form-control" name="zipcode" placeholder="{{ __('customers/customers.zipcode') }}" required="">
+                                            <input type="number" class="form-control" name="zipcode" id="zipcode" placeholder="{{ __('customers/customers.zipcode') }}" required="">
+
                                         </div>
                                         <div class="form-group">
-                                            <label for="firstname">Country</label>
+                                            <label for="country">Country</label>
                                             <select name="country" id="country" class="form-control">
                                                 <option value="">--select</option>  
                                                 {{ get_all_countries() }}
                                             </select>  
                                         </div>
                                         <div class="form-group">
-                                            <label for="lastname">States</label>
-                                            <select name="state" id="zone" class="form-control">
-                                                <option value="">--select</option>
-                                            </select>
+                                            <label for="city">City</label>
+                                            {{--<select name="city" id="city" class="form-control">--}}
+                                                {{--<option value="">--select</option>--}}
+                                            {{--</select>--}}
+                                            <input type="text" class="form-control" id="city" name="city" placeholder="City" required=""/>
                                         </div>
                                         <div class="form-group">
-                                            <label for="email">City</label>
-                                            <select name="city" id="city" class="form-control">
-                                                <option value="">--select</option>
-                                            </select>
+                                            <label for="district">District</label>
+                                            {{--<select name="city" id="district" class="form-control">--}}
+                                                {{--<option value="">--select</option>--}}
+                                            {{--</select>--}}
+                                            <input type="text" class="form-control" id="district" name="district" placeholder="District" required=""/>
+
                                         </div>
 
+                                        {{--<div class="form-group">--}}
+                                            {{--<label for="email">Neighborhood</label>--}}
+                                            {{--<select name="neighborhood" id="neighborhood" class="form-control">--}}
+                                                {{--<option value="">--select</option>--}}
+                                            {{--</select>--}}
+                                        {{--</div>--}}
                                         <div class="form-group">
-                                            <label for="email">Neighborhood</label>
-                                            <select name="neighborhood" id="neighborhood" class="form-control">
-                                                <option value="">--select</option>
-                                            </select>
+                                            <label for="street">Street</label>
+                                            <input type="text" class="form-control" name="street" placeholder="Street" required="">
                                         </div>
                                         <div class="form-group">
-                                            <label for="address">{{ __('customers/customers.address') }}</label>
-                                            <input type="text" class="form-control" name="address" placeholder="{{ __('customers/customers.address') }}" required="">
+                                            <label for="address">Address</label>
+                                            <input type="text" class="form-control" name="address" placeholder="Address" required="">
                                         </div>
-                                        <div class="form-group">
-                                            <label for="address">Notes</label>
-                                            <textarea name="address_note" cols="3" rows="3" class="form-control" placeholder="Address Notes"></textarea>
-                                        </div>
+                                        {{--<div class="form-group">--}}
+                                            {{--<label for="note">Notes</label>--}}
+                                            {{--<textarea name="address_note" cols="3" id="note" rows="3" class="form-control" placeholder="Address Notes"></textarea>--}}
+                                        {{--</div>--}}
                                     </section>
                                     <!-- <h3>Hints</h3>  
                                     <section>
@@ -152,9 +160,10 @@
                                         <h4 class="font-22 mb-3">Let's Finished !!!</h4>
                                         <div class="custom-control custom-checkbox">
                                           <input type="checkbox" class="custom-control-input" id="acceptTerms">
-                                          <label class="custom-control-label" for="acceptTerms">I Agree with the Terms and Conditions.</label>
+                                          <label class="custom-control-label" for="acceptTerms" onclick="enable()">I Agree with the Terms and Conditions.</label>
                                         </div>
                                     </section>
+                                    <button type="submit" id="create" class="btn-blue" value="Add" disabled>Add</button>
                                 </div>
                             </form>  
                         </div>  
@@ -181,53 +190,14 @@
 <script src="{{ asset('assets/dashboard/plugins/select2/select2.min.js') }}"></script> 
 
 <script>
-
-    $(document).ready(function(){
-
-
-    var site_url = "{{ url('/') }}";
-  
-        $('#country').on('change', function() {
-            var id = this.value;
-            $.ajax({
-             url: ""+site_url+"/get_countries/"+id+"",
-             type: "get",
-             success: function(data) {
-                $('#zone').css('display','block'); 
-                $('#zone').html('');  
-                 $('#zone').append(data);
-             }
-         });
-        });
-
-        $('#zone').on('change', function() {
-            var id = this.value;
-            $.ajax({
-             url: ""+site_url+"/get_zones/"+id+"",
-             type: "get",
-             success: function(data) {
-                $('#city').css('display','block'); 
-                $('#city').html('');  
-                 $('#city').append(data);
-             }
-         });
-        });
-
-        $('#city').on('change', function() {
-            var id = this.value;
-            $.ajax({
-             url: ""+site_url+"/get_neighborhood/"+id+"",
-             type: "get",
-             success: function(data) {
-                $('#neighborhood').css('display','block'); 
-                $('#neighborhood').html('');  
-                 $('#neighborhood').append(data);
-             }
-         });
-        });
-
-        
-
-        });
+    
+        function enable() {
+            // alert($("#create").attr('disabled'));
+            if ($("#create").attr('disabled') === 'disabled'){
+                $("#create").removeAttr('disabled');
+            } else {
+                $("#create").attr('disabled', 'disabled');
+            }
+        }
 </script>
 @endsection 

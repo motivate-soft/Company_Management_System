@@ -127,16 +127,21 @@
         Route::post('dashboard/coupons/update', 'dashboard\coupons\CouponController@update')->name('coupons.update');
         Route::post('dashboard/coupons/destroy', 'dashboard\coupons\CouponController@destroy')->name('coupons.destroy');
         
-        /********** Customers ***********/
+        /********** Customers ***********
         Route::get('dashboard/customers', 'dashboard\customers\CustomerController@index')->name('customers.index');
-        Route::get('dashboard/del-customer/{id}', 'dashboard\customers\CustomerController@delete');
-        Route::post('dashboard/add-customer', 'dashboard\customers\CustomerController@add');
-        Route::post('dashboard/customer-status', 'dashboard\customers\CustomerController@customer_status');
-        Route::get('dashboard/add-customer', function () {
-            return view('dashboard.customers.add');
-        })->name('customer.create');
-        
-        /********** Countries ***********/
+        /********** Customers Routs ***********/
+        Route::get('dashboard/customers/purchases', 'dashboard\customers\CustomerController@purchases')->name('customers.purchases');
+        Route::get('dashboard/customers/disbursements', 'dashboard\customers\CustomerController@disbursements')->name('customers.disbursements');
+        Route::post('dashboard/customers/update/{id}', 'dashboard\customers\CustomerController@update')->name('customers.update');
+        Route::get('dashboard/customers/edit/{id}', 'dashboard\customers\CustomerController@edit')->name('customers.edit');
+        Route::get('dashboard/customers/destroy/{id}', 'dashboard\customers\CustomerController@destroy')->name('customers.destroy');
+        Route::get('dashboard/customers/profile/{id}', 'dashboard\customers\CustomerController@profile')->name('customers.profile');
+        Route::Resource('dashboard/customers', 'dashboard\customers\CustomerController')->except('update', 'destroy', 'edit');
+
+//      Route::post('dashboard/products/codes', 'dashboard\customers\CustomerController@codes')->name('products.codes');
+
+
+            /********** Countries ***********/
         /********** TODO: 1. Fix add and edit functional ***********/
         Route::get('dashboard/settings/countries', 'dashboard\settings\CountryController@get_countries')->name('countries.index');
         Route::get('dashboard/settings/get_cities/{id}', 'dashboard\settings\CountryController@get_cities');
