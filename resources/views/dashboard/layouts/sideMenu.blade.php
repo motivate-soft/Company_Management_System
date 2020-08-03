@@ -113,6 +113,39 @@
                     </a>
                     
                 </li>
+
+                <li>
+                    <a href="javaScript:void(0)">
+                      <i class="fa fa-tasks"></i><span>{{__('Systems/SystemTwo/sidebar.job_tasks')}}</span><i class="feather icon-chevron-right pull-right"></i>
+                    </a>
+                    <ul class="vertical-submenu">
+                        
+                        <li><a href="{{ route('jobtasks.index') }}">All</a></li>
+                        {{--<li><a href="{{ route('countries.index') }}">not_finished</a></li>--}}
+                        {{--<li><a href="{{ route('tax.index') }}">expired</a></li>--}}
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="{{route('staffs.index')}}">
+                     <i class="fa fa-user-o" aria-hidden="true"></i><span>{{__('Systems/SystemTwo/sidebar.staffs')}}</span>
+                    </a>
+                    
+                </li>
+
+                <li>
+                    <a href="{{route('entryexits.index')}}">
+                     <i class="fa fa-exchange" aria-hidden="true"></i><span>{{__('Systems/SystemTwo/sidebar.entry_exits')}}</span>
+                    </a>
+                    
+                </li>
+
+                <li>
+                    <a href="{{route('communications.index')}}">
+                     <i class="fa fa-wechat" aria-hidden="true"></i><span>{{__('Systems/SystemTwo/sidebar.communications')}}</span>
+                    </a>
+                    
+                </li>
                 
 
             </ul>

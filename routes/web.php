@@ -143,8 +143,59 @@
         Route::Resource('dashboard/coupons', 'dashboard\coupons\CouponController')->except('update', 'destroy');
         Route::post('dashboard/coupons/update', 'dashboard\coupons\CouponController@update')->name('coupons.update');
         Route::post('dashboard/coupons/destroy', 'dashboard\coupons\CouponController@destroy')->name('coupons.destroy');
-        
-        /********** Customers ***********/
+
+        /********** Jobtasks ***********/
+        Route::get('dashboard/jobtasks', 'Systems\SystemTwo\JobTaskController@index')->name('jobtasks.index');
+        Route::get('dashboard/del-jobtask/{id}', 'Systems\SystemTwo\JobTaskController@del_jobtask')->name('jobtask.delete');
+        Route::get('dashboard/detail-jobtask/{id}', 'Systems\SystemTwo\JobTaskController@detail')->name('jobtask.detail');
+        Route::get('dashboard/report-jobtask/{id}', 'Systems\SystemTwo\JobTaskController@report')->name('jobtask.report');
+        Route::get('dashboard/jobtask-edit/{id}', 'Systems\SystemTwo\JobTaskController@edit')->name('jobtasks.edit');
+        Route::post('dashboard/add-coupon', 'Systems\SystemTwo\JobTaskController@add_jobtask_post')->name('jobtasks.add');
+        Route::post('dashboard/coupon-status', 'Systems\SystemTwo\JobTaskController@update_status_post');
+        Route::post('dashboard/edit-jobtask', 'Systems\SystemTwo\JobTaskController@update_jobtask_post');
+        Route::Resource('dashboard/jobtasks', 'Systems\SystemTwo\JobTaskController')->except('update', 'destroy');
+        Route::post('dashboard/jobtasks/update', 'Systems\SystemTwo\JobTaskController@update')->name('jobtasks.update');
+        Route::post('dashboard/jobtasks/destroy', 'Systems\SystemTwo\JobTaskController@destroy')->name('jobtasks.destroy');
+
+        /********** Staffs ***********/
+        Route::get('dashboard/staffs', 'Systems\SystemTwo\StaffController@index')->name('staffs.index');
+        Route::get('dashboard/del-staff/{id}', 'Systems\SystemTwo\StaffController@del_staff')->name('staffs.delete');
+        Route::get('dashboard/staff-edit/{id}', 'Systems\SystemTwo\StaffController@edit')->name('staffs.edit');
+        Route::get('dashboard/staff-detail/{id}', 'Systems\SystemTwo\StaffController@detail')->name('staffs.detail');
+        Route::post('dashboard/add-staff', 'Systems\SystemTwo\StaffController@add_staff_post')->name('staffs.add');
+        Route::post('dashboard/staff-status', 'Systems\SystemTwo\StaffController@update_status_post');
+        Route::post('dashboard/edit-staff', 'Systems\SystemTwo\StaffController@update_staff_post');
+        Route::Resource('dashboard/staffs', 'Systems\SystemTwo\StaffController')->except('update', 'destroy');
+        Route::post('dashboard/staffs/update', 'Systems\SystemTwo\StaffController@update')->name('staffs.update');
+        Route::post('dashboard/staffs/destroy', 'Systems\SystemTwo\StaffController@destroy')->name('staffs.destroy');
+
+            /********** EntryExits ***********/
+        Route::get('dashboard/entryexits', 'Systems\SystemTwo\EntryExitController@index')->name('entryexits.index');
+        Route::get('dashboard/del-entryexit/{id}', 'Systems\SystemTwo\EntryExitController@del_entryexit')->name('entryexits.delete');
+        Route::get('dashboard/entryexit-edit/{id}', 'Systems\SystemTwo\EntryExitController@edit')->name('entryexits.edit');
+        Route::get('dashboard/entryexit-detail/{id}', 'Systems\SystemTwo\EntryExitController@detail')->name('entryexits.detail');
+        Route::post('dashboard/add-entryexit', 'Systems\SystemTwo\EntryExitController@add_entryexit_post')->name('entryexits.add');
+        Route::post('dashboard/entryexit-status', 'Systems\SystemTwo\EntryExitController@update_status_post');
+        Route::post('dashboard/edit-entryexit', 'Systems\SystemTwo\EntryExitController@update_entryexit_post');
+        Route::Resource('dashboard/entryexits', 'Systems\SystemTwo\EntryExitController')->except('update', 'destroy');
+        Route::post('dashboard/entryexits/update', 'Systems\SystemTwo\EntryExitController@update')->name('entryexits.update');
+        Route::post('dashboard/entryexits/destroy', 'Systems\SystemTwo\EntryExitController@destroy')->name('entryexits.destroy');
+
+            /********** Communications ***********/
+        Route::get('dashboard/communications', 'Systems\SystemTwo\CommunicationController@index')->name('communications.index');
+        Route::get('dashboard/del-communication/{id}', 'Systems\SystemTwo\CommunicationController@del_communications')->name('communications.delete');
+        Route::get('dashboard/communication-edit/{id}', 'Systems\SystemTwo\CommunicationController@edit')->name('communications.edit');
+        Route::get('dashboard/communication-detail/{id}', 'Systems\SystemTwo\CommunicationController@detail')->name('communications.detail');
+        Route::post('dashboard/add-communication', 'Systems\SystemTwo\CommunicationController@add_communication_post')->name('communications.add');
+        Route::post('dashboard/add-response', 'Systems\SystemTwo\CommunicationController@add_response_post')->name('communications.add_response');
+        Route::post('dashboard/communication-status', 'Systems\SystemTwo\CommunicationController@update_status_post');
+        Route::post('dashboard/edit-communication', 'Systems\SystemTwo\CommunicationController@update_communication_post');
+        Route::Resource('dashboard/communications', 'Systems\SystemTwo\CommunicationController')->except('update', 'destroy');
+        Route::post('dashboard/communications/update', 'Systems\SystemTwo\CommunicationController@update')->name('communications.update');
+        Route::post('dashboard/communications/destroy', 'Systems\SystemTwo\CommunicationController@destroy')->name('communications.destroy');
+
+
+            /********** Customers ***********/
         Route::get('dashboard/customers', 'dashboard\customers\CustomerController@index')->name('customers.index');
         Route::get('dashboard/del-customer/{id}', 'dashboard\customers\CustomerController@delete');
         Route::post('dashboard/add-customer', 'dashboard\customers\CustomerController@add');
