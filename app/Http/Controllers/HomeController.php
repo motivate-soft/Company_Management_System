@@ -133,8 +133,8 @@ class HomeController extends Controller
         $data['users']=User::count();
         $data['sold_items']=Order::where('status', 'completed')->count();
         $data['incoming']=Order::sum('total');
-        //$data['average_revenue']=(Order::sum('total')-Order::sum('vat'))/Order::count();
-        $data['average_revenue']=0;
+        $data['average_revenue']=(Order::sum('total')-Order::sum('vat'))/Order::count();
+        // $data['average_revenue']=0;
 
         $today=Carbon::now()->format('Y-m-d');
         $start_weekly_day=Carbon::now()->addDays(-7)->format('Y-m-d');

@@ -16,9 +16,6 @@ class JobTaskController extends Controller
     public function index()
     {
 
-//        echo session("email");
-
-//        print_r(session()->all()) ;
         $jobtasks = JobTask::orderBy('id', 'desc')->get();
         return view('dashboard.Systems.SystemTwo.jobtasks.index', compact('jobtasks'));
     }

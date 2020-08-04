@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Systems\SystemTwo;
 
+use App\Model\Country;
 use App\Model\Staff;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -22,7 +23,11 @@ class StaffController extends Controller
     public function edit($id)
     {
         $staff = Staff::findOrFail($id);
-        return view('dashboard.Systems.SystemTwo.staffs.edit', compact('staff'));
+
+        $sortnames = Country::select('sortname')->distinct()->get();
+        $countries = Country::orderBy('sortname', 'asc')->get();
+
+        return view('dashboard.Systems.SystemTwo.staffs.edit', compact('staff', 'sortnames', 'countries'));
     }
 
     public function detail($id)
@@ -33,13 +38,16 @@ class StaffController extends Controller
 
     public function create()
     {
-        return view('dashboard.Systems.SystemTwo.staffs.create');
+        $sortnames = Country::select('sortname')->distinct()->get();
+        $countries = Country::orderBy('sortname', 'asc')->get();
+
+        return view('dashboard.Systems.SystemTwo.staffs.create', compact('countries', 'sortnames'));
     }
 
     public function add_staff_post(Request $request)
     {
 
-//        echo $request->selection_powers;
+//        echo $request->country;
 
         $validator = Validator::make($request->all(),
             [
@@ -92,7 +100,7 @@ class StaffController extends Controller
             return redirect()->back()->with('error', 'Something went wrong!');
         }
     }
-
+//
     public function update_status_post(Request $request)
     {
         $created = DB::table('system2_staffs')->where('id', $request->id)->first();
