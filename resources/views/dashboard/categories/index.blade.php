@@ -1,5 +1,5 @@
 @section('title')
-List Category
+{{__('category.title')}}
 @endsection
 @extends('dashboard.layouts.layout')
 @section('style')
@@ -16,17 +16,18 @@ List Category
 <div class="breadcrumbbar">
     <div class="row align-items-center">
         <div class="col-md-8 col-lg-8">
-            <h4 class="page-title">Categories</h4>
+            <h4 class="page-title">{{__('category.title')}}</h4>
             <div class="breadcrumb-list">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{url('/')}}">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Categories</li>
+                    <li class="breadcrumb-item"><a href="{{url('/home')}}">{{ __('side.dashboard') }}</a></li>
+                    <li class="breadcrumb-item">{{ __('side.products') }}</li>
+                    <li class="breadcrumb-item active" aria-current="page">{{__('side.categories')}}</li>
                 </ol>
             </div>
         </div>
         <div class="col-md-4 col-lg-4">
             <div class="widgetbar">
-                <button  class="btn btn-primary-rgba" data-toggle="modal" data-target="#createNewCategory"><i class="feather icon-plus mr-2"></i>{{__('category.categoryAdd')}}</button>
+                <a href="{{ route('categories.create') }}" class="btn btn-primary-rgba"><i class="feather icon-plus mr-2"></i>{{__('category.categoryAdd')}}</a>
             </div>
         </div>
     </div>
@@ -46,9 +47,11 @@ List Category
                                 <tr>
                                     <th>{{ __('category.id') }}</th>
                                     <th>{{ __('category.categoryName') }}</th>
+                                    <th>{{ __('category.categoryNameAr') }}</th>
                                     <th>{{ __('category.categoryCode') }}</th>
                                     <th>{{ __('category.nameOfAdd') }}</th>
                                     <th>{{ __('category.dateOfAdd') }}</th>
+                                    <th>{{ __('category.categoryDetail') }}</th>
                                     <th>{{ __('category.categoryEdit') }}</th>
                                     <th>{{ __('category.categoryDelete') }}</th>
                                 </tr>
@@ -58,15 +61,23 @@ List Category
                                     @foreach($cuttings as $key => $cut)
                                         <tr>
                                             <td scope="row">{{ $key+1 }}</td>
-                                            <td>{{ $cut->category_name }}</td>
-                                            <td>{{ $cut->category_code }}</td>
-                                            <td>{{ $cut->name_of_who_added }}</td>
+                                            <td>{{ $cut->name }}</td>
+                                            <td>{{ $cut->name_ar }}</td>
+                                            <td>{{ $cut->code }}</td>
+                                            <td>{{ $cut->created_by }}</td>
                                             <td>{{ $cut->date_of_addition }}</td>
                                             <td>
                                                 <div class="button-list">
-                                                    <a href="#" class="btn btn-success-rgba cut-edit" onclick="edit({{$cut}})" data-cut="{{$cut}}" data-toggle="modal" data-target="#editCategory"><i class="feather icon-edit-2"></i></a>
+                                                    <a href="{{route('categories.detail', $cut->id)}}" class="btn btn-success-rgba"><i class="feather icon-eye"></i></a>
                                                 </div>
                                             </td>
+
+                                            <td>
+                                                <div class="button-list">
+                                                    <a href="{{route('categories.editview', $cut->id)}}" class="btn btn-success-rgba"><i class="feather icon-edit-2"></i></a>
+                                                </div>
+                                            </td>
+
                                             <td>
                                                 <div class="button-list">
                                                     <a href="{{ url('dashboard/delete_category/'.$cut->id) }}" class="btn btn-danger-rgba" onclick="return confirm('Are you sure？')"><i class="feather icon-trash"></i></a>
@@ -97,11 +108,6 @@ List Category
     }
 </script>
 
-
-
-@include('dashboard.categories.createModule')
-@include('dashboard.categories.editModule')
-
 <!-- End Contentbar -->
 @endsection
 
@@ -123,40 +129,6 @@ List Category
 
     <script>
         $(document).ready(function() {
-
-            $('#default-datatable').DataTable();
-
-        });
-    </script>
-
-
-
-
-
-
-    <script src="{{ asset('assets/dashboard//plugins/datepicker/datepicker.min.js') }}"></script>
-    <script src="{{ asset('assets/dashboard//plugins/datepicker/i18n/datepicker.en.js') }}"></script>
-
-
-    <script src="{{ asset('assets/dashboard//js/custom/custom-toasts.js') }}"></script>
-
-    <script>
-        $(document).ready(function () {
-            $('#default-date').click(function () {
-                $('#default-date').datepicker({
-                    language: 'en',
-                    dateFormat: 'yyyy/mm/dd',
-                });
-            });
-
-            $('#default-date').datepicker({
-                language: 'en',
-                dateFormat: 'yyyy/mm/dd',
-            });
-            $('#default-date12').datepicker({
-                language: 'en',
-                dateFormat: 'yyyy/mm/dd',
-            });
 
             $('#default-datatable').DataTable();
 

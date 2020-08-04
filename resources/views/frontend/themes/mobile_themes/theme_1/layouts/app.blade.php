@@ -13,21 +13,21 @@
         rel="stylesheet">
 
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@500&display=swap" rel="stylesheet">
-    <link href="{{asset('assets/site/mobileView/assets/css/bootstrap.min.css')}}" rel="stylesheet">
-    <link href="{{asset('assets/site/mobileView/assets/css/all.min.css')}}" rel="stylesheet">
-    <link href="{{asset('assets/site/mobileView/assets/css/fontawesome.css')}}" rel="stylesheet">
-    <link href="{{asset('assets/site/mobileView/assets/css/meanmenu.css')}}" rel="stylesheet">
-    <link href="{{asset('assets/site/mobileView/assets/css/owl.carousel.min.css')}}" rel="stylesheet">
-    <link href="{{asset('assets/site/mobileView/assets/css/default.css')}}" rel="stylesheet">
-    <link href="{{asset('assets/site/mobileView/assets/css/time-picker.css')}}" rel="stylesheet">
+    <link href="{{asset('assets/frontend/mobile_themes/theme_1/css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{asset('assets/frontend/mobile_themes/theme_1/css/all.min.css')}}" rel="stylesheet">
+    <link href="{{asset('assets/frontend/mobile_themes/theme_1/css/fontawesome.css')}}" rel="stylesheet">
+    <link href="{{asset('assets/frontend/mobile_themes/theme_1/css/meanmenu.css')}}" rel="stylesheet">
+    <link href="{{asset('assets/frontend/mobile_themes/theme_1/css/owl.carousel.min.css')}}" rel="stylesheet">
+    <link href="{{asset('assets/frontend/mobile_themes/theme_1/css/default.css')}}" rel="stylesheet">
+    <link href="{{asset('assets/frontend/mobile_themes/theme_1/css/time-picker.css')}}" rel="stylesheet">
     
     
     @if(app()->getLocale() == "en")
-        <link href="{{asset('assets/site/mobileView/assets/css/style.css')}}" rel="stylesheet">
-        <link href="{{asset('assets/site/mobileView/assets/css/responsive.css')}}" rel="stylesheet">
+        <link href="{{asset('assets/frontend/mobile_themes/theme_1/css/style.css')}}" rel="stylesheet">
+        <link href="{{asset('assets/frontend/mobile_themes/theme_1/css/responsive.css')}}" rel="stylesheet">
     @else
-        <link href="{{asset('assets/site/mobileView/assets/css/style-rtl.css')}}" rel="stylesheet">
-        <link href="{{asset('assets/site/mobileView/assets/css/responsive-rtl.css')}}" rel="stylesheet">
+        <link href="{{asset('assets/frontend/mobile_themes/theme_1/css/style-rtl.css')}}" rel="stylesheet">
+        <link href="{{asset('assets/frontend/mobile_themes/theme_1/css/responsive-rtl.css')}}" rel="stylesheet">
     @endif
     <style>
         @yield('style')
@@ -42,7 +42,7 @@
     <div class="app-main-top-info cart-icon">
         <span class="cart-blk ">
             <a href="{{route('carts.index')}}">
-                <img src="{{asset('assets/site/mobileView/assets/img/cart-icon.svg')}}" alt="">
+                <img src="{{asset('assets/frontend/mobile_themes/theme_1/img/cart-icon.svg')}}" alt="">
             </a>
         </span>
         <h1>@yield('head_title')</h1>
@@ -58,15 +58,15 @@
 
 
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="{{asset('assets/site/mobileView/assets/js/jquery.min.js')}}"></script>
-<script src="{{asset('assets/site/mobileView/assets/js/Popper.js')}}"></script>
-<script src="{{asset('assets/site/mobileView/assets/js/jquery.sticky.js')}}"></script>
-<script src="{{asset('assets/site/mobileView/assets/js/jquery.meanmenu.js')}}"></script>
-<script src="{{asset('assets/site/mobileView/assets/js/jquery.nice-select.min.js')}}"></script>
-<script src="{{asset('assets/site/mobileView/assets/js/owl.carousel.min.js')}}"></script>
-<script src="{{asset('assets/site/mobileView/assets/js/bootstrap.min.js')}}"></script>
-<script src="{{asset('assets/site/mobileView/assets/js/isotope.pkgd.min.js')}}"></script>
-<script src="{{asset('assets/site/mobileView/assets/js/jquery.nice-number.js')}}"></script>
+<script src="{{asset('assets/frontend/mobile_themes/theme_1/js/jquery.min.js')}}"></script>
+<script src="{{asset('assets/frontend/mobile_themes/theme_1/js/Popper.js')}}"></script>
+<script src="{{asset('assets/frontend/mobile_themes/theme_1/js/jquery.sticky.js')}}"></script>
+<script src="{{asset('assets/frontend/mobile_themes/theme_1/js/jquery.meanmenu.js')}}"></script>
+<script src="{{asset('assets/frontend/mobile_themes/theme_1/js/jquery.nice-select.min.js')}}"></script>
+<script src="{{asset('assets/frontend/mobile_themes/theme_1/js/owl.carousel.min.js')}}"></script>
+<script src="{{asset('assets/frontend/mobile_themes/theme_1/js/bootstrap.min.js')}}"></script>
+<script src="{{asset('assets/frontend/mobile_themes/theme_1/js/isotope.pkgd.min.js')}}"></script>
+<script src="{{asset('assets/frontend/mobile_themes/theme_1/js/jquery.nice-number.js')}}"></script>
 <script>
     var $grid = $('.portfolio-active').isotope({
         itemSelector: '.grid-item',
@@ -95,7 +95,7 @@
 <script>
     $('.select-sl').niceSelect();
 </script>
-<script src="{{asset('assets/site/mobileView/assets/js/main-rtl.js')}}"></script>
+<script src="{{asset('assets/frontend/mobile_themes/theme_1/js/main-rtl.js')}}"></script>
 
 <script>
     var $htmlOrBody = $('html, body'), // scrollTop works on <body> for some browsers, <html> for others

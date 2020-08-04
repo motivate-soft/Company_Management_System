@@ -61,13 +61,14 @@
 
 
 
+
 <div class="modal fade text-left" id="fileManager_Popup" tabindex="-1" role="dialog"  aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
         <div class="modal-content">
 
             <div class="modal-header">
                 <span class="modal-title">File Manager - Made With Love</span>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" id="closeMainFolderWindow" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
@@ -132,7 +133,7 @@
                                     {{$folder->name}}
                                 </td>
                                 <td style="width: 10%; text-align: center;">
-                                    <button type="button" class="btn btn-round btn-success-rgba fileManager_ShowFolder_Window" data-route = "{{ route('folder.getAllHtml') }}" data-folder="{{ $folder }}"><i class="feather icon-eye"></i></button>
+                                    <button type="button" class="btn btn-round btn-success-rgba fileManager_ShowFolder_Window" data-route = "{{ route('folder.getAllHtml') }}" data-folder-id="{{ $folder->id }}"><i class="feather icon-eye"></i></button>
                                 </td>
                                 <!--<td style="width: 10%; text-align: center;">-->
                                 <!--    <button type="button" class="btn btn-round btn-warning-rgba"><i class="mdi mdi-move-resize"></i>.</button>-->
@@ -149,10 +150,10 @@
                     </tbody>
                 </table>
             </div>
-            <div id="show_folder_window"></div>
         </div>
     </div>
 </div>
+<div id="show_folder_window"></div>
 
 
 <!--Create New Folder Window-->

@@ -32,7 +32,7 @@
         $agent = new \Jenssegers\Agent\Agent;
        
         $result = $agent->isTablet();
-        
+                        
         dd($result);
     });
     
@@ -66,31 +66,30 @@
             Route::post('dashboard/codes/destroy', 'dashboard\products\CodeController@destroy')->name('codes.destroy');
         
         /********** Categories ***********/
-        Route::get('dashboard/categories', 'Systems\SystemThree\CategoriesController@index')->name('categories.index');
-        Route::get('dashboard/category/create', 'Systems\SystemThree\CategoriesController@create')->name('categories.create');
-        Route::post('dashboard/add_category', 'Systems\SystemThree\CategoriesController@add_categories')->name('categories.add');
-        Route::get('dashboard/category/edit/{id}', 'Systems\SystemThree\CategoriesController@edit')->name('categories.editview');
-        Route::post('dashboard/category/edit', 'Systems\SystemThree\CategoriesController@edit_category')->name('categories.edit');
-        Route::get('dashboard/delete_category/{id}', 'Systems\SystemThree\CategoriesController@delete_category');
-        Route::get('dashboard/category/detail/{id}', 'Systems\SystemThree\CategoriesController@detail_category')->name('categories.detail');
+        Route::get('dashboard/categories', 'dashboard\categories\CategoriesController@index')->name('categories.index');
+        Route::get('dashboard/category/create', 'dashboard\categories\CategoriesController@create')->name('categories.create');
+        Route::post('dashboard/add_category', 'dashboard\categories\CategoriesController@add_categories')->name('categories.add');
+        Route::get('dashboard/category/edit/{id}', 'dashboard\categories\CategoriesController@edit')->name('categories.editview');
+        Route::post('dashboard/category/edit', 'dashboard\categories\CategoriesController@edit_category')->name('categories.edit');
+        Route::get('dashboard/delete_category/{id}', 'dashboard\categories\CategoriesController@delete_category');
+        Route::get('dashboard/category/detail/{id}', 'dashboard\categories\CategoriesController@detail_category')->name('categories.detail');
 
         /********** Brands ***********/
-        Route::get('dashboard/brands', 'Systems\SystemThree\BrandsController@index')->name('brands.index');
-        Route::get('dashboard/brand/create', 'Systems\SystemThree\BrandsController@create')->name('brands.create');
-        Route::post('dashboard/add_brand', 'Systems\SystemThree\BrandsController@add_brands')->name('brands.add');
-        Route::get('dashboard/brand/edit/{id}', 'Systems\SystemThree\BrandsController@edit')->name('brands.editview');
-        Route::post('dashboard/brand/edit', 'Systems\SystemThree\BrandsController@edit_brand')->name('brands.edit');
-        Route::get('dashboard/delete_brand/{id}', 'Systems\SystemThree\BrandsController@delete_brand');
-        Route::get('dashboard/brand/detail/{id}', 'Systems\SystemThree\BrandsController@detail_brand')->name('brands.detail');
+        Route::get('dashboard/brands', 'dashboard\brands\BrandsController@index')->name('brands.index');
+        Route::get('dashboard/brand/create', 'dashboard\brands\BrandsController@create')->name('brands.create');
+        Route::post('dashboard/add_brand', 'dashboard\brands\BrandsController@add_brands')->name('brands.add');
+        Route::get('dashboard/brand/edit/{id}', 'dashboard\brands\BrandsController@edit')->name('brands.editview');
+        Route::post('dashboard/brand/edit', 'dashboard\brands\BrandsController@edit_brand')->name('brands.edit');
+        Route::get('dashboard/delete_brand/{id}', 'dashboard\brands\BrandsController@delete_brand');
+        Route::get('dashboard/brand/detail/{id}', 'dashboard\brands\BrandsController@detail_brand')->name('brands.detail');
 
             /********** Products ***********/
-        Route::get('dashboard/products', 'Systems\SystemThree\ProductsController@index')->name('products.index');
-        Route::get('dashboard/product/create', 'Systems\SystemThree\ProductsController@create')->name('products.create');
-        Route::post('dashboard/add_product', 'Systems\SystemThree\ProductsController@add_products')->name('products.add');
-        Route::get('dashboard/product/edit/{id}', 'Systems\SystemThree\ProductsController@edit')->name('products.editview');
-        Route::post('dashboard/product/edit', 'Systems\SystemThree\ProductsController@edit_product')->name('products.edit');
-        Route::get('dashboard/delete_product/{id}', 'Systems\SystemThree\ProductsController@delete_product');
-        Route::get('dashboard/product/detail/{id}', 'Systems\SystemThree\ProductsController@detail_product')->name('products.detail');
+        Route::get('dashboard/products', 'dashboard\products\ProductController@index')->name('products.index');
+        Route::get('dashboard/product/create', 'dashboard\products\ProductController@create')->name('products.create');
+        Route::post('dashboard/add_product', 'dashboard\products\ProductController@add_products')->name('products.add');
+        Route::get('dashboard/product/edit/{id}', 'dashboard\products\ProductController@edit')->name('products.edit');
+        Route::get('dashboard/delete_product/{id}', 'dashboard\products\ProductController@delete_product');
+        Route::get('dashboard/product/detail/{id}', 'dashboard\products\ProductController@detail_product')->name('products.detail');
 
             /********** Sliders ***********/
         Route::Resource('dashboard/sliders', 'dashboard\sliders\MobileThemesSliderController')->except('update', 'destroy');
@@ -143,17 +142,71 @@
         Route::Resource('dashboard/coupons', 'dashboard\coupons\CouponController')->except('update', 'destroy');
         Route::post('dashboard/coupons/update', 'dashboard\coupons\CouponController@update')->name('coupons.update');
         Route::post('dashboard/coupons/destroy', 'dashboard\coupons\CouponController@destroy')->name('coupons.destroy');
-        
-        /********** Customers ***********/
-        Route::get('dashboard/customers', 'dashboard\customers\CustomerController@index')->name('customers.index');
-        Route::get('dashboard/del-customer/{id}', 'dashboard\customers\CustomerController@delete');
-        Route::post('dashboard/add-customer', 'dashboard\customers\CustomerController@add');
-        Route::post('dashboard/customer-status', 'dashboard\customers\CustomerController@customer_status');
-        Route::get('dashboard/add-customer', function () {
-            return view('dashboard.customers.add');
-        })->name('customer.create');
-        
-        /********** Countries ***********/
+
+        /********** Jobtasks ***********/
+        Route::get('dashboard/jobtasks', 'dashboard\systems\SystemTwo\JobTaskController@index')->name('jobtasks.index');
+        Route::get('dashboard/del-jobtask/{id}', 'dashboard\systems\SystemTwo\JobTaskController@del_jobtask')->name('jobtask.delete');
+        Route::get('dashboard/detail-jobtask/{id}', 'dashboard\systems\SystemTwo\JobTaskController@detail')->name('jobtask.detail');
+        Route::get('dashboard/report-jobtask/{id}', 'dashboard\systems\SystemTwo\JobTaskController@report')->name('jobtask.report');
+        Route::get('dashboard/jobtask-edit/{id}', 'dashboard\systems\SystemTwo\JobTaskController@edit')->name('jobtasks.edit');
+        Route::post('dashboard/add-coupon', 'dashboard\systems\SystemTwo\JobTaskController@add_jobtask_post')->name('jobtasks.add');
+        Route::post('dashboard/coupon-status', 'dashboard\systems\SystemTwo\JobTaskController@update_status_post');
+        Route::post('dashboard/edit-jobtask', 'dashboard\systems\SystemTwo\JobTaskController@update_jobtask_post');
+        Route::Resource('dashboard/jobtasks', 'dashboard\systems\SystemTwo\JobTaskController')->except('update', 'destroy');
+        Route::post('dashboard/jobtasks/update', 'dashboard\systems\SystemTwo\JobTaskController@update')->name('jobtasks.update');
+        Route::post('dashboard/jobtasks/destroy', 'dashboard\systems\SystemTwo\JobTaskController@destroy')->name('jobtasks.destroy');
+
+        /********** Staffs ***********/
+        Route::get('dashboard/staffs', 'dashboard\systems\SystemTwo\StaffController@index')->name('staffs.index');
+        Route::get('dashboard/del-staff/{id}', 'dashboard\systems\SystemTwo\StaffController@del_staff')->name('staffs.delete');
+        Route::get('dashboard/staff-edit/{id}', 'dashboard\systems\SystemTwo\StaffController@edit')->name('staffs.edit');
+        Route::get('dashboard/staff-detail/{id}', 'dashboard\systems\SystemTwo\StaffController@detail')->name('staffs.detail');
+        Route::post('dashboard/add-staff', 'dashboard\systems\SystemTwo\StaffController@add_staff_post')->name('staffs.add');
+        Route::post('dashboard/staff-status', 'dashboard\systems\SystemTwo\StaffController@update_status_post');
+        Route::post('dashboard/edit-staff', 'dashboard\systems\SystemTwo\StaffController@update_staff_post');
+        Route::Resource('dashboard/staffs', 'dashboard\systems\SystemTwo\StaffController')->except('update', 'destroy');
+        Route::post('dashboard/staffs/update', 'dashboard\systems\SystemTwo\StaffController@update')->name('staffs.update');
+        Route::post('dashboard/staffs/destroy', 'dashboard\systems\SystemTwo\StaffController@destroy')->name('staffs.destroy');
+
+            /********** EntryExits ***********/
+        Route::get('dashboard/entryexits', 'dashboard\systems\SystemTwo\EntryExitController@index')->name('entryexits.index');
+        Route::get('dashboard/del-entryexit/{id}', 'dashboard\systems\SystemTwo\EntryExitController@del_entryexit')->name('entryexits.delete');
+        Route::get('dashboard/entryexit-edit/{id}', 'dashboard\systems\SystemTwo\EntryExitController@edit')->name('entryexits.edit');
+        Route::get('dashboard/entryexit-detail/{id}', 'dashboard\systems\SystemTwo\EntryExitController@detail')->name('entryexits.detail');
+        Route::post('dashboard/add-entryexit', 'dashboard\systems\SystemTwo\EntryExitController@add_entryexit_post')->name('entryexits.add');
+        Route::post('dashboard/entryexit-status', 'dashboard\systems\SystemTwo\EntryExitController@update_status_post');
+        Route::post('dashboard/edit-entryexit', 'dashboard\systems\SystemTwo\EntryExitController@update_entryexit_post');
+        Route::Resource('dashboard/entryexits', 'dashboard\systems\SystemTwo\EntryExitController')->except('update', 'destroy');
+        Route::post('dashboard/entryexits/update', 'dashboard\systems\SystemTwo\EntryExitController@update')->name('entryexits.update');
+        Route::post('dashboard/entryexits/destroy', 'dashboard\systems\SystemTwo\EntryExitController@destroy')->name('entryexits.destroy');
+
+            /********** Communications ***********/
+        Route::get('dashboard/communications', 'dashboard\systems\SystemTwo\CommunicationController@index')->name('communications.index');
+        Route::get('dashboard/del-communication/{id}', 'dashboard\systems\SystemTwo\CommunicationController@del_communications')->name('communications.delete');
+        Route::get('dashboard/communication-edit/{id}', 'dashboard\systems\SystemTwo\CommunicationController@edit')->name('communications.edit');
+        Route::get('dashboard/communication-detail/{id}', 'dashboard\systems\SystemTwo\CommunicationController@detail')->name('communications.detail');
+        Route::post('dashboard/add-communication', 'dashboard\systems\SystemTwo\CommunicationController@add_communication_post')->name('communications.add');
+        Route::post('dashboard/add-response', 'dashboard\systems\SystemTwo\CommunicationController@add_response_post')->name('communications.add_response');
+        Route::post('dashboard/communication-status', 'dashboard\systems\SystemTwo\CommunicationController@update_status_post');
+        Route::post('dashboard/edit-communication', 'dashboard\systems\SystemTwo\CommunicationController@update_communication_post');
+        Route::Resource('dashboard/communications', 'dashboard\systems\SystemTwo\CommunicationController')->except('update', 'destroy');
+        Route::post('dashboard/communications/update', 'dashboard\systems\SystemTwo\CommunicationController@update')->name('communications.update');
+        Route::post('dashboard/communications/destroy', 'dashboard\systems\SystemTwo\CommunicationController@destroy')->name('communications.destroy');
+
+
+        /********** Customers Routs ***********/
+        Route::get('dashboard/customers/purchases', 'dashboard\customers\CustomerController@purchases')->name('customers.purchases');
+        Route::get('dashboard/customers/disbursements', 'dashboard\customers\CustomerController@disbursements')->name('customers.disbursements');
+        Route::post('dashboard/customers/update/{id}', 'dashboard\customers\CustomerController@update')->name('customers.update');
+        Route::get('dashboard/customers/edit/{id}', 'dashboard\customers\CustomerController@edit')->name('customers.edit');
+        Route::get('dashboard/customers/destroy/{id}', 'dashboard\customers\CustomerController@destroy')->name('customers.destroy');
+        Route::get('dashboard/customers/profile/{id}', 'dashboard\customers\CustomerController@profile')->name('customers.profile');
+        Route::Resource('dashboard/customers', 'dashboard\customers\CustomerController')->except('update', 'destroy', 'edit');
+
+//      Route::post('dashboard/products/codes', 'dashboard\customers\CustomerController@codes')->name('products.codes');
+
+
+            /********** Countries ***********/
         /********** TODO: 1. Fix add and edit functional ***********/
         Route::get('dashboard/settings/countries', 'dashboard\settings\CountryController@get_countries')->name('countries.index');
         Route::get('dashboard/settings/get_cities/{id}', 'dashboard\settings\CountryController@get_cities');
