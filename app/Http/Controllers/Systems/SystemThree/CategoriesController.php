@@ -27,14 +27,13 @@ class CategoriesController  extends Controller
             [
                 'categoryName' => 'required|string',
                 'categoryCode' => 'required|string',
-                'dateOfAdd' => 'required|date',
             ]);
 
         $data_added = DB::table('system3_categories')->insert([
             'category_name' => $request->categoryName,
             'category_code' => $request->categoryCode,
             'name_of_who_added' => auth()->user()->name,
-            'date_of_addition' => $request->dateOfAdd,
+            'date_of_addition' => now(),
         ]);
 
         if ($data_added) {
@@ -66,15 +65,12 @@ class CategoriesController  extends Controller
             [
                 'categoryName' => 'required|string',
                 'categoryCode' => 'required|string',
-                'dateOfAdd' => 'required|date',
             ]);
 
 
         $data_added = DB::table('system3_categories')->where('id',$request->categoryId)->update([
             'category_name' => $request->categoryName,
             'category_code' => $request->categoryCode,
-            'name_of_who_added' => auth()->user()->name,
-            'date_of_addition' => $request->dateOfAdd,
         ]);
 
         if ($data_added) {

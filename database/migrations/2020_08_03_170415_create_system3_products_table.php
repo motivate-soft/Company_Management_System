@@ -22,6 +22,8 @@ class CreateSystem3ProductsTable extends Migration
             $table->string('category_type');
             $table->string('brand_type');
             $table->string('country_of_origin');
+            $table->string('product_image');
+            $table->string('product_pdf');
             $table->timestamps();
         });
     }

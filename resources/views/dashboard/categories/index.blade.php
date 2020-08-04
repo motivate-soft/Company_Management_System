@@ -1,6 +1,6 @@
-@section('title') 
+@section('title')
 List Category
-@endsection 
+@endsection
 @extends('dashboard.layouts.layout')
 @section('style')
 
@@ -8,10 +8,11 @@ List Category
 <link href="{{ asset('assets/dashboard/plugins/datatables/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
 <!-- Responsive Datatable css -->
 <link href="{{ asset('assets/dashboard/plugins/datatables/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('assets/dashboard//plugins/datepicker/datepicker.min.css') }}" rel="stylesheet" type="text/css">
 
-@endsection 
+@endsection
 @section('rightbar-content')
-<!-- Start Breadcrumbbar -->                    
+<!-- Start Breadcrumbbar -->
 <div class="breadcrumbbar">
     <div class="row align-items-center">
         <div class="col-md-8 col-lg-8">
@@ -25,14 +26,14 @@ List Category
         </div>
         <div class="col-md-4 col-lg-4">
             <div class="widgetbar">
-                <button  class="btn btn-primary-rgba" data-toggle="modal" data-target="#createNewCategory"><i class="feather icon-plus mr-2"></i>Add New</button>
-            </div>                        
+                <button  class="btn btn-primary-rgba" data-toggle="modal" data-target="#createNewCategory"><i class="feather icon-plus mr-2"></i>{{__('category.categoryAdd')}}</button>
+            </div>
         </div>
-    </div>          
+    </div>
 </div>
 <!-- End Breadcrumbbar -->
-<!-- Start Contentbar -->    
-<div class="contentbar">                
+<!-- Start Contentbar -->
+<div class="contentbar">
     <!-- Start row -->
     <div class="row">
         <!-- Start col -->
@@ -40,32 +41,39 @@ List Category
             <div class="card m-b-30">
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-borderless" id="default-datatable">  
+                        <table class="table table-borderless" id="default-datatable">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Arabic Name</th>
-                                    <th>Parent Name</th>
-                                    <!--<th>Actions</th>-->
+                                    <th>{{ __('category.id') }}</th>
+                                    <th>{{ __('category.categoryName') }}</th>
+                                    <th>{{ __('category.categoryCode') }}</th>
+                                    <th>{{ __('category.nameOfAdd') }}</th>
+                                    <th>{{ __('category.dateOfAdd') }}</th>
+                                    <th>{{ __('category.categoryEdit') }}</th>
+                                    <th>{{ __('category.categoryDelete') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @if(count($cuttings) > 0)
-                                @foreach($cuttings as $key => $cut)                                
-                                    <tr>
-                                        <th scope="row">{{ $key+1 }}</th>
-                                        <td>{{ $cut->name }}</td>
-                                        <td>{{ $cut->name_ar }}</td>
-                                        <td>{{ category_parent($cut->parent) }}</td>
-                                        <td>
-                                            <div class="button-list">
-                                                <a href="#" class="btn btn-success-rgba cut-edit" data-cut="{{$cut}}" data-toggle="modal" data-target="#editCategory"><i class="feather icon-edit-2"></i></a>  
-                                                <a href="{{ url('dashboard/delete_category/'.$cut->id) }}" class="btn btn-danger-rgba" onclick="return confirm('Are you sure？')"><i class="feather icon-trash"></i></a>  
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach  
+                                    @foreach($cuttings as $key => $cut)
+                                        <tr>
+                                            <td scope="row">{{ $key+1 }}</td>
+                                            <td>{{ $cut->category_name }}</td>
+                                            <td>{{ $cut->category_code }}</td>
+                                            <td>{{ $cut->name_of_who_added }}</td>
+                                            <td>{{ $cut->date_of_addition }}</td>
+                                            <td>
+                                                <div class="button-list">
+                                                    <a href="#" class="btn btn-success-rgba cut-edit" onclick="edit({{$cut}})" data-cut="{{$cut}}" data-toggle="modal" data-target="#editCategory"><i class="feather icon-edit-2"></i></a>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="button-list">
+                                                    <a href="{{ url('dashboard/delete_category/'.$cut->id) }}" class="btn btn-danger-rgba" onclick="return confirm('Are you sure？')"><i class="feather icon-trash"></i></a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 @endif
                             </tbody>
                         </table>
@@ -77,6 +85,17 @@ List Category
     </div>
     <!-- End row -->
 </div>
+<script>
+    function edit(data) {
+
+        console.log(data);
+        document.getElementById("edit_id").value = data.id;
+        document.getElementById("edit_name").value = data.category_name;
+        document.getElementById("edit_code").value = data.category_code;
+        document.getElementById("edit_nameadd").value = data.name_of_who_added;
+        document.getElementById("default-date").value = data.date_of_addition;
+    }
+</script>
 
 
 
@@ -84,6 +103,63 @@ List Category
 @include('dashboard.categories.editModule')
 
 <!-- End Contentbar -->
-@endsection 
+@endsection
 
-@include('dashboard.categories.script')
+@section('script')
+    <script src="{{ asset('assets/dashboard/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('assets/dashboard/plugins/datatables/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('assets/dashboard/plugins/datatables/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('assets/dashboard/plugins/datatables/buttons.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('assets/dashboard/plugins/datatables/jszip.min.js') }}"></script>
+    <script src="{{ asset('assets/dashboard/plugins/datatables/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('assets/dashboard/plugins/datatables/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('assets/dashboard/plugins/datatables/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('assets/dashboard/plugins/datatables/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('assets/dashboard/plugins/datatables/buttons.colVis.min.js') }}"></script>
+    <script src="{{ asset('assets/dashboard/plugins/datatables/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('assets/dashboard/plugins/datatables/responsive.bootstrap4.min.js') }}"></script>
+
+    <script src="{{ asset('assets/dashboard/js/custom/custom-toasts.js') }}"></script>
+
+    <script>
+        $(document).ready(function() {
+
+            $('#default-datatable').DataTable();
+
+        });
+    </script>
+
+
+
+
+
+
+    <script src="{{ asset('assets/dashboard//plugins/datepicker/datepicker.min.js') }}"></script>
+    <script src="{{ asset('assets/dashboard//plugins/datepicker/i18n/datepicker.en.js') }}"></script>
+
+
+    <script src="{{ asset('assets/dashboard//js/custom/custom-toasts.js') }}"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#default-date').click(function () {
+                $('#default-date').datepicker({
+                    language: 'en',
+                    dateFormat: 'yyyy/mm/dd',
+                });
+            });
+
+            $('#default-date').datepicker({
+                language: 'en',
+                dateFormat: 'yyyy/mm/dd',
+            });
+            $('#default-date12').datepicker({
+                language: 'en',
+                dateFormat: 'yyyy/mm/dd',
+            });
+
+            $('#default-datatable').DataTable();
+
+        });
+    </script>
+@endsection

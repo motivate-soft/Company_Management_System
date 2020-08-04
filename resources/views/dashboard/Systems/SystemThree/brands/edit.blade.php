@@ -76,12 +76,19 @@
 
                         <div class="col-lg-6 mb-4">
                             <div class="form-group mb-0">
-                                <label for="cutting_method" class="col-form-label">{{ __('brand.nameOfAdd') }}</label>
-                                <input type="text" @if(isset($data->name_of_who_added)) value="{{ $data->name_of_who_added }}"@endif name="nameOfAdd" class="form-control" placeholder="{{__('brand.AddnewNameof')}}" required="" readonly>
+                                <label for="cutting_method" class="col-form-label">{{ __('brand.brandImage') }}</label>
+                                <input type="file" @if(isset($data->brand_image)) value="{{ $data->brand_image }}"@endif name="brandImage" class="form-control" placeholder="{{__('brand.SelectnewImage')}}" required="">
                             </div>
                         </div>
 
-                        <div class="col-lg-6 mb-4">
+                        <div class="col-lg-6 mb-4" hidden>
+                            <div class="form-group mb-0">
+                                <label for="cutting_method" class="col-form-label">{{ __('brand.nameOfAdd') }}</label>
+                                <input type="text" @if(isset($data->name_of_who_added)) value="{{ $data->name_of_who_added }}"@endif name="nameOfAdd" class="form-control" placeholder="{{__('brand.AddnewNameof')}}" required="">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 mb-4" hidden>
                             <div class="form-group mb-0">
                                 <label>{{ __('brand.dateOfAdd') }}</label>
                                 <div class="input-group">

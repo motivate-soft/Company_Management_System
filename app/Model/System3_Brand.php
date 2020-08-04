@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class System3_Brand extends Model
 {
     //
-    protected $table = "system3_brands";
+    protected $table="system3_brands";
 }

@@ -113,6 +113,19 @@
                                     </div>
                                 </div>
 
+                                <div class="col-lg-6 mb-4">
+                                    <div class="form-group mb-0">
+                                        <label for="cutting_method" class="col-form-label">{{ __('product.productPDF') }}</label>
+                                        <input type="file" name="productPDF" class="form-control" placeholder="{{__('product.SelectnewPDF')}}" required="">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 mb-4">
+                                    <div class="form-group mb-0">
+                                        <label for="cutting_method" class="col-form-label">{{ __('product.productImage') }}</label>
+                                        <input type="file" name="productImage" class="form-control" placeholder="{{__('product.SelectnewImage')}}" required="">
+                                    </div>
+                                </div>
 
                                 <div class="col-lg-12 mt-4">
                                     <div class="form-group mb-0">

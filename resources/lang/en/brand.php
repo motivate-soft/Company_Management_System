@@ -17,6 +17,8 @@ return [
     'branddetail' => 'Brand Detail',
 
     /*Add New Brand*/
+    'brandImage' => 'Brand Image',
+    'SelectnewImage' => 'Select Brand Image',
     'categoryType' => 'Category Type',
     'categorySelection' => 'Select Category Type',
     'brandBack' => 'Back To Brand List',

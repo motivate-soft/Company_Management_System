@@ -28,16 +28,26 @@ class BrandsController extends Controller
             [
                 'brandName' => 'required|string',
                 'brandCode' => 'required|string',
-                'dateOfAdd' => 'required|date',
                 'category_type' => 'required|string',
             ]);
+
+
+        $imgFile = $request->brandImage;
+        $fileExtension = $imgFile->getClientOriginalExtension();
+        if($fileExtension != "png" && $fileExtension != "jpg" && $fileExtension != "jpeg" && $fileExtension != "gif")
+            return redirect()->back()->withErrors("error", "Not validate image");
+
+        $imgFile->move("upload/Systems/SystemThree/Brands/", $request->brandName . ".". $fileExtension);
+        $fileUrl = "upload/Systems/SystemThree/Brands/".$request->brandName . ".". $fileExtension;
+
 
         $data_added = DB::table('system3_brands')->insert([
             'brand_name' => $request->brandName,
             'brand_code' => $request->brandCode,
             'name_of_who_added' => auth()->user()->name,
-            'date_of_addition' => $request->dateOfAdd,
+            'date_of_addition' => now(),
             'category_type' => $request->categoryType,
+            'brand_image' => $fileUrl,
         ]);
 
         if ($data_added) {
@@ -71,18 +81,24 @@ class BrandsController extends Controller
             [
                 'brandName' => 'required|string',
                 'brandCode' => 'required|string',
-                'nameOfAdd' => 'required|string',
-                'dateOfAdd' => 'required|date',
                 'category_type' => 'required|string',
             ]);
+
+
+        $imgFile = $request->brandImage;
+        $fileExtension = $imgFile->getClientOriginalExtension();
+        if($fileExtension != "png" && $fileExtension != "jpg" && $fileExtension != "jpeg" && $fileExtension != "gif")
+            return redirect()->back()->withErrors("error", "Not validate image");
+
+        $imgFile->move("upload/Systems/SystemThree/Brands/", $request->brandName . ".". $fileExtension);
+        $fileUrl = "upload/Systems/SystemThree/Brands/".$request->brandName . ".". $fileExtension;
 
 
         $data_added = DB::table('system3_brands')->where('id',$request->brandId)->update([
             'brand_name' => $request->brandName,
             'brand_code' => $request->brandCode,
-            'name_of_who_added' => $request->nameOfAdd,
-            'date_of_addition' => $request->dateOfAdd,
             'category_type' => $request->categoryType,
+            'brand_image' => $fileUrl,
         ]);
 
         if ($data_added) {

@@ -29,21 +29,37 @@ class ProductsController extends Controller
             [
                 'productName' => 'required|string',
                 'productCode' => 'required|string',
-                'nameOfAdd' => 'required|string',
-                'dateOfAdd' => 'required|date',
                 'category_type' => 'required|string',
                 'brand_type' => 'required|string',
                 'country' => 'required|string',
             ]);
 
+        $imgFile = $request->productImage;
+        $fileExtension = $imgFile->getClientOriginalExtension();
+        if($fileExtension != "png" && $fileExtension != "jpg" && $fileExtension != "jpeg" && $fileExtension != "gif")
+            return redirect()->back()->withErrors("error", "Not validate image");
+
+        $imgFile->move("upload/Systems/SystemThree/Products/", $request->productName . ".". $fileExtension);
+        $fileUrlImage = "upload/Systems/SystemThree/Products/".$request->productName . ".". $fileExtension;
+
+
+        $pdfFile = $request->productPDF;
+        $fileExtension = $pdfFile->getClientOriginalExtension();
+        if($fileExtension != "pdf") return redirect()->back()->withErrors("error", "Not validate pdf");
+        $pdfFile->move("upload/Systems/SystemThree/Products/", $request->productName.".". $fileExtension);
+        $fileUrlPDF = "upload/Systems/SystemThree/Products/".$request->productName.".". $fileExtension;
+
+
         $data_added = DB::table('system3_products')->insert([
             'product_name' => $request->productName,
             'product_code' => $request->productCode,
-            'name_of_who_added' => $request->nameOfAdd,
-            'date_of_addition' => $request->dateOfAdd,
+            'name_of_who_added' => auth()->user()->name,
+            'date_of_addition' => now(),
             'category_type' => $request->categoryType,
             'brand_type' => $request->brandType,
             'country_of_origin' => $request->country,
+            'product_image' => $fileUrlImage,
+            'product_pdf' => $fileUrlPDF,
         ]);
 
         if ($data_added) {
@@ -79,12 +95,26 @@ class ProductsController extends Controller
             [
                 'productName' => 'required|string',
                 'productCode' => 'required|string',
-                'nameOfAdd' => 'required|string',
-                'dateOfAdd' => 'required|date',
                 'category_type' => 'required|string',
                 'brand_type' => 'required|string',
                 'country' => 'required|string',
             ]);
+
+
+        $imgFile = $request->productImage;
+        $fileExtension = $imgFile->getClientOriginalExtension();
+        if($fileExtension != "png" && $fileExtension != "jpg" && $fileExtension != "jpeg" && $fileExtension != "gif")
+            return redirect()->back()->withErrors("error", "Not validate image");
+
+        $imgFile->move("upload/Systems/SystemThree/Products/", $request->productName . ".". $fileExtension);
+        $fileUrlImage = "upload/Systems/SystemThree/Products/".$request->productName . ".". $fileExtension;
+
+
+        $pdfFile = $request->productPDF;
+        $fileExtension = $pdfFile->getClientOriginalExtension();
+        if($fileExtension != "pdf") return redirect()->back()->withErrors("error", "Not validate pdf");
+        $pdfFile->move("upload/Systems/SystemThree/Products/", $request->productName.".". $fileExtension);
+        $fileUrlPDF = "upload/Systems/SystemThree/Products/".$request->productName.".". $fileExtension;
 
 
         $data_added = DB::table('system3_products')->where('id',$request->productId)->update([
@@ -95,6 +125,8 @@ class ProductsController extends Controller
             'category_type' => $request->categoryType,
             'brand_type' => $request->brandType,
             'country_of_origin' => $request->country,
+            'product_image' => $fileUrlImage,
+            'product_pdf' => $fileUrlPDF,
         ]);
 
         if ($data_added) {

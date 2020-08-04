@@ -73,25 +73,32 @@
 
                                 <div class="col-lg-6 mb-4">
                                     <div class="form-group mb-0">
-                                        <label for="cutting_method" class="col-form-label">{{ __('brand.nameOfAdd') }}</label>
-                                        <input type="text" name="nameOfAdd" class="form-control" placeholder="{{auth()->user()->name}}" required="" readonly>
+                                        <label for="cutting_method" class="col-form-label">{{ __('brand.brandImage') }}</label>
+                                        <input type="file" name="brandImage" class="form-control" placeholder="{{__('brand.SelectnewImage')}}" required="">
                                     </div>
                                 </div>
 
-                                <div class="col-lg-6 mb-4">
-                                    <div class="form-group mb-0">
-                                        <label>{{ __('brand.dateOfAdd') }}</label>
-                                        <div class="input-group">
-                                            <input type="text" id="default-date12" class="form-control"
-                                                   placeholder="yyyy/mm/dd" aria-describedby="basic-addon2"
-                                                   name="dateOfAdd" autocomplete="off"/>
-                                            <div class="input-group-append">
-                                                <span class="input-group-text" id="basic-addon2"><i
-                                                        class="feather icon-calendar"></i></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                {{--<div class="col-lg-6 mb-4">--}}
+                                    {{--<div class="form-group mb-0">--}}
+                                        {{--<label for="cutting_method" class="col-form-label">{{ __('brand.nameOfAdd') }}</label>--}}
+                                        {{--<input type="text" name="nameOfAdd" class="form-control" placeholder="{{auth()->user()->name}}" required="" readonly>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+
+                                {{--<div class="col-lg-6 mb-4">--}}
+                                    {{--<div class="form-group mb-0">--}}
+                                        {{--<label>{{ __('brand.dateOfAdd') }}</label>--}}
+                                        {{--<div class="input-group">--}}
+                                            {{--<input type="text" id="default-date12" class="form-control"--}}
+                                                   {{--placeholder="yyyy/mm/dd" aria-describedby="basic-addon2"--}}
+                                                   {{--name="dateOfAdd" autocomplete="off"/>--}}
+                                            {{--<div class="input-group-append">--}}
+                                                {{--<span class="input-group-text" id="basic-addon2"><i--}}
+                                                        {{--class="feather icon-calendar"></i></span>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
 
 
 

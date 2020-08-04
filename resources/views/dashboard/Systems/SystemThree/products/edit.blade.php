@@ -61,27 +61,27 @@
                             </div>
                         </div>
 
-                        {{--<div class="col-lg-6 mb-4">--}}
-                            {{--<div class="form-group mb-0">--}}
-                                {{--<label for="cutting_method" class="col-form-label">{{ __('product.nameOfAdd') }}</label>--}}
-                                {{--<input type="text" @if(isset($data->name_of_who_added)) value="{{ $data->name_of_who_added }}"@endif name="nameOfAdd" class="form-control" placeholder="{{__('product.AddnewNameof')}}" required="">--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
+                        <div class="col-lg-6 mb-4" hidden>
+                            <div class="form-group mb-0">
+                                <label for="cutting_method" class="col-form-label">{{ __('product.nameOfAdd') }}</label>
+                                <input type="text" @if(isset($data->name_of_who_added)) value="{{ $data->name_of_who_added }}"@endif name="nameOfAdd" class="form-control" placeholder="{{__('product.AddnewNameof')}}" required="">
+                            </div>
+                        </div>
 
-                        {{--<div class="col-lg-6 mb-4">--}}
-                            {{--<div class="form-group mb-0">--}}
-                                {{--<label>{{ __('product.dateOfAdd') }}</label>--}}
-                                {{--<div class="input-group">--}}
-                                    {{--<input type="text" id="default-date12" class="form-control"--}}
-                                           {{--placeholder="yyyy/mm/dd" aria-describedby="basic-addon2"--}}
-                                           {{--name="dateOfAdd" @if(isset($data->date_of_addition)) value="{{ $data->date_of_addition }}"@endif autocomplete="off"/>--}}
-                                    {{--<div class="input-group-append">--}}
-                                                {{--<span class="input-group-text" id="basic-addon2"><i--}}
-                                                            {{--class="feather icon-calendar"></i></span>--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
+                        <div class="col-lg-6 mb-4" hidden>
+                            <div class="form-group mb-0">
+                                <label>{{ __('product.dateOfAdd') }}</label>
+                                <div class="input-group">
+                                    <input type="text" id="default-date12" class="form-control"
+                                           placeholder="yyyy/mm/dd" aria-describedby="basic-addon2"
+                                           name="dateOfAdd" @if(isset($data->date_of_addition)) value="{{ $data->date_of_addition }}"@endif autocomplete="off"/>
+                                    <div class="input-group-append">
+                                                <span class="input-group-text" id="basic-addon2"><i
+                                                            class="feather icon-calendar"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="col-lg-6 mb-4">
                             <div class="form-group mb-0">
@@ -113,6 +113,20 @@
                             <div class="form-group mb-0">
                                 <label for="cutting_method" class="col-form-label">{{ __('product.country') }}</label>
                                 <input type="text" @if(isset($data->country_of_origin)) value="{{ $data->country_of_origin }}"@endif name="country" class="form-control" placeholder="{{__('product.countryAdd')}}" required="">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 mb-4">
+                            <div class="form-group mb-0">
+                                <label for="cutting_method" class="col-form-label">{{ __('product.productPDF') }}</label>
+                                <input type="file" @if(isset($data->product_pdf)) value="{{ $data->product_pdf }}"@endif name="productPDF" class="form-control" placeholder="{{__('product.SelectnewPDF')}}" required="">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 mb-4">
+                            <div class="form-group mb-0">
+                                <label for="cutting_method" class="col-form-label">{{ __('product.productImage') }}</label>
+                                <input type="file" @if(isset($data->product_image)) value="{{ $data->product_image }}"@endif name="productImage" class="form-control" placeholder="{{__('product.SelectnewImage')}}" required="">
                             </div>
                         </div>
 
