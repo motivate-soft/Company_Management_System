@@ -1,27 +1,29 @@
+<!-- Javascript Files
+================================================== -->
 <!-- Core JS -->
-<script src="assets/vendor/jquery/jquery.min.js"></script>
-<script src="assets/vendor/jquery/jquery-migrate.min.js"></script>
-<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="assets/js/core.js"></script>
+<script src="{{asset('assets/frontend/desktop_themes/theme_1/vendor/jquery/jquery.min.js')}}"></script>
+<script src="{{asset('assets/frontend/desktop_themes/theme_1/vendor/jquery/jquery-migrate.min.js')}}"></script>
+<script src="{{asset('assets/frontend/desktop_themes/theme_1/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{asset('assets/frontend/desktop_themes/theme_1/js/core.js')}}"></script>
 
 <!-- Vendor JS -->
-<script src="assets/vendor/twitter/jquery.twitter.js"></script>
+<script src="{{asset('assets/frontend/desktop_themes/theme_1/vendor/twitter/jquery.twitter.js')}}"></script>
 
 <!-- REVEAL ADD-ON FILES -->
-<script type='text/javascript' src='assets/vendor/revolution-addons/reveal/js/revolution.addon.revealer.min.js?ver=1.0.0'></script>
+<script type="text/javascript" src="{{asset('assets/frontend/desktop_themes/theme_1/vendor/revolution-addons/reveal/js/revolution.addon.revealer.min.js?ver=1.0.0')}}"></script>
 
 <!-- TYPEWRITER ADD-ON FILES -->
-<script type='text/javascript' src='assets/vendor/revolution-addons/typewriter/js/revolution.addon.typewriter.min.js'></script>
+<script type="text/javascript" src="{{asset('assets/frontend/desktop_themes/theme_1/vendor/revolution-addons/typewriter/js/revolution.addon.typewriter.min.js')}}"></script>
 
 <!-- REVOLUTION JS FILES -->
-<script type="text/javascript" src="assets/vendor/revolution/js/jquery.themepunch.tools.min.js"></script>
-<script type="text/javascript" src="assets/vendor/revolution/js/jquery.themepunch.revolution.min.js"></script>
+<script type="text/javascript" src="{{asset('assets/frontend/desktop_themes/theme_1/vendor/revolution/js/jquery.themepunch.tools.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('assets/frontend/desktop_themes/theme_1/vendor/revolution/js/jquery.themepunch.revolution.min.js')}}"></script>
 
 <!-- SLIDER REVOLUTION 5.0 EXTENSIONS  (Load Extensions only on Local File Systems !  The following part can be removed on Server for On Demand Loading) -->
-<script type="text/javascript" src="assets/vendor/revolution/js/extensions/revolution.extension.layeranimation.min.js"></script>
-<script type="text/javascript" src="assets/vendor/revolution/js/extensions/revolution.extension.migration.min.js"></script>
-<script type="text/javascript" src="assets/vendor/revolution/js/extensions/revolution.extension.parallax.min.js"></script>
-<script type="text/javascript" src="assets/vendor/revolution/js/extensions/revolution.extension.slideanims.min.js"></script>
+<script type="text/javascript" src="{{asset('assets/frontend/desktop_themes/theme_1/vendor/revolution/js/extensions/revolution.extension.layeranimation.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('assets/frontend/desktop_themes/theme_1/vendor/revolution/js/extensions/revolution.extension.migration.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('assets/frontend/desktop_themes/theme_1/vendor/revolution/js/extensions/revolution.extension.parallax.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('assets/frontend/desktop_themes/theme_1/vendor/revolution/js/extensions/revolution.extension.slideanims.min.js')}}"></script>
 
 <script type="text/javascript">
 	var revapi, tpj;
@@ -114,15 +116,15 @@
 				});
 			}; /* END OF revapi call */
 
-			RsRevealerAddOn(tpj, revapi, "<div class='rsaddon-revealer-spinner rsaddon-revealer-spinner-2'><div class='rsaddon-revealer-2' style='border-top-color: 0.65); border-bottom-color: 0.15); border-left-color: 0.65); border-right-color: 0.15)'><\/div><\/div>");
-			RsTypewriterAddOn(tpj, revapi);
+			//RsRevealerAddOn(tpj, revapi, "<div class='rsaddon-revealer-spinner rsaddon-revealer-spinner-2'><div class='rsaddon-revealer-2' style='border-top-color: 0.65); border-bottom-color: 0.15); border-left-color: 0.65); border-right-color: 0.15)'><\/div><\/div>");
+			//RsTypewriterAddOn(tpj, revapi);
 
 		}; /* END OF ON LOAD FUNCTION */
 	}()); /* END OF WRAPPING FUNCTION */
 </script>
 
 <!-- Template JS -->
-<script src="assets/js/init.js"></script>
-<script src="assets/js/custom.js"></script>
+<script src="{{asset('assets/frontend/desktop_themes/theme_1/js/init.js')}}"></script>
+<script src="{{asset('assets/frontend/desktop_themes/theme_1/js/custom.js')}}"></script>
 
 @yield('script')

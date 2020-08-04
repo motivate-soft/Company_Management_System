@@ -42,120 +42,105 @@
                 </div>
                 <div class="card-body">
                     <div class="row justify-content-center">
-                        <div class="col-lg-8 col-xl-6">
+                        <div class="col-lg-12 col-xl-12">
                             <form id="basic-form-wizard" action="{{ url('add-customer') }}" method="post">
-                                @csrf
-                                <div>
-                                    <h3>Basic</h3>
-                                    <section>
-                                        <h4 class="font-22 mb-3">Add New Customer !!!</h4>
-                                        <div class="form-group">
-                                            <label>{{ __('customers/customers.customerSalesEmployee') }}</label>
-                                        <input type="text" class="form-control" name="salesemployee" placeholder="{{ __('customers/customers.customerSalesEmployee') }}" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>{{ __('customers/customers.customerNickname') }}</label>
-                                        <input type="text" class="form-control" name="nickname" placeholder="{{ __('customers/customers.customerNickname') }}" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>{{ __('customers/customers.customerName') }}</label>
+                                <h4 class="font-22 mb-3">General Informaion</h4>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label>{{ __('customers/customers.customerName') }}</label>
                                         <input type="text" class="form-control" name="name" placeholder="{{ __('customers/customers.customerName') }}" required="">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>{{ __('customers/customers.entryType') }}</label>
-                                        <input type="text" class="form-control" name="entrytype" placeholder="{{ __('customers/customers.entryType') }}" required="">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>{{ __('customers/customers.entryName') }}</label>
-                                        <input type="text" class="form-control" name="entryname" placeholder="{{ __('customers/customers.entryName') }}" required="">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>{{ __('customers/customers.position') }}</label>
-                                        <input type="text" class="form-control" name="position" placeholder="{{ __('customers/customers.position') }}" required="">
-                                        </div>
-                                    </section>
-                                    <h3>Contact</h3>
-                                    <section>
-                                        <h4 class="font-22 mb-3">Contact Information</h4>
-                                        <div class="form-group">
-                                            <label for="mobilenumber">{{ __('customers/customers.mobileNumber') }}</label>
-                                            <input type="number" class="form-control" name="mobilenumber" placeholder="{{ __('customers/customers.mobileNumber') }}" required="">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="landlinenumber">{{ __('customers/customers.landlineNumber') }}</label>
-                                            <input type="number" class="form-control" name="landlinenumber" placeholder="{{ __('customers/customers.landlineNumber') }}" required="">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="fax">{{ __('customers/customers.fax') }}</label>
-                                            <input type="number" class="form-control" name="fax" placeholder="{{ __('customers/customers.fax') }}" required="">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="email">{{ __('customers/customers.customerEmail') }}</label>
-                                            <input type="email" class="form-control" name="email" placeholder="{{ __('customers/customers.customerEmail') }}" required="">
-                                        </div>
-                                    </section>
-                                    <h3>Address</h3>
-                                    <section>
-                                        <h4 class="font-22 mb-3">Address !!!</h4>
-                                        <div class="form-group">
-                                            <label for="zipcode">{{ __('customers/customers.zipcode') }}</label>
-                                            <input type="number" class="form-control" name="zipcode" placeholder="{{ __('customers/customers.zipcode') }}" required="">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="firstname">Country</label>
-                                            <select name="country" id="country" class="form-control">
-                                                <option value="">--select</option>  
-                                                {{ get_all_countries() }}
-                                            </select>  
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="lastname">States</label>
-                                            <select name="state" id="zone" class="form-control">
-                                                <option value="">--select</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="email">City</label>
-                                            <select name="city" id="city" class="form-control">
-                                                <option value="">--select</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="email">Neighborhood</label>
-                                            <select name="neighborhood" id="neighborhood" class="form-control">
-                                                <option value="">--select</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="address">{{ __('customers/customers.address') }}</label>
-                                            <input type="text" class="form-control" name="address" placeholder="{{ __('customers/customers.address') }}" required="">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="address">Notes</label>
-                                            <textarea name="address_note" cols="3" rows="3" class="form-control" placeholder="Address Notes"></textarea>
-                                        </div>
-                                    </section>
-                                    <!-- <h3>Hints</h3>  
-                                    <section>
-                                        <h4 class="font-22 mb-3">See Your Hints !!!</h4>
-                                        <ul>
-                                            <li><strong>Customer Name :</strong> John</li>
-                                            <li><strong>Customer Phone :</strong> Doe</li>
-                                            <li><strong>Customer Email :</strong> johndoe@gmail.com</li>
-                                            <li><strong>Customer Address :</strong> 123, Street, City.</li>
-                                            <li><strong>Customer Notes :</strong> 123, Street, City.</li>
-                                        </ul>
-                                    </section> -->
-                                    <h3>Finish</h3>  
-                                    <section>
-                                        <h4 class="font-22 mb-3">Let's Finished !!!</h4>
-                                        <div class="custom-control custom-checkbox">
-                                          <input type="checkbox" class="custom-control-input" id="acceptTerms">
-                                          <label class="custom-control-label" for="acceptTerms">I Agree with the Terms and Conditions.</label>
-                                        </div>
-                                    </section>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="email">{{ __('customers/customers.customerEmail') }}</label>
+                                        <input type="email" class="form-control" name="email" placeholder="{{ __('customers/customers.customerEmail') }}" required="">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="mobilenumber">{{ __('customers/customers.mobileNumber') }}</label>
+                                        <input type="number" class="form-control" name="mobilenumber" placeholder="{{ __('customers/customers.mobileNumber') }}" required="">
+                                    </div>
                                 </div>
+                                
+                                <h4 class="font-22 mb-3">Location</h4>
+                                <div class="form-row">
+                                    <div class="form-group col-md-3">
+                                        <label>Country</label>
+                                        <select name="country" id="country" class="form-control">
+                                            <option value="">--select</option>  
+                                            {{ get_all_countries() }}
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label>States</label>
+                                        <select name="state" id="zone" class="form-control">
+                                            <option value="">--select</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label>City</label>
+                                        <select name="city" id="city" class="form-control">
+                                            <option value="">--select</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label>Neighborhood</label>
+                                        <select name="neighborhood" id="neighborhood" class="form-control">
+                                            <option value="">--select</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                     
+           
+                                <h4 class="font-22 mb-3">Others</h4>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label>{{ __('customers/customers.position') }}</label>
+                                        <input type="text" class="form-control" name="position" placeholder="{{ __('customers/customers.position') }}" required="">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>{{ __('customers/customers.customerSalesEmployee') }}</label>
+                                        <select name="SalesEmployee" id="SalesEmployee" class="form-control">
+                                            <option value="">--select</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>Zip</label>
+                                        <input type="text" class="form-control" id="inputZip">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>Customer Title</label>
+                                        <select name="SalesEmployee" id="SalesEmployee" class="form-control">
+                                            <option value="">--select</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>{{ __('customers/customers.entryType') }}</label>
+                                        <input type="text" class="form-control" name="entrytype" placeholder="{{ __('customers/customers.entryType') }}" required="">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="landlinenumber">Telephon Number</label>
+                                        <input type="number" class="form-control" name="landlinenumber" placeholder="{{ __('customers/customers.landlineNumber') }}" required="">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="fax">{{ __('customers/customers.fax') }}</label>
+                                        <input type="number" class="form-control" name="fax" placeholder="{{ __('customers/customers.fax') }}" required="">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="zipcode">{{ __('customers/customers.zipcode') }}</label>
+                                        <input type="number" class="form-control" name="zipcode" placeholder="{{ __('customers/customers.zipcode') }}" required="">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="address">{{ __('customers/customers.address') }}</label>
+                                        <input type="text" class="form-control" name="address" placeholder="{{ __('customers/customers.address') }}" required="">
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="address">Notes</label>
+                                        <textarea name="address_note" cols="3" rows="3" class="form-control" placeholder="Address Notes"></textarea>
+                                    </div>
+                                </div>
+                            
+                                <button type="submit" style="width:100%;" class="btn btn-primary">Sign in</button>
+    
                             </form>  
                         </div>  
                     </div>                             

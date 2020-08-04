@@ -28,7 +28,9 @@
         
         
         // Add new folder Popup Window
-        $('.fileManager_AddNewFolder_Window').on('click', function () {
+        $(document).on("click", ".fileManager_AddNewFolder_Window" , function() {
+            var id = $(this).data('id');
+            $('#fileManager_folder').data('folder-id', id);
             $('#fileManager_AddNewFolder').modal('show');
         });
         
@@ -48,13 +50,14 @@
             var route = $(this).data('route');
             $('#fileManager_Rename').data('route', route);
             $('#fileManager_Rename').data('name', folder_name);
+            $('#fileManager_Rename').data('folder-id', $(this).data('folder-id'));
             $('#fileManager_RenameFile').modal('show');
         });
         
     
-        $('.fileManager_ShowFolder_Window').on('click', function() {
-            var folder = $(this).data('folder');
-            
+        $(document).on("click", ".fileManager_ShowFolder_Window" , function() {
+            var folder_id = $(this).data('folder-id');
+
             $.ajaxSetup({
                 headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -64,7 +67,7 @@
                 url: $(this).data('route'),
                 type: 'POST',
                 data: {
-                    id: folder.id
+                    id: folder_id
                 },
                 dataType: 'text',
                 success: function (response) {
@@ -73,7 +76,9 @@
                         alert(response.message);
                     } else {
                         var html = response;
+                        $('#fileManager_Popup').modal('hide');
                         $('#show_folder_window').html(html);  
+                        $('.modal-backdrop').first().remove();
                         $('#fileManager_ShowFolder').modal('show');
                     }
                 },
@@ -83,6 +88,10 @@
                 }
             })
         });
+    });
+    
+    $(document).on("click", ".back" , function() {
+        console.log($(this).data('folder_id'));   
     });
 
 
@@ -114,8 +123,8 @@
                         $('#fileManager_folder').val("");
                         // Replace folders
                         var folder = response.folder;
-
-                        $('#allFolders').append('<tr>\
+                        if($('#fileManager_folder').data('folder-id') == null) {
+                            $('#allFolders').append('<tr>\
                                 <td style="width: 10%; text-align: center;">\
                                     <img id="fileManagerItem" src="{{ asset('assets/dashboard/images/dashboard/fileManager/folder.png') }}" alt="Folder Name, Or Image Nmae">\
                                 </td>\
@@ -123,11 +132,41 @@
                                     +folder.name+
                                 '</td>\
                                 <td style="width: 10%; text-align: center;">\
-                                    <button type="button" class="btn btn-round btn-success-rgba fileManager_ShowFolder_Window"><i class="feather icon-eye"></i></button>\
+                                    <button type="button" class="btn btn-round btn-success-rgba fileManager_ShowFolder_Window" data-route = "'+response.getAllHtml+'" data-folder-id="'
+                                    +folder.id+
+                                    '"><i class="feather icon-eye"></i></button>\
                                 </td>\
                                 <td style="width: 10%; text-align: center;">\
                                     <button type="button" data-route = "'+response.update_route+'" data-folder-name='
                                        +folder.name+
+                                    ' data-folder-id='
+                                        +folder.folder_id+
+                                    ' class="btn btn-round btn-secondary-rgba fileManager_RenameFile_Window"><i class="mdi mdi-rename-box"></i></button>\
+                                </td>\
+                                <td style="width: 10%; text-align: center;">\
+                                    <button type="button" data-route = "'+response.delete_route+'" data-folder-name='
+                                      +folder.name+
+                                ' class="btn btn-round btn-danger-rgba fileManager_DeleteFolder_Window"><i class="feather icon-trash-2"></i></button>\
+                                </td>\
+                            </tr>');   
+                        } else {
+                            $('#allShowFolders').append('<tr>\
+                                <td style="width: 10%; text-align: center;">\
+                                    <img id="fileManagerItem" src="{{ asset('assets/dashboard/images/dashboard/fileManager/folder.png') }}" alt="Folder Name, Or Image Nmae">\
+                                </td>\
+                                <td style="@if(app()->getLocale() == "en") text-align: left; @else text-align: right; @endif" class="folder_name-'+folder.name+'">'
+                                    +folder.name+
+                                '</td>\
+                                <td style="width: 10%; text-align: center;">\
+                                    <button type="button" class="btn btn-round btn-success-rgba fileManager_ShowFolder_Window" data-route = "'+response.getAllHtml+'" data-folder-id="'
+                                    +folder.id+
+                                    '"><i class="feather icon-eye"></i></button>\
+                                </td>\
+                                <td style="width: 10%; text-align: center;">\
+                                    <button type="button" data-route = "'+response.update_route+'" data-folder-name='
+                                       +folder.name+
+                                    '  data-folder-id='
+                                        +folder.folder_id+
                                     ' class="btn btn-round btn-secondary-rgba fileManager_RenameFile_Window"><i class="mdi mdi-rename-box"></i></button>\
                                 </td>\
                                 <td style="width: 10%; text-align: center;">\
@@ -136,6 +175,7 @@
                                 ' class="btn btn-round btn-danger-rgba fileManager_DeleteFolder_Window"><i class="feather icon-trash-2"></i></button>\
                                 </td>\
                             </tr>');
+                        }
                     }, name);
         } else {
             // Show error
@@ -165,12 +205,16 @@
                                     +folder.name+
                                 '</td>\
                                 <td style="width: 10%; text-align: center;">\
-                                    <button type="button" class="btn btn-round btn-success-rgba fileManager_ShowFolder_Window"><i class="feather icon-eye"></i></button>\
+                                    <button type="button" class="btn btn-round btn-success-rgba fileManager_ShowFolder_Window" data-route = "'+response.getAllHtml+'" data-folder-id="'
+                                    +folder.id+
+                                    '"><i class="feather icon-eye"></i></button>\
                                 </td>\
                                 <td style="width: 10%; text-align: center;">\
                                     <button type="button" data-route = "'+response.update_route+'" data-folder-name='
                                       +folder.name+
-                                ' class="btn btn-round btn-secondary-rgba fileManager_RenameFile_Window"><i class="mdi mdi-rename-box"></i></button>\
+                                '  data-folder-id='
+                                        +folder.folder_id+
+                                    ' class="btn btn-round btn-secondary-rgba fileManager_RenameFile_Window"><i class="mdi mdi-rename-box"></i></button>\
                                 </td>\
                                 <td style="width: 10%; text-align: center;">\
                                     <button type="button" data-route = "'+response.delete_route+'" data-folder-name='
@@ -207,7 +251,10 @@
     
     
     ///////////////Images//////////////////////
-    $(document).on("click", "#closeFolderWindow" , function() { $(this).parent().parent().parent().parent().modal('hide'); });
+    $(document).on("click", "#closeFolderWindow" , function() { 
+        $(this).parent().parent().parent().parent().modal('hide'); 
+        $('modal-backdrop').first().remove();
+    });
     $(document).on("click", "#closeImageCreateWindow" , function() { $(this).parent().parent().parent().parent().modal('hide'); });
     
     $(document).on("click", '.createImageWindow', function() {
@@ -281,7 +328,6 @@
                 dataType: 'text',
                 success: function (response) {
                     processing = false;
-                    alert(response.name);
                     if(response.status == 'error') {
                         alert(response.message);
                     } else {

@@ -4,7 +4,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <span class="modal-title">Create New Folder</span>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" class="closeFolder" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>

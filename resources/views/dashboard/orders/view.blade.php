@@ -1,5 +1,5 @@
 @section('title') 
-{{ __('orders/orderDetails.orderDetail') }} : #{{ $order['order_id'] }}
+{{ __('orders/orderDetails.orderDetail') }} : #{{ $order->id }}
 @endsection 
 @php
 $lang_current = Config::get('app.locale');
@@ -10,6 +10,9 @@ $lang_current = Config::get('app.locale');
 <!-- Datepicker css -->
 <link href="{{ asset('assets/dashboard/plugins/datepicker/datepicker.min.css') }}" rel="stylesheet" type="text/css">
 <style type="text/css">
+    .table-striped tbody tr {
+        background-color: #e8e8e8 !important;
+    }
     .datepicker {
       z-index: 1600 !important; /* has to be larger than 1050 */
     }
@@ -30,13 +33,13 @@ $lang_current = Config::get('app.locale');
 <div class="breadcrumbbar non-printable">
     <div class="row align-items-center">
         <div class="col-md-8 col-lg-8">
-            <h4 class="page-title">{{ __('orders/orderDetails.orderDetail') }} : #{{ $order['order_id'] }}</h4>
+            <h4 class="page-title">{{ __('orders/orderDetails.orderDetail') }} : #{{ $order->id }}</h4>
             <div class="breadcrumb-list">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{url('/dashboard')}}">{{ __('side.dashboard') }}</a></li>
                     <li class="breadcrumb-item">{{ __('side.orders') }}</li>
                     <li class="breadcrumb-item"><a href="{{url('/orders')}}">{{ __('side.ordersList') }}</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{ __('orders/orderDetails.orderDetail') }} : #{{ $order['order_id'] }}</li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ __('orders/orderDetails.orderDetail') }} : #{{ $order->id }}</li>
                 </ol>
             </div>
         </div>
@@ -72,8 +75,8 @@ $lang_current = Config::get('app.locale');
                     </div>
                 </div>
                 <div class="card-body">                                
-                    <div class="row mb-5">
-                        <div class="col-md-6 col-lg-6 col-xl-3">
+                    <div class="row">
+                        <div class="col-md-6 col-lg-6 col-xl-2">
                             <div class="order-primary-detail mb-4">
                             <h6>{{ __('orders/orderDetails.orderDate') }}</h6>
                             <p class="mb-0">
@@ -82,13 +85,13 @@ $lang_current = Config::get('app.locale');
                             </div>
                         </div>
                        
-                        <div class="col-md-6 col-lg-6 col-xl-3">
+                        <div class="col-md-6 col-lg-6 col-xl-2">
                             <div class="order-primary-detail mb-4">
                             <h6>{{ __('orders/orderDetails.clientName') }}</h6>
                             <p class="mb-0">{{ $order->user->name }} </p>
                             </div>
                         </div>
-                        <div class="col-md-6 col-lg-6 col-xl-3">
+                        <div class="col-md-6 col-lg-6 col-xl-2">
                             <div class="order-primary-detail mb-4">
                             <h6>{{ __('orders/orderDetails.contactNumber') }}</h6>
                             <p class="mb-0">
@@ -97,7 +100,7 @@ $lang_current = Config::get('app.locale');
                             </div>
                         </div>
                         
-                        <div class="col-md-6 col-lg-6 col-xl-3 ">
+                        <div class="col-md-6 col-lg-6 col-xl-6 ">
                             <div class="order-primary-detail mb-4">
                             <h6>{{ __('orders/orderDetails.address') }}</h6>
                             <!--<a href="#" class="badge badge-primary-inverse">Edit</a>-->
@@ -106,13 +109,13 @@ $lang_current = Config::get('app.locale');
                             </p>
                             </div>
                         </div>
-<!-- hide map button -->
+                        <!-- hide map button -->
                         <div class="col-md-12 col-lg-12 col-xl-12 " style="display:none;"> 
                             @if(isset($order['address']['address'])) 
                                 <a href="http://maps.google.com/?q={{ urlencode($order['address']['address']) }}" style="width: 100%; margin: 15px 0 -40px 0"  target="_blank" type="button" class="btn btn btn-info-rgba">{{ __('orders/orderDetails.viewOnMap') }}</a>
                             @endif
                         </div>
-<!-- end -->
+                        <!-- end -->
 
                     </div>                                
                 </div>
@@ -122,7 +125,7 @@ $lang_current = Config::get('app.locale');
                 <div class="card-header">
                     <div class="row align-items-center">
                         <div class="col-xs-12 col-md-7">
-                            <h5 class="card-title mb-0">{{ __('orders/orderDetails.orderDetail') }} : #{{ $order['order_id'] }}</h5>
+                            <h5 class="card-title mb-0">{{ __('orders/orderDetails.orderDetail') }} : #{{ $order->id }}</h5>
                         </div>
                         
                         <!--/====================================\-->
@@ -208,7 +211,7 @@ $lang_current = Config::get('app.locale');
 
             <div class="card m-b-30">
                 <div class="card-header">
-                    <h5 class="card-title">{{ __('orders/orderDetails.orderItems') }} : #{{ $order['order_id'] }}</h5>
+                    <h5 class="card-title">{{ __('orders/orderDetails.orderItems') }} : #{{ $order->id }}</h5>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive ">
@@ -242,9 +245,9 @@ $lang_current = Config::get('app.locale');
                                         
                                         <td>
                                             @if($itm['product']['image'] != '')
-                                            <img style="border-radius: 50%;" src="{{ url('uploads/product_images') }}/{{ $itm['product']['image'] }}" class="img-fluid" width="35">
+                                            <img style="border-radius: 20%; width: 40px; height: 40px;" src="{{ url('uploads/product_images') }}/{{ $itm['product']['image'] }}" class="img-fluid" width="35">
                                             @else
-                                            <img style="border-radius: 50%;" src="{{ url('assets/dashboard/images/no-image.jpg') }}" class="img-fluid" width="35">
+                                            <img style="border-radius: 20%; width: 40px; height: 40px;" src="{{ url('assets/dashboard/images/no-image.jpg') }}" class="img-fluid" width="35">
                                             @endif
                                         </td> 
                                         <td>{{ $itm['product']['name'] }}</td>
@@ -272,8 +275,8 @@ $lang_current = Config::get('app.locale');
                             <div class="order-note">
                                 <!--<p class="mb-5"><span class="badge badge-secondary-inverse">Free Shipping Order</span></p>-->
                                 <h6>{{ __('orders/orderDetails.note') }} :</h6>
-                                <textarea name="order_note" id="" cols="30" rows="5" class="form-control">@if(isset($order->note)) {!! $order->note !!} @endif</textarea>
-                                <button class="btn btn-secondary note-save-btn">Save</button>
+                                <textarea name="order_note" id="" style="resize: none;" cols="30" rows="4" class="form-control">@if(isset($order->note)) {!! $order->note !!} @endif</textarea>
+                                <button style="margin-top:5px; width: 100%;" class="btn btn-secondary note-save-btn">{{ __('general.save') }}</button>
                             </div>
                         </div>
                         <div class="col-md-12 order-1 order-lg-2 col-lg-8 col-xl-6">
@@ -282,7 +285,6 @@ $lang_current = Config::get('app.locale');
                                     <tbody>
                                         <tr>
                                             <td style="@if(app()->getLocale() == "en") text-align: right; @else text-align: right; @endif">{{ __('orders/orderDetails.subTotal') }} :</td>
-                                            {{-- <td>@if(isset($order['sub_total'])) ${{ number_format($order['sub_total'],2) }} @endif</td> --}}
                                             <td>${{ number_format($sub_totl) }}</td>
                                         </tr>
                                         <tr>
@@ -306,7 +308,6 @@ $lang_current = Config::get('app.locale');
                                             <td class="text-black f-w-7 font-18">
                                                ${{ number_format($tax + $sub_totl + $order->delivery_fee,2) }} 
                                             </td>
-                                            {{-- <td class="text-black f-w-7 font-18">@if(isset($order['total'])) ${{ number_format($order['total'],2) }} @endif</td> --}}
                                         </tr>
                                     </tbody>
                                 </table>
@@ -601,7 +602,7 @@ $lang_current = Config::get('app.locale');
     </div>
   </div>
 </div>
-@include('dashboard.orders.addProductModule')
+@include('dashboard.orders.modules.addProductModule')
 @endsection 
 @section('script')
     
