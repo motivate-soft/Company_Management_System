@@ -32,7 +32,7 @@
         $agent = new \Jenssegers\Agent\Agent;
        
         $result = $agent->isTablet();
-        
+                        
         dd($result);
     });
     
