@@ -61,14 +61,14 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-6 mb-4">
+                        <div class="col-lg-6 mb-4" hidden>
                             <div class="form-group mb-0">
                                 <label for="cutting_method" class="col-form-label">{{ __('category.nameOfAdd') }}</label>
-                                <input type="text" @if(isset($data->name_of_who_added)) value="{{ $data->name_of_who_added }}"@endif name="nameOfAdd" class="form-control" placeholder="{{__('category.AddnewNameof')}}" required="" readonly>
+                                <input type="text" @if(isset($data->name_of_who_added)) value="{{ $data->name_of_who_added }}"@endif name="nameOfAdd" class="form-control" placeholder="{{__('category.AddnewNameof')}}" required="">
                             </div>
                         </div>
 
-                        <div class="col-lg-6 mb-4">
+                        <div class="col-lg-6 mb-4" hidden>
                             <div class="form-group mb-0">
                                 <label>{{ __('category.dateOfAdd') }}</label>
                                 <div class="input-group">

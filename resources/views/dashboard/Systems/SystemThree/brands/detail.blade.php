@@ -49,7 +49,7 @@
                     <div class="row">
                         <div class="col-lg-6 mb-4">
                             <div class="form-group mb-0">
-                                <label for="cutting_method" class="col-form-label">{{ __('brand.brandyName') }}</label>
+                                <label for="cutting_method" class="col-form-label">{{ __('brand.brandName') }}</label>
                                 <input type="text" @if(isset($data->brand_name)) value="{{ $data->brand_name }}"@endif name="brandName" class="form-control" placeholder="{{__('brand.AddnewName')}}" required="" disabled>
                             </div>
                         </div>
@@ -87,6 +87,14 @@
                                                             class="feather icon-calendar"></i></span>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 mb-4">
+                            <div class="form-group mb-0">
+                                <label for="cutting_method" class="col-form-label">{{ __('brand.brandImage') }}</label>
+                                <img src="{{asset('../'.$data->brand_image)}}" alt="brandImage" class="img-thumbnail circle">
+                                <input type="text" @if(isset($data->brand_image)) value="{{ $data->brand_image }}"@endif name="brandImage" class="form-control" placeholder="{{__('brand.SelectnewImage')}}" required="" disabled>
                             </div>
                         </div>
 

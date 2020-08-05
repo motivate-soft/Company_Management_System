@@ -53,8 +53,8 @@
                                 </div>
                                 <div class="col-lg-6 mb-4">
                                     <div class="form-group mb-0">
-                                        <label for="brandNameAr" class="col-form-label">{{ __('brand.brandName') }}</label>
-                                        <input type="text" name="brandNameAr" class="form-control" placeholder="{{__('brand.AddnewName')}}" required="">
+                                        <label for="brandNameAr" class="col-form-label">{{ __('brand.brandNameAr') }}</label>
+                                        <input type="text" name="brandNameAr" class="form-control" placeholder="{{__('brand.AddnewArabicName')}}" required="">
                                     </div>
                                 </div>
 
@@ -67,7 +67,7 @@
 
                                 <div class="col-lg-6 mb-4">
                                     <div class="form-group mb-0">
-                                        <label for="type">{{ __('brand.categoryType') }}</label>
+                                        <label for="type">{{ __('brand.brandCategory') }}</label>
                                         <select class="form-control" name="categoryType" id="categoryType">
                                             <option selected value="">{{ __('brand.categorySelection') }}</option>
                                             @foreach($categories as $cate)
@@ -81,6 +81,13 @@
                                     <div class="form-group mb-0">
                                         <label for="nameOfAdd" class="col-form-label">{{ __('brand.nameOfAdd') }}</label>
                                         <input type="text" name="nameOfAdd" class="form-control" placeholder="{{auth()->user()->name}}" required="" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 mb-4">
+                                    <div class="form-group mb-0">
+                                        <label for="cutting_method" class="col-form-label">{{ __('brand.brandImage') }}</label>
+                                        <input type="file" name="brandImage" class="form-control" placeholder="{{__('brand.SelectnewImage')}}" required="">
                                     </div>
                                 </div>
 

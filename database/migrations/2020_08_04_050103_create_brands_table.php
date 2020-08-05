@@ -17,9 +17,11 @@ class CreateBrandsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('name_ar');
-            $table->string('brand_code');
+            $table->string('code');
             $table->string('category_type')->nullable();
             $table->string('created_by')->nullable();
+            $table->date('add_date')->nullable();
+            $table->string('image');
             $table->timestamps();
         });
     }

@@ -1,17 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Systems\SystemThree;
+namespace App\Http\Controllers\dashboard\products;
 
-use App\Model\System3_Brand;
-use App\Model\System3_Category;
 use App\Model\System3_Product;
-use Illuminate\Http\Request;
+use App\Model\Category;
+use App\Model\Brand;
+use App\Model\Country;
 use Illuminate\Support\Facades\Validator;
 use DB;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class ProductsController extends Controller
 {
+    //
     public $successStatus = 200;
 
     /*==================================
@@ -37,7 +39,7 @@ class ProductsController extends Controller
         $imgFile = $request->productImage;
         $fileExtension = $imgFile->getClientOriginalExtension();
         if($fileExtension != "png" && $fileExtension != "jpg" && $fileExtension != "jpeg" && $fileExtension != "gif")
-            return redirect()->back()->withErrors("error", "Not validate image");
+            return redirect()->back()->with('error','Not validate image');
 
         $imgFile->move("upload/Systems/SystemThree/Products/", $request->productName . ".". $fileExtension);
         $fileUrlImage = "upload/Systems/SystemThree/Products/".$request->productName . ".". $fileExtension;
@@ -45,7 +47,7 @@ class ProductsController extends Controller
 
         $pdfFile = $request->productPDF;
         $fileExtension = $pdfFile->getClientOriginalExtension();
-        if($fileExtension != "pdf") return redirect()->back()->withErrors("error", "Not validate pdf");
+        if($fileExtension != "pdf") return redirect()->back()->with('error', 'Not validate pdf');
         $pdfFile->move("upload/Systems/SystemThree/Products/", $request->productName.".". $fileExtension);
         $fileUrlPDF = "upload/Systems/SystemThree/Products/".$request->productName.".". $fileExtension;
 
@@ -70,17 +72,21 @@ class ProductsController extends Controller
     }
 
     public function create(){
-        $categories = System3_Category::orderBy('id', 'asc')->get();
-        $brands = System3_Brand::orderBy('id', 'asc')->get();
-        return view('dashboard\Systems\SystemThree\products\create', compact('categories', 'brands'));
+        $sortnames = Country::orderBy('id', 'asc')->distinct()->get('sortname');
+        $countries = Country::orderBy('id', 'asc')->get();
+        $categories = Category::orderBy('id', 'asc')->get();
+        $brands = Brand::orderBy('id', 'asc')->get();
+        return view('dashboard\Systems\SystemThree\products\create', compact('categories', 'brands', 'sortnames', 'countries'));
     }
 
     public function edit($id)
     {
+        $sortnames = Country::orderBy('id', 'asc')->distinct()->get('sortname');
+        $countries = Country::orderBy('id', 'asc')->get();
         $data = System3_Product::findOrFail($id);
-        $categories = System3_Category::orderBy('id', 'asc')->get();
-        $brands = System3_Brand::orderBy('id', 'asc')->get();
-        return view('dashboard\Systems\SystemThree\products\edit', compact('data', 'categories', 'brands'));
+        $categories = Category::orderBy('id', 'asc')->get();
+        $brands = Brand::orderBy('id', 'asc')->get();
+        return view('dashboard\Systems\SystemThree\products\edit', compact('data', 'categories', 'brands','sortnames', 'countries'));
     }
 
     public function detail_product($id)
@@ -136,13 +142,12 @@ class ProductsController extends Controller
         }
     }
 
-    public function delete_product($id){
-        $edit = DB::table('system3_products')->where('id',$id)->first();
-        if (!is_null($edit)) {
-            DB::table('system3_products')->where('id',$id)->delete();
-            return redirect('dashboard/products')->with('success','Successfully Delete Product!');
-        }else{
-            return redirect('dashboard/products')->with('error','Something Went Wrong!');
+    public function delete_product(Request $request){
+        $deleted = DB::table('system3_products')->where('id', $request->id)->delete();
+        if ($deleted) {
+            return 1;
+        } else {
+            return 0;
         }
     }
 

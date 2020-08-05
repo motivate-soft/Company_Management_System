@@ -104,6 +104,21 @@
                             </div>
                         </div>
 
+                        <div class="col-lg-6 mb-4">
+                            <div class="form-group mb-0">
+                                <label for="cutting_method" class="col-form-label">{{ __('product.productPDF') }}</label>
+                                <input type="text" @if(isset($data->product_pdf)) value="{{ $data->product_pdf }}"@endif name="productPDF" class="form-control" placeholder="{{__('product.SelectnewPDF')}}" required="" disabled>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 mb-4">
+                            <div class="form-group mb-0">
+                                <label for="cutting_method" class="col-form-label">{{ __('product.productImage') }}</label>
+                                <img src="{{asset('../'.$data->product_image)}}" alt="productImage" class="img-thumbnail circle">
+                                <input type="text" @if(isset($data->product_image)) value="{{ $data->product_image }}"@endif name="productImage" class="form-control" placeholder="{{__('product.SelectnewImage')}}" required="" disabled>
+                            </div>
+                        </div>
+
                     </div>
 
 

@@ -26,11 +26,19 @@ class BrandsController extends Controller
 
         $validator = Validator::make($request->all(),
             [
-                'name' => 'required|string',
-                'name_ar' => 'required|string',
-                'code' => 'required|string',
-                'category_type' => 'string',
+                'brandName' => 'required|string',
+                'brandNameAr' => 'required|string',
+                'brandCode' => 'required|string',
+                'categoryType' => 'string',
             ]);
+
+        $imgFile = $request->brandImage;
+        $fileExtension = $imgFile->getClientOriginalExtension();
+        if($fileExtension != "png" && $fileExtension != "jpg" && $fileExtension != "jpeg" && $fileExtension != "gif")
+            return redirect()->back()->withErrors("error", "Not validate image");
+    
+        $imgFile->move("upload/Brands/", $request->brandName . ".". $fileExtension);
+        $fileUrl = "upload/Brands/".$request->brandName . ".". $fileExtension;
 
         $data_added = DB::table('brands')->insert([
             'name' => $request->brandName,
@@ -38,6 +46,8 @@ class BrandsController extends Controller
             'code' => $request->brandCode,
             'created_by' => auth()->user()->name,
             'category_type' => $request->categoryType,
+            'add_date' => now(),
+            'image' => $fileUrl,
         ]);
 
         if ($data_added) {
@@ -72,9 +82,7 @@ class BrandsController extends Controller
                 'brandName' => 'required|string',
                 'brandNameAr' => 'required|string',
                 'brandCode' => 'required|string',
-                'nameOfAdd' => 'required|string',
-                'dateOfAdd' => 'required|date',
-                'category_type' => 'string',
+                'categoryType' => 'string',
             ]);
 
 
@@ -82,7 +90,7 @@ class BrandsController extends Controller
             'name' => $request->brandName,
             'name_ar' => $request->brandNameAr,
             'code' => $request->brandCode,
-            'created_by' => $request->nameOfAdd,
+            'created_by' => auth()->user()->name,
             'category_type' => $request->categoryType,
         ]);
 
@@ -93,13 +101,20 @@ class BrandsController extends Controller
         }
     }
 
-    public function delete_brand($id){
-        $edit = DB::table('brands')->where('id',$id)->first();
-        if (!is_null($edit)) {
-            DB::table('brands')->where('id',$id)->delete();
-            return redirect('dashboard/brands')->with('success','Successfully Delete Brand!');
-        }else{
-            return redirect('dashboard/brands')->with('error','Something Went Wrong!');
+    public function delete_brand(Request $request){
+        // $edit = DB::table('brands')->where('id',$id)->first();
+        // if (!is_null($edit)) {
+        //     DB::table('brands')->where('id',$id)->delete();
+        //     return redirect('dashboard/brands')->with('success','Successfully Delete Brand!');
+        // }else{
+        //     return redirect('dashboard/brands')->with('error','Something Went Wrong!');
+        // }
+
+        $deleted = DB::table('brands')->where('id', $request->id)->delete();
+        if ($deleted) {
+            return 1;
+        } else {
+            return 0;
         }
     }
 

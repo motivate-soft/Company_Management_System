@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSystem3BrandsTable extends Migration
+class CreateSystem3CategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateSystem3BrandsTable extends Migration
      */
     public function up()
     {
-        Schema::create('system3_brands', function (Blueprint $table) {
+        Schema::create('system3_categories', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('brand_name');
-            $table->string('brand_code');
+            $table->string('category_name');
+            $table->string('category_code');
             $table->string('name_of_who_added')->nullable();
-            $table->date('date_of_addition');
-            $table->string('category_type');
+            $table->date('date_of_addition')->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ class CreateSystem3BrandsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('system3_brands');
+        Schema::dropIfExists('system3_categories');
     }
 }
