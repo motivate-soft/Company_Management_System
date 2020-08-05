@@ -195,13 +195,14 @@
 
 
         /********** Customers Routs ***********/
-        Route::get('dashboard/customers/purchases', 'dashboard\customers\CustomerController@purchases')->name('customers.purchases');
-        Route::get('dashboard/customers/disbursements', 'dashboard\customers\CustomerController@disbursements')->name('customers.disbursements');
-        Route::post('dashboard/customers/update/{id}', 'dashboard\customers\CustomerController@update')->name('customers.update');
-        Route::get('dashboard/customers/edit/{id}', 'dashboard\customers\CustomerController@edit')->name('customers.edit');
-        Route::get('dashboard/customers/destroy/{id}', 'dashboard\customers\CustomerController@destroy')->name('customers.destroy');
-        Route::get('dashboard/customers/profile/{id}', 'dashboard\customers\CustomerController@profile')->name('customers.profile');
-        Route::Resource('dashboard/customers', 'dashboard\customers\CustomerController')->except('update', 'destroy', 'edit');
+        Route::get('dashboard/customers/purchases', 'Systems\SystemOne\CustomerController@purchases')->name('customers.purchases');
+        Route::get('dashboard/customers/disbursements', 'Systems\SystemOne\CustomerController@disbursements')->name('customers.disbursements');
+        Route::post('dashboard/customers/update/{id}', 'Systems\SystemOne\CustomerController@update')->name('customers.update');
+        Route::get('dashboard/customers/edit/{id}', 'Systems\SystemOne\CustomerController@edit')->name('customers.edit');
+        Route::get('dashboard/customers/destroy/{id}', 'Systems\SystemOne\CustomerController@destroy')->name('customers.destroy');
+        Route::get('dashboard/customers/profile/{id}', 'Systems\SystemOne\CustomerController@profile')->name('customers.profile');
+        Route::post('/dashboard/customers/region', 'Systems\SystemOne\CustomerController@region_post')->name('customers.region');
+        Route::Resource('dashboard/customers', 'Systems\SystemOne\CustomerController')->except('update', 'destroy', 'edit');
 
 //      Route::post('dashboard/products/codes', 'dashboard\customers\CustomerController@codes')->name('products.codes');
 

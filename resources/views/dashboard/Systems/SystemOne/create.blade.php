@@ -79,15 +79,15 @@
                                         <h4 class="font-22 mb-3">Contact Information</h4>
                                         <div class="form-group">
                                             <label for="tel">{{ __('customers/customers.mobileNumber') }}</label>
-                                            <input type="tel" class="form-control" name="mobilenumber" id="mobilenumber" placeholder="123-45-678" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required="">
+                                            <input type="text" class="form-control" name="mobilenumber" id="mobilenumber" required="">
                                         </div>
                                         <div class="form-group">
                                             <label for="landlinenumber">{{ __('customers/customers.landlineNumber') }}</label>
-                                            <input type="tel" class="form-control" name="landlinenumber" id="landlinenumber" placeholder="123-45-678" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required="">
+                                            <input type="text" class="form-control" name="landlinenumber" id="landlinenumber" required="">
                                         </div>
                                         <div class="form-group">
                                             <label for="fax">{{ __('customers/customers.fax') }}</label>
-                                            <input type="number" class="form-control" id="fax" name="fax" placeholder="{{ __('customers/customers.fax') }}" required="">
+                                            <input type="text" class="form-control" id="fax" name="fax" placeholder="{{ __('customers/customers.fax') }}" required="">
                                         </div>
                                         <div class="form-group">
                                             <label for="email">{{ __('customers/customers.customerEmail') }}</label>
@@ -99,41 +99,46 @@
                                         <h4 class="font-22 mb-3">Address !!!</h4>
                                         <div class="form-group">
                                             <label for="zipcode">{{ __('customers/customers.zipcode') }}</label>
-                                            <input type="number" class="form-control" name="zipcode" id="zipcode" placeholder="{{ __('customers/customers.zipcode') }}" required="">
+                                            <input type="text" class="form-control" name="zipcode" id="zipcode" placeholder="{{ __('customers/customers.zipcode') }}" required="">
 
                                         </div>
                                         <div class="form-group">
                                             <label for="country">Country</label>
-                                            <select name="country" id="country" class="form-control">
-                                                <option value="">--select</option>  
-                                                {{ get_all_countries() }}
+                                            <select name="country" id="country" class="form-control" onchange="region('country')">
+                                                <option value="">Select Country</option>
+                                                @if(isset($sortnames) && count($sortnames) > 0)
+                                                    @foreach($sortnames as $key => $sortname)
+                                                        <optgroup label="{{$sortname->sortname}}">
+                                                            @foreach($countries as $key => $country)
+                                                                @if($sortname->sortname == $country->sortname)
+                                                                    <option value="{{$country->id}}">{{$country->name}}</option>
+                                                                @endif
+                                                            @endforeach
+                                                        </optgroup>
+                                                    @endforeach
+                                                @endif
                                             </select>  
                                         </div>
                                         <div class="form-group">
+                                            <label for="province">Province</label>
+                                            <select name="province" id="province" class="form-control" onchange="region('province')">
+                                                <option value="">Select Province</option>
+                                            </select>
+
+                                        </div>
+                                        <div class="form-group">
                                             <label for="city">City</label>
-                                            {{--<select name="city" id="city" class="form-control">--}}
-                                                {{--<option value="">--select</option>--}}
-                                            {{--</select>--}}
-                                            <input type="text" class="form-control" id="city" name="city" placeholder="City" required=""/>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="district">District</label>
-                                            {{--<select name="city" id="district" class="form-control">--}}
-                                                {{--<option value="">--select</option>--}}
-                                            {{--</select>--}}
-                                            <input type="text" class="form-control" id="district" name="district" placeholder="District" required=""/>
+                                            <select name="city" id="city" class="form-control" onchange="region('city')">
+                                                <option value="">Select City</option>
+                                            </select>
 
                                         </div>
-
-                                        {{--<div class="form-group">--}}
-                                            {{--<label for="email">Neighborhood</label>--}}
-                                            {{--<select name="neighborhood" id="neighborhood" class="form-control">--}}
-                                                {{--<option value="">--select</option>--}}
-                                            {{--</select>--}}
-                                        {{--</div>--}}
                                         <div class="form-group">
-                                            <label for="street">Street</label>
-                                            <input type="text" class="form-control" name="street" placeholder="Street" required="">
+                                            <label for="city">Street</label>
+                                            <select name="street" id="street" class="form-control" onchange="region('street')">
+                                                <option value="">Select Street</option>
+                                            </select>
+
                                         </div>
                                         <div class="form-group">
                                             <label for="address">Address</label>
@@ -144,18 +149,7 @@
                                             {{--<textarea name="address_note" cols="3" id="note" rows="3" class="form-control" placeholder="Address Notes"></textarea>--}}
                                         {{--</div>--}}
                                     </section>
-                                    <!-- <h3>Hints</h3>  
-                                    <section>
-                                        <h4 class="font-22 mb-3">See Your Hints !!!</h4>
-                                        <ul>
-                                            <li><strong>Customer Name :</strong> John</li>
-                                            <li><strong>Customer Phone :</strong> Doe</li>
-                                            <li><strong>Customer Email :</strong> johndoe@gmail.com</li>
-                                            <li><strong>Customer Address :</strong> 123, Street, City.</li>
-                                            <li><strong>Customer Notes :</strong> 123, Street, City.</li>
-                                        </ul>
-                                    </section> -->
-                                    <h3>Finish</h3>  
+                                    <h3>Finish</h3>
                                     <section>
                                         <h4 class="font-22 mb-3">Let's Finished !!!</h4>
                                         <div class="custom-control custom-checkbox">
@@ -198,6 +192,69 @@
             } else {
                 $("#create").attr('disabled', 'disabled');
             }
+        }
+
+        function region(area) {
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': '<?= csrf_token() ?>'
+                }
+            });
+
+            $.ajax({
+                url: "/dashboard/customers/region",
+                headers: { 'csrftoken' : '{{ csrf_token() }}' },
+                data: JSON.stringify({country:$("#country").val(),
+                    province:$("#province").val(),
+                    city:$("#city").val(),
+                    area:area}),
+                type: 'POST',
+                datatype: 'JSON',
+                contentType: 'application/json',
+                success: function (response) {
+
+                    var index;
+                    var content = "";
+                    for ( index = 0 ; index < response.length ; index ++ ) {
+
+                        content += "<option";
+                        content += " value=";
+                        content += "'";
+                        content += response[index].id;
+                        content += "'";
+                        content += ">";
+                        content += response[index].name;
+                        content += "</option>";
+
+                    }
+
+                    var preoption;
+
+                    if (area === "country") {
+                        preoption = "<option disabled selected value=\"\">select province</option>";
+                        $("#province").html(preoption + content);
+                        $("#city").html("");
+                        $("#street").html("");
+                    }
+                    if (area === "province") {
+                        preoption = "<option disabled selected value=\"\">select city</option>";
+                        $("#city").html(preoption + content);
+                        $("#street").html("");
+                    }
+                    if (area === "city") {
+                        preoption = "<option disabled selected value=\"\">select street</option>";
+                        $("#street").html(preoption + content);
+                    }
+
+                    // console.log(response);
+
+
+                },
+                error: function (response) {
+                    $('#errormessage').html(response.message);
+                }
+            });
         }
 </script>
 @endsection 

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Model;
+namespace App\Model\dashboard\systems\SystemOne;
 
 use Illuminate\Database\Eloquent\Model;
 
-class purchases extends Model
+class Purchase extends Model
 {
-    protected $table = "purchases";
+    protected $table = "system1_purchases";
     protected $fillable = [
         'customer_id', 'description', 'coupon_number', 'amount', 'disbursement'
     ];

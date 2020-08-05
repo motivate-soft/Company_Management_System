@@ -20,7 +20,7 @@
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{url('/dashboard')}}">{{ __('side.dashboard') }}</a></li>
                         <li class="breadcrumb-item">{{ __('side.customers') }}</li>
-                        <li class="breadcrumb-item active" aria-current="page">Purchases</li>
+                        <li class="breadcrumb-item active" aria-current="page">{{__('Systems/SystemOne/customers.purchases')}}</li>
                     </ol>
                 </div>
             </div>
@@ -40,11 +40,11 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Date</th>
-                                        <th>Customer Name</th>
-                                        <th>Description</th>
-                                        <th>Coupon Number</th>
-                                        <th>amount</th>
+                                        <th>{{ __('Systems/SystemOne/customers.date') }}</th>
+                                        <th>{{ __('Systems/SystemOne/customers.customerName') }}</th>
+                                        <th>{{ __('Systems/SystemOne/customers.description') }}</th>
+                                        <th>{{ __('Systems/SystemOne/customers.couponNumber') }}</th>
+                                        <th>{{ __('Systems/SystemOne/customers.amount') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
