@@ -13,6 +13,9 @@
     td { text-align: center; }
 </style>
 
+<link href="{{ asset('assets/dashboard/plugins/sweet-alert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
+
+
 @endsection
 @section('rightbar-content')
 <!-- Start Breadcrumbbar -->
@@ -70,7 +73,9 @@
                                             <td>{{ $key + 1 }}</td>
                                             <td>{{ $communication->transaction_type }}</td>
                                             <td>{{ $communication->entity_name }}</td>
-                                            <td>{{ $communication->transaction_explanation }}</td>
+                                            <td>
+                                                <a onclick="explanation('{{$communication->transaction_explanation}}')" data-toggle="modal" data-target="#explanationShow" class="btn btn-info-rgba"><i class="feather icon-tag"></i></a>
+                                            </td>
                                             <td>{{ $communication->letter_authorized }}</td>
                                             <td>{{ $communication->employee_responsible }}</td>
                                             <td>
@@ -86,7 +91,7 @@
                                             <td><a href="{{route('communications.detail', $communication->id)}}" class="btn btn-info-rgba"><i class="feather icon-eye"></i></a></td>
                                             <td><a href="{{route('communications.edit', $communication->id)}}" class="btn btn-success-rgba"><i class="feather icon-edit-2"></i></a></td>
                                             <td><a onclick="response({{$communication->id}})" data-toggle="modal" data-target="#createNewCategory" class="btn btn-danger-rgba"><i class="feather icon-message-square"></i></a></td>
-                                            <td><a onclick="return confirm('Are you sure?')" href="{{url('dashboard/del-communication')}}/{{ $communication->id }}" class="btn btn-danger-rgba"><i class="feather icon-trash"></i></a></td>
+                                            <td><a onclick="deleteConfirm({{$communication->id}})" href="#" class="btn btn-danger-rgba"><i class="feather icon-trash"></i></a></td>
 
                                         </tr>
                                     @endforeach
@@ -104,7 +109,7 @@
 </div>
 <!-- End Contentbar -->
 
-<!-- The Modal -->
+<!-- The Response Modal -->
 <div class="modal fade" id="createNewCategory" tabindex="-1" role="dialog" aria-labelledby="exampleStandardModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -128,6 +133,27 @@
         </div>
     </div>
 </div>
+
+<!-- The Explanation Modal -->
+<div class="modal fade" id="explanationShow" tabindex="-1" role="dialog" aria-labelledby="exampleStandardModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleStandardModalLabel">{{__('Systems/SystemTwo/communications.explanation')}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <textarea id="explanation" name="explanation" style="width:100%;height:200px;" readonly></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection
 @section('script')
 <script>
@@ -159,6 +185,10 @@
 
 <script src="{{ asset('assets/dashboard/js/custom/custom-toasts.js') }}"></script>
 
+<!-- Sweet-Alert js -->
+<script src="{{ asset('assets/dashboard/plugins/sweet-alert2/sweetalert2.min.js') }}"></script>
+<script src="{{ asset('assets/dashboard/js/custom/custom-sweet-alert.js') }}"></script>
+
 <script>
     $(document).ready(function() {
 
@@ -174,7 +204,7 @@
                         return data;
                     }
                 },
-                columns: [ 0, 1, 2, 3,4 ]
+                columns: [ 0, 1, 2, 4, 5, 6, 7 ]
             }
         };
 
@@ -206,5 +236,79 @@
         document.getElementById("communication_id").value = id;
         return true;
     }
+    function explanation(explanation) {
+
+        document.getElementById("explanation").innerHTML = explanation;
+        return true;
+    }
+</script>
+<script>
+    function deleteConfirm(id) {
+
+        swal({
+            title: 'Are you sure?',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes!',
+            cancelButtonText: 'No, cancel!',
+            confirmButtonClass: 'btn btn-success',
+            cancelButtonClass: 'btn btn-danger m-l-10',
+            buttonsStyling: false
+        }).then(function () {
+
+            $.ajax({
+                method: "post",
+                url: "{{url('dashboard/del-communication')}}",
+                headers: {
+                    'X-CSRF-TOKEN': '<?= csrf_token() ?>'
+                },
+
+                data : JSON.stringify({id : id}),
+                datatype: 'JSON',
+                contentType: 'application/json',
+
+                async: true,
+                success: function (data) {
+                    console.log(data);
+                    //  wait.resolve();
+                    $(".loadingMask").css('display', 'none');
+
+                    if (data === 0) {
+                        swal(
+                            'Error',
+                            'Please try again',
+                            'error'
+                        )
+                    } else {
+                        swal(
+                            'Done!',
+                            'Deleted Successfully',
+                            'success'
+                        ).then(function (){
+                            window.location = "{{route('communications.index')}}"
+                        });
+                    }
+                },
+                error: function () {
+                    swal(
+                        'Error',
+                        'Please try again',
+                        'error'
+                    )
+                }
+            });
+
+        }, function (dismiss) {
+            if (dismiss === 'cancel') {
+                swal(
+                    'Cancelled',
+                    'Your communication data is safe :)',
+                    'error'
+                )
+            }
+        })
+
+    }
+
 </script>
 @endsection

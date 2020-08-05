@@ -148,6 +148,13 @@
                     </a>
                     
                 </li>
+
+                <li>
+                    <a href="{{route('transactions.index')}}">
+                        <i class="fa fa-wechat" aria-hidden="true"></i><span>{{__('Systems/SystemTwo/sidebar.transactions')}}</span>
+                    </a>
+
+                </li>
                 
 
             </ul>

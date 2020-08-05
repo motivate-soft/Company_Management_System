@@ -119,7 +119,7 @@
                                 <div class="col-lg-4 mb-4">
                                     <div class="form-group mb-0">
                                         <label for="job_number_days">{{__('Systems/SystemTwo/jobtasks.job_number_days')}}</label>
-                                        <input type="number" class="form-control" id="total_usage" name="job_number_days"
+                                        <input type="number" class="form-control" min="0" id="total_usage" name="job_number_days"
                                                placeholder="job_number_days" required="">
                                     </div>
                                 </div>

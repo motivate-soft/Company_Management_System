@@ -13,6 +13,9 @@
     td { text-align: center; }
 </style>
 
+<link href="{{ asset('assets/dashboard/plugins/sweet-alert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
+
+
 @endsection
 @section('rightbar-content')
 <!-- Start Breadcrumbbar -->
@@ -82,12 +85,14 @@
                               {{--</div>--}}
 
                                         {{--</td>--}}
-                                            <td>{{ $jobtask->job_note }}</td>
+                                            <td>
+                                                <a onclick="noteShow('{{$jobtask->job_note}}')" data-toggle="modal" data-target="#noteShow" class="btn btn-info-rgba"><i class="feather icon-tag"></i></a>
+                                            </td>
                                             <td><a href="{{url('dashboard/detail-jobtask')}}/{{ $jobtask->id }}" class="btn btn-info-rgba"><i class="feather icon-eye"></i></a></td>
                                             <td><a href="{{route('jobtasks.edit', $jobtask->id)}}" class="btn btn-success-rgba"><i class="feather icon-edit-2"></i></a></td>
                                             <td><a href="{{url('dashboard/report-jobtask')}}/{{ $jobtask->id }}" class="btn btn-success-rgba"><i class="feather icon-download"></i></a></td>
                                             {{--<td><a onclick="return confirm('Are you sure?')" href="{{url('dashboard/del-jobtask')}}/{{ $jobtask->id }}" class="btn btn-danger-rgba"><i class="feather icon-trash"></i></a></td>--}}
-                                            <td><a onclick="deleteJobTask({{ $jobtask->id }})" data-toggle="modal" data-target="#createNewCategory" href="#" class="btn btn-danger-rgba"><i class="feather icon-trash"></i></a></td>
+                                            <td><a onclick="deleteConfirm({{ $jobtask->id }})" href="#" class="btn btn-danger-rgba"><i class="feather icon-trash"></i></a></td>
                                       </tr>
                                     @endforeach
                                     @endif
@@ -103,29 +108,25 @@
     <!-- End row -->
 </div>
 
-<!-- The Modal -->
-<div class="modal fade" id="createNewCategory" tabindex="-1" role="dialog" aria-labelledby="exampleStandardModalLabel" aria-hidden="true" style="top:50%;transform: translate(0, -20%);">
+<!-- The Jobtask Note Modal -->
+<div class="modal fade" id="noteShow" tabindex="-1" role="dialog" aria-labelledby="exampleStandardModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header" style="background: white;border: 0;height:15px;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleStandardModalLabel">{{__('Systems/SystemTwo/communications.explanation')}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-                <div class="modal-body text-center">
-                    <img src="{{ asset('assets/dashboard/images/crypto/1.png') }}" alt="alertimage"/>
-                    <h4>Are you sure?</h4>
-                </div>
-                <div class="text-center" style="padding:15px;">
-                    <a class="btn btn-primary" data-dismiss="modal">No</a>
-                    <a id="deleteBtn" href="" class="btn btn-danger">Yes</a>
-                </div>
+            <div class="modal-body">
+                <textarea id="jobnote" name="jobnote" style="width:100%;height:200px;" readonly></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
+            </div>
         </div>
     </div>
 </div>
-
-
-
 
 <!-- End Contentbar -->
 @endsection
@@ -159,6 +160,10 @@
 
 <script src="{{ asset('assets/dashboard/js/custom/custom-toasts.js') }}"></script>
 
+<!-- Sweet-Alert js -->
+<script src="{{ asset('assets/dashboard/plugins/sweet-alert2/sweetalert2.min.js') }}"></script>
+<script src="{{ asset('assets/dashboard/js/custom/custom-sweet-alert.js') }}"></script>
+
 <script>
     $(document).ready(function() {
 
@@ -174,7 +179,7 @@
                         return data;
                     }
                 },
-                columns: [ 0, 1, 2, 3,4 ]
+                columns: [ 0, 1, 2, 3, 4, 5, 6 ]
             }
         };
 
@@ -200,11 +205,79 @@
 
     });
 
-    function deleteJobTask(id) {
+    function noteShow(jobnote) {
 
-        $("#deleteBtn").attr("href", "{{url('dashboard/del-jobtask')}}/" + id);
-
+        document.getElementById("jobnote").innerHTML = jobnote;
         return true;
     }
+</script>
+<script>
+    function deleteConfirm(id) {
+
+        swal({
+            title: 'Are you sure?',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes!',
+            cancelButtonText: 'No, cancel!',
+            confirmButtonClass: 'btn btn-success',
+            cancelButtonClass: 'btn btn-danger m-l-10',
+            buttonsStyling: false
+        }).then(function () {
+
+            $.ajax({
+                method: "post",
+                url: "{{url('dashboard/del-jobtask')}}",
+                headers: {
+                    'X-CSRF-TOKEN': '<?= csrf_token() ?>'
+                },
+
+                data : JSON.stringify({id : id}),
+                datatype: 'JSON',
+                contentType: 'application/json',
+
+                async: true,
+                success: function (data) {
+                    console.log(data);
+                    //  wait.resolve();
+                    $(".loadingMask").css('display', 'none');
+
+                    if (data === 0) {
+                        swal(
+                            'Error',
+                            'Please try again',
+                            'error'
+                        )
+                    } else {
+                        swal(
+                            'Done!',
+                            'Deleted Successfully',
+                            'success'
+                        ).then(function (){
+                            window.location = "{{route('jobtasks.index')}}"
+                        });
+                    }
+                },
+                error: function () {
+                    swal(
+                        'Error',
+                        'Please try again',
+                        'error'
+                    )
+                }
+            });
+
+        }, function (dismiss) {
+            if (dismiss === 'cancel') {
+                swal(
+                    'Cancelled',
+                    'Your jobtask data is safe :)',
+                    'error'
+                )
+            }
+        })
+
+    }
+
 </script>
 @endsection

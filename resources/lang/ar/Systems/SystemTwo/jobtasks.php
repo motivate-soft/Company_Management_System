@@ -3,6 +3,9 @@
 return [
 
     'jobtasks' => 'Jobtasks',
+    'jobtasks_add' => 'Jobtasks|Add',
+    'jobtasks_edit' => 'Jobtasks|Edit',
+    'jobtasks_detail' => 'Jobtasks|Detail',
     'jobtask_list' => 'All',
     'add_jobtask' => 'Add',
 

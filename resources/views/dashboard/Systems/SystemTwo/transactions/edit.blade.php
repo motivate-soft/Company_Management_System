@@ -1,4 +1,3 @@
-@section('title')
 {{__('Systems/SystemTwo/entryexits.entryexits_edit')}}
 @endsection
 @extends('dashboard.layouts.layout')
@@ -91,19 +90,21 @@
                                 <button type="submit" class="btn btn-primary pl-5 pr-5">{{__('Systems/SystemTwo/entryexits.save')}}</button>
                             </div>
 
+
                         </div>
-                    </div>
-                </div>
-            </div>
-            </form>
+                    </form>
 
                     </div>
 
 
                 </div>
             </div>
+        </div>
         <!-- End col -->
+    </div>
     <!-- End row -->
+</div>
+
 <!-- End Contentbar -->
 @endsection
 @section('script')

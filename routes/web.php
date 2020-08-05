@@ -146,6 +146,7 @@
         /********** Jobtasks ***********/
         Route::get('dashboard/jobtasks', 'dashboard\systems\SystemTwo\JobTaskController@index')->name('jobtasks.index');
         Route::get('dashboard/del-jobtask/{id}', 'dashboard\systems\SystemTwo\JobTaskController@del_jobtask')->name('jobtask.delete');
+        Route::post('dashboard/del-jobtask', 'dashboard\systems\SystemTwo\JobTaskController@del_jobtask_post')->name('jobtask.delete_post');
         Route::get('dashboard/detail-jobtask/{id}', 'dashboard\systems\SystemTwo\JobTaskController@detail')->name('jobtask.detail');
         Route::get('dashboard/report-jobtask/{id}', 'dashboard\systems\SystemTwo\JobTaskController@report')->name('jobtask.report');
         Route::get('dashboard/jobtask-edit/{id}', 'dashboard\systems\SystemTwo\JobTaskController@edit')->name('jobtasks.edit');
@@ -159,6 +160,7 @@
         /********** Staffs ***********/
         Route::get('dashboard/staffs', 'dashboard\systems\SystemTwo\StaffController@index')->name('staffs.index');
         Route::get('dashboard/del-staff/{id}', 'dashboard\systems\SystemTwo\StaffController@del_staff')->name('staffs.delete');
+        Route::post('dashboard/del-staff', 'dashboard\systems\SystemTwo\StaffController@del_staff_post')->name('staffs.delete_post');
         Route::get('dashboard/staff-edit/{id}', 'dashboard\systems\SystemTwo\StaffController@edit')->name('staffs.edit');
         Route::get('dashboard/staff-detail/{id}', 'dashboard\systems\SystemTwo\StaffController@detail')->name('staffs.detail');
         Route::post('dashboard/add-staff', 'dashboard\systems\SystemTwo\StaffController@add_staff_post')->name('staffs.add');
@@ -167,10 +169,12 @@
         Route::Resource('dashboard/staffs', 'dashboard\systems\SystemTwo\StaffController')->except('update', 'destroy');
         Route::post('dashboard/staffs/update', 'dashboard\systems\SystemTwo\StaffController@update')->name('staffs.update');
         Route::post('dashboard/staffs/destroy', 'dashboard\systems\SystemTwo\StaffController@destroy')->name('staffs.destroy');
+        Route::post('dashboard/region', 'dashboard\systems\SystemTwo\StaffController@region_post')->name('staffs.region');
 
             /********** EntryExits ***********/
         Route::get('dashboard/entryexits', 'dashboard\systems\SystemTwo\EntryExitController@index')->name('entryexits.index');
         Route::get('dashboard/del-entryexit/{id}', 'dashboard\systems\SystemTwo\EntryExitController@del_entryexit')->name('entryexits.delete');
+        Route::post('dashboard/del-entryexit', 'dashboard\systems\SystemTwo\EntryExitController@del_entryexit_post')->name('entryexits.delete_post');
         Route::get('dashboard/entryexit-edit/{id}', 'dashboard\systems\SystemTwo\EntryExitController@edit')->name('entryexits.edit');
         Route::get('dashboard/entryexit-detail/{id}', 'dashboard\systems\SystemTwo\EntryExitController@detail')->name('entryexits.detail');
         Route::post('dashboard/add-entryexit', 'dashboard\systems\SystemTwo\EntryExitController@add_entryexit_post')->name('entryexits.add');
@@ -183,6 +187,7 @@
             /********** Communications ***********/
         Route::get('dashboard/communications', 'dashboard\systems\SystemTwo\CommunicationController@index')->name('communications.index');
         Route::get('dashboard/del-communication/{id}', 'dashboard\systems\SystemTwo\CommunicationController@del_communications')->name('communications.delete');
+        Route::post('dashboard/del-communication', 'dashboard\systems\SystemTwo\CommunicationController@del_communications_post')->name('communications.delete_post');
         Route::get('dashboard/communication-edit/{id}', 'dashboard\systems\SystemTwo\CommunicationController@edit')->name('communications.edit');
         Route::get('dashboard/communication-detail/{id}', 'dashboard\systems\SystemTwo\CommunicationController@detail')->name('communications.detail');
         Route::post('dashboard/add-communication', 'dashboard\systems\SystemTwo\CommunicationController@add_communication_post')->name('communications.add');
@@ -194,7 +199,20 @@
         Route::post('dashboard/communications/destroy', 'dashboard\systems\SystemTwo\CommunicationController@destroy')->name('communications.destroy');
 
 
-        /********** Customers Routs ***********/
+        /********** Transactions ***********/
+        Route::get('dashboard/transactions', 'dashboard\systems\SystemTwo\TransactionController@index')->name('transactions.index');
+        Route::get('dashboard/del-transaction/{id}', 'dashboard\systems\SystemTwo\TransactionController@del_transaction')->name('transactions.delete');
+        Route::post('dashboard/del-transaction', 'dashboard\systems\SystemTwo\TransactionController@del_transaction_post')->name('transactions.delete_post');
+        Route::post('dashboard/add-transaction', 'dashboard\systems\SystemTwo\TransactionController@add_transaction_post')->name('transactions.add');
+        Route::post('dashboard/transaction-state', 'dashboard\systems\SystemTwo\TransactionController@update_status_post');
+        Route::Resource('dashboard/transactions', 'dashboard\systems\SystemTwo\TransactionController')->except('update', 'destroy');
+        Route::post('dashboard/transactions/update', 'dashboard\systems\SystemTwo\TransactionController@update')->name('transactions.update');
+        Route::post('dashboard/transactions/destroy', 'dashboard\systems\SystemTwo\TransactionController@destroy')->name('transactions.destroy');
+
+
+
+
+            /********** Customers Routs ***********/
         Route::get('dashboard/customers/purchases', 'dashboard\customers\CustomerController@purchases')->name('customers.purchases');
         Route::get('dashboard/customers/disbursements', 'dashboard\customers\CustomerController@disbursements')->name('customers.disbursements');
         Route::post('dashboard/customers/update/{id}', 'dashboard\customers\CustomerController@update')->name('customers.update');

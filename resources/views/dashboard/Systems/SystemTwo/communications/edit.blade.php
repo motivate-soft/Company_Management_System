@@ -86,7 +86,7 @@
                         <div class="col-lg-3 mb-4">
                             <div class="form-group mb-0">
                                 <label>number</label>
-                                <input type="number" placeholder="number" class="form-control" @if(isset($communication->number)) value="{{ $communication->number }}"@endif name="number" placeholder="No number" required="">
+                                <input type="number" placeholder="number" min="0" class="form-control" @if(isset($communication->number)) value="{{ $communication->number }}"@endif name="number" placeholder="No number" required="">
                             </div>
                         </div>
                         <div class="col-lg-3 mb-4">

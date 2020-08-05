@@ -1,5 +1,5 @@
 @section('title')
-    {{__('Systems/SystemTwo/entryexits.entryexits')}}
+    {{__('Systems/SystemTwo/transactions.transactions')}}
 @endsection
 @extends('dashboard.layouts.layout')
 @section('style')
@@ -9,9 +9,9 @@
 <!-- Responsive Datatable css -->
 <link href="{{ asset('assets/dashboard/plugins/datatables/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
 
-<style>
-    td { text-align: center; }
-</style>
+{{--<style>--}}
+    {{--td { text-align: center; }--}}
+{{--</style>--}}
 
 <link href="{{ asset('assets/dashboard/plugins/sweet-alert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
 
@@ -22,18 +22,18 @@
 <div class="breadcrumbbar">
     <div class="row align-items-center">
         <div class="col-md-8 col-lg-8">
-            <h4 class="page-title">{{__('Systems/SystemTwo/entryexits.entryexit_list')}}</h4>
+            <h4 class="page-title">{{__('Systems/SystemTwo/transactions.transactions_list')}}</h4>
             <div class="breadcrumb-list">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{url('/home')}}">{{ __('side.dashboard') }}</a></li>
-                    <li class="breadcrumb-item">{{__('Systems/SystemTwo/entryexits.entryexits')}}</li>
-                    <li class="breadcrumb-item active" aria-current="page">{{__('Systems/SystemTwo/entryexits.entryexit_list')}}</li>
+                    <li class="breadcrumb-item">{{__('Systems/SystemTwo/transactions.transactions')}}</li>
+                    <li class="breadcrumb-item active" aria-current="page">{{__('Systems/SystemTwo/transactions.transactions_list')}}</li>
                 </ol>
             </div>
         </div>
         <div class="col-md-4 col-lg-4">
             <div class="widgetbar">
-                <a href="{{ route('entryexits.create') }}" class="btn btn-primary-rgba"><i class="feather icon-plus mr-2"></i>{{__('Systems/SystemTwo/entryexits.add_entryexit')}}</a>
+                <a href="{{ route('transactions.create') }}" class="btn btn-primary-rgba"><i class="feather icon-plus mr-2"></i>{{__('Systems/SystemTwo/transactions.add_transaction')}}</a>
             </div>
         </div>
     </div>
@@ -52,36 +52,28 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>{{__('Systems/SystemTwo/entryexits.name')}}</th>
-                                    <th>{{__('Systems/SystemTwo/entryexits.date')}}</th>
-                                    <th>{{__('Systems/SystemTwo/entryexits.entry_hour')}}</th>
-                                    <th>{{__('Systems/SystemTwo/entryexits.exit_hour')}}</th>
-                                    <th>{{__('Systems/SystemTwo/entryexits.working_time')}}</th>
-                                    <th>{{__('Systems/SystemTwo/entryexits.detail')}}</th>
-                                    <th>{{__('Systems/SystemTwo/entryexits.edit')}}</th>
-                                    <th>{{__('Systems/SystemTwo/entryexits.delete')}}</th>
+                                    <th>{{__('Systems/SystemTwo/transactions.name')}}</th>
+                                    <th>{{__('Systems/SystemTwo/transactions.state')}}</th>
+                                    <th>{{__('Systems/SystemTwo/transactions.delete')}}</th>
 
                                 </tr>
                             </thead>
                             <tbody>
-                                @if(isset($entryexits) && count($entryexits) > 0)
-                                    @foreach($entryexits as $key => $entryexit)
+                                @if(isset($transactions) && count($transactions) > 0)
+                                    @foreach($transactions as $key => $transaction)
                                         <tr>
-
-                                        <td>{{ $key + 1 }}</td>
-                                        <td>{{ $entryexit->name }}</td>
-                                        <td>{{ $entryexit->date }}</td>
-                                        <td>{{ $entryexit->entry_hour }}</td>
-                                        <td>{{ $entryexit->exit_hour }}</td>
-                                        <td>{{ $entryexit->working_time }}</td>
-
-                                        <td><a href="{{route('entryexits.detail', $entryexit->id)}}" class="btn btn-info-rgba"><i class="feather icon-eye"></i></a></td>
-                                        <td><a href="{{route('entryexits.edit', $entryexit->id)}}" class="btn btn-success-rgba"><i class="feather icon-edit-2"></i></a></td>
-                                        <td><a onclick="deleteConfirm({{$entryexit->id}})" class="btn btn-danger-rgba"><i class="feather icon-trash"></i></a></td>
+                                            <td>{{ $key + 1 }}</td>
+                                            <td>{{ $transaction->name }}</td>
+                                            <td>
+                                                <div class="custom-control custom-switch" >
+                                                    <input type="checkbox" onclick="status_change('{{csrf_token()}}','{{$transaction->id}}','{{url('dashboard/transaction-state')}} ')" {{ $transaction->state == 1 ? 'checked':''}} class="custom-control-input" id="customSwitch{{$key}}">
+                                                    <label class="custom-control-label" for="customSwitch{{$key}}"></label>
+                                                </div>
+                                            </td>
+                                            <td><a onclick="deleteConfirm({{$transaction->id}})" class="btn btn-danger-rgba"><i class="feather icon-trash"></i></a></td>
                                       </tr>
                                     @endforeach
                                     @endif
-
                             </tbody>
                         </table>
                     </div>
@@ -94,6 +86,7 @@
 </div>
 
 <!-- End Contentbar -->
+
 @endsection
 @section('script')
 <script>
@@ -144,7 +137,7 @@
                         return data;
                     }
                 },
-                columns: [ 0, 1, 2, 3, 4, 5 ]
+                columns: [ 0, 1]
             }
         };
 
@@ -172,6 +165,12 @@
 
     });
 
+    function deleteTransaction(id) {
+
+        $("#deleteBtn").attr("href", "{{url('dashboard/del-transaction')}}/" + id);
+
+        return true;
+    }
 </script>
 <script>
     function deleteConfirm(id) {
@@ -189,7 +188,7 @@
 
             $.ajax({
                 method: "post",
-                url: "{{url('dashboard/del-entryexit')}}",
+                url: "{{url('dashboard/del-transaction')}}",
                 headers: {
                     'X-CSRF-TOKEN': '<?= csrf_token() ?>'
                 },
@@ -216,7 +215,7 @@
                             'Deleted Successfully',
                             'success'
                         ).then(function (){
-                            window.location = "{{route('entryexits.index')}}"
+                            window.location = "{{route('transactions.index')}}"
                         });
                     }
                 },
@@ -233,7 +232,7 @@
             if (dismiss === 'cancel') {
                 swal(
                     'Cancelled',
-                    'Your entryexit data is safe :)',
+                    'Your transaction data is safe :)',
                     'error'
                 )
             }

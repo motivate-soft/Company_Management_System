@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers\dashboard\systems\SystemTwo;
 
+use App\Model\City;
+use App\Model\Country;
 use App\Model\dashboard\systems\SystemTwo\Staff;
+use App\Model\Neighborhood;
+use App\Model\State;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -15,25 +19,66 @@ class StaffController extends Controller
 
     public function index()
     {
+
         $staffs = Staff::orderBy('id', 'desc')->get();
-        return view('dashboard.Systems.SystemTwo.staffs.index', compact('staffs'));
+
+        $countries = Country::orderBy('id', 'asc')->get();
+        $provinces = State::orderBy('id', 'asc')->get();
+        $cities = City::orderBy('id', 'asc')->get();
+        $neighborhoods = Neighborhood::orderBy('id', 'asc')->get();
+
+        return view('dashboard.Systems.SystemTwo.staffs.index', compact('staffs', 'countries', 'provinces', 'cities', 'neighborhoods'));
     }
 
     public function edit($id)
     {
+
         $staff = Staff::findOrFail($id);
-        return view('dashboard.Systems.SystemTwo.staffs.edit', compact('staff'));
+
+        $sortnames = Country::orderBy('id', 'asc')->distinct()->get('sortname');
+        $countries = Country::orderBy('id', 'asc')->get();
+        $provinces = State::where('country_id', $staff->country)->get();
+        $cities = City::where('state_id', $staff->province)->get();
+        $neighborhoods = Neighborhood::where('city_id', $staff->city)->get();
+
+        return view('dashboard.Systems.SystemTwo.staffs.edit', compact('staff', 'sortnames', 'countries', 'provinces', 'cities', 'neighborhoods'));
     }
 
     public function detail($id)
     {
         $staff = Staff::findOrFail($id);
-        return view('dashboard.Systems.SystemTwo.staffs.detail', compact('staff'));
+
+        $countries = Country::orderBy('id', 'asc')->get();
+        $provinces = State::orderBy('id', 'asc')->get();
+        $cities = City::orderBy('id', 'asc')->get();
+        $neighborhoods = neighborhood::orderBy('id', 'asc')->get();
+
+        return view('dashboard.Systems.SystemTwo.staffs.detail', compact('staff', 'countries', 'provinces', 'cities', 'neighborhoods'));
     }
 
     public function create()
     {
-        return view('dashboard.Systems.SystemTwo.staffs.create');
+        $sortnames = Country::orderBy('id', 'asc')->distinct()->get('sortname');
+        $countries = Country::orderBy('id', 'asc')->get();
+
+        return view('dashboard.Systems.SystemTwo.staffs.create', compact('sortnames', 'countries'));
+    }
+    public function region_post(Request $request)
+    {
+        switch ($request->area) {
+            case "country":
+                $results = State::where('country_id', $request->country)->orderBy('id', 'asc')->get();
+                break;
+            case "province":
+                $results = City::where('state_id', $request->province)->orderBy('id', 'asc')->get();
+                break;
+            case "city":
+                $results = neighborhood::where('city_id', $request->city)->orderBy('id', 'asc')->get();
+                break;
+        }
+
+
+        return response()->json($results, 200);
     }
 
     public function add_staff_post(Request $request)
@@ -46,14 +91,16 @@ class StaffController extends Controller
                 'firstname' => 'required|string',
                 'secondname' => 'required|string',
                 'lastname' => 'required|string',
-                'mobile_number' => 'required|string',
+                'mobile_number' => 'required|numeric|min:0',
                 'monthly_salary' => 'required|string',
-                'working_hours' => 'required|numeric',
+                'working_hours' => 'required|numeric|min:0',
                 'email' => 'required|email',
                 'address' => 'required|string',
                 'country' => 'required|string',
                 'province' => 'required|string',
                 'city' => 'required|string',
+                'neighborhood' => 'required|string',
+                'permission' => 'required|string',
                 'selection_powers' => 'required|string',
             ]);
 
@@ -80,6 +127,8 @@ class StaffController extends Controller
             'country' => $request->country,
             'province' => $request->province,
             'city' => $request->city,
+            'neighborhood' => $request->neighborhood,
+            'permission' => $request->permission,
             'selection_powers' => $request->selection_powers,
         ]);
 
@@ -112,14 +161,16 @@ class StaffController extends Controller
                 'firstname' => 'required|string',
                 'secondname' => 'required|string',
                 'lastname' => 'required|string',
-                'mobile_number' => 'required|string',
+                'mobile_number' => 'required|number|min:0',
                 'monthly_salary' => 'required|string',
-                'working_hours' => 'required|numeric',
+                'working_hours' => 'required|numeric|min:0',
                 'email' => 'required|email',
                 'address' => 'required|string',
                 'country' => 'required|string',
                 'province' => 'required|string',
                 'city' => 'required|string',
+                'neighborhood' => 'required|string',
+                'permission' => 'required|string',
                 'selection_powers' => 'required|string',
             ]);
 
@@ -146,6 +197,8 @@ class StaffController extends Controller
             'country' => $request->country,
             'province' => $request->province,
             'city' => $request->city,
+            'neighborhood' => $request->neighborhood,
+            'permission' => $request->permission,
             'selection_powers' => $request->selection_powers,
         ]);
 
@@ -167,6 +220,16 @@ class StaffController extends Controller
             return redirect()->route('staffs.index')->with('success', 'staff Deleted');
         } else {
             return redirect()->back()->with('error', 'Something went wrong!');
+        }
+    }
+    public function del_staff_post(Request $request)
+    {
+
+        $deleted = DB::table('system2_staffs')->where('id', $request->id)->delete();
+        if ($deleted) {
+            return 1;
+        } else {
+            return 0;
         }
     }
 

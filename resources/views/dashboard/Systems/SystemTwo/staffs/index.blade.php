@@ -13,6 +13,8 @@
     td { text-align: center; }
 </style>
 
+<link href="{{ asset('assets/dashboard/plugins/sweet-alert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
+
 @endsection
 @section('rightbar-content')
 <!-- Start Breadcrumbbar -->
@@ -61,6 +63,8 @@
                                     <th>{{__('Systems/SystemTwo/staffs.country')}}</th>
                                     <th>{{__('Systems/SystemTwo/staffs.province')}}</th>
                                     <th>{{__('Systems/SystemTwo/staffs.city')}}</th>
+                                    <th>{{__('Systems/SystemTwo/staffs.neighborhood')}}</th>
+                                    <th>{{__('Systems/SystemTwo/staffs.permission')}}</th>
                                     <th>{{__('Systems/SystemTwo/staffs.selection_powers')}}</th>
                                     <th>{{__('Systems/SystemTwo/staffs.detail')}}</th>
                                     <th>{{__('Systems/SystemTwo/staffs.edit')}}</th>
@@ -72,23 +76,58 @@
                                     @foreach($staffs as $key => $staff)
                                         <tr>
 
-                                        <td>{{ $key + 1 }}</td>
-                                        <td>{{ $staff->firstname }}</td>
-                                        <td>{{ $staff->secondname }}</td>
-                                        <td>{{ $staff->lastname }}</td>
-                                        <td>{{ $staff->mobile_number }}</td>
-                                        <td>{{ $staff->monthly_salary }}</td>
-                                        <td>{{ $staff->working_hours }}</td>
-                                        <td>{{ $staff->email }}</td>
-                                        <td>{{ $staff->address }}</td>
-                                        <td>{{ $staff->country }}</td>
-                                        <td>{{ $staff->province }}</td>
-                                        <td>{{ $staff->city }}</td>
-                                        <td>{{ $staff->selection_powers }}</td>
+                                            <td>{{ $key + 1 }}</td>
+                                            <td>{{ $staff->firstname }}</td>
+                                            <td>{{ $staff->secondname }}</td>
+                                            <td>{{ $staff->lastname }}</td>
+                                            <td>{{ $staff->mobile_number }}</td>
+                                            <td>{{ $staff->monthly_salary }}</td>
+                                            <td>{{ $staff->working_hours }}</td>
+                                            <td>{{ $staff->email }}</td>
+                                            <td>{{ $staff->address }}</td>
+                                            <td>
+                                                @if(isset($countries) && count($countries) > 0)
+                                                    @foreach($countries as $key => $country)
+                                                        @if($country->id == $staff->country)
+                                                            @if(app()->getLocale() == "en"){{$country->name}} @else {{$country->ar_name}} @endif
+                                                        @endif
+                                                    @endforeach
+                                                @endif
 
-                                        <td><a href="{{route('staffs.detail', $staff->id)}}" class="btn btn-info-rgba"><i class="feather icon-eye"></i></a></td>
-                                        <td><a href="{{route('staffs.edit', $staff->id)}}" class="btn btn-success-rgba"><i class="feather icon-edit-2"></i></a></td>
-                                        <td><a onclick="return confirm('Are you sure?')" href="{{url('dashboard/del-staff')}}/{{ $staff->id }}" class="btn btn-danger-rgba"><i class="feather icon-trash"></i></a></td>
+                                            </td>
+                                            <td>
+                                                @if(isset($provinces) && count($provinces) > 0)
+                                                    @foreach($provinces as $key => $province)
+                                                        @if($province->id == $staff->province)
+                                                            @if(app()->getLocale() == "en"){{$province->name}} @else {{$province->ar_name}} @endif
+                                                        @endif
+                                                    @endforeach
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if(isset($cities) && count($cities) > 0)
+                                                    @foreach($cities as $key => $city)
+                                                        @if($city->id == $staff->city)
+                                                            @if(app()->getLocale() == "en"){{$city->name}} @else {{$city->ar_name}} @endif
+                                                        @endif
+                                                    @endforeach
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if(isset($neighborhoods) && count($neighborhoods) > 0)
+                                                    @foreach($neighborhoods as $key => $neighborhood)
+                                                        @if($neighborhood->id == $staff->neighborhood)
+                                                            @if(app()->getLocale() == "en"){{$neighborhood->name}} @else {{$neighborhood->ar_name}} @endif
+                                                        @endif
+                                                    @endforeach
+                                                @endif
+                                            </td>
+                                            <td>{{ $staff->permission }}</td>
+                                            <td>{{ $staff->selection_powers }}</td>
+                                            <td><a href="{{route('staffs.detail', $staff->id)}}" class="btn btn-info-rgba"><i class="feather icon-eye"></i></a></td>
+                                            <td><a href="{{route('staffs.edit', $staff->id)}}" class="btn btn-success-rgba"><i class="feather icon-edit-2"></i></a></td>
+                                            {{--<td><a onclick="deleteStaff({{$staff->id}})" data-toggle="modal" data-target="#deleteConfirm" class="btn btn-danger-rgba"><i class="feather icon-trash"></i></a></td>--}}
+                                            <td><a onclick="deleteConfirm({{$staff->id}})" class="btn btn-danger-rgba"><i class="feather icon-trash"></i></a></td>
                                       </tr>
                                     @endforeach
                                     @endif
@@ -103,9 +142,6 @@
     </div>
     <!-- End row -->
 </div>
-
-
-
 
 <!-- End Contentbar -->
 @endsection
@@ -134,10 +170,15 @@
 <script src="{{ asset('assets/dashboard/plugins/datatables/buttons.html5.min.js') }}"></script>
 <script src="{{ asset('assets/dashboard/plugins/datatables/buttons.print.min.js') }}"></script>
 <script src="{{ asset('assets/dashboard/plugins/datatables/buttons.colVis.min.js') }}"></script>
-<script src="{{ asset('assets/dashboard/plugins/datatables/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('assets/dashb oard/plugins/datatables/dataTables.responsive.min.js') }}"></script>
 <script src="{{ asset('assets/dashboard/plugins/datatables/responsive.bootstrap4.min.js') }}"></script>
 
 <script src="{{ asset('assets/dashboard/js/custom/custom-toasts.js') }}"></script>
+
+
+<!-- Sweet-Alert js -->
+<script src="{{ asset('assets/dashboard/plugins/sweet-alert2/sweetalert2.min.js') }}"></script>
+<script src="{{ asset('assets/dashboard/js/custom/custom-sweet-alert.js') }}"></script>
 
 <script>
     $(document).ready(function() {
@@ -154,7 +195,7 @@
                         return data;
                     }
                 },
-                columns: [ 0, 1, 2, 3,4 ]
+                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 ]
             }
         };
 
@@ -180,6 +221,90 @@
 
         );
 
+        //
+        // var active = function () {
+        //     $('.delete').on("click", function () {
+        //         var this_item = $(this).find('.id').val();
+        //         console.log(this_item);
+        //         var id = $(this).parent().find('.id').val();
+        //
+        //
+        //
+        //     });
+        // };
+        //
+        // active();
+
     });
+
+</script>
+<script>
+    function deleteConfirm(id) {
+
+        swal({
+            title: 'Are you sure?',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes!',
+            cancelButtonText: 'No, cancel!',
+            confirmButtonClass: 'btn btn-success',
+            cancelButtonClass: 'btn btn-danger m-l-10',
+            buttonsStyling: false
+        }).then(function () {
+
+            $.ajax({
+                method: "post",
+                url: "{{url('dashboard/del-staff')}}",
+                headers: {
+                    'X-CSRF-TOKEN': '<?= csrf_token() ?>'
+                },
+
+                data : JSON.stringify({id : id}),
+                datatype: 'JSON',
+                contentType: 'application/json',
+
+                async: true,
+                success: function (data) {
+                    console.log(data);
+                    //  wait.resolve();
+                    $(".loadingMask").css('display', 'none');
+
+                    if (data === 0) {
+                        swal(
+                            'Error',
+                            'Please try again',
+                            'error'
+                        )
+                    } else {
+                        swal(
+                            'Done!',
+                            'Deleted Successfully',
+                            'success'
+                        ).then(function (){
+                            window.location = "{{route('staffs.index')}}"
+                        });
+                    }
+                },
+                error: function () {
+                    swal(
+                        'Error',
+                        'Please try again',
+                        'error'
+                    )
+                }
+            });
+
+        }, function (dismiss) {
+            if (dismiss === 'cancel') {
+                swal(
+                    'Cancelled',
+                    'Your staff data is safe :)',
+                    'error'
+                )
+            }
+        })
+
+    }
+
 </script>
 @endsection

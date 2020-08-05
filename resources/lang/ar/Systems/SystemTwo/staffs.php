@@ -3,6 +3,9 @@
 return [
 
     'staffs' => 'Staffs',
+    'staffs_add' => 'Staffs|Add',
+    'staff_edit' => 'Staffs|Edit',
+    'staffs_detail' => 'Staffs|Detail',
     'staff_list' => 'All',
     'add_staff' => 'Add',
 
@@ -17,6 +20,8 @@ return [
     'country' => 'Country',
     'province' => 'Province',
     'city' => 'City',
+    'neighborhood' => 'Neighborhood',
+    'permission' => 'Permission',
     'selection_powers' => 'Power',
     'edit' => 'Edit',
     'delete' => 'Delete',

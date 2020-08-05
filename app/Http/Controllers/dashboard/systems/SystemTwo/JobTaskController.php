@@ -66,7 +66,7 @@ class JobTaskController extends Controller
                 'job_name' => 'required',
                 'job_type' => 'required',
                 'job_task_date' => 'required|date',
-                'job_number_days' => 'required|numeric',
+                'job_number_days' => 'required|numeric|min:0',
                 'status' => 'required|string',
                 'job_note' => 'required|string',
             ]);
@@ -122,7 +122,7 @@ class JobTaskController extends Controller
                 'job_name' => 'required',
                 'job_type' => 'required',
                 'job_task_date' => 'required|date',
-                'job_number_days' => 'required|numeric',
+                'job_number_days' => 'required|numeric|min:0',
                 'status' => 'required|string',
                 'job_note' => 'required|string',
             ]);
@@ -166,6 +166,15 @@ class JobTaskController extends Controller
             return redirect()->route('jobtasks.index')->with('success', 'Jobtask Deleted');
         } else {
             return redirect()->back()->with('error', 'Something went wrong!');
+        }
+    }
+    public function del_jobtask_post(Request $request)
+    {
+        $deleted = DB::table('system2_jobtasks')->where('id', $request->id)->delete();
+        if ($deleted) {
+            return 1;
+        } else {
+            return 0;
         }
     }
 

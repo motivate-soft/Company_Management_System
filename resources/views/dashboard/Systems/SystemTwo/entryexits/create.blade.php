@@ -101,21 +101,21 @@
                                 <div class="col-lg-3 mb-4">
                                     <div class="form-group mb-0">
                                         <label for="entry_hour">{{__('Systems/SystemTwo/entryexits.entry_hour')}}</label>
-                                        <input type="number" class="form-control" id="code" name="entry_hour"
+                                        <input type="number" class="form-control" min="0" id="code" name="entry_hour"
                                                placeholder="entry_hour" required="">
                                     </div>
                                 </div>
                                 <div class="col-lg-3 mb-4">
                                     <div class="form-group mb-0">
                                         <label for="exit_hour">{{__('Systems/SystemTwo/entryexits.exit_hour')}}</label>
-                                        <input type="number" class="form-control" id="code" name="exit_hour"
+                                        <input type="number" class="form-control" min="0" id="code" name="exit_hour"
                                                placeholder="exit_hour" required="">
                                     </div>
                                 </div>
                                 <div class="col-lg-3 mb-4">
                                     <div class="form-group mb-0">
                                         <label for="working_time">{{__('Systems/SystemTwo/entryexits.working_time')}}</label>
-                                        <input type="number" class="form-control" id="code" name="working_time"
+                                        <input type="number" class="form-control" min="0" id="code" name="working_time"
                                                placeholder="working_time" required="">
                                     </div>
                                 </div>

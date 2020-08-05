@@ -20,6 +20,8 @@ return [
     'country' => 'Country',
     'province' => 'Province',
     'city' => 'City',
+    'neighborhood' => 'Neighborhood',
+    'permission' => 'Permission',
     'selection_powers' => 'Power',
     'edit' => 'Edit',
     'delete' => 'Delete',

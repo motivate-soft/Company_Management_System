@@ -6,5 +6,6 @@ return [
     'staffs' => 'Staffs',
     'entry_exits' => 'EntryExits',
     'communications' => 'Communications',
+    'transactions' => 'Transactions',
 
 ];

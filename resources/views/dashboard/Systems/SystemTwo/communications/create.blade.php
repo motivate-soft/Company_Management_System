@@ -73,15 +73,15 @@
                                 <div class="col-lg-3 mb-4">
                                     <div class="form-group mb-0">
                                         <label for="transaction_type">{{__('Systems/SystemTwo/communications.transaction_type')}}</label>
-
                                         <select class="form-control" name="transaction_type" required="" id="type">
-                                            <option disabled selected
-                                                    value="">Select transaction type</option>
-                                            <option value="atm">ATM</option>
-                                            <option value="charge">CHARGE</option>
-                                            <option value="check">CHECK</option>
-                                            <option value="deposit">DEPOSIT</option>
-                                            <option value="online">ONLINE</option>
+
+                                            @if(isset($transactions) && count($transactions) > 0)
+                                                @foreach($transactions as $key => $transaction)
+                                                    <option value="{{$transaction->name}}">{{$transaction->name}}</option>
+                                                    @endforeach
+
+                                            @endif
+
                                         </select>
 
                                         {{--<input type="text" class="form-control" id="code" name="transaction_type"--}}
@@ -114,7 +114,7 @@
                                 <div class="col-lg-3 mb-4">
                                     <div class="form-group mb-0">
                                         <label for="number">number</label>
-                                        <input type="number" class="form-control" id="coupon_value" name="number"
+                                        <input type="number" class="form-control" min="0" id="coupon_value" name="number"
                                                placeholder="number" required="">
                                     </div>
                                 </div>
@@ -144,21 +144,21 @@
 
                                 <div class="col-lg-3 mb-4">
                                     <div class="form-group mb-0">
-                                        <label for="transaction_explanation">{{__('Systems/SystemTwo/communications.transaction_explanation')}}</label>
-
-                                        <input type="text" class="form-control" id="code" name="transaction_explanation"
-                                               placeholder="transaction_explanation" required="">
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-3 mb-4">
-                                    <div class="form-group mb-0">
                                         <label for="prepayments">prepayments</label>
                                         <input type="text" class="form-control" id="total_usage" name="prepayments"
                                                placeholder="prepayments" required="">
                                     </div>
                                 </div>
 
+                                <div class="col-lg-12 mb-4">
+                                    <div class="form-group mb-0">
+                                        <label for="transaction_explanation">{{__('Systems/SystemTwo/communications.transaction_explanation')}}</label>
+                                        <textarea class="form-control" id="transaction_explanation" name="transaction_explanation" placeholder="transaction_explanation" required=""></textarea>
+
+                                        {{--<input type="text" class="form-control" id="code" name="transaction_explanation"--}}
+                                               {{--placeholder="transaction_explanation" required="">--}}
+                                    </div>
+                                </div>
 
                                 <div class="col-lg-12 mt-4">
                                     <div class="form-group mb-0">
@@ -180,6 +180,7 @@
     </div>
 
     <!-- End Contentbar -->
+
 @endsection
 @section('script')
 
@@ -205,5 +206,6 @@
             $('#default-datatable').DataTable();
 
         });
+
     </script>
 @endsection 

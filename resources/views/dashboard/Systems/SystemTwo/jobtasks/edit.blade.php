@@ -90,7 +90,7 @@
                     <div class="col-lg-4 mb-4">
                         <div class="form-group mb-0">
                             <label>{{__('Systems/SystemTwo/jobtasks.job_number_days')}}</label>
-                            <input type="number" class="form-control" @if(isset($jobtask->job_number_days)) value="{{ $jobtask->job_number_days }}"@endif name="job_number_days" placeholder="No job_name" required="">
+                            <input type="number" class="form-control" min="0" @if(isset($jobtask->job_number_days)) value="{{ $jobtask->job_number_days }}"@endif name="job_number_days" placeholder="No job_name" required="">
 
                         </div>
                     </div>
