@@ -61,27 +61,27 @@
                             </div>
                         </div>
 
-                        {{--<div class="col-lg-6 mb-4">--}}
-                            {{--<div class="form-group mb-0">--}}
-                                {{--<label for="cutting_method" class="col-form-label">{{ __('product.nameOfAdd') }}</label>--}}
-                                {{--<input type="text" @if(isset($data->name_of_who_added)) value="{{ $data->name_of_who_added }}"@endif name="nameOfAdd" class="form-control" placeholder="{{__('product.AddnewNameof')}}" required="">--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
+                        <div class="col-lg-6 mb-4" hidden>
+                            <div class="form-group mb-0">
+                                <label for="cutting_method" class="col-form-label">{{ __('product.nameOfAdd') }}</label>
+                                <input type="text" @if(isset($data->name_of_who_added)) value="{{ $data->name_of_who_added }}"@endif name="nameOfAdd" class="form-control" placeholder="{{__('product.AddnewNameof')}}" required="">
+                            </div>
+                        </div>
 
-                        {{--<div class="col-lg-6 mb-4">--}}
-                            {{--<div class="form-group mb-0">--}}
-                                {{--<label>{{ __('product.dateOfAdd') }}</label>--}}
-                                {{--<div class="input-group">--}}
-                                    {{--<input type="text" id="default-date12" class="form-control"--}}
-                                           {{--placeholder="yyyy/mm/dd" aria-describedby="basic-addon2"--}}
-                                           {{--name="dateOfAdd" @if(isset($data->date_of_addition)) value="{{ $data->date_of_addition }}"@endif autocomplete="off"/>--}}
-                                    {{--<div class="input-group-append">--}}
-                                                {{--<span class="input-group-text" id="basic-addon2"><i--}}
-                                                            {{--class="feather icon-calendar"></i></span>--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
+                        <div class="col-lg-6 mb-4" hidden>
+                            <div class="form-group mb-0">
+                                <label>{{ __('product.dateOfAdd') }}</label>
+                                <div class="input-group">
+                                    <input type="text" id="default-date12" class="form-control"
+                                           placeholder="yyyy/mm/dd" aria-describedby="basic-addon2"
+                                           name="dateOfAdd" @if(isset($data->date_of_addition)) value="{{ $data->date_of_addition }}"@endif autocomplete="off"/>
+                                    <div class="input-group-append">
+                                                <span class="input-group-text" id="basic-addon2"><i
+                                                            class="feather icon-calendar"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="col-lg-6 mb-4">
                             <div class="form-group mb-0">
@@ -90,7 +90,7 @@
                                     <option disabled selected
                                             value="">{{ __('product.categorySelection') }}</option>
                                     @foreach($categories as $cate)
-                                        <option value="{{$cate->category_name}}" @if(isset($data->category_type) && $data->category_type == "$cate->category_name") selected @endif>{{$cate->category_name}}</option>
+                                        <option value="{{$cate->name}}" @if(isset($data->category_type) && $data->category_type == "$cate->name") selected @endif>{{$cate->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -103,7 +103,7 @@
                                     <option disabled selected
                                             value="">{{ __('product.brandSelection') }}</option>
                                     @foreach($brands as $bra)
-                                        <option value="{{$bra->brand_name}}" @if(isset($data->brand_type) && $data->brand_type == "$bra->brand_name") selected @endif>{{$bra->brand_name}}</option>
+                                        <option value="{{$bra->name}}" @if(isset($data->brand_type) && $data->brand_type == "$bra->name") selected @endif>{{$bra->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -111,8 +111,35 @@
 
                         <div class="col-lg-6 mb-4">
                             <div class="form-group mb-0">
-                                <label for="cutting_method" class="col-form-label">{{ __('product.country') }}</label>
-                                <input type="text" @if(isset($data->country_of_origin)) value="{{ $data->country_of_origin }}"@endif name="country" class="form-control" placeholder="{{__('product.countryAdd')}}" required="">
+                                <label for="country">{{__('product.country')}}</label>
+                                <select id="country" name="country" class="form-control" onchange="">
+                                    <option disabled selected value="">select country</option>
+                                    @if(isset($sortnames) && count($sortnames) > 0)
+                                        @foreach($sortnames as $key => $sortname)
+                                            <optgroup label="{{$sortname->sortname}}">
+                                                @foreach($countries as $key => $country)
+                                                    @if($sortname->sortname == $country->sortname)
+                                                        <option value="{{$country->name}}" @if(isset($data->country_of_origin) && $data->country_of_origin == "$country->name") selected @endif>@if(app()->getLocale() == "en"){{$country->name}} @else {{$country->ar_name}} @endif</option>
+                                                    @endif
+                                                @endforeach
+                                            </optgroup>
+                                        @endforeach
+                                    @endif
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 mb-4">
+                            <div class="form-group mb-0">
+                                <label for="cutting_method" class="col-form-label">{{ __('product.productPDF') }}</label>
+                                <input type="file" @if(isset($data->product_pdf)) value="{{ $data->product_pdf }}"@endif name="productPDF" class="form-control" placeholder="{{__('product.SelectnewPDF')}}" required="">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 mb-4">
+                            <div class="form-group mb-0">
+                                <label for="cutting_method" class="col-form-label">{{ __('product.productImage') }}</label>
+                                <input type="file" @if(isset($data->product_image)) value="{{ $data->product_image }}"@endif name="productImage" class="form-control" placeholder="{{__('product.SelectnewImage')}}" required="">
                             </div>
                         </div>
 

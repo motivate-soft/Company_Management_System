@@ -17,8 +17,8 @@ class CreateSystem3CategoriesTable extends Migration
             $table->bigIncrements('id');
             $table->string('category_name');
             $table->string('category_code');
-            $table->string('name_of_who_added');
-            $table->date('date_of_addition');
+            $table->string('name_of_who_added')->nullable();
+            $table->date('date_of_addition')->nullable();
             $table->timestamps();
         });
     }

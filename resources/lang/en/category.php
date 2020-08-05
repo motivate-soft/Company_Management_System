@@ -4,6 +4,7 @@ return [
     /*Field*/
     'id' => 'ID',
     'categoryName' => 'Category Name',
+    'categoryNameAr' => 'Arabic Category Name',
     'categoryCode' => 'Category Code',
     'nameOfAdd' => 'Name of who added',
     'dateOfAdd' => 'Date of Addition',

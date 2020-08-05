@@ -84,10 +84,10 @@
                                     <div class="form-group mb-0">
                                         <label for="type">{{ __('product.categoryType') }}</label>
                                         <select class="form-control" name="categoryType" required="" id="categoryType">
-                                            <option disabled selected
+                                            <option selected
                                                     value="">{{ __('product.categorySelection') }}</option>
                                             @foreach($categories as $cate)
-                                                <option value="{{$cate->category_name}}">{{$cate->category_name}}</option>
+                                                <option value="{{$cate->name}}">{{$cate->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -97,22 +97,56 @@
                                     <div class="form-group mb-0">
                                         <label for="type">{{ __('product.brandType') }}</label>
                                         <select class="form-control" name="brandType" required="" id="brandType">
-                                            <option disabled selected
+                                            <option selected
                                                     value="">{{ __('product.brandSelection') }}</option>
                                             @foreach($brands as $bra)
-                                                <option value="{{$bra->brand_name}}">{{$bra->brand_name}}</option>
+                                                <option value="{{$bra->name}}">{{$bra->name}}</option>
                                             @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- <div class="col-lg-6 mb-4">
+                                    <div class="form-group mb-0">
+                                        <label for="cutting_method" class="col-form-label">{{ __('product.country') }}</label>
+                                        <input type="text" name="country" class="form-control" placeholder="{{__('product.countryAdd')}}" required="">
+                                    </div>
+                                </div> -->
+
+                                <div class="col-lg-6 mb-4">
+                                    <div class="form-group mb-0">
+                                        <label for="country">{{__('product.country')}}</label>
+                                        <select id="country" name="country" class="form-control" onchange="">
+                                            <option disabled selected value="">select country</option>
+                                            @if(isset($sortnames) && count($sortnames) > 0)
+                                                @foreach($sortnames as $key => $sortname)
+                                                    <optgroup label="{{$sortname->sortname}}">
+                                                        @foreach($countries as $key => $country)
+                                                            @if($sortname->sortname == $country->sortname)
+                                                                <option value="{{$country->name}}">@if(app()->getLocale() == "en"){{$country->name}} @else {{$country->ar_name}} @endif</option>
+                                                            @endif
+                                                        @endforeach
+                                                    </optgroup>
+                                                @endforeach
+
+                                            @endif
                                         </select>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-6 mb-4">
                                     <div class="form-group mb-0">
-                                        <label for="cutting_method" class="col-form-label">{{ __('product.country') }}</label>
-                                        <input type="text" name="country" class="form-control" placeholder="{{__('product.countryAdd')}}" required="">
+                                        <label for="cutting_method" class="col-form-label">{{ __('product.productPDF') }}</label>
+                                        <input type="file" name="productPDF" class="form-control" placeholder="{{__('product.SelectnewPDF')}}" required="">
                                     </div>
                                 </div>
 
+                                <div class="col-lg-6 mb-4">
+                                    <div class="form-group mb-0">
+                                        <label for="cutting_method" class="col-form-label">{{ __('product.productImage') }}</label>
+                                        <input type="file" name="productImage" class="form-control" placeholder="{{__('product.SelectnewImage')}}" required="">
+                                    </div>
+                                </div>
 
                                 <div class="col-lg-12 mt-4">
                                     <div class="form-group mb-0">

@@ -8,6 +8,7 @@
 <link href="{{ asset('assets/dashboard/plugins/datatables/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
 <!-- Responsive Datatable css -->
 <link href="{{ asset('assets/dashboard/plugins/datatables/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('assets/dashboard/plugins/sweet-alert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
 
 @endsection 
 @section('rightbar-content')
@@ -45,20 +46,25 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Sales employee</th>
-                                    <th>Nickname</th>
-                                    <th>Customer Name</th>
-                                    <th>Entity Type</th>
-                                    <th>Entity Name</th>
-                                    <th>Position</th>
-                                    <th>Mobile Number</th>
-                                    <th>Landline Number</th>
-                                    <th>Fax</th>
-                                    <th>Email</th>
-                                    <th>ZipCode</th>
-                                    {{--<th>Country</th>--}}
-                                    <th>Profile</th>
-                                    <th>Actions</th>
+                                    <th>{{ __('customers/customers.customerSalesEmployee') }}</th>
+                                    <th>{{ __('customers/customers.customerNickname') }}</th>
+                                    <th>{{ __('customers/customers.customerName') }}</th>
+                                    <th>{{ __('customers/customers.entryType') }}</th>
+                                    <th>{{ __('customers/customers.entryName') }}</th>
+                                    <th>{{ __('customers/customers.position') }}</th>
+                                    <th>{{ __('customers/customers.mobileNumber') }}</th>
+                                    <th>{{ __('customers/customers.landlineNumber') }}</th>
+                                    <th>{{ __('customers/customers.fax') }}</th>
+                                    <th>{{ __('customers/customers.customerEmail') }}</th>
+                                    <th>{{ __('customers/customers.zipcode') }}</th>
+                                    <th>{{ __('Systems/SystemOne/customers.country') }}</th>
+                                    <th>{{ __('Systems/SystemOne/customers.province') }}</th>
+                                    <th>{{ __('Systems/SystemOne/customers.city') }}</th>
+                                    <th>{{ __('Systems/SystemOne/customers.street') }}</th>
+                                    <th>{{ __('Systems/SystemOne/customers.address') }}</th>
+                                    <th>{{ __('Systems/SystemOne/customers.profile') }}</th>
+                                    <th>{{ __('Systems/SystemOne/customers.edit') }}</th>
+                                    <th>{{ __('Systems/SystemOne/customers.delete') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -66,26 +72,23 @@
                                 @foreach($customers as $key => $customer)
                                 <tr>
                                     <td>{{ $key+1 }}</td>
-                                    {{--<td>{{ $customer->name }}</td>--}}
-                                    {{--<td>{{ $customer->email }}</td>--}}
-                                    {{--<td>{{ $customer->phone }}</td>--}}
                                     <td>{{ $customer->sales_employee }}</td>
                                     <td>{{ $customer->nickname }}</td>
                                     <td>{{ $customer->customer_name }}</td>
-                                    <td>{{ $customer->entity_type }}</td>
-                                    <td>{{ $customer->entity_name }}</td>
+                                    <td>{{ $customer->entry_type }}</td>
+                                    <td>{{ $customer->entry_name }}</td>
                                     <td>{{ $customer->position }}</td>
                                     <td>{{ $customer->mobile_number }}</td>
                                     <td>{{ $customer->landline_number }}</td>
                                     <td>{{ $customer->fax }}</td>
                                     <td>{{ $customer->email }}</td>
                                     <td>{{ $customer->zipcode }}</td>
-                                    {{--<td>{{ $customer->country }}</td>--}}
+                                    <td>{{ $customer->country->name }}</td>
+                                    <td>{{ $customer->province->name }}</td>
+                                    <td>{{ $customer->city->name }}</td>
+                                    <td>{{ $customer->street->name }}</td>
+                                    <td>{{ $customer->address }}</td>
                                     <td>
-                                        {{--<div class="custom-control custom-switch" >--}}
-                                            {{--<input type="checkbox" onclick="status_change('{{csrf_token()}}','{{$customer->id}}','{{url('customer-status')}} ')" {{ $customer->status == 1?'checked':''}} class="custom-control-input" id="customSwitch{{$key}}">--}}
-                                            {{--<label class="custom-control-label" for="customSwitch{{$key}}"></label>--}}
-                                        {{--</div>--}}
                                         <div class="button-list" >
                                             <a class="btn btn-info-rgba" href="{{ route('customers.profile',$customer->id) }}" title="Profile"><i class="feather icon-info"></i></a>
                               	        </div>
@@ -93,15 +96,17 @@
                                     <td>
                                         <div class="button-list">
                                             <a class="btn btn-success-rgba"  title="Edit" href="{{ route('customers.edit',$customer->id) }}" ><i class="feather icon-edit-2"></i></a>
-
-                                            <a href="{{ route('customers.destroy',$customer->id) }}" title="Delete" class="btn btn-danger-rgba" onclick="return confirm('Are you sure？')"><i class="feather icon-trash"></i></a>
                                         </div>
                                     </td>
+                                    <td>
+                                        <div class="button-list">
+                                            <a href="{{ route('customers.destroy',$customer->id) }}" title="Delete" class="btn btn-danger-rgba confirm_delete"><i class="feather icon-trash"></i></a>
+                                        </div>
+                                    </td>
+
                                 </tr>
                                 @endforeach
-
                                 @endif
-                               
                             </tbody>
                         </table>
                     </div>
@@ -117,21 +122,6 @@
 @endsection
 @section('script')
 
-    <script>
-
-        function status_change(token, id, route) {
-            $.ajax({
-                url : route,
-                type: "POST",
-                data: {_token: token, id: id},
-                success: function (response) {
-                    //$(".table").load(location.href + " .table>*", "");
-                }
-            });
-        }
-    </script>
-
-
     <script src="{{ asset('assets/dashboard/plugins/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('assets/dashboard/plugins/datatables/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('assets/dashboard/plugins/datatables/dataTables.buttons.min.js') }}"></script>
@@ -144,7 +134,8 @@
     <script src="{{ asset('assets/dashboard/plugins/datatables/buttons.colVis.min.js') }}"></script>
     <script src="{{ asset('assets/dashboard/plugins/datatables/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('assets/dashboard/plugins/datatables/responsive.bootstrap4.min.js') }}"></script>
-
+    <script src="{{ asset('assets/dashboard/plugins/sweet-alert2/sweetalert2.min.js') }}"></script>
+    <script src="{{ asset('assets/dashboard/js/custom/custom-sweet-alert.js') }}"></script>
     <script src="{{ asset('assets/dashboard/js/custom/custom-toasts.js') }}"></script>
 
     <script>
@@ -181,7 +172,72 @@
                         extend: 'pdfHtml5'
                     } ),
                 ]
-            } );
+            });
+
+            var confirm_delete = function () {
+                $('.confirm_delete').on("click", function () {
+                    var this_item = $(this);
+                    var id = $(this).parent().find('.id').val();
+                    swal({
+                        title: 'Are you sure?',
+                        type: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Yes!',
+                        cancelButtonText: 'No, cancel!',
+                        confirmButtonClass: 'btn btn-success',
+                        cancelButtonClass: 'btn btn-danger m-l-10',
+                        buttonsStyling: false
+                    }).then(function () {
+                        $.ajax({
+                            method: "post",
+                            url: "{{route('my_fatoorah.changeStatus')}}",
+                            headers: {
+                                'X-CSRF-TOKEN': $('input[name="_token"]').val()
+                            },
+
+                            async: true,
+                            success: function (data) {
+                                //  wait.resolve();
+                                $(".loadingMask").css('display', 'none');
+                                if (data.errors) {
+                                    swal(
+                                        'Error',
+                                        'Please try again',
+                                        'error'
+                                    )
+                                } else {
+                                    swal(
+                                        'Done!',
+                                        'Updated Successfully',
+                                        'success'
+                                    ).then(function (){
+                                        window.location = "{{route('plugins.index')}}"
+                                    });
+                                }
+                            },
+                            error: function () {
+                                swal(
+                                    'Error',
+                                    'Please try again',
+                                    'error'
+                                )
+                            }
+                        });
+
+                    }, function (dismiss) {
+                        if (dismiss === 'cancel') {
+                            swal(
+                                'Cancelled',
+                                'Your imaginary data is safe :)',
+                                'error'
+                            )
+                        }
+                    })
+
+
+                });
+            };
+            confirm_delete();
         });
     </script>
 @endsection

@@ -17,6 +17,10 @@ return [
     'productdetail' => 'Product Detail',
 
     /*Add New Product*/
+    'productImage' => 'Product Image',
+    'SelectnewImage' => 'Select Product Image',
+    'productPDF' => 'Product PDF',
+    'SelectnewPDF' => 'Select Product PDF',
     'categoryType' => 'Category Type',
     'categorySelection' => 'Select Category Type',
     'brandType' => 'Brand Type',

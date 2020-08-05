@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSystem3BrandsTable extends Migration
+class CreateSystem1CreditsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,9 @@ class CreateSystem3BrandsTable extends Migration
      */
     public function up()
     {
-        Schema::create('system3_brands', function (Blueprint $table) {
+        Schema::create('system1_credits', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('brand_name');
-            $table->string('brand_code');
-            $table->string('name_of_who_added')->nullable();
-            $table->date('date_of_addition');
-            $table->string('category_type');
+            $table->string('transactionType');
             $table->timestamps();
         });
     }
@@ -31,6 +27,6 @@ class CreateSystem3BrandsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('system3_brands');
+        Schema::dropIfExists('system1_credits');
     }
 }

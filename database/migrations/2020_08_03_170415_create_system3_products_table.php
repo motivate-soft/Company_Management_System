@@ -17,11 +17,13 @@ class CreateSystem3ProductsTable extends Migration
             $table->bigIncrements('id');
             $table->string('product_name');
             $table->string('product_code');
-            $table->string('name_of_who_added');
-            $table->date('date_of_addition');
+            $table->string('name_of_who_added')->nullable();
+            $table->date('date_of_addition')->nullable();
             $table->string('category_type');
             $table->string('brand_type');
             $table->string('country_of_origin');
+            $table->string('product_image')->nullable();
+            $table->string('product_pdf')->nullable();
             $table->timestamps();
         });
     }

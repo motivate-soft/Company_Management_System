@@ -49,13 +49,13 @@
                     <div class="row">
                         <div class="col-lg-6 mb-4">
                             <div class="form-group mb-0">
-                                <label for="cutting_method" class="col-form-label">{{ __('brand.brandyName') }}</label>
+                                <label for="cutting_method" class="col-form-label">{{ __('brand.brandName') }}</label>
                                 <input type="text" @if(isset($data->name)) value="{{ $data->name }}"@endif name="brandName" class="form-control" placeholder="{{__('brand.AddnewName')}}" required="" disabled>
                             </div>
                         </div>
                         <div class="col-lg-6 mb-4">
                             <div class="form-group mb-0">
-                                <label for="cutting_method" class="col-form-label">{{ __('brand.brandyNameAr') }}</label>
+                                <label for="cutting_method" class="col-form-label">{{ __('brand.brandNameAr') }}</label>
                                 <input type="text" @if(isset($data->name_ar)) value="{{ $data->name_ar }}"@endif name="brandName" class="form-control" placeholder="{{__('brand.AddnewName')}}" required="" disabled>
                             </div>
                         </div>
@@ -69,7 +69,7 @@
 
                         <div class="col-lg-6 mb-4">
                             <div class="form-group mb-0">
-                                <label for="cutting_method" class="col-form-label">{{ __('brand.categoryType') }}</label>
+                                <label for="cutting_method" class="col-form-label">{{ __('brand.brandCategory') }}</label>
                                 <input type="text" @if(isset($data->category_type)) value="{{ $data->category_type }}"@endif name="categoryType" class="form-control" placeholder="{{__('brand.category_type')}}" required="" disabled>
                             </div>
                         </div>
@@ -85,11 +85,19 @@
                             <div class="form-group mb-0">
                                 <label>{{ __('brand.dateOfAdd') }}</label>
                                 <div class="input-group">
-                                    <input type="text" id="default-date12" class="form-control" placeholder="yyyy/mm/dd" aria-describedby="basic-addon2" name="dateOfAdd" @if(isset($data->date_of_addition)) value="{{ $data->date_of_addition }}"@endif autocomplete="off" disabled/>
+                                    <input type="text" id="default-date12" class="form-control" placeholder="yyyy/mm/dd" aria-describedby="basic-addon2" name="dateOfAdd" @if(isset($data->add_date)) value="{{ $data->add_date }}"@endif autocomplete="off" disabled/>
                                     <div class="input-group-append">
                                         <span class="input-group-text" id="basic-addon2"><i class="feather icon-calendar"></i></span>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 mb-4">
+                            <div class="form-group mb-0">
+                                <label for="cutting_method" class="col-form-label">{{ __('brand.brandImage') }}</label>
+                                <img src="{{asset('../'.$data->image)}}" alt="brandImage" class="img-thumbnail circle">
+                                <input type="text" @if(isset($data->image)) value="{{ $data->image }}"@endif name="brandImage" class="form-control" placeholder="{{__('brand.image')}}" required="" disabled>
                             </div>
                         </div>
 

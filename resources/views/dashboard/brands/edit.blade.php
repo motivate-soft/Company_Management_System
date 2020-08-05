@@ -59,7 +59,7 @@
                         <div class="col-lg-6 mb-4">
                             <div class="form-group mb-0">
                                 <label for="cutting_method" class="col-form-label">{{ __('brand.brandNameAr') }}</label>
-                                <input type="text" @if(isset($data->name_ar)) value="{{ $data->name_ar }}"@endif name="brandName" class="form-control" placeholder="{{__('brand.AddnewName')}}" required="">
+                                <input type="text" @if(isset($data->name_ar)) value="{{ $data->name_ar }}"@endif name="brandNameAr" class="form-control" placeholder="{{__('brand.AddnewName')}}" required="">
                             </div>
                         </div>
 
@@ -72,17 +72,17 @@
 
                         <div class="col-lg-6 mb-4">
                             <div class="form-group mb-0">
-                                <label for="type">{{ __('brand.categoryType') }}</label>
+                                <label for="type">{{ __('brand.brandCategory') }}</label>
                                 <select class="form-control" name="categoryType" required="" id="categoryType">
                                     <option disabled selected value="">{{ __('brand.categorySelection') }}</option>
                                     @foreach($categories as $cate)
-                                        <option value="{{$cate->category_name}}" @if(isset($data->category_type) && $data->category_type == "$cate->category_name") selected @endif>@if($lang_current == 'ar') {{$cate->name_ar}} @else {{$cate->name}} @endif</option>
+                                        <option value="{{$cate->name}}" @if(isset($data->category_type) && $data->category_type == "$cate->name") selected @endif>@if($lang_current == 'ar') {{$cate->name_ar}} @else {{$cate->name}} @endif</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
 
-                        <div class="col-lg-6 mb-4">
+                        <!-- <div class="col-lg-6 mb-4">
                             <div class="form-group mb-0">
                                 <label for="cutting_method" class="col-form-label">{{ __('brand.nameOfAdd') }}</label>
                                 <input type="text" @if(isset($data->created_by)) value="{{ $data->created_by }}"@endif name="nameOfAdd" class="form-control" placeholder="{{__('brand.AddnewNameof')}}" required="" readonly>
@@ -102,7 +102,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
 
 

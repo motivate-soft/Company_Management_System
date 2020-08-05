@@ -11,6 +11,8 @@
     <!-- Responsive Datatable css -->
     <link href="{{ asset('assets/dashboard/plugins/datatables/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
 
+    <link href="{{ asset('assets/dashboard/plugins/sweet-alert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
+
 @endsection
 @section('rightbar-content')
 <!-- Start Breadcrumbbar -->
@@ -72,7 +74,7 @@
                                             <td>{{ $brand->category_type }}</td>
 
                                             <td>{{ $brand->created_by }}</td>
-                                            <td>{{ $brand->date_of_addition }}</td>
+                                            <td>{{ $brand->add_date }}</td>
                                             <td>
                                                 <div class="button-list">
                                                     <a href="{{route('brands.detail', $brand->id)}}" class="btn btn-success-rgba"><i class="feather icon-eye"></i></a>
@@ -87,7 +89,7 @@
 
                                             <td>
                                                 <div class="button-list">
-                                                    <a href="{{ url('dashboard/delete_brand/'.$brand->id) }}" class="btn btn-danger-rgba" onclick="return confirm('Are you sure？')"><i class="feather icon-trash"></i></a>
+                                                    <a onclick="deleteConfirm({{$brand->id}})" class="btn btn-danger-rgba"><i class="feather icon-trash"></i></a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -123,11 +125,85 @@
 
     <script src="{{ asset('assets/dashboard/js/custom/custom-toasts.js') }}"></script>
 
+
+    <!-- Sweet-Alert js -->
+    <script src="{{ asset('assets/dashboard/plugins/sweet-alert2/sweetalert2.min.js') }}"></script>
+    <script src="{{ asset('assets/dashboard/js/custom/custom-sweet-alert.js') }}"></script>
+
     <script>
         $(document).ready(function() {
 
             $('#default-datatable').DataTable();
 
         });
+    </script>
+
+    <script>
+    function deleteConfirm(id) {
+
+        swal({
+            title: 'Are you sure?',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes!',
+            cancelButtonText: 'No, cancel!',
+            confirmButtonClass: 'btn btn-success',
+            cancelButtonClass: 'btn btn-danger m-l-10',
+            buttonsStyling: false
+        }).then(function () {
+
+            $.ajax({
+                method: "post",
+                url: "{{url('dashboard/delete_brand')}}",
+                headers: {
+                    'X-CSRF-TOKEN': '<?= csrf_token() ?>'
+                },
+
+                data : JSON.stringify({id : id}),
+                datatype: 'JSON',
+                contentType: 'application/json',
+
+                async: true,
+                success: function (data) {
+                    console.log(data);
+                    //  wait.resolve();
+                    $(".loadingMask").css('display', 'none');
+
+                    if (data === 0) {
+                        swal(
+                            'Error',
+                            'Please try again',
+                            'error'
+                        )
+                    } else {
+                        swal(
+                            'Done!',
+                            'Deleted Successfully',
+                            'success'
+                        ).then(function (){
+                            window.location = "{{route('brands.index')}}"
+                        });
+                    }
+                },
+                error: function () {
+                    swal(
+                        'Error',
+                        'Please try again',
+                        'error'
+                    )
+                }
+            });
+
+        }, function (dismiss) {
+            if (dismiss === 'cancel') {
+                swal(
+                    'Cancelled',
+                    'Your Brand data is safe :)',
+                    'error'
+                )
+            }
+        })
+
+    }
     </script>
 @endsection

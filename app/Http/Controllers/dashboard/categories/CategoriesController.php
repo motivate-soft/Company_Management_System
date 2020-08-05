@@ -35,6 +35,7 @@ class CategoriesController  extends Controller
             'name_ar' => $request->categoryNameAr,
             'code' => $request->categoryCode,
             'created_by' => auth()->user()->name,
+            'add_date' => now(),
         ]);
 
         if ($data_added) {
@@ -84,13 +85,12 @@ class CategoriesController  extends Controller
         }
     }
 
-    public function delete_category($id){
-        $edit = DB::table('categories')->where('id',$id)->first();
-        if (!is_null($edit)) {
-            DB::table('categories')->where('id',$id)->delete();
-            return redirect('dashboard/categories')->with('success','Successfully Delete Category!');
-        }else{
-            return redirect('dashboard/categories')->with('error','Something Went Wrong!');
+    public function delete_category(Request $request){
+        $deleted = DB::table('categories')->where('id', $request->id)->delete();
+        if ($deleted) {
+            return 1;
+        } else {
+            return 0;
         }
     }
 

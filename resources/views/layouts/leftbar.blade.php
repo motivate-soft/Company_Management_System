@@ -14,16 +14,16 @@
                     <a href="{{ url('/dashboard') }}">
                       <img src="/assets/images/svg-icon/dashboard.svg" class="img-fluid" alt="dashboard"><span>{{__('side.dashboard')}}</span>
                     </a>
-                    
+
                 </li>
-                
+
                 <li>
                     <a href="javaScript:void(0)">
                         <img src="{{ asset('assets/images/svg-icon/ecommerce.svg') }}" class="img-fluid" alt="Products"><span>{{ __('side.products') }}</span><i class="feather icon-chevron-right pull-right"></i>
                     </a>
                     <ul class="vertical-submenu">
                         <li><a href="{{ route('products.index') }}"> {{ __('side.productList') }} </a></li>
-                        
+
                          <li><a href="{{url('/categories')}}">{{ __('side.categories') }}</a></li>
                     </ul>
                 </li>
@@ -45,8 +45,8 @@
                         <li><a href="#">{{ __('side.orderNew') }}</a></li>
                         <li><a href="#">{{ __('side.orderStatus') }}</a></li>
                     </ul>
-                </li> 
-                
+                </li>
+
                 <li>
                     <a href="javaScript:void(0)">
                         <img src="{{ url('/') }}/assets/images/svg-icon/notifications.svg" class="img-fluid" alt="Marketing"><span>{{ __('side.marketing') }}</span><i class="feather icon-chevron-right pull-right"></i>
@@ -55,18 +55,18 @@
                         <li><a href="{{ route('coupons.index') }}">{{ __('side.coupons') }}</a></li>
                         <li><a href="{{route('malath.smsView')}}">{{ __('side.smsNotifications') }}</a></li>
                     </ul>
-                </li> 
+                </li>
                 <li>
                     <a href="javaScript:void(0)">
                         <img src="{{ url('/') }}/assets/images/svg-icon/widgets.svg" class="img-fluid" alt="Plugins"><span>{{ __('side.plugins') }}</span><i class="feather icon-chevron-right pull-right"></i>
                     </a>
                     <ul class="vertical-submenu">
                         <li><a href="{{ url('plugins') }}">{{ __('side.pluginList') }}</a></li>
-                        
-                       
+
+
                     </ul>
-                </li> 
-                
+                </li>
+
                 @php
                 $plug = get_plugin_if_active(2);
                 @endphp
@@ -89,16 +89,16 @@
                     </a>
                     <ul class="vertical-submenu">
                         <li><a href="{{ url('/list-customers') }}">{{ __('side.customersList') }}</a></li>
-                        
+
                     </ul>
                 </li>
-                
+
                 <li>
                     <a href="javaScript:void(0)">
                       <img src="{{ url('/') }}/assets/images/svg-icon/settings.svg" class="img-fluid" alt="dashboard"><span>{{ __('side.settings') }}</span><i class="feather icon-chevron-right pull-right"></i>
                     </a>
                     <ul class="vertical-submenu">
-                        
+
                         <li><a href="{{ url('/bank-information') }}">{{ __('side.bank') }}</a></li>
                         <li><a href="{{ url('/countries') }}">{{ __('settings/countries.countryList') }}</a></li>
                         <li><a href="{{ url('/vat-tax') }}">TAX (VAT)</a></li>
@@ -111,9 +111,9 @@
                     <a href="{{url('sendnotifications')}}">
                      <i class="fa fa-bell" aria-hidden="true"></i><span>{{ __('side.Send Notifcations') }}</span>
                     </a>
-                    
+
                 </li>
-                
+
 
             </ul>
         </div>

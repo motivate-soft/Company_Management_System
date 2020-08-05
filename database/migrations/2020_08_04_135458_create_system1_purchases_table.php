@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCategoriesTable extends Migration
+class CreateSystem1PurchasesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('system1_purchases', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('name_ar');
-            $table->string('code');
-            $table->string('created_by')->nullable();
-            $table->date('add_date')->nullable();
+            $table->unsignedBigInteger('customer_id');
+            $table->integer('description');
+            $table->integer('coupon_number');
+            $table->double('amount');
+            $table->double('disbursement');
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ class CreateCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('system1_purchases');
     }
 }

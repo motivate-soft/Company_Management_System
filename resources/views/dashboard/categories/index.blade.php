@@ -8,7 +8,9 @@
 <link href="{{ asset('assets/dashboard/plugins/datatables/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
 <!-- Responsive Datatable css -->
 <link href="{{ asset('assets/dashboard/plugins/datatables/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('assets/dashboard//plugins/datepicker/datepicker.min.css') }}" rel="stylesheet" type="text/css">
 
+<link href="{{ asset('assets/dashboard/plugins/sweet-alert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
 @endsection
 @section('rightbar-content')
 <!-- Start Breadcrumbbar -->
@@ -64,7 +66,7 @@
                                             <td>{{ $cut->name_ar }}</td>
                                             <td>{{ $cut->code }}</td>
                                             <td>{{ $cut->created_by }}</td>
-                                            <td>{{ $cut->date_of_addition }}</td>
+                                            <td>{{ $cut->add_date }}</td>
                                             <td>
                                                 <div class="button-list">
                                                     <a href="{{route('categories.detail', $cut->id)}}" class="btn btn-success-rgba"><i class="feather icon-eye"></i></a>
@@ -79,7 +81,7 @@
 
                                             <td>
                                                 <div class="button-list">
-                                                    <a href="{{ url('dashboard/delete_category/'.$cut->id) }}" class="btn btn-danger-rgba" onclick="return confirm('Are you sure？')"><i class="feather icon-trash"></i></a>
+                                                    <a onclick="deleteConfirm({{$cut->id}})" class="btn btn-danger-rgba"><i class="feather icon-trash"></i></a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -95,6 +97,17 @@
     </div>
     <!-- End row -->
 </div>
+<script>
+    function edit(data) {
+
+        console.log(data);
+        document.getElementById("edit_id").value = data.id;
+        document.getElementById("edit_name").value = data.category_name;
+        document.getElementById("edit_code").value = data.category_code;
+        document.getElementById("edit_nameadd").value = data.name_of_who_added;
+        document.getElementById("default-date").value = data.date_of_addition;
+    }
+</script>
 
 <!-- End Contentbar -->
 @endsection
@@ -115,11 +128,84 @@
 
     <script src="{{ asset('assets/dashboard/js/custom/custom-toasts.js') }}"></script>
 
+    <!-- Sweet-Alert js -->
+    <script src="{{ asset('assets/dashboard/plugins/sweet-alert2/sweetalert2.min.js') }}"></script>
+    <script src="{{ asset('assets/dashboard/js/custom/custom-sweet-alert.js') }}"></script>
+
     <script>
         $(document).ready(function() {
 
             $('#default-datatable').DataTable();
 
         });
+    </script>
+
+    <script>
+    function deleteConfirm(id) {
+
+        swal({
+            title: 'Are you sure?',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes!',
+            cancelButtonText: 'No, cancel!',
+            confirmButtonClass: 'btn btn-success',
+            cancelButtonClass: 'btn btn-danger m-l-10',
+            buttonsStyling: false
+        }).then(function () {
+
+            $.ajax({
+                method: "post",
+                url: "{{url('dashboard/delete_category')}}",
+                headers: {
+                    'X-CSRF-TOKEN': '<?= csrf_token() ?>'
+                },
+
+                data : JSON.stringify({id : id}),
+                datatype: 'JSON',
+                contentType: 'application/json',
+
+                async: true,
+                success: function (data) {
+                    console.log(data);
+                    //  wait.resolve();
+                    $(".loadingMask").css('display', 'none');
+
+                    if (data === 0) {
+                        swal(
+                            'Error',
+                            'Please try again',
+                            'error'
+                        )
+                    } else {
+                        swal(
+                            'Done!',
+                            'Deleted Successfully',
+                            'success'
+                        ).then(function (){
+                            window.location = "{{route('categories.index')}}"
+                        });
+                    }
+                },
+                error: function () {
+                    swal(
+                        'Error',
+                        'Please try again',
+                        'error'
+                    )
+                }
+            });
+
+        }, function (dismiss) {
+            if (dismiss === 'cancel') {
+                swal(
+                    'Cancelled',
+                    'Your Category data is safe :)',
+                    'error'
+                )
+            }
+        })
+
+    }
     </script>
 @endsection

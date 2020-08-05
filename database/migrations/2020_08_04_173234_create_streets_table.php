@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCategoriesTable extends Migration
+class CreateStreetsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('streets', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('name_ar');
-            $table->string('code');
-            $table->string('created_by')->nullable();
-            $table->date('add_date')->nullable();
+            $table->bigInteger('city_id')->nullable();
+            $table->string('name')->nullable();
+            $table->string('ar_name')->nullable();
+            $table->string('delivery_fee')->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ class CreateCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('streets');
     }
 }
