@@ -2,6 +2,7 @@
 storage/logs
 /public
 /vendor
+/.idea
 /.env
 .env.backup
 .phpunit.result.cache
