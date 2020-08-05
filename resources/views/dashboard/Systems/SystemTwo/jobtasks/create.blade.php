@@ -73,11 +73,11 @@
                                         <select class="form-control" id="employee" name="employee" required="">
                                             <option disabled selected
                                                     value="">select employee</option>
-                                            <option value="employee_1">EMPLOYEE_1</option>
-                                            <option value="employee_2">EMPLOYEE_2</option>
-                                            <option value="employee_3">EMPLOYEE_3</option>
-                                            <option value="employee_4">EMPLOYEE_4</option>
-                                            <option value="employee_5">EMPLOYEE_5</option>
+                                            @if(isset($employees) && count($employees) > 0)
+                                                @foreach($employees as $key => $employee)
+                                                    <option value="{{$employee->firstname}}">{{$employee->firstname}}</option>
+                                                    @endforeach
+                                            @endif
                                         </select>
                                         {{--<input type="text" class="form-control" id="code" name="employee"--}}
                                                {{--placeholder="Insert employee" required="">--}}

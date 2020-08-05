@@ -52,11 +52,16 @@
                             <label for="employee">{{__('Systems/SystemTwo/jobtasks.employee')}}</label>
                             <select id="employee" class="form-control" name="employee" required="">
                                 {{--<option disabled selected value="">Select the transaction type</option>--}}
-                                <option value="employee_1" @if(isset($jobtask->employee) && $jobtask->employee == "employee_1") selected @endif>EMPLOYEE_1</option>
-                                <option value="employee_2" @if(isset($jobtask->employee) && $jobtask->employee == "employee_2") selected @endif>EMPLOYEE_2</option>
-                                <option value="employee_3" @if(isset($jobtask->employee) && $jobtask->employee == "employee_3") selected @endif>EMPLOYEE_3</option>
-                                <option value="employee_4" @if(isset($jobtask->employee) && $jobtask->employee == "employee_4") selected @endif>EMPLOYEE_4</option>
-                                <option value="employee_5" @if(isset($jobtask->employee) && $jobtask->employee == "employee_5") selected @endif>EMPLOYEE_5</option>
+                                @if(isset($employees) && count($employees) > 0)
+                                    @foreach($employees as $key => $employee)
+                                        <option @if(isset($jobtask->employee) && $jobtask->employee == $employee->firstname) selected @endif value="{{$employee->firstname}}">{{$employee->firstname}}</option>
+                                    @endforeach
+                                @endif
+                                {{--<option value="employee_1" @if(isset($jobtask->employee) && $jobtask->employee == "employee_1") selected @endif>EMPLOYEE_1</option>--}}
+                                {{--<option value="employee_2" @if(isset($jobtask->employee) && $jobtask->employee == "employee_2") selected @endif>EMPLOYEE_2</option>--}}
+                                {{--<option value="employee_3" @if(isset($jobtask->employee) && $jobtask->employee == "employee_3") selected @endif>EMPLOYEE_3</option>--}}
+{{--                                <option value="employee_4" @if(isset($jobtask->employee) && $jobtask->employee == "employee_4") selected @endif>EMPLOYEE_4</option>--}}
+{{--                                <option value="employee_5" @if(isset($jobtask->employee) && $jobtask->employee == "employee_5") selected @endif>EMPLOYEE_5</option>--}}
                             </select>
 
                             {{--<input type="text" placeholder="employee" class="form-control" @if(isset($jobtask->employee)) value="{{ $jobtask->employee }}"@endif name="employee" placeholder="No employee" required="">--}}

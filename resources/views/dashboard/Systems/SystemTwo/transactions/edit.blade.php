@@ -1,4 +1,4 @@
-{{__('Systems/SystemTwo/entryexits.entryexits_edit')}}
+{{__('Systems/SystemTwo/transactions.transactions_edit')}}
 @endsection
 @extends('dashboard.layouts.layout')
 @section('style')
@@ -17,18 +17,18 @@
 <div class="breadcrumbbar">
     <div class="row align-items-center">
         <div class="col-md-8 col-lg-8">
-            <h4 class="page-title">{{__('Systems/SystemTwo/entryexits.edit_entryexit')}}</h4>
+            <h4 class="page-title">{{__('Systems/SystemTwo/entryexits.edit_transaction')}}</h4>
             <div class="breadcrumb-list">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{url('/home')}}">{{ __('side.dashboard') }}</a></li>
-                    <li class="breadcrumb-item active"><a href="{{route('entryexits.index')}}">{{__('Systems/SystemTwo/entryexits.entryexits')}}</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{__('Systems/SystemTwo/entryexits.edit_entryexit')}}</li>
+                    <li class="breadcrumb-item active"><a href="{{route('entryexits.index')}}">{{__('Systems/SystemTwo/transactions.transactions')}}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{__('Systems/SystemTwo/transactions.edit_transaction')}}</li>
                 </ol>
             </div>
         </div>
         <div class="col-md-4 col-lg-4">
             <div class="widgetbar">
-                <a class="btn btn-primary-rgba" href="{{ route('entryexits.index') }}" >{{__('Systems/SystemTwo/entryexits.back')}}</a>
+                <a class="btn btn-primary-rgba" href="{{ route('transactions.index') }}" >{{__('Systems/SystemTwo/transactions.back')}}</a>
             </div>
         </div>
     </div>
@@ -40,29 +40,17 @@
     <div class="row">
         <!-- Start col -->
         <div class="col-lg-12">
-            <form method="post" action="{{ url('dashboard/edit-entryexit') }}" enctype="multipart/form-data">
+            <form method="post" action="{{ url('dashboard/edit-transaction') }}" enctype="multipart/form-data">
             @csrf
-            <input type="hidden" name="entryexit_id" value="{{ $entryexit->id }}">
+            <input type="hidden" name="entryexit_id" value="{{ $transaction->id }}">
             <div class="card m-b-30">
                 <div class="card-body">
                     <div class="row">
 
                         <div class="col-lg-3 mb-4">
                             <div class="form-group mb-0">
-                                <label>{{__('Systems/SystemTwo/entryexits.name')}}</label>
-                                <input type="text" placeholder="name" class="form-control" @if(isset($entryexit->name)) value="{{ $entryexit->name }}"@endif name="name" placeholder="No name" required="">
-                            </div>
-                        </div>
-
-                        <div class="col-lg-3 mb-4">
-                            <div class="form-group mb-0">
-                                <label for="date">{{__('Systems/SystemTwo/entryexits.date')}}</label>
-                                <div class="input-group">
-                                    <input type="text" id="default-date" class="form-control" placeholder="yyyy/mm/dd" aria-describedby="basic-addon2" name="date" @if(isset($entryexit->date)) value="{{ $entryexit->date }}" @endif />
-                                    <div class="input-group-append">
-                                        <span class="input-group-text" id="basic-addon2"><i class="feather icon-calendar"></i></span>
-                                    </div>
-                                </div>
+                                <label>{{__('Systems/SystemTwo/transactions.name')}}</label>
+                                <input type="text" placeholder="name" class="form-control" @if(isset($transaction->name)) value="{{ $transaction->name }}"@endif name="name" placeholder="No name" required="">
                             </div>
                         </div>
 

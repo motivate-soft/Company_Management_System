@@ -2,14 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dc1846e3-ebe1-4e18-8246-3f6c941304bd" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/dashboard/systems/SystemTwo/StaffController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/dashboard/systems/SystemTwo/StaffController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/dashboard/Systems/SystemTwo/communications/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboard/Systems/SystemTwo/communications/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/dashboard/Systems/SystemTwo/communications/detail.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboard/Systems/SystemTwo/communications/detail.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/dashboard/Systems/SystemTwo/communications/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboard/Systems/SystemTwo/communications/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/dashboard/Systems/SystemTwo/entryexits/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboard/Systems/SystemTwo/entryexits/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/dashboard/Systems/SystemTwo/jobtasks/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboard/Systems/SystemTwo/jobtasks/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/dashboard/Systems/SystemTwo/staffs/detail.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboard/Systems/SystemTwo/staffs/detail.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/dashboard/Systems/SystemTwo/transactions/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboard/Systems/SystemTwo/transactions/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/dashboard/systems/SystemTwo/JobTaskController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/dashboard/systems/SystemTwo/JobTaskController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/en/Systems/SystemTwo/transactions.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/Systems/SystemTwo/transactions.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/dashboard/Systems/SystemTwo/jobtasks/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboard/Systems/SystemTwo/jobtasks/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/dashboard/Systems/SystemTwo/jobtasks/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboard/Systems/SystemTwo/jobtasks/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/dashboard/Systems/SystemTwo/transactions/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboard/Systems/SystemTwo/transactions/edit.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -23,82 +21,91 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/dashboard/Systems/SystemTwo/communications/create.blade.php">
+        <entry file="file://$PROJECT_DIR$/resources/views/dashboard/Systems/SystemTwo/communications/detail.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="275">
-              <caret line="45" column="59" selection-start-line="45" selection-start-column="59" selection-end-line="45" selection-end-column="59" />
+            <state relative-caret-position="294">
+              <caret line="95" column="33" lean-forward="true" selection-start-line="95" selection-start-column="33" selection-end-line="95" selection-end-column="33" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/dashboard/systems/SystemTwo/EntryExitController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="269">
+              <caret line="134" column="5" lean-forward="true" selection-start-line="134" selection-start-column="5" selection-end-line="134" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/dashboard/systems/SystemTwo/CommunicationController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="185">
+              <caret line="165" column="40" selection-start-line="165" selection-start-column="34" selection-end-line="165" selection-end-column="40" />
+              <folding>
+                <element signature="e#68#124#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/dashboard/systems/SystemTwo/JobTaskController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="273">
+              <caret line="26" column="94" selection-start-line="26" selection-start-column="94" selection-end-line="26" selection-end-column="94" />
+              <folding>
+                <element signature="e#68#118#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/dashboard/Systems/SystemTwo/jobtasks/create.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="191">
+              <caret line="75" column="38" lean-forward="true" selection-start-line="75" selection-start-column="38" selection-end-line="79" selection-end-column="50" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/resources/views/dashboard/Systems/SystemTwo/communications/detail.blade.php">
+        <entry file="file://$PROJECT_DIR$/resources/views/dashboard/Systems/SystemTwo/jobtasks/edit.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="87" column="44" selection-start-line="87" selection-start-column="44" selection-end-line="87" selection-end-column="44" />
+            <state relative-caret-position="209">
+              <caret line="56" column="114" selection-start-line="56" selection-start-column="112" selection-end-line="56" selection-end-column="114" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/dashboard/Systems/SystemTwo/staffs/edit.blade.php">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/dashboard/systems/SystemTwo/TransactionController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="276">
-              <caret line="157" column="76" lean-forward="true" selection-start-line="157" selection-start-column="76" selection-end-line="157" selection-end-column="76" />
+            <state relative-caret-position="309">
+              <caret line="23" column="20" selection-start-line="23" selection-start-column="8" selection-end-line="23" selection-end-column="20" />
+              <folding>
+                <element signature="e#68#122#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/dashboard/Systems/SystemTwo/entryexits/create.blade.php">
+        <entry file="file://$PROJECT_DIR$/resources/views/dashboard/Systems/SystemTwo/transactions/edit.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1649">
-              <caret line="125" column="130" selection-start-line="125" selection-start-column="130" selection-end-line="125" selection-end-column="130" />
+            <state relative-caret-position="84">
+              <caret line="34" column="6" lean-forward="true" selection-start-line="34" selection-start-column="6" selection-end-line="34" selection-end-column="6" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/dashboard/Systems/SystemTwo/transactions/create.blade.php">
+        <entry file="file://$PROJECT_DIR$/resources/lang/en/Systems/SystemTwo/transactions.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="100" column="42" lean-forward="true" selection-start-line="100" selection-start-column="42" selection-end-line="100" selection-end-column="42" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/dashboard/Systems/SystemTwo/communications/edit.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="24" column="71" selection-start-line="24" selection-start-column="71" selection-end-line="24" selection-end-column="71" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/dashboard/Systems/SystemTwo/communications/index.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="992">
-              <caret line="64" column="85" selection-start-line="64" selection-start-column="85" selection-end-line="64" selection-end-column="85" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/dashboard/Systems/SystemTwo/staffs/detail.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="137">
-              <caret line="159" column="79" selection-start-line="159" selection-start-column="79" selection-end-line="159" selection-end-column="79" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/lang/en/Systems/SystemTwo/entryexits.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="148">
-              <caret line="9" column="18" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="18" />
+            <state relative-caret-position="315">
+              <caret line="15" column="33" selection-start-line="15" selection-start-column="33" selection-end-line="15" selection-end-column="33" />
             </state>
           </provider>
         </entry>
@@ -106,8 +113,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/dashboard/systems/SystemTwo/StaffController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="347">
-              <caret line="208" column="72" selection-start-line="208" selection-start-column="72" selection-end-line="208" selection-end-column="72" />
+            <state relative-caret-position="185">
+              <caret line="121" column="26" selection-start-line="121" selection-start-column="20" selection-end-line="121" selection-end-column="26" />
               <folding>
                 <element signature="e#68#87#0#PHP" expanded="true" />
               </folding>
@@ -119,7 +126,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>disal</find>
       <find>entryexit</find>
       <find>region_post</find>
       <find>mobile</find>
@@ -149,6 +155,7 @@
       <find>save</find>
       <find>neighbor</find>
       <find>update</find>
+      <find>number</find>
     </findStrings>
     <replaceStrings>
       <replace>$jobtask</replace>
@@ -164,7 +171,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/database/migrations/2020_07_31_023628_create_jobtasks_table.php" />
         <option value="$PROJECT_DIR$/database/migrations/2020_07_31_024200_create_system2_entryexits_table.php" />
         <option value="$PROJECT_DIR$/database/migrations/2020_07_31_023628_create_system2_jobtasks_table.php" />
         <option value="$PROJECT_DIR$/resources/lang/ar/Systems/SystemTwo/staffs.php" />
@@ -187,20 +193,16 @@
         <option value="$PROJECT_DIR$/database/migrations/2020_08_04_081934_create_transactions.php" />
         <option value="$PROJECT_DIR$/resources/lang/en/Systems/SystemTwo/sidebar.php" />
         <option value="$PROJECT_DIR$/resources/views/dashboard/layouts/sideMenu.blade.php" />
-        <option value="$PROJECT_DIR$/resources/lang/en/Systems/SystemTwo/transactions.php" />
         <option value="$PROJECT_DIR$/resources/lang/en/Systems/SystemTwo/staffs.php" />
         <option value="$PROJECT_DIR$/resources/lang/en/Systems/SystemTwo/communications.php" />
         <option value="$PROJECT_DIR$/resources/views/dashboard/Systems/SystemTwo/deletemodal.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/dashboard/Systems/SystemTwo/entryexits/edit.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/dashboard/Systems/SystemTwo/jobtasks/create.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/dashboard/Systems/SystemTwo/jobtasks/edit.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/dashboard/Systems/SystemTwo/staffs/create.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/dashboard/Systems/SystemTwo/staffs/edit.blade.php" />
         <option value="$PROJECT_DIR$/database/migrations/2020_07_31_024031_create_system2_staffs_table.php" />
         <option value="$PROJECT_DIR$/resources/views/dashboard/Systems/SystemThree/products/index.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/dashboard/systems/SystemTwo/CommunicationController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/dashboard/systems/SystemTwo/EntryExitController.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/dashboard/systems/SystemTwo/JobTaskController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/dashboard/systems/SystemTwo/TransactionController.php" />
         <option value="$PROJECT_DIR$/routes/web.php" />
         <option value="$PROJECT_DIR$/resources/views/dashboard/Systems/SystemTwo/communications/index.blade.php" />
@@ -215,6 +217,11 @@
         <option value="$PROJECT_DIR$/resources/views/dashboard/Systems/SystemTwo/communications/create.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/dashboard/Systems/SystemTwo/communications/edit.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/dashboard/Systems/SystemTwo/communications/detail.blade.php" />
+        <option value="$PROJECT_DIR$/resources/lang/en/Systems/SystemTwo/transactions.php" />
+        <option value="$PROJECT_DIR$/resources/views/dashboard/Systems/SystemTwo/transactions/edit.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/dashboard/Systems/SystemTwo/jobtasks/create.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/dashboard/systems/SystemTwo/JobTaskController.php" />
+        <option value="$PROJECT_DIR$/resources/views/dashboard/Systems/SystemTwo/jobtasks/edit.blade.php" />
       </list>
     </option>
   </component>
@@ -622,17 +629,18 @@
       <workItem from="1596526647538" duration="631000" />
       <workItem from="1596527735648" duration="93000" />
       <workItem from="1596528544486" duration="28919000" />
-      <workItem from="1596587214317" duration="8609000" />
+      <workItem from="1596587214317" duration="11835000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="114187000" />
+    <option name="totallyTimeSpent" value="117413000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1296" height="936" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.23058252" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2184466" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -647,7 +655,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.20895523" />
+      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.16044776" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -658,16 +666,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Systems/SystemTwo/StaffController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1764">
-          <caret line="89" column="37" selection-start-line="89" selection-start-column="37" selection-end-line="89" selection-end-column="37" />
-          <folding>
-            <element signature="e#58#80#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/dashboard/index.blade.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -763,13 +761,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/lang/en/Systems/SystemTwo/transactions.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="14" column="17" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/lang/en/Systems/SystemTwo/communications.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="231">
@@ -784,20 +775,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="209">
           <caret line="76" column="81" lean-forward="true" selection-start-line="76" selection-start-column="55" selection-end-line="76" selection-end-column="81" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/dashboard/Systems/SystemTwo/jobtasks/create.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="124" column="38" lean-forward="true" selection-start-line="124" selection-start-column="38" selection-end-line="124" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/dashboard/Systems/SystemTwo/jobtasks/edit.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="251">
-          <caret line="92" column="76" selection-start-line="92" selection-start-column="76" selection-end-line="92" selection-end-column="76" />
         </state>
       </provider>
     </entry>
@@ -843,44 +820,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/dashboard/systems/SystemTwo/CommunicationController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="488">
-          <caret line="198" column="21" lean-forward="true" selection-start-line="198" selection-start-column="21" selection-end-line="198" selection-end-column="21" />
-          <folding>
-            <element signature="e#68#124#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/dashboard/Systems/SystemTwo/entryexits/edit.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
           <caret line="18" column="25" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/dashboard/systems/SystemTwo/EntryExitController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="468">
-          <caret line="142" column="30" selection-start-line="142" selection-start-column="30" selection-end-line="142" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/dashboard/systems/SystemTwo/JobTaskController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="594">
-          <caret line="175" column="16" lean-forward="true" selection-start-line="175" selection-start-column="16" selection-end-line="175" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/dashboard/systems/SystemTwo/TransactionController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="529">
-          <caret line="104" column="46" lean-forward="true" selection-start-line="104" selection-start-column="46" selection-end-line="104" selection-end-column="46" />
-          <folding>
-            <element signature="e#68#122#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -964,16 +907,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/dashboard/systems/SystemTwo/StaffController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="347">
-          <caret line="208" column="72" selection-start-line="208" selection-start-column="72" selection-end-line="208" selection-end-column="72" />
-          <folding>
-            <element signature="e#68#87#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/dashboard/Systems/SystemTwo/communications/create.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="275">
@@ -997,8 +930,83 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/dashboard/Systems/SystemTwo/communications/detail.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="87" column="44" selection-start-line="87" selection-start-column="44" selection-end-line="87" selection-end-column="44" />
+        <state relative-caret-position="294">
+          <caret line="95" column="33" lean-forward="true" selection-start-line="95" selection-start-column="33" selection-end-line="95" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/dashboard/systems/SystemTwo/CommunicationController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="185">
+          <caret line="165" column="40" selection-start-line="165" selection-start-column="34" selection-end-line="165" selection-end-column="40" />
+          <folding>
+            <element signature="e#68#124#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/dashboard/systems/SystemTwo/EntryExitController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="269">
+          <caret line="134" column="5" lean-forward="true" selection-start-line="134" selection-start-column="5" selection-end-line="134" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/dashboard/systems/SystemTwo/StaffController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="185">
+          <caret line="121" column="26" selection-start-line="121" selection-start-column="20" selection-end-line="121" selection-end-column="26" />
+          <folding>
+            <element signature="e#68#87#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/dashboard/systems/SystemTwo/TransactionController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="309">
+          <caret line="23" column="20" selection-start-line="23" selection-start-column="8" selection-end-line="23" selection-end-column="20" />
+          <folding>
+            <element signature="e#68#122#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/lang/en/Systems/SystemTwo/transactions.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="15" column="33" selection-start-line="15" selection-start-column="33" selection-end-line="15" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/dashboard/Systems/SystemTwo/transactions/edit.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="34" column="6" lean-forward="true" selection-start-line="34" selection-start-column="6" selection-end-line="34" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/dashboard/Systems/SystemTwo/jobtasks/create.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="75" column="38" lean-forward="true" selection-start-line="75" selection-start-column="38" selection-end-line="79" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/dashboard/systems/SystemTwo/JobTaskController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="26" column="94" selection-start-line="26" selection-start-column="94" selection-end-line="26" selection-end-column="94" />
+          <folding>
+            <element signature="e#68#118#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/dashboard/Systems/SystemTwo/jobtasks/edit.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="56" column="114" selection-start-line="56" selection-start-column="112" selection-end-line="56" selection-end-column="114" />
         </state>
       </provider>
     </entry>

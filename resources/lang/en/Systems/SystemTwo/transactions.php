@@ -12,6 +12,8 @@ return [
     'state_disabled' => 'Disabled',
     'add_transaction' => 'Add',
     'save' => 'Save',
-    'transactions_list' => 'All'
+    'transactions_list' => 'All',
+    'edit_transaction' => 'Edit',
+    'back' => 'Back'
 
 ];
