@@ -1,5 +1,5 @@
 @section('title')
-    {{__('Systems/SystemTwo/transactions.transactions')}}
+    {{__('Systems/SystemTwo/jobtypes.jobtypes')}}
 @endsection
 @extends('dashboard.layouts.layout')
 @section('style')
@@ -22,18 +22,18 @@
 <div class="breadcrumbbar">
     <div class="row align-items-center">
         <div class="col-md-8 col-lg-8">
-            <h4 class="page-title">{{__('Systems/SystemTwo/transactions.transactions_list')}}</h4>
+            <h4 class="page-title">{{__('Systems/SystemTwo/jobtypes.jobtypes_list')}}</h4>
             <div class="breadcrumb-list">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{url('/home')}}">{{ __('side.dashboard') }}</a></li>
-                    <li class="breadcrumb-item">{{__('Systems/SystemTwo/transactions.transactions')}}</li>
-                    <li class="breadcrumb-item active" aria-current="page">{{__('Systems/SystemTwo/transactions.transactions_list')}}</li>
+                    <li class="breadcrumb-item">{{__('Systems/SystemTwo/jobtypes.jobtypes')}}</li>
+                    <li class="breadcrumb-item active" aria-current="page">{{__('Systems/SystemTwo/jobtypes.jobtypes_list')}}</li>
                 </ol>
             </div>
         </div>
         <div class="col-md-4 col-lg-4">
             <div class="widgetbar">
-                <a href="{{ route('transactions.create') }}" class="btn btn-primary-rgba"><i class="feather icon-plus mr-2"></i>{{__('Systems/SystemTwo/transactions.add_transaction')}}</a>
+                <a href="{{ route('jobtypes.create') }}" class="btn btn-primary-rgba"><i class="feather icon-plus mr-2"></i>{{__('Systems/SystemTwo/jobtypes.add_jobtype')}}</a>
             </div>
         </div>
     </div>
@@ -52,27 +52,27 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>{{__('Systems/SystemTwo/transactions.name')}}</th>
-                                    <th>{{__('Systems/SystemTwo/transactions.state')}}</th>
-                                    <th>{{__('Systems/SystemTwo/transactions.edit')}}</th>
-                                    <th>{{__('Systems/SystemTwo/transactions.delete')}}</th>
+                                    <th>{{__('Systems/SystemTwo/jobtypes.name')}}</th>
+                                    <th>{{__('Systems/SystemTwo/jobtypes.state')}}</th>
+                                    <th>{{__('Systems/SystemTwo/jobtypes.edit')}}</th>
+                                    <th>{{__('Systems/SystemTwo/jobtypes.delete')}}</th>
 
                                 </tr>
                             </thead>
                             <tbody>
-                                @if(isset($transactions) && count($transactions) > 0)
-                                    @foreach($transactions as $key => $transaction)
+                                @if(isset($jobtypes) && count($jobtypes) > 0)
+                                    @foreach($jobtypes as $key => $jobtype)
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
-                                            <td>{{ $transaction->name }}</td>
+                                            <td>{{ $jobtype->name }}</td>
                                             <td>
                                                 <div class="custom-control custom-switch" >
-                                                    <input type="checkbox" onclick="status_change('{{csrf_token()}}','{{$transaction->id}}','{{url('dashboard/transaction-state')}} ')" {{ $transaction->state == 1 ? 'checked':''}} class="custom-control-input" id="customSwitch{{$key}}">
+                                                    <input type="checkbox" onclick="status_change('{{csrf_token()}}','{{$jobtype->id}}','{{url('dashboard/jobtype-state')}} ')" {{ $jobtype->state == 1 ? 'checked':''}} class="custom-control-input" id="customSwitch{{$key}}">
                                                     <label class="custom-control-label" for="customSwitch{{$key}}"></label>
                                                 </div>
                                             </td>
-                                            <td><a href="{{route('transactions.edit', $transaction->id)}}" class="btn btn-success-rgba"><i class="feather icon-eye"></i></a></td>
-                                            <td><a onclick="deleteConfirm({{$transaction->id}})" class="btn btn-danger-rgba"><i class="feather icon-trash"></i></a></td>
+                                            <td><a href="{{route('jobtypes.edit', $jobtype->id)}}" class="btn btn-success-rgba"><i class="feather icon-eye"></i></a></td>
+                                            <td><a onclick="deleteConfirm({{$jobtype->id}})" class="btn btn-danger-rgba"><i class="feather icon-trash"></i></a></td>
                                       </tr>
                                     @endforeach
                                     @endif
@@ -167,12 +167,6 @@
 
     });
 
-    function deleteTransaction(id) {
-
-        $("#deleteBtn").attr("href", "{{url('dashboard/del-transaction')}}/" + id);
-
-        return true;
-    }
 </script>
 <script>
     function deleteConfirm(id) {
@@ -190,7 +184,7 @@
 
             $.ajax({
                 method: "post",
-                url: "{{url('dashboard/del-transaction')}}",
+                url: "{{url('dashboard/del-jobtype')}}",
                 headers: {
                     'X-CSRF-TOKEN': '<?= csrf_token() ?>'
                 },
@@ -217,7 +211,7 @@
                             'Deleted Successfully',
                             'success'
                         ).then(function (){
-                            window.location = "{{route('transactions.index')}}"
+                            window.location = "{{route('jobtypes.index')}}"
                         });
                     }
                 },
@@ -234,7 +228,7 @@
             if (dismiss === 'cancel') {
                 swal(
                     'Cancelled',
-                    'Your transaction data is safe :)',
+                    'Your jobtype data is safe :)',
                     'error'
                 )
             }

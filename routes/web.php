@@ -203,13 +203,23 @@
         Route::get('dashboard/transactions', 'dashboard\systems\SystemTwo\TransactionController@index')->name('transactions.index');
         Route::get('dashboard/del-transaction/{id}', 'dashboard\systems\SystemTwo\TransactionController@del_transaction')->name('transactions.delete');
         Route::post('dashboard/del-transaction', 'dashboard\systems\SystemTwo\TransactionController@del_transaction_post')->name('transactions.delete_post');
+        Route::post('dashboard/edit-transaction', 'dashboard\systems\SystemTwo\TransactionController@update_transaction_post');
         Route::post('dashboard/add-transaction', 'dashboard\systems\SystemTwo\TransactionController@add_transaction_post')->name('transactions.add');
         Route::post('dashboard/transaction-state', 'dashboard\systems\SystemTwo\TransactionController@update_status_post');
         Route::Resource('dashboard/transactions', 'dashboard\systems\SystemTwo\TransactionController')->except('update', 'destroy');
         Route::post('dashboard/transactions/update', 'dashboard\systems\SystemTwo\TransactionController@update')->name('transactions.update');
         Route::post('dashboard/transactions/destroy', 'dashboard\systems\SystemTwo\TransactionController@destroy')->name('transactions.destroy');
 
-
+        /********** JobTypes ***********/
+        Route::get('dashboard/jobtypes', 'dashboard\systems\SystemTwo\JobTypeController@index')->name('jobtypes.index');
+        Route::get('dashboard/del-jobtype/{id}', 'dashboard\systems\SystemTwo\JobTypeController@del_jobtype')->name('jobtypes.delete');
+        Route::post('dashboard/del-jobtype', 'dashboard\systems\SystemTwo\JobTypeController@del_jobtype_post')->name('jobtypes.delete_post');
+        Route::post('dashboard/add-jobtype', 'dashboard\systems\SystemTwo\JobTypeController@add_jobtype_post')->name('jobtypes.add');
+        Route::post('dashboard/edit-jobtype', 'dashboard\systems\SystemTwo\JobTypeController@update_jobtype_post');
+        Route::post('dashboard/jobtype-state', 'dashboard\systems\SystemTwo\JobTypeController@update_status_post');
+        Route::Resource('dashboard/jobtypes', 'dashboard\systems\SystemTwo\JobTypeController')->except('update', 'destroy');
+        Route::post('dashboard/jobtypes/update', 'dashboard\systems\SystemTwo\JobTypeController@update')->name('jobtypes.update');
+        Route::post('dashboard/jobtypes/destroy', 'dashboard\systems\SystemTwo\JobTypeController@destroy')->name('jobtypes.destroy');
 
 
             /********** Customers Routs ***********/

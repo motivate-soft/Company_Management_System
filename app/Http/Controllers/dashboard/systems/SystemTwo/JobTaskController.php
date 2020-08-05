@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\dashboard\systems\SystemTwo;
 
 use App\Model\dashboard\systems\SystemTwo\JobTask;
+use App\Model\dashboard\systems\SystemTwo\JobType;
 use App\Model\dashboard\systems\SystemTwo\Staff;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -22,9 +23,10 @@ class JobTaskController extends Controller
 
     public function edit($id)
     {
+        $jobtypes=  JobType::where('state', 1)->orderBY('id', 'asc')->get();
         $employees = Staff::orderBy('id', 'asc')->get();
         $jobtask = JobTask::findOrFail($id);
-        return view('dashboard.Systems.SystemTwo.jobtasks.edit', compact('jobtask', 'employees'));
+        return view('dashboard.Systems.SystemTwo.jobtasks.edit', compact('jobtask', 'employees', 'jobtypes'));
     }
 
     public function detail($id)
@@ -54,8 +56,9 @@ class JobTaskController extends Controller
 
     public function create()
     {
+        $jobtypes=  JobType::where('state', 1)->orderBy('id', 'asc')->get();
         $employees = Staff::orderBy('id', 'asc')->get();
-        return view('dashboard.Systems.SystemTwo.jobtasks.create', compact('employees'));
+        return view('dashboard.Systems.SystemTwo.jobtasks.create', compact('employees', 'jobtypes'));
     }
 
     public function add_jobtask_post(Request $request)

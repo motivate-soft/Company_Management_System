@@ -96,8 +96,16 @@
                                 <div class="col-lg-4 mb-4">
                                     <div class="form-group mb-0">
                                         <label for="job_type">{{__('Systems/SystemTwo/jobtasks.job_type')}}</label>
-                                        <input type="text" class="form-control" id="coupon_value" name="job_type"
-                                               placeholder="job_type" required="">
+                                        <select id="job_type" name="job_type" class="form-control">
+                                            @if(isset($jobtypes) && count($jobtypes) > 0)
+                                                @foreach($jobtypes as $key => $jobtype)
+                                                    <option value="{{$jobtype->name}}">{{$jobtype
+                                                    ->name}}</option>
+                                                    @endforeach
+                                            @endif
+                                        </select>
+                                        {{--<input type="text" class="form-control" id="coupon_value" name="job_type"--}}
+                                               {{--placeholder="job_type" required="">--}}
                                     </div>
                                 </div>
 

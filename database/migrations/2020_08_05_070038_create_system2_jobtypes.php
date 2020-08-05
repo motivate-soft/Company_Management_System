@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTransactions extends Migration
+class CreateSystem2Jobtypes extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateTransactions extends Migration
      */
     public function up()
     {
-        Schema::create('system2_transactions', function (Blueprint $table) {
+        Schema::create('system2_jobtypes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
             $table->unsignedBigInteger('state')->default(0);
@@ -28,6 +28,6 @@ class CreateTransactions extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('system2_transactions');
+        Schema::dropIfExists('system2_jobtypes');
     }
 }

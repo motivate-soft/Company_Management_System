@@ -57,13 +57,7 @@
                                         <option @if(isset($jobtask->employee) && $jobtask->employee == $employee->firstname) selected @endif value="{{$employee->firstname}}">{{$employee->firstname}}</option>
                                     @endforeach
                                 @endif
-                                {{--<option value="employee_1" @if(isset($jobtask->employee) && $jobtask->employee == "employee_1") selected @endif>EMPLOYEE_1</option>--}}
-                                {{--<option value="employee_2" @if(isset($jobtask->employee) && $jobtask->employee == "employee_2") selected @endif>EMPLOYEE_2</option>--}}
-                                {{--<option value="employee_3" @if(isset($jobtask->employee) && $jobtask->employee == "employee_3") selected @endif>EMPLOYEE_3</option>--}}
-{{--                                <option value="employee_4" @if(isset($jobtask->employee) && $jobtask->employee == "employee_4") selected @endif>EMPLOYEE_4</option>--}}
-{{--                                <option value="employee_5" @if(isset($jobtask->employee) && $jobtask->employee == "employee_5") selected @endif>EMPLOYEE_5</option>--}}
                             </select>
-
                             {{--<input type="text" placeholder="employee" class="form-control" @if(isset($jobtask->employee)) value="{{ $jobtask->employee }}"@endif name="employee" placeholder="No employee" required="">--}}
                         </div>
                     </div>
@@ -78,7 +72,14 @@
                     <div class="col-lg-4 mb-4">
                         <div class="form-group mb-0">
                             <label>{{__('Systems/SystemTwo/jobtasks.job_type')}}</label>
-                            <input type="text" placeholder="job_name" class="form-control" @if(isset($jobtask->job_type)) value="{{ $jobtask->job_type }}"@endif name="job_type" placeholder="No job_name" required="">
+                            <select class="form-control" name="job_type">
+                            @if(isset($jobtypes) && count($jobtypes) > 0)
+                                @foreach($jobtypes as $key => $jobtype)
+                                    <option @if(isset($jobtask->job_type) && $jobtask->job_type == $jobtype->name) selected @endif value="{{$jobtype->name}}">{{$jobtype->name}}</option>
+                                @endforeach
+                            @endif
+                            </select>
+                            {{--<input type="text" placeholder="job_name" class="form-control" @if(isset($jobtask->job_type)) value="{{ $jobtask->job_type }}"@endif name="job_type" placeholder="No job_name" required="">--}}
                         </div>
                     </div>
                         <div class="col-lg-4 mb-4">

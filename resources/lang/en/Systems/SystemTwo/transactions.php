@@ -7,6 +7,7 @@ return [
     'transaction_edit' => 'Transactions|Edit',
     'name' => 'Name',
     'state' => 'State',
+    'edit' => 'Edit',
     'delete' => 'Delete',
     'state_enabled' => 'Enabled',
     'state_disabled' => 'Disabled',

@@ -2,41 +2,41 @@
 
 namespace App\Http\Controllers\dashboard\systems\SystemTwo;
 
-use App\Model\dashboard\systems\SystemTwo\Transaction;
+use App\Model\dashboard\systems\SystemTwo\JobType;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
-class TransactionController extends Controller
+class JobTypeController extends Controller
 {
     public $successStatus = 200;
 
 
     public function index()
     {
-        $transactions = Transaction::orderBy('id', 'desc')->get();
-        return view('dashboard.Systems.SystemTwo.transactions.index', compact('transactions'));
+        $jobtypes = JobType::orderBy('id', 'desc')->get();
+        return view('dashboard.Systems.SystemTwo.jobtypes.index', compact('jobtypes'));
     }
 
     public function edit($id)
     {
-        $transaction = Transaction::findOrFail($id);
-        return view('dashboard.Systems.SystemTwo.transactions.edit', compact('transaction'));
+        $jobtype = Jobtype::findOrFail($id);
+        return view('dashboard.Systems.SystemTwo.jobtypes.edit', compact('jobtype'));
     }
 
     public function detail($id)
     {
-        $transaction = Transaction::findOrFail($id);
-        return view('dashboard.Systems.SystemTwo.transactions.detail', compact('transaction'));
+        $jobtype = jobtype::findOrFail($id);
+        return view('dashboard.Systems.SystemTwo.jobtypes.detail', compact('jobtype'));
     }
 
     public function create()
     {
-        return view('dashboard.Systems.SystemTwo.transactions.create');
+        return view('dashboard.Systems.SystemTwo.jobtypes.create');
     }
 
-    public function add_transaction_post(Request $request)
+    public function add_jobtype_post(Request $request)
     {
 
 //        echo $request->name;
@@ -61,28 +61,16 @@ class TransactionController extends Controller
             'name' => $request->name,
             'state' => $request->state,
         ]);
-
-        $transactions = Transaction::OrderBy('id', 'asc')->get();
-
-        for( $x = 0 ; $x < sizeof($transactions) ; $x ++ ){
-
-            if($transactions[$x]->name == $request->name) {
-
-            }
-
-        }
-
-
-        $created = DB::table('system2_transactions')->insert($data);
+        
+        $created = DB::table('system2_jobtypes')->insert($data);
 
         if ($created) {
-            return redirect()->route('transactions.index')->with('success', 'Transaction Added');
+            return redirect()->route('jobtypes.index')->with('success', 'Jobtype Added');
         } else {
             return redirect()->back()->with('error', 'Something went wrong!');
         }
     }
-
-    public function update_transaction_post(Request $request)
+    public function update_jobtype_post(Request $request)
     {
 
         $validator = Validator::make($request->all(),
@@ -107,10 +95,10 @@ class TransactionController extends Controller
             'state' => $request->state,
         ]);
 
-        $created = DB::table('system2_transactions')->where('id', $request->transaction_id)->update($data);
+        $created = DB::table('system2_jobtypes')->where('id', $request->jobtype_id)->update($data);
 
         if ($created) {
-            return redirect()->route('transactions.index')->with('success', 'Transaction Updated');
+            return redirect()->route('jobtypes.index')->with('success', 'jobtype Updated');
         } else {
             return redirect()->back()->with('error', 'Something went wrong!');
         }
@@ -118,27 +106,27 @@ class TransactionController extends Controller
 
     public function update_status_post(Request $request)
     {
-        $created = DB::table('system2_transactions')->where('id', $request->id)->first();
+        $created = DB::table('system2_jobtypes')->where('id', $request->id)->first();
         if ($created->state == 0) {
-            DB::table('system2_transactions')->where('id', $request->id)->update(['state' => 1]);
+            DB::table('system2_jobtypes')->where('id', $request->id)->update(['state' => 1]);
         } else {
-            DB::table('system2_transactions')->where('id', $request->id)->update(['state' => 0]);
+            DB::table('system2_jobtypes')->where('id', $request->id)->update(['state' => 0]);
         }
     }
 
 
-    public function del_transaction($id)
+    public function del_jobtype($id)
     {
-        $deleted = DB::table('system2_transactions')->where('id', $id)->delete();
+        $deleted = DB::table('system2_jobtypes')->where('id', $id)->delete();
         if ($deleted) {
-            return redirect()->route('transactions.index')->with('success', 'Transaction Deleted');
+            return redirect()->route('jobtypes.index')->with('success', 'jobtype Deleted');
         } else {
             return redirect()->back()->with('error', 'Something went wrong!');
         }
     }
-    public function del_transaction_post(Request $request)
+    public function del_jobtype_post(Request $request)
     {
-        $deleted = DB::table('system2_transactions')->where('id', $request->id)->delete();
+        $deleted = DB::table('system2_jobtypes')->where('id', $request->id)->delete();
         if ($deleted) {
             return 1;
         } else {
