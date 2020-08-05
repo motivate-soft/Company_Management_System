@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\dashboard\systems\SystemTwo;
 
 use App\Model\dashboard\systems\SystemTwo\Communication;
+use App\Model\dashboard\systems\SystemTwo\Transaction;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -16,7 +17,8 @@ class CommunicationController extends Controller
     public function index()
     {
          $communications = Communication::orderBy('id', 'desc')->get();
-        return view('dashboard.Systems.SystemTwo.communications.index', compact('communications'));
+         $transactions = Transaction::orderBy('id', 'desc')->get();
+        return view('dashboard.Systems.SystemTwo.communications.index', compact('communications', 'transactions'));
     }
 
     public function edit($id)
@@ -33,7 +35,8 @@ class CommunicationController extends Controller
 
     public function create()
     {
-        return view('dashboard.Systems.SystemTwo.communications.create');
+        $transactions = Transaction::where('state', 1)->orderBy('id', 'desc')->get();
+        return view('dashboard.Systems.SystemTwo.communications.create', compact('transactions'));
     }
 
     public function add_communication_post(Request $request)
@@ -45,7 +48,7 @@ class CommunicationController extends Controller
                 'entity_name' => 'required|string',
                 'letter_authorized' => 'required|string',
                 'employee_responsible' => 'required|string',
-                'number' => 'required|numeric',
+                'number' => 'required|numeric|min:0',
                 'date_letter' => 'required|date',
                 'status_letter' => 'required|numeric',
                 'transaction_explanation' => 'required|string',
@@ -137,7 +140,7 @@ class CommunicationController extends Controller
                 'entity_name' => 'required|string',
                 'letter_authorized' => 'required|string',
                 'employee_responsible' => 'required|string',
-                'number' => 'required|numeric',
+                'number' => 'required|numeric|min:0',
                 'date_letter' => 'required|date',
                 'status_letter' => 'required|numeric',
                 'transaction_explanation' => 'required|string',
@@ -185,6 +188,15 @@ class CommunicationController extends Controller
             return redirect()->route('communications.index')->with('success', 'communication Deleted');
         } else {
             return redirect()->back()->with('error', 'Something went wrong!');
+        }
+    }
+    public function del_communications_post(Request $request)
+    {
+        $deleted = DB::table('system2_communications')->where('id', $request->id)->delete();
+        if ($deleted) {
+            return 1;
+        } else {
+            return 0;
         }
     }
 

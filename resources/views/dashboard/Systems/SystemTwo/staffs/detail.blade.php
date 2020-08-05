@@ -100,19 +100,67 @@
                         <div class="col-lg-3 mb-4">
                             <div class="form-group mb-0">
                                 <span>{{__('Systems/SystemTwo/staffs.country')}}</span>
-                                <p class="textcolor-black">@if(isset($staff->country)){{ $staff->country }}@endif</p>
+                                <p class="textcolor-black">
+                                    @if(isset($countries) && count($countries) > 0)
+                                        @foreach($countries as $key => $country)
+                                            @if($country->id == $staff->country)
+                                                {{$country->name}}
+                                            @endif
+                                        @endforeach
+                                    @endif
+                                </p>
                             </div>
                         </div>
                         <div class="col-lg-3 mb-4">
                             <div class="form-group mb-0">
                                 <span>{{__('Systems/SystemTwo/staffs.province')}}</span>
-                                <p class="textcolor-black">@if(isset($staff->province)){{ $staff->province }}@endif</p>
+                                <p class="textcolor-black">
+                                    @if(isset($provinces) && count($provinces) > 0)
+                                        @foreach($provinces as $key => $province)
+                                            @if($province->id == $staff->province)
+                                                @if(app()->getLocale() == "en"){{$province->name}} @else {{$province->ar_name}} @endif
+
+                                            @endif
+                                        @endforeach
+                                    @endif
+                                </p>
                             </div>
                         </div>
                         <div class="col-lg-3 mb-4">
                             <div class="form-group mb-0">
                                 <span>{{__('Systems/SystemTwo/staffs.city')}}</span>
-                                <p class="textcolor-black">@if(isset($staff->city)){{ $staff->city }}@endif</p>
+                                <p class="textcolor-black">
+                                    @if(isset($cities) && count($cities) > 0)
+                                        @foreach($cities as $key => $city)
+                                            @if($city->id == $staff->city)
+                                                @if(app()->getLocale() == "en"){{$city->name}} @else {{$city->ar_name}} @endif
+
+                                            @endif
+                                        @endforeach
+                                    @endif
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 mb-4">
+                            <div class="form-group mb-0">
+                                <span>{{__('Systems/SystemTwo/staffs.neighborhood')}}</span>
+                                <p class="textcolor-black">
+                                    @if(isset($neighborhoods) && count($neighborhoods) > 0)
+                                        @foreach($neighborhoods as $key => $neighborhood)
+                                            @if($neighborhood->id == $staff->neighborhood)
+                                                @if(app()->getLocale() == "en"){{$neighborhood->name}} @else {{$neighborhood->ar_name}} @endif
+                                            @endif
+                                        @endforeach
+                                    @endif
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 mb-4">
+                            <div class="form-group mb-0">
+                                <span>{{__('Systems/SystemTwo/staffs.permission')}}</span>
+                                <p class="textcolor-black">
+                                    {{$staff->permission}}
+                                </p>
                             </div>
                         </div>
                         <div class="col-lg-3 mb-4">

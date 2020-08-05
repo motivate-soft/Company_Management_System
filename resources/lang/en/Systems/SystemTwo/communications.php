@@ -24,6 +24,7 @@ return [
     'edit_communication' => 'Edit',
     'detail' => 'Detail',
     'add_response' => 'AddResponse',
+    'explanation' => 'Explanation',
     'prepayments' => 'Prepayments',
     'response' => 'Response',
     'add_response_header' => 'Add your response',

@@ -13,6 +13,9 @@
     td { text-align: center; }
 </style>
 
+<link href="{{ asset('assets/dashboard/plugins/sweet-alert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
+
+
 @endsection
 @section('rightbar-content')
 <!-- Start Breadcrumbbar -->
@@ -74,7 +77,7 @@
 
                                         <td><a href="{{route('entryexits.detail', $entryexit->id)}}" class="btn btn-info-rgba"><i class="feather icon-eye"></i></a></td>
                                         <td><a href="{{route('entryexits.edit', $entryexit->id)}}" class="btn btn-success-rgba"><i class="feather icon-edit-2"></i></a></td>
-                                        <td><a onclick="return confirm('Are you sure?')" href="{{url('dashboard/del-entryexit')}}/{{ $entryexit->id }}" class="btn btn-danger-rgba"><i class="feather icon-trash"></i></a></td>
+                                        <td><a onclick="deleteConfirm({{$entryexit->id}})" class="btn btn-danger-rgba"><i class="feather icon-trash"></i></a></td>
                                       </tr>
                                     @endforeach
                                     @endif
@@ -89,9 +92,6 @@
     </div>
     <!-- End row -->
 </div>
-
-
-
 
 <!-- End Contentbar -->
 @endsection
@@ -125,6 +125,10 @@
 
 <script src="{{ asset('assets/dashboard/js/custom/custom-toasts.js') }}"></script>
 
+<!-- Sweet-Alert js -->
+<script src="{{ asset('assets/dashboard/plugins/sweet-alert2/sweetalert2.min.js') }}"></script>
+<script src="{{ asset('assets/dashboard/js/custom/custom-sweet-alert.js') }}"></script>
+
 <script>
     $(document).ready(function() {
 
@@ -140,7 +144,7 @@
                         return data;
                     }
                 },
-                columns: [ 0, 1, 2, 3,4 ]
+                columns: [ 0, 1, 2, 3, 4, 5 ]
             }
         };
 
@@ -167,5 +171,75 @@
         );
 
     });
+
+</script>
+<script>
+    function deleteConfirm(id) {
+
+        swal({
+            title: 'Are you sure?',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes!',
+            cancelButtonText: 'No, cancel!',
+            confirmButtonClass: 'btn btn-success',
+            cancelButtonClass: 'btn btn-danger m-l-10',
+            buttonsStyling: false
+        }).then(function () {
+
+            $.ajax({
+                method: "post",
+                url: "{{url('dashboard/del-entryexit')}}",
+                headers: {
+                    'X-CSRF-TOKEN': '<?= csrf_token() ?>'
+                },
+
+                data : JSON.stringify({id : id}),
+                datatype: 'JSON',
+                contentType: 'application/json',
+
+                async: true,
+                success: function (data) {
+                    console.log(data);
+                    //  wait.resolve();
+                    $(".loadingMask").css('display', 'none');
+
+                    if (data === 0) {
+                        swal(
+                            'Error',
+                            'Please try again',
+                            'error'
+                        )
+                    } else {
+                        swal(
+                            'Done!',
+                            'Deleted Successfully',
+                            'success'
+                        ).then(function (){
+                            window.location = "{{route('entryexits.index')}}"
+                        });
+                    }
+                },
+                error: function () {
+                    swal(
+                        'Error',
+                        'Please try again',
+                        'error'
+                    )
+                }
+            });
+
+        }, function (dismiss) {
+            if (dismiss === 'cancel') {
+                swal(
+                    'Cancelled',
+                    'Your entryexit data is safe :)',
+                    'error'
+                )
+            }
+        })
+
+    }
+
 </script>
 @endsection

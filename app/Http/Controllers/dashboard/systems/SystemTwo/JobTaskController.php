@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\dashboard\systems\SystemTwo;
 
 use App\Model\dashboard\systems\SystemTwo\JobTask;
+use App\Model\dashboard\systems\SystemTwo\JobType;
+use App\Model\dashboard\systems\SystemTwo\Staff;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -15,16 +17,16 @@ class JobTaskController extends Controller
 
     public function index()
     {
-
-
         $jobtasks = JobTask::orderBy('id', 'desc')->get();
         return view('dashboard.Systems.SystemTwo.jobtasks.index', compact('jobtasks'));
     }
 
     public function edit($id)
     {
+        $jobtypes=  JobType::where('state', 1)->orderBY('id', 'asc')->get();
+        $employees = Staff::orderBy('id', 'asc')->get();
         $jobtask = JobTask::findOrFail($id);
-        return view('dashboard.Systems.SystemTwo.jobtasks.edit', compact('jobtask'));
+        return view('dashboard.Systems.SystemTwo.jobtasks.edit', compact('jobtask', 'employees', 'jobtypes'));
     }
 
     public function detail($id)
@@ -54,7 +56,9 @@ class JobTaskController extends Controller
 
     public function create()
     {
-        return view('dashboard.Systems.SystemTwo.jobtasks.create');
+        $jobtypes=  JobType::where('state', 1)->orderBy('id', 'asc')->get();
+        $employees = Staff::orderBy('id', 'asc')->get();
+        return view('dashboard.Systems.SystemTwo.jobtasks.create', compact('employees', 'jobtypes'));
     }
 
     public function add_jobtask_post(Request $request)
@@ -66,7 +70,7 @@ class JobTaskController extends Controller
                 'job_name' => 'required',
                 'job_type' => 'required',
                 'job_task_date' => 'required|date',
-                'job_number_days' => 'required|numeric',
+                'job_number_days' => 'required|numeric|min:0',
                 'status' => 'required|string',
                 'job_note' => 'required|string',
             ]);
@@ -122,7 +126,7 @@ class JobTaskController extends Controller
                 'job_name' => 'required',
                 'job_type' => 'required',
                 'job_task_date' => 'required|date',
-                'job_number_days' => 'required|numeric',
+                'job_number_days' => 'required|numeric|min:0',
                 'status' => 'required|string',
                 'job_note' => 'required|string',
             ]);
@@ -166,6 +170,15 @@ class JobTaskController extends Controller
             return redirect()->route('jobtasks.index')->with('success', 'Jobtask Deleted');
         } else {
             return redirect()->back()->with('error', 'Something went wrong!');
+        }
+    }
+    public function del_jobtask_post(Request $request)
+    {
+        $deleted = DB::table('system2_jobtasks')->where('id', $request->id)->delete();
+        if ($deleted) {
+            return 1;
+        } else {
+            return 0;
         }
     }
 

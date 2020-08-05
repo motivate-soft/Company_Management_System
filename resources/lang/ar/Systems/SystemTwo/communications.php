@@ -3,6 +3,9 @@
 return [
 
     'communications' => 'Communications',
+    'communications_add' => 'Communications|Add',
+    'communications_edit' => 'Communications|Edit',
+    'communications_detail' => 'Communications|Detail',
     'communication_list' => 'All',
     'add_communication' => 'Add',
 
@@ -21,7 +24,9 @@ return [
     'edit_communication' => 'Edit',
     'detail' => 'Detail',
     'add_response' => 'AddResponse',
+    'explanation' => 'Explanation',
     'prepayments' => 'Prepayments',
     'response' => 'Response',
+    'add_response_header' => 'Add your response',
 
 ];

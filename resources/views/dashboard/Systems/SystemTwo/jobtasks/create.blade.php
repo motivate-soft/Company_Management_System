@@ -73,11 +73,11 @@
                                         <select class="form-control" id="employee" name="employee" required="">
                                             <option disabled selected
                                                     value="">select employee</option>
-                                            <option value="employee_1">EMPLOYEE_1</option>
-                                            <option value="employee_2">EMPLOYEE_2</option>
-                                            <option value="employee_3">EMPLOYEE_3</option>
-                                            <option value="employee_4">EMPLOYEE_4</option>
-                                            <option value="employee_5">EMPLOYEE_5</option>
+                                            @if(isset($employees) && count($employees) > 0)
+                                                @foreach($employees as $key => $employee)
+                                                    <option value="{{$employee->firstname}}">{{$employee->firstname}}</option>
+                                                    @endforeach
+                                            @endif
                                         </select>
                                         {{--<input type="text" class="form-control" id="code" name="employee"--}}
                                                {{--placeholder="Insert employee" required="">--}}
@@ -96,8 +96,16 @@
                                 <div class="col-lg-4 mb-4">
                                     <div class="form-group mb-0">
                                         <label for="job_type">{{__('Systems/SystemTwo/jobtasks.job_type')}}</label>
-                                        <input type="text" class="form-control" id="coupon_value" name="job_type"
-                                               placeholder="job_type" required="">
+                                        <select id="job_type" name="job_type" class="form-control">
+                                            @if(isset($jobtypes) && count($jobtypes) > 0)
+                                                @foreach($jobtypes as $key => $jobtype)
+                                                    <option value="{{$jobtype->name}}">{{$jobtype
+                                                    ->name}}</option>
+                                                    @endforeach
+                                            @endif
+                                        </select>
+                                        {{--<input type="text" class="form-control" id="coupon_value" name="job_type"--}}
+                                               {{--placeholder="job_type" required="">--}}
                                     </div>
                                 </div>
 
@@ -119,7 +127,7 @@
                                 <div class="col-lg-4 mb-4">
                                     <div class="form-group mb-0">
                                         <label for="job_number_days">{{__('Systems/SystemTwo/jobtasks.job_number_days')}}</label>
-                                        <input type="number" class="form-control" id="total_usage" name="job_number_days"
+                                        <input type="number" class="form-control" min="0" id="total_usage" name="job_number_days"
                                                placeholder="job_number_days" required="">
                                     </div>
                                 </div>

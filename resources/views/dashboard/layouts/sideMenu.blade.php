@@ -132,21 +132,30 @@
                     <a href="{{route('staffs.index')}}">
                      <i class="fa fa-user-o" aria-hidden="true"></i><span>{{__('Systems/SystemTwo/sidebar.staffs')}}</span>
                     </a>
-                    
                 </li>
 
                 <li>
                     <a href="{{route('entryexits.index')}}">
                      <i class="fa fa-exchange" aria-hidden="true"></i><span>{{__('Systems/SystemTwo/sidebar.entry_exits')}}</span>
                     </a>
-                    
                 </li>
 
                 <li>
                     <a href="{{route('communications.index')}}">
                      <i class="fa fa-wechat" aria-hidden="true"></i><span>{{__('Systems/SystemTwo/sidebar.communications')}}</span>
                     </a>
-                    
+                </li>
+
+                <li>
+                    <a href="{{route('transactions.index')}}">
+                        <i class="fa fa-wechat" aria-hidden="true"></i><span>{{__('Systems/SystemTwo/sidebar.transactions')}}</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{route('jobtypes.index')}}">
+                        <i class="fa fa-wechat" aria-hidden="true"></i><span>{{__('Systems/SystemTwo/sidebar.jobtypes')}}</span>
+                    </a>
                 </li>
                 
 

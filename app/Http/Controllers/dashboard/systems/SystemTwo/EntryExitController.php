@@ -44,9 +44,9 @@ class EntryExitController extends Controller
             [
                 'name' => 'required|string',
                 'date' => 'required|date',
-                'entry_hour' => 'required|numeric',
-                'exit_hour' => 'required|numeric',
-                'working_time' => 'required|numeric',
+                'entry_hour' => 'required|numeric|min:0',
+                'exit_hour' => 'required|numeric|min:0',
+                'working_time' => 'required|numeric|min:0',
             ]);
 
         $attributeNames = array(
@@ -96,9 +96,9 @@ class EntryExitController extends Controller
             [
                 'name' => 'required|string',
                 'date' => 'required|date',
-                'entry_hour' => 'required|numeric',
-                'exit_hour' => 'required|numeric',
-                'working_time' => 'required|numeric',
+                'entry_hour' => 'required|numeric|min:0',
+                'exit_hour' => 'required|numeric|min:0',
+                'working_time' => 'required|numeric|min:0',
             ]);
 
         $attributeNames = array(
@@ -138,6 +138,15 @@ class EntryExitController extends Controller
             return redirect()->route('entryexits.index')->with('success', 'entryexit Deleted');
         } else {
             return redirect()->back()->with('error', 'Something went wrong!');
+        }
+    }
+    public function del_entryexit_post(Request $request)
+    {
+        $deleted = DB::table('system2_entryexits')->where('id', $request->id)->delete();
+        if ($deleted) {
+            return 1;
+        } else {
+            return 0;
         }
     }
 

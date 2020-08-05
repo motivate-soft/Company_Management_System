@@ -3,6 +3,9 @@
 return [
 
     'entryexits' => 'EntryExits',
+    'entryexits_add' => 'EntryExits|Add',
+    'entryexits_edit' => 'EntryExits|Edit',
+    'entryexits_detail' => 'EntryExits|Detail',
     'entryexit_list' => 'All',
     'add_entryexit' => 'Add',
 

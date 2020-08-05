@@ -101,7 +101,7 @@
                                 <div class="col-lg-3 mb-4">
                                     <div class="form-group mb-0">
                                         <label for="mobile_number">{{__('Systems/SystemTwo/staffs.mobile_number')}}</label>
-                                        <input type="text" class="form-control" id="code" name="mobile_number"
+                                        <input type="number" class="form-control" min="0" id="code" name="mobile_number"
                                                placeholder="mobile_number" required="">
                                     </div>
                                 </div>
@@ -115,7 +115,7 @@
                                 <div class="col-lg-3 mb-4">
                                     <div class="form-group mb-0">
                                         <label for="working_hours">{{__('Systems/SystemTwo/staffs.working_hours')}}</label>
-                                        <input type="number" class="form-control" id="code" name="working_hours"
+                                        <input type="number" class="form-control" min="0" id="code" name="working_hours"
                                                placeholder="working_hours" required="">
                                     </div>
                                 </div>
@@ -136,32 +136,83 @@
                                 <div class="col-lg-3 mb-4">
                                     <div class="form-group mb-0">
                                         <label for="country">{{__('Systems/SystemTwo/staffs.country')}}</label>
-                                        <input type="text" class="form-control" id="code" name="country"
-                                               placeholder="country" required="">
+                                        <select id="country" name="country" class="form-control" onchange="region('country')">
+                                            <option disabled selected value="">select country</option>
+                                            @if(isset($sortnames) && count($sortnames) > 0)
+                                                @foreach($sortnames as $key => $sortname)
+                                                    <optgroup label="{{$sortname->sortname}}">
+                                                        @foreach($countries as $key => $country)
+                                                            @if($sortname->sortname == $country->sortname)
+                                                                <option value="{{$country->id}}">@if(app()->getLocale() == "en"){{$country->name}} @else {{$country->ar_name}} @endif</option>
+                                                            @endif
+                                                        @endforeach
+                                                    </optgroup>
+                                                @endforeach
+
+                                            @endif
+                                        </select>
+                                        {{--<input type="text" class="form-control" id="code" name="country"--}}
+                                               {{--placeholder="country" required="">--}}
                                     </div>
                                 </div>
                                 <div class="col-lg-3 mb-4">
                                     <div class="form-group mb-0">
                                         <label for="province">{{__('Systems/SystemTwo/staffs.province')}}</label>
-                                        <input type="text" class="form-control" id="code" name="province"
-                                               placeholder="province" required="">
+                                        <select id="province" name="province" class="form-control" onchange="region('province')">
+
+                                        </select>
+                                        {{--<input type="text" class="form-control" id="code" name="province"--}}
+                                               {{--placeholder="province" required="">--}}
                                     </div>
                                 </div>
                                 <div class="col-lg-3 mb-4">
                                     <div class="form-group mb-0">
                                         <label for="city">{{__('Systems/SystemTwo/staffs.city')}}</label>
-                                        <input type="text" class="form-control" id="code" name="city"
-                                               placeholder="city" required="">
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 mb-4">
-                                    <div class="form-group mb-0">
-                                        <label for="selection_powers">{{__('Systems/SystemTwo/staffs.selection_powers')}}</label>
-                                        <input type="text" class="form-control" id="code" name="selection_powers"
-                                               placeholder="selection_powers" required="">
+                                        <select id="city" name="city" class="form-control" onchange="region('city')">
+
+                                        </select>
+                                        {{--<input type="text" class="form-control" id="code" name="city"--}}
+                                               {{--placeholder="city" required="">--}}
                                     </div>
                                 </div>
 
+                                <div class="col-lg-3 mb-4">
+                                    <div class="form-group mb-0">
+                                        <label for="neighborhood">{{__('Systems/SystemTwo/staffs.neighborhood')}}</label>
+                                        <select id="neighborhood" name="neighborhood" class="form-control" onchange="region('neighborhood')">
+
+
+                                        </select>
+                                        {{--<input type="text" class="form-control" id="code" name="city"--}}
+                                        {{--placeholder="city" required="">--}}
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 mb-4">
+                                    <div class="form-group mb-0">
+                                        <label for="permission">{{__('Systems/SystemTwo/staffs.permission')}}</label>
+                                        <select id="permission" name="permission" class="form-control">
+                                            <option value="user">user</option>
+                                            <option value="blogger">blogger</option>
+                                            <option value="visitor">visitor</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 mb-4">
+                                    <div class="form-group mb-0">
+                                        <label for="selection_powers">{{__('Systems/SystemTwo/staffs.selection_powers')}}</label>
+                                        <select id="selection_powers" name="selection_powers" class="form-control">
+                                            <option value="heavy">heavy</option>
+                                            <option value="light">light</option>
+                                            <option value="heavylight">heavylight</option>
+
+                                        </select>
+                                        {{--<input type="text" class="form-control" id="code" name="selection_powers"--}}
+                                               {{--placeholder="selection_powers" required="">--}}
+                                    </div>
+                                </div>
 
                                 <div class="col-lg-12 mt-4">
                                     <div class="form-group mb-0">
@@ -175,6 +226,7 @@
 
 
         </div>
+        <p id="locale" style="display: none;"><?php echo app()->getLocale()?></p>
     </div>
     </div>
     <!-- End col -->
@@ -208,5 +260,74 @@
             $('#default-datatable').DataTable();
 
         });
+
+        function region(area) {
+
+            $.ajaxSetup({
+            headers: {
+            'X-CSRF-TOKEN': '<?= csrf_token() ?>'
+            }
+            });
+
+            $.ajax({
+                url: "/dashboard/region",
+                headers: { 'csrftoken' : '{{ csrf_token() }}' },
+                data: JSON.stringify({country:$("#country").val(),
+                    province:$("#province").val(),
+                    city:$("#city").val(),
+                    neighborhood:$("#neighborhood").val(),
+                    area:area}),
+                type: 'POST',
+                datatype: 'JSON',
+                contentType: 'application/json',
+                success: function (response) {
+
+                    console.log(response[0]);
+                    var index;
+                    var content = "";
+                    for ( index = 0 ; index < response.length ; index ++ ) {
+
+                        content += "<option";
+                        content += " value=";
+                        content += "'";
+                        content += response[index].id;
+                        content += "'";
+                        content += ">";
+                        if($("#locale") === "en")
+                            content += response[index].name;
+                        else
+                            content += response[index].ar_name;
+                        content += "</option>";
+
+                    }
+
+                    var preoption;
+
+                    if (area === "country") {
+                        preoption = "<option disabled selected value=\"\">select province</option>";
+                        $("#province").html(preoption + content);
+                        $("#city").html("");
+                        $("#neighborhood").html("");
+                    }
+                    if (area === "province") {
+                        preoption = "<option disabled selected value=\"\">select city</option>";
+                        $("#city").html(preoption + content);
+                        $("#neighborhood").html("");
+                    }
+                    if (area === "city") {
+                        preoption = "<option disabled selected value=\"\">select neighborhood</option>";
+                        $("#neighborhood").html(preoption + content);
+                    }
+
+                    // console.log(response);
+
+
+                },
+                error: function (response) {
+                    $('#errormessage').html(response.message);
+                }
+            });
+        }
+
     </script>
-@endsection 
+@endsection

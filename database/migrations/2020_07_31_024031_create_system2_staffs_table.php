@@ -18,7 +18,7 @@ class CreateSystem2StaffsTable extends Migration
             $table->string('firstname');
             $table->string('secondname');
             $table->string('lastname');
-            $table->string('mobile_number');
+            $table->unsignedBigInteger('mobile_number');
             $table->string('monthly_salary');
             $table->float('working_hours');
             $table->string('email');
@@ -26,6 +26,8 @@ class CreateSystem2StaffsTable extends Migration
             $table->string('country');
             $table->string('province');
             $table->string('city');
+            $table->string('neighborhood');
+            $table->string('permission');
             $table->string('selection_powers');
             $table->timestamps();
 
