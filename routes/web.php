@@ -71,7 +71,7 @@
         Route::post('dashboard/add_category', 'dashboard\categories\CategoriesController@add_categories')->name('categories.add');
         Route::get('dashboard/category/edit/{id}', 'dashboard\categories\CategoriesController@edit')->name('categories.editview');
         Route::post('dashboard/category/edit', 'dashboard\categories\CategoriesController@edit_category')->name('categories.edit');
-        Route::get('dashboard/delete_category/{id}', 'dashboard\categories\CategoriesController@delete_category');
+        Route::post('dashboard/delete_category', 'dashboard\categories\CategoriesController@delete_category');
         Route::get('dashboard/category/detail/{id}', 'dashboard\categories\CategoriesController@detail_category')->name('categories.detail');
 
         /********** Brands ***********/
@@ -80,16 +80,17 @@
         Route::post('dashboard/add_brand', 'dashboard\brands\BrandsController@add_brands')->name('brands.add');
         Route::get('dashboard/brand/edit/{id}', 'dashboard\brands\BrandsController@edit')->name('brands.editview');
         Route::post('dashboard/brand/edit', 'dashboard\brands\BrandsController@edit_brand')->name('brands.edit');
-        Route::get('dashboard/delete_brand/{id}', 'dashboard\brands\BrandsController@delete_brand');
+        Route::post('dashboard/delete_brand', 'dashboard\brands\BrandsController@delete_brand');
         Route::get('dashboard/brand/detail/{id}', 'dashboard\brands\BrandsController@detail_brand')->name('brands.detail');
 
             /********** Products ***********/
-        Route::get('dashboard/products', 'dashboard\products\ProductController@index')->name('products.index');
-        Route::get('dashboard/product/create', 'dashboard\products\ProductController@create')->name('products.create');
-        Route::post('dashboard/add_product', 'dashboard\products\ProductController@add_products')->name('products.add');
-        Route::get('dashboard/product/edit/{id}', 'dashboard\products\ProductController@edit')->name('products.edit');
-        Route::get('dashboard/delete_product/{id}', 'dashboard\products\ProductController@delete_product');
-        Route::get('dashboard/product/detail/{id}', 'dashboard\products\ProductController@detail_product')->name('products.detail');
+        Route::get('dashboard/products', 'dashboard\products\ProductsController@index')->name('products.index');
+        Route::get('dashboard/product/create', 'dashboard\products\ProductsController@create')->name('products.create');
+        Route::post('dashboard/add_product', 'dashboard\products\ProductsController@add_products')->name('products.add');
+        Route::get('dashboard/product/edit/{id}', 'dashboard\products\ProductsController@edit')->name('products.editview');
+        Route::post('dashboard/product/edit', 'dashboard\products\ProductsController@edit_product')->name('products.edit');
+        Route::post('dashboard/delete_product', 'dashboard\products\ProductsController@delete_product');
+        Route::get('dashboard/product/detail/{id}', 'dashboard\products\ProductsController@detail_product')->name('products.detail');
 
             /********** Sliders ***********/
         Route::Resource('dashboard/sliders', 'dashboard\sliders\MobileThemesSliderController')->except('update', 'destroy');

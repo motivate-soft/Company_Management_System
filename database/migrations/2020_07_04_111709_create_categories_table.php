@@ -19,6 +19,7 @@ class CreateCategoriesTable extends Migration
             $table->string('name_ar');
             $table->string('code');
             $table->string('created_by')->nullable();
+            $table->date('add_date')->nullable();
             $table->timestamps();
         });
     }

@@ -90,7 +90,7 @@
                                     <option disabled selected
                                             value="">{{ __('product.categorySelection') }}</option>
                                     @foreach($categories as $cate)
-                                        <option value="{{$cate->category_name}}" @if(isset($data->category_type) && $data->category_type == "$cate->category_name") selected @endif>{{$cate->category_name}}</option>
+                                        <option value="{{$cate->name}}" @if(isset($data->category_type) && $data->category_type == "$cate->name") selected @endif>{{$cate->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -103,7 +103,7 @@
                                     <option disabled selected
                                             value="">{{ __('product.brandSelection') }}</option>
                                     @foreach($brands as $bra)
-                                        <option value="{{$bra->brand_name}}" @if(isset($data->brand_type) && $data->brand_type == "$bra->brand_name") selected @endif>{{$bra->brand_name}}</option>
+                                        <option value="{{$bra->name}}" @if(isset($data->brand_type) && $data->brand_type == "$bra->name") selected @endif>{{$bra->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -111,8 +111,21 @@
 
                         <div class="col-lg-6 mb-4">
                             <div class="form-group mb-0">
-                                <label for="cutting_method" class="col-form-label">{{ __('product.country') }}</label>
-                                <input type="text" @if(isset($data->country_of_origin)) value="{{ $data->country_of_origin }}"@endif name="country" class="form-control" placeholder="{{__('product.countryAdd')}}" required="">
+                                <label for="country">{{__('product.country')}}</label>
+                                <select id="country" name="country" class="form-control" onchange="">
+                                    <option disabled selected value="">select country</option>
+                                    @if(isset($sortnames) && count($sortnames) > 0)
+                                        @foreach($sortnames as $key => $sortname)
+                                            <optgroup label="{{$sortname->sortname}}">
+                                                @foreach($countries as $key => $country)
+                                                    @if($sortname->sortname == $country->sortname)
+                                                        <option value="{{$country->name}}" @if(isset($data->country_of_origin) && $data->country_of_origin == "$country->name") selected @endif>@if(app()->getLocale() == "en"){{$country->name}} @else {{$country->ar_name}} @endif</option>
+                                                    @endif
+                                                @endforeach
+                                            </optgroup>
+                                        @endforeach
+                                    @endif
+                                </select>
                             </div>
                         </div>
 
