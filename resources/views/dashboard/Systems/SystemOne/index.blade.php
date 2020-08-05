@@ -100,7 +100,7 @@
                                     </td>
                                     <td>
                                         <div class="button-list">
-                                            <a href="{{ route('customers.destroy',$customer->id) }}" title="Delete" class="btn btn-danger-rgba confirm_delete"><i class="feather icon-trash"></i></a>
+                                            <a title="Delete" href='javascript:void(0);' class="btn btn-danger-rgba" onclick="confirm_delete({{$customer->id}})"><i class="feather icon-trash"></i></a>
                                         </div>
                                     </td>
 
@@ -173,71 +173,68 @@
                     } ),
                 ]
             });
+        });
 
-            var confirm_delete = function () {
-                $('.confirm_delete').on("click", function () {
-                    var this_item = $(this);
-                    var id = $(this).parent().find('.id').val();
-                    swal({
-                        title: 'Are you sure?',
-                        type: 'warning',
-                        showCancelButton: true,
-                        confirmButtonText: 'Yes!',
-                        cancelButtonText: 'No, cancel!',
-                        confirmButtonClass: 'btn btn-success',
-                        cancelButtonClass: 'btn btn-danger m-l-10',
-                        buttonsStyling: false
-                    }).then(function () {
-                        $.ajax({
-                            method: "post",
-                            url: "{{route('my_fatoorah.changeStatus')}}",
-                            headers: {
-                                'X-CSRF-TOKEN': $('input[name="_token"]').val()
-                            },
+        function confirm_delete(id) {
+            swal({
+                title: 'Are you sure?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes!',
+                cancelButtonText: 'No, cancel!',
+                confirmButtonClass: 'btn btn-success',
+                cancelButtonClass: 'btn btn-danger m-l-10',
+                buttonsStyling: false
+            }).then(function () {
+                $.ajax({
+                    method: "post",
+                    url: "{{url('dashboard/customers/destroy')}}",
+                    headers: {
+                        'X-CSRF-TOKEN': '<?= csrf_token() ?>'
+                    },
+                    data : JSON.stringify({id : id}),
+                    datatype: 'JSON',
+                    contentType: 'application/json',
 
-                            async: true,
-                            success: function (data) {
-                                //  wait.resolve();
-                                $(".loadingMask").css('display', 'none');
-                                if (data.errors) {
-                                    swal(
-                                        'Error',
-                                        'Please try again',
-                                        'error'
-                                    )
-                                } else {
-                                    swal(
-                                        'Done!',
-                                        'Updated Successfully',
-                                        'success'
-                                    ).then(function (){
-                                        window.location = "{{route('plugins.index')}}"
-                                    });
-                                }
-                            },
-                            error: function () {
-                                swal(
-                                    'Error',
-                                    'Please try again',
-                                    'error'
-                                )
-                            }
-                        });
-
-                    }, function (dismiss) {
-                        if (dismiss === 'cancel') {
+                    async: true,
+                    success: function (data) {
+                        //  wait.resolve();
+                        $(".loadingMask").css('display', 'none');
+                        if (data.errors) {
                             swal(
-                                'Cancelled',
-                                'Your imaginary data is safe :)',
+                                'Error',
+                                'Please try again',
                                 'error'
                             )
+                        } else {
+                            swal(
+                                'Done!',
+                                'Updated Successfully',
+                                'success'
+                            ).then(function (){
+                                window.location = "{{route('customers.index')}}"
+                            });
                         }
-                    })
-
-
+                    },
+                    error: function () {
+                        swal(
+                            'Error',
+                            'Please try again',
+                            'error'
+                        )
+                    }
                 });
-            };
-            confirm_delete();
-        });
+
+            }, function (dismiss) {
+                if (dismiss === 'cancel') {
+                    swal(
+                        'Cancelled',
+                        'Your imaginary data is safe :)',
+                        'error'
+                    )
+                }
+            })
+        }
+
     </script>
 @endsection
