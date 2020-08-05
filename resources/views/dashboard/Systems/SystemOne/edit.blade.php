@@ -63,11 +63,11 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>{{ __('customers/customers.entryType') }}</label>
-                                                <input type="text" class="form-control" name="entrytype" value={{$customer->entity_type}} required="">
+                                                <input type="text" class="form-control" name="entrytype" value={{$customer->entry_type}} required="">
                                             </div>
                                             <div class="form-group">
                                                 <label>{{ __('customers/customers.entryName') }}</label>
-                                                <input type="text" class="form-control" name="entryname" value={{$customer->entity_name}} required="">
+                                                <input type="text" class="form-control" name="entryname" value={{$customer->entry_name}} required="">
                                             </div>
                                             <div class="form-group">
                                                 <label>{{ __('customers/customers.position') }}</label>
@@ -79,15 +79,15 @@
                                             <h4 class="font-22 mb-3">Contact Information</h4>
                                             <div class="form-group">
                                                 <label for="mobilenumber">{{ __('customers/customers.mobileNumber') }}</label>
-                                                <input type="tel" class="form-control" name="mobilenumber" id="mobilenumber" value={{$customer->mobile_number}} pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required="">
+                                                <input type="text" class="form-control" name="mobilenumber" id="mobilenumber" value={{$customer->mobile_number}} required="">
                                             </div>
                                             <div class="form-group">
                                                 <label for="landlinenumber">{{ __('customers/customers.landlineNumber') }}</label>
-                                                <input type="tel" class="form-control" name="landlinenumber" id="landlinenumber" value={{$customer->landline_number}} pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required="">
+                                                <input type="text" class="form-control" name="landlinenumber" id="landlinenumber" value={{$customer->landline_number}} required="">
                                             </div>
                                             <div class="form-group">
                                                 <label for="fax">{{ __('customers/customers.fax') }}</label>
-                                                <input type="number" class="form-control" id="fax" name="fax" value={{$customer->fax}} required="">
+                                                <input type="text" class="form-control" id="fax" name="fax" value={{$customer->fax}} required="">
                                             </div>
                                             <div class="form-group">
                                                 <label for="email">{{ __('customers/customers.customerEmail') }}</label>
@@ -99,45 +99,61 @@
                                             <h4 class="font-22 mb-3">Address !!!</h4>
                                             <div class="form-group">
                                                 <label for="zipcode">{{ __('customers/customers.zipcode') }}</label>
-                                                <input type="number" class="form-control" name="zipcode" id="zipcode" value={{$customer->zipcode}} required="">
+                                                <input type="text" class="form-control" name="zipcode" id="zipcode" value={{$customer->zipcode}} required="">
 
                                             </div>
                                             <div class="form-group">
                                                 <label for="country">Country</label>
-                                                <select name="country" id="country" class="form-control">
-                                                    <option value="">--select</option>
-                                                    {{ get_all_countries() }}
+                                                <select name="country" id="country" class="form-control" onchange="region('country')">
+                                                    <option value="">Select Country</option>
+                                                    @if(isset($sortnames) && count($sortnames) > 0)
+                                                        @foreach($sortnames as $key => $sortname)
+                                                            <optgroup label="{{$sortname->sortname}}">
+                                                                @foreach($countries as $key => $country)
+                                                                    @if($sortname->sortname == $country->sortname)
+                                                                        <option value="{{$country->id}}" @if($country->name == $customer->country->name) selected @endif>{{$country->name}}</option>
+                                                                    @endif
+                                                                @endforeach
+                                                            </optgroup>
+                                                        @endforeach
+                                                    @endif
                                                 </select>
                                             </div>
                                             <div class="form-group">
-                                                <label for="city">City</label>
-                                                {{--<select name="city" id="city" class="form-control">--}}
-                                                {{--<option value="">--select</option>--}}
-                                                {{--</select>--}}
-                                                <input type="text" class="form-control" id="city" name="city" value={{$customer->city}} required=""/>
+                                                <label for="province">Province</label>
+                                                <select name="province" id="province" class="form-control" onchange="region('province')">
+                                                    @if(isset($provinces) && count($provinces) > 0)
+                                                        @foreach($provinces as $key => $province)
+                                                            <option @if(isset($customer->province_id) && $customer->province->name == $province->name) selected @endif value="{{$province->id}}">{{$province->name}}</option>
+                                                        @endforeach
+                                                    @endif                                       
+                                                </select>
+
                                             </div>
                                             <div class="form-group">
-                                                <label for="district">District</label>
-                                                {{--<select name="city" id="district" class="form-control">--}}
-                                                {{--<option value="">--select</option>--}}
-                                                {{--</select>--}}
-                                                <input type="text" class="form-control" id="district" name="district" value={{$customer->district}} required=""/>
+                                                <label for="city">City</label>
+                                                <select name="city" id="city" class="form-control" onchange="region('city')">
+                                                    @if(isset($cities) && count($cities) > 0)
+                                                        @foreach($cities as $key => $city)
+                                                            <option @if(isset($customer->city) && $customer->city->name == $city->name) selected @endif value="{{$city->id}}">{{$city->name}}</option>
+                                                        @endforeach
+                                                    @endif                                         
+                                                </select>
 
                                             </div>
-
-                                            {{--<div class="form-group">--}}
-                                            {{--<label for="email">Neighborhood</label>--}}
-                                            {{--<select name="neighborhood" id="neighborhood" class="form-control">--}}
-                                            {{--<option value="">--select</option>--}}
-                                            {{--</select>--}}
-                                            {{--</div>--}}
                                             <div class="form-group">
                                                 <label for="street">Street</label>
-                                                <input type="text" class="form-control" name="street" value={{$customer->street}} required="">
+                                                <select name="street" id="street" class="form-control" onchange="region('street')">
+                                                    @if(isset($streets) && count($streets) > 0)
+                                                        @foreach($streets as $key => $street)
+                                                            <option @if(isset($customer->street) && $customer->street->name == $street->name) selected @endif value="{{$street->id}}">{{$street->name}}</option>
+                                                        @endforeach
+                                                    @endif                                          
+                                                </select>
                                             </div>
                                             <div class="form-group">
                                                 <label for="address">Address</label>
-                                                <input type="text" class="form-control" name="address" value={{$customer->address}} required="">
+                                                <input type="text" class="form-control" name="address" id="address" value={{$customer->address}} required="">
                                             </div>
                                             {{--<div class="form-group">--}}
                                             {{--<label for="note">Notes</label>--}}
@@ -195,6 +211,69 @@
             } else {
                 $("#update").attr('disabled', 'disabled');
             }
+        }
+
+        function region(area) {
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': '<?= csrf_token() ?>'
+                }
+            });
+
+            $.ajax({
+                url: "/dashboard/customers/region",
+                headers: { 'csrftoken' : '{{ csrf_token() }}' },
+                data: JSON.stringify({country:$("#country").val(),
+                    province:$("#province").val(),
+                    city:$("#city").val(),
+                    area:area}),
+                type: 'POST',
+                datatype: 'JSON',
+                contentType: 'application/json',
+                success: function (response) {
+
+                    var index;
+                    var content = "";
+                    for ( index = 0 ; index < response.length ; index ++ ) {
+
+                        content += "<option";
+                        content += " value=";
+                        content += "'";
+                        content += response[index].id;
+                        content += "'";
+                        content += ">";
+                        content += response[index].name;
+                        content += "</option>";
+
+                    }
+
+                    var preoption;
+
+                    if (area === "country") {
+                        preoption = "<option disabled selected value=\"\">select province</option>";
+                        $("#province").html(preoption + content);
+                        $("#city").html("");
+                        $("#street").html("");
+                    }
+                    if (area === "province") {
+                        preoption = "<option disabled selected value=\"\">select city</option>";
+                        $("#city").html(preoption + content);
+                        $("#street").html("");
+                    }
+                    if (area === "city") {
+                        preoption = "<option disabled selected value=\"\">select street</option>";
+                        $("#street").html(preoption + content);
+                    }
+
+                    // console.log(response);
+
+
+                },
+                error: function (response) {
+                    $('#errormessage').html(response.message);
+                }
+            });
         }
     </script>
 
