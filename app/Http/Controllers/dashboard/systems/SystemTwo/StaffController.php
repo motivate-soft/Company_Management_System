@@ -101,7 +101,6 @@ class StaffController extends Controller
                 'city' => 'required|string',
                 'neighborhood' => 'required|string',
                 'permission' => 'required|string',
-                'selection_powers' => 'required|string',
             ]);
 
         $attributeNames = array(
@@ -129,7 +128,6 @@ class StaffController extends Controller
             'city' => $request->city,
             'neighborhood' => $request->neighborhood,
             'permission' => $request->permission,
-            'selection_powers' => $request->selection_powers,
         ]);
 
 
@@ -171,7 +169,6 @@ class StaffController extends Controller
                 'city' => 'required|string',
                 'neighborhood' => 'required|string',
                 'permission' => 'required|string',
-                'selection_powers' => 'required|string',
             ]);
 
         $attributeNames = array(
@@ -199,7 +196,6 @@ class StaffController extends Controller
             'city' => $request->city,
             'neighborhood' => $request->neighborhood,
             'permission' => $request->permission,
-            'selection_powers' => $request->selection_powers,
         ]);
 
 

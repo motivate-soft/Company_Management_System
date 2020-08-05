@@ -163,12 +163,6 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="col-lg-3 mb-4">
-                            <div class="form-group mb-0">
-                                <span>{{__('Systems/SystemTwo/staffs.selection_powers')}}</span>
-                                <p class="textcolor-black">@if(isset($staff->selection_powers)){{ $staff->selection_powers }}@endif</p>
-                            </div>
-                        </div>
 
                     </div>
 

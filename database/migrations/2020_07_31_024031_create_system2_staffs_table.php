@@ -28,7 +28,6 @@ class CreateSystem2StaffsTable extends Migration
             $table->string('city');
             $table->string('neighborhood');
             $table->string('permission');
-            $table->string('selection_powers');
             $table->timestamps();
 
         });

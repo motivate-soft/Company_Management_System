@@ -79,7 +79,15 @@
                         <div class="col-lg-3 mb-4">
                             <div class="form-group mb-0">
                                 <label>{{__('Systems/SystemTwo/communications.employee_responsible')}}</label>
-                                <input type="text" placeholder="employee_responsible" class="form-control" @if(isset($communication->employee_responsible)) value="{{ $communication->employee_responsible }}"@endif name="employee_responsible" placeholder="No employee_responsible" required="">
+                                <select class="form-control" id="employee_responsible" name="employee_responsible" required>
+                                    <option disabled="">select the employee</option>
+                                    @if(isset($employees) && count($employees))
+                                        @foreach($employees as $key => $employee)
+                                            <option @if(isset($communication->employee_responsible) && $communication->employee_responsible == $employee->firstname) selected @endif value="{{$employee->firstname}}">{{$employee->firstname}}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
+                                {{--<input type="text" placeholder="employee_responsible" class="form-control" @if(isset($communication->employee_responsible)) value="{{ $communication->employee_responsible }}"@endif name="employee_responsible" placeholder="No employee_responsible" required="">--}}
                             </div>
                         </div>
                         <div class="col-lg-3 mb-4">

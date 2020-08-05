@@ -200,20 +200,6 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-3 mb-4">
-                                    <div class="form-group mb-0">
-                                        <label for="selection_powers">{{__('Systems/SystemTwo/staffs.selection_powers')}}</label>
-                                        <select id="selection_powers" name="selection_powers" class="form-control">
-                                            <option value="heavy">heavy</option>
-                                            <option value="light">light</option>
-                                            <option value="heavylight">heavylight</option>
-
-                                        </select>
-                                        {{--<input type="text" class="form-control" id="code" name="selection_powers"--}}
-                                               {{--placeholder="selection_powers" required="">--}}
-                                    </div>
-                                </div>
-
                                 <div class="col-lg-12 mt-4">
                                     <div class="form-group mb-0">
                                         <button type="submit"

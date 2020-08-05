@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\dashboard\systems\SystemTwo;
 
 use App\Model\dashboard\systems\SystemTwo\Communication;
+use App\Model\dashboard\systems\SystemTwo\Staff;
 use App\Model\dashboard\systems\SystemTwo\Transaction;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -23,8 +24,9 @@ class CommunicationController extends Controller
 
     public function edit($id)
     {
+        $employees = Staff::orderBy('id', 'asc')->get();
         $communication = Communication::findOrFail($id);
-        return view('dashboard.Systems.SystemTwo.communications.edit', compact('communication'));
+        return view('dashboard.Systems.SystemTwo.communications.edit', compact('communication', 'employees'));
     }
 
     public function detail($id)
@@ -35,8 +37,9 @@ class CommunicationController extends Controller
 
     public function create()
     {
+        $employees = Staff::orderBy('id', 'asc')->get();
         $transactions = Transaction::where('state', 1)->orderBy('id', 'desc')->get();
-        return view('dashboard.Systems.SystemTwo.communications.create', compact('transactions'));
+        return view('dashboard.Systems.SystemTwo.communications.create', compact('transactions', 'employees'));
     }
 
     public function add_communication_post(Request $request)

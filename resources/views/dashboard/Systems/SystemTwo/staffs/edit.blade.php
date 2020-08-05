@@ -163,17 +163,6 @@
                                 {{--<input type="text" placeholder="selection_powers" class="form-control" @if(isset($staff->selection_powers)) value="{{ $staff->selection_powers }}"@endif name="selection_powers" placeholder="No selection_powers" required="">--}}
                             </div>
                         </div>
-                        <div class="col-lg-3 mb-4">
-                            <div class="form-group mb-0">
-                                <label>{{__('Systems/SystemTwo/staffs.selection_powers')}}</label>
-                                <select id="selection_powers" name="selection_powers" class="form-control">
-                                    <option value="heavy" @if(isset($staff->selection_powers) && $staff->selection_powers == "heavy") selected @endif>heavy</option>
-                                    <option value="light" @if(isset($staff->selection_powers) && $staff->selection_powers == "light") selected @endif>light</option>
-                                    <option value="heavylight" @if(isset($staff->selection_powers) && $staff->selection_powers == "heavylight") selected @endif>heavylight</option>
-
-                                </select>
-                            </div>
-                        </div>
 
                         <div class="col-lg-12 mt-4">
                             <div class="form-group mb-0">

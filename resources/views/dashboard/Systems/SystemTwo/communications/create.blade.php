@@ -106,8 +106,16 @@
                                 <div class="col-lg-3 mb-4">
                                     <div class="form-group mb-0">
                                         <label for="employee_responsible">{{__('Systems/SystemTwo/communications.employee_responsible')}}</label>
-                                        <input type="text" class="form-control" id="coupon_value" name="employee_responsible"
-                                               placeholder="employee_responsible" required="">
+                                        <select class="form-control" id="employee_responsible" name="employee_responsible" required>
+                                            <option disabled="">select the employee</option>
+                                            @if(isset($employees) && count($employees))
+                                                @foreach($employees as $key => $employee)
+                                                    <option value="{{$employee->firstname}}">{{$employee->firstname}}</option>
+                                                @endforeach
+                                            @endif
+                                        </select>
+                                        {{--<input type="text" class="form-control" id="coupon_value" name="employee_responsible"--}}
+                                               {{--placeholder="employee_responsible" required="">--}}
                                     </div>
                                 </div>
                                 <div class="col-lg-3 mb-4">

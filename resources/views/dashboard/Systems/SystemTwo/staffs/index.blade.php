@@ -65,7 +65,6 @@
                                     <th>{{__('Systems/SystemTwo/staffs.city')}}</th>
                                     <th>{{__('Systems/SystemTwo/staffs.neighborhood')}}</th>
                                     <th>{{__('Systems/SystemTwo/staffs.permission')}}</th>
-                                    <th>{{__('Systems/SystemTwo/staffs.selection_powers')}}</th>
                                     <th>{{__('Systems/SystemTwo/staffs.detail')}}</th>
                                     <th>{{__('Systems/SystemTwo/staffs.edit')}}</th>
                                     <th>{{__('Systems/SystemTwo/staffs.delete')}}</th>
@@ -123,7 +122,6 @@
                                                 @endif
                                             </td>
                                             <td>{{ $staff->permission }}</td>
-                                            <td>{{ $staff->selection_powers }}</td>
                                             <td><a href="{{route('staffs.detail', $staff->id)}}" class="btn btn-info-rgba"><i class="feather icon-eye"></i></a></td>
                                             <td><a href="{{route('staffs.edit', $staff->id)}}" class="btn btn-success-rgba"><i class="feather icon-edit-2"></i></a></td>
                                             {{--<td><a onclick="deleteStaff({{$staff->id}})" data-toggle="modal" data-target="#deleteConfirm" class="btn btn-danger-rgba"><i class="feather icon-trash"></i></a></td>--}}
