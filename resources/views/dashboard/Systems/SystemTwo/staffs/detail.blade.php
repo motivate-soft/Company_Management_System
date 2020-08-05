@@ -157,7 +157,7 @@
                         </div>
                         <div class="col-lg-3 mb-4">
                             <div class="form-group mb-0">
-                                <span>{{__('Systems/SystemTwo/staffs.neighborhood')}}</span>
+                                <span>{{__('Systems/SystemTwo/staffs.permission')}}</span>
                                 <p class="textcolor-black">
                                     {{$staff->permission}}
                                 </p>

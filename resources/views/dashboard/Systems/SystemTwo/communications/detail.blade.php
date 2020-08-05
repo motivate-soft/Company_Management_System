@@ -26,7 +26,6 @@
             <div class="breadcrumb-list">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{url('/home')}}">{{ __('side.dashboard') }}</a></li>
-                    <li class="breadcrumb-item">{{ __('side.marketing') }}</li>
                     <li class="breadcrumb-item active"><a href="{{route('communications.index')}}">{{__('Systems/SystemTwo/communications.communications')}}</a></li>
                     <li class="breadcrumb-item active" aria-current="page">{{__('Systems/SystemTwo/communications.detail')}}</li>
                 </ol>
@@ -83,28 +82,28 @@
                         <div class="col-lg-3 mb-4">
                             <div class="form-group mb-0">
                                 <span for="date_letter">{{__('Systems/SystemTwo/communications.date_letter')}}</span>
-                                <p>@if(isset($communication->date_letter)){{ $communication->date_letter }}@endif</p>
+                                <p class="textcolor-black">@if(isset($communication->date_letter)){{ $communication->date_letter }}@endif</p>
                             </div>
                         </div>
-                        <div class="col-lg-6 mb-4">
+                        <div class="col-lg-3 mb-4">
                             <div class="form-group mb-0">
                                 <span>{{__('Systems/SystemTwo/communications.status_letter')}}</span>
                                 <p class="textcolor-black">@if(isset($communication->status_letter)){{ $communication->status_letter }}@endif</p>
                             </div>
                         </div>
-
-                        <div class="col-lg-6 mb-4">
-                            <div class="form-group mb-0">
-                                <span>{{__('Systems/SystemTwo/communications.transaction_explanation')}}</span>
-                                <p class="textcolor-black">@if(isset($communication->transaction_explanation)){{ $communication->transaction_explanation }}@endif</p>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 mb-4">
+                        <div class="col-lg-3 mb-4">
                             <div class="form-group mb-0">
                                 <span>{{__('Systems/SystemTwo/communications.prepayments')}}</span>
                                 <p class="textcolor-black">@if(isset($communication->prepayments)){{ $communication->prepayments }}@endif</p>
                             </div>
                         </div>
+                        <div class="col-lg-12 mb-4">
+                            <div class="form-group mb-0">
+                                <span>{{__('Systems/SystemTwo/communications.transaction_explanation')}}</span>
+                                <p class="textcolor-black">@if(isset($communication->transaction_explanation)){{ $communication->transaction_explanation }}@endif</p>
+                            </div>
+                        </div>
+
                         <div class="col-lg-12 mt-4">
                             <div class="form-group mb-0">
                                 <span>{{__('Systems/SystemTwo/communications.response')}}</span>

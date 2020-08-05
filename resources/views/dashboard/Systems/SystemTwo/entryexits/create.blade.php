@@ -123,7 +123,7 @@
                                 <div class="col-lg-12 mt-4">
                                     <div class="form-group mb-0">
                                         <button type="submit"
-                                                class="btn btn-primary pl-5 pr-5">{{__('Systems/SystemTwo/entryexits.save')}}</button>
+                                                class="btn btn-primary pl-5 pr-5">{{__('Systems/SystemTwo/entryexits.add_entryexit')}}</button>
                                     </div>
                                 </div>
                 </form>

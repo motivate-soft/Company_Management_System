@@ -22,7 +22,6 @@
             <div class="breadcrumb-list">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{url('/home')}}">{{ __('side.dashboard') }}</a></li>
-                    <li class="breadcrumb-item">{{ __('side.marketing') }}</li>
                     <li class="breadcrumb-item active"><a href="{{route('communications.index')}}">{{__('Systems/SystemTwo/communications.communications')}}</a></li>
                     <li class="breadcrumb-item active" aria-current="page">{{__('Systems/SystemTwo/communications.edit_communication')}}</li>
                 </ol>
@@ -100,27 +99,29 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4 mb-4">
+                        <div class="col-lg-3 mb-4">
                             <div class="form-group mb-0">
                                 <label>{{__('Systems/SystemTwo/communications.status_letter')}}</label>
                                 <input type="number" class="form-control" @if(isset($communication->status_letter)) value="{{ $communication->status_letter }}"@endif name="status_letter" placeholder="No status_letter" required="">
                             </div>
                         </div>
-
-                        <div class="col-lg-4 mb-4">
-                            <div class="form-group mb-0">
-                                <label>{{__('Systems/SystemTwo/communications.transaction_explanation')}}</label>
-                                <input type="text" class="form-control" @if(isset($communication->transaction_explanation)) value="{{ $communication->transaction_explanation }}"@endif name="transaction_explanation" placeholder="No transaction_explanation" required="">
-
-                            </div>
-                        </div>
-                        <div class="col-lg-4 mb-4">
+                        <div class="col-lg-3 mb-4">
                             <div class="form-group mb-0">
                                 <label>{{__('Systems/SystemTwo/communications.prepayments')}}</label>
                                 <input type="text" class="form-control" @if(isset($communication->prepayments)) value="{{ $communication->prepayments }}"@endif name="prepayments" placeholder="No prepayments" required="">
 
                             </div>
                         </div>
+
+                        <div class="col-lg-12 mb-4">
+                            <div class="form-group mb-0">
+                                <label>{{__('Systems/SystemTwo/communications.transaction_explanation')}}</label>
+                                <textarea class="form-control" name="transaction_explanation" placeholder="No transaction_explanation" required="">@if(isset($communication->transaction_explanation)) {{ $communication->transaction_explanation }} @endif</textarea>
+                                {{--<input type="text" class="form-control" @if(isset($communication->transaction_explanation)) value="{{ $communication->transaction_explanation }}"@endif name="transaction_explanation" placeholder="No transaction_explanation" required="">--}}
+
+                            </div>
+                        </div>
+
 
                         {{--<div class="col-lg-12 mt-4">--}}
                             {{--<div class="form-group mb-0">--}}

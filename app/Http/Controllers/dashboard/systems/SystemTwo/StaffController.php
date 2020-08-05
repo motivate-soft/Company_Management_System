@@ -161,7 +161,7 @@ class StaffController extends Controller
                 'firstname' => 'required|string',
                 'secondname' => 'required|string',
                 'lastname' => 'required|string',
-                'mobile_number' => 'required|number|min:0',
+                'mobile_number' => 'required|numeric|min:0',
                 'monthly_salary' => 'required|string',
                 'working_hours' => 'required|numeric|min:0',
                 'email' => 'required|email',
@@ -206,7 +206,7 @@ class StaffController extends Controller
         $created = DB::table('system2_staffs')->where('id', $request->staff_id)->update($data);
 
         if ($created) {
-            return redirect()->route('staffs.index')->with('success', 'staff Updated');
+            return redirect()->route('staffs.index')->with('success', 'Staff Updated');
         } else {
             return redirect()->back()->with('error', 'Something went wrong!');
         }

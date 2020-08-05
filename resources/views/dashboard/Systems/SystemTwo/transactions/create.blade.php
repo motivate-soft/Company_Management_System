@@ -97,7 +97,7 @@
 
                                 <div class="col-lg-12 mt-4">
                                     <div class="form-group mb-0">
-                                        <button type="submit" class="btn btn-primary pl-5 pr-5">{{__('Systems/SystemTwo/transactions.save')}}</button>
+                                        <button type="submit" class="btn btn-primary pl-5 pr-5">{{__('Systems/SystemTwo/transactions.add_transaction')}}</button>
                                     </div>
                                 </div>
                 </form>

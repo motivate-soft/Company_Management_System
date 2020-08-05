@@ -43,7 +43,6 @@
                 <div class="breadcrumb-list">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{url('/home')}}">{{ __('side.dashboard') }}</a></li>
-                        <li class="breadcrumb-item">{{ __('side.marketing') }}</li>
                         <li class="breadcrumb-item active"><a
                                 href="{{route('communications.index')}}">{{__('Systems/SystemTwo/communications.communications')}}</a></li>
                         <li class="breadcrumb-item active" aria-current="page">{{__('Systems/SystemTwo/communications.add_communication')}}</li>
