@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\dashboard\systems\SystemTwo;
 
 use App\Model\dashboard\systems\SystemTwo\Communication;
+use App\Model\dashboard\systems\SystemTwo\LetterStatus;
 use App\Model\dashboard\systems\SystemTwo\Staff;
 use App\Model\dashboard\systems\SystemTwo\Transaction;
 use Illuminate\Http\Request;
@@ -24,9 +25,11 @@ class CommunicationController extends Controller
 
     public function edit($id)
     {
+        $letterstatuses = LetterStatus::where('state', 1)->orderBy('id', 'asc')->get();
         $employees = Staff::orderBy('id', 'asc')->get();
         $communication = Communication::findOrFail($id);
-        return view('dashboard.Systems.SystemTwo.communications.edit', compact('communication', 'employees'));
+        $transactions = Transaction::where('state', 1)->orderBy('id', 'desc')->get();
+        return view('dashboard.Systems.SystemTwo.communications.edit', compact('communication', 'employees', 'letterstatuses', 'transactions'));
     }
 
     public function detail($id)
@@ -37,9 +40,10 @@ class CommunicationController extends Controller
 
     public function create()
     {
+        $letterstatuses = LetterStatus::where('state', 1)->orderBy('id', 'asc')->get();
         $employees = Staff::orderBy('id', 'asc')->get();
         $transactions = Transaction::where('state', 1)->orderBy('id', 'desc')->get();
-        return view('dashboard.Systems.SystemTwo.communications.create', compact('transactions', 'employees'));
+        return view('dashboard.Systems.SystemTwo.communications.create', compact('transactions', 'employees', 'letterstatuses'));
     }
 
     public function add_communication_post(Request $request)
@@ -53,7 +57,7 @@ class CommunicationController extends Controller
                 'employee_responsible' => 'required|string',
                 'number' => 'required|numeric|min:0',
                 'date_letter' => 'required|date',
-                'status_letter' => 'required|numeric',
+                'status_letter' => 'required|string',
                 'transaction_explanation' => 'required|string',
                 'prepayments' => 'required|string',
             ]);
@@ -145,7 +149,7 @@ class CommunicationController extends Controller
                 'employee_responsible' => 'required|string',
                 'number' => 'required|numeric|min:0',
                 'date_letter' => 'required|date',
-                'status_letter' => 'required|numeric',
+                'status_letter' => 'required|string',
                 'transaction_explanation' => 'required|string',
                 'prepayments' => 'required|string',
             ]);

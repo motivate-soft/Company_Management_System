@@ -4,6 +4,7 @@ namespace App\Http\Controllers\dashboard\systems\SystemTwo;
 
 use App\Model\City;
 use App\Model\Country;
+use App\Model\dashboard\systems\SystemTwo\PermissionGroup;
 use App\Model\dashboard\systems\SystemTwo\Staff;
 use App\Model\Neighborhood;
 use App\Model\State;
@@ -41,7 +42,9 @@ class StaffController extends Controller
         $cities = City::where('state_id', $staff->province)->get();
         $neighborhoods = Neighborhood::where('city_id', $staff->city)->get();
 
-        return view('dashboard.Systems.SystemTwo.staffs.edit', compact('staff', 'sortnames', 'countries', 'provinces', 'cities', 'neighborhoods'));
+        $permissiongroups = PermissionGroup::where('state', 1)->orderBy('id', 'asc')->get();
+
+        return view('dashboard.Systems.SystemTwo.staffs.edit', compact('staff', 'sortnames', 'countries', 'provinces', 'cities', 'neighborhoods', 'permissiongroups'));
     }
 
     public function detail($id)
@@ -53,6 +56,8 @@ class StaffController extends Controller
         $cities = City::orderBy('id', 'asc')->get();
         $neighborhoods = neighborhood::orderBy('id', 'asc')->get();
 
+        $permissiongroups = PermissionGroup::orderBy('id', 'asc')->get();
+
         return view('dashboard.Systems.SystemTwo.staffs.detail', compact('staff', 'countries', 'provinces', 'cities', 'neighborhoods'));
     }
 
@@ -61,7 +66,9 @@ class StaffController extends Controller
         $sortnames = Country::orderBy('id', 'asc')->distinct()->get('sortname');
         $countries = Country::orderBy('id', 'asc')->get();
 
-        return view('dashboard.Systems.SystemTwo.staffs.create', compact('sortnames', 'countries'));
+        $permissiongroups = PermissionGroup::where('state', 1)->orderBy('id', 'asc')->get();
+
+        return view('dashboard.Systems.SystemTwo.staffs.create', compact('sortnames', 'countries', 'permissiongroups'));
     }
     public function region_post(Request $request)
     {
@@ -95,7 +102,7 @@ class StaffController extends Controller
                 'monthly_salary' => 'required|string',
                 'working_hours' => 'required|numeric|min:0',
                 'email' => 'required|email',
-                'address' => 'required|string',
+//                'address' => 'required|string',
                 'country' => 'required|string',
                 'province' => 'required|string',
                 'city' => 'required|string',
@@ -122,7 +129,7 @@ class StaffController extends Controller
             'monthly_salary' => $request->monthly_salary,
             'working_hours' => $request->working_hours,
             'email' => $request->email,
-            'address' => $request->address,
+//            'address' => $request->address,
             'country' => $request->country,
             'province' => $request->province,
             'city' => $request->city,
@@ -163,7 +170,7 @@ class StaffController extends Controller
                 'monthly_salary' => 'required|string',
                 'working_hours' => 'required|numeric|min:0',
                 'email' => 'required|email',
-                'address' => 'required|string',
+//                'address' => 'required|string',
                 'country' => 'required|string',
                 'province' => 'required|string',
                 'city' => 'required|string',
@@ -190,7 +197,7 @@ class StaffController extends Controller
             'monthly_salary' => $request->monthly_salary,
             'working_hours' => $request->working_hours,
             'email' => $request->email,
-            'address' => $request->address,
+//            'address' => $request->address,
             'country' => $request->country,
             'province' => $request->province,
             'city' => $request->city,

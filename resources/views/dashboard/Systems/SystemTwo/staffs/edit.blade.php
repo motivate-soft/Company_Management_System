@@ -90,12 +90,12 @@
                                 <input type="email" placeholder="email" class="form-control" @if(isset($staff->email)) value="{{ $staff->email }}"@endif name="email" placeholder="No email" required="">
                             </div>
                         </div>
-                        <div class="col-lg-3 mb-4">
-                            <div class="form-group mb-0">
-                                <label>{{__('Systems/SystemTwo/staffs.address')}}</label>
-                                <input type="text" placeholder="address" class="form-control" @if(isset($staff->address)) value="{{ $staff->address }}"@endif name="address" placeholder="No address" required="">
-                            </div>
-                        </div>
+                        {{--<div class="col-lg-3 mb-4">--}}
+                            {{--<div class="form-group mb-0">--}}
+                                {{--<label>{{__('Systems/SystemTwo/staffs.address')}}</label>--}}
+                                {{--<input type="text" placeholder="address" class="form-control" @if(isset($staff->address)) value="{{ $staff->address }}"@endif name="address" placeholder="No address" required="">--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
                         <div class="col-lg-3 mb-4">
                             <div class="form-group mb-0">
                                 <label for="country">{{__('Systems/SystemTwo/staffs.country')}}</label>
@@ -156,10 +156,17 @@
                             <div class="form-group mb-0">
                                 <label>{{__('Systems/SystemTwo/staffs.permission')}}</label>
                                 <select id="permission" name="permission" class="form-control">
-                                    <option value="user" @if(isset($staff->permission) && $staff->permission == "user") selected @endif>user</option>
-                                    <option value="blogger" @if(isset($staff->permission) && $staff->permission == "blogger") selected @endif>blogger</option>
-                                    <option value="visitor" @if(isset($staff->permission) && $staff->permission == "visitor") selected @endif>visitor</option>
+                                    @if(isset($permissiongroups) && count($permissiongroups) > 0)
+                                        @foreach($permissiongroups as $key => $permissiongroup)
+                                            <option @if(isset($staff->permission) && $staff->permission == $permissiongroup->name) selected @endif value="{{$permissiongroup->name}}">@if(app()->getLocale() == "en"){{$permissiongroup->name}} @else {{$permissiongroup->ar_name}} @endif</option>
+                                        @endforeach
+                                    @endif
                                 </select>
+                                {{--<select id="permission" name="permission" class="form-control">--}}
+{{--                                    <option value="user" @if(isset($staff->permission) && $staff->permission == "user") selected @endif>user</option>--}}
+{{--                                    <option value="blogger" @if(isset($staff->permission) && $staff->permission == "blogger") selected @endif>blogger</option>--}}
+{{--                                    <option value="visitor" @if(isset($staff->permission) && $staff->permission == "visitor") selected @endif>visitor</option>--}}
+                                {{--</select>--}}
                                 {{--<input type="text" placeholder="selection_powers" class="form-control" @if(isset($staff->selection_powers)) value="{{ $staff->selection_powers }}"@endif name="selection_powers" placeholder="No selection_powers" required="">--}}
                             </div>
                         </div>

@@ -51,7 +51,14 @@
                         <div class="col-lg-3 mb-4">
                             <div class="form-group mb-0">
                                 <label>{{__('Systems/SystemTwo/jobtypes.name')}}</label>
-                                <input type="text" placeholder="name" class="form-control" @if(isset($jobtype->name)) value="{{ $jobtype->name }}"@endif name="name" placeholder="No name" required="">
+                                <input type="text" placeholder="name" class="form-control" @if(isset($jobtype->name)) value="{{ $jobtype->name }}"@endif name="name" required="">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 mb-4">
+                            <div class="form-group mb-0">
+                                <label>{{__('Systems/SystemTwo/jobtypes.ar_name')}}</label>
+                                <input type="text" placeholder="ar_name" class="form-control" @if(isset($jobtype->ar_name)) value="{{ $jobtype->ar_name }}"@endif name="ar_name" required="">
                             </div>
                         </div>
 

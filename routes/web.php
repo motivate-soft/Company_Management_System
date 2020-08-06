@@ -211,7 +211,96 @@
         Route::post('dashboard/transactions/update', 'dashboard\systems\SystemTwo\TransactionController@update')->name('transactions.update');
         Route::post('dashboard/transactions/destroy', 'dashboard\systems\SystemTwo\TransactionController@destroy')->name('transactions.destroy');
 
-        /********** JobTypes ***********/
+        /********** Transactions ***********/
+        Route::get('dashboard/letterstatuses', 'dashboard\systems\SystemTwo\LetterStatusController@index')->name('letterstatuses.index');
+        Route::get('dashboard/del-letterstatus/{id}', 'dashboard\systems\SystemTwo\LetterStatusController@del_letterstatus')->name('letterstatuses.delete');
+        Route::post('dashboard/del-letterstatus', 'dashboard\systems\SystemTwo\LetterStatusController@del_letterstatus_post')->name('letterstatuses.delete_post');
+        Route::post('dashboard/edit-letterstatus', 'dashboard\systems\SystemTwo\LetterStatusController@update_letterstatus_post');
+        Route::post('dashboard/add-letterstatus', 'dashboard\systems\SystemTwo\LetterStatusController@add_letterstatus_post')->name('letterstatuses.add');
+        Route::post('dashboard/letterstatus-state', 'dashboard\systems\SystemTwo\LetterStatusController@update_status_post');
+        Route::Resource('dashboard/letterstatuses', 'dashboard\systems\SystemTwo\LetterStatusController')->except('update', 'destroy');
+        Route::post('dashboard/letterstatuses/update', 'dashboard\systems\SystemTwo\LetterStatusController@update')->name('letterstatuses.update');
+        Route::post('dashboard/letterstatuses/destroy', 'dashboard\systems\SystemTwo\LetterStatusController@destroy')->name('letterstatuses.destroy');
+
+        /********** Permissions ***********/
+        Route::get('dashboard/permissions', 'dashboard\systems\SystemTwo\PermissionController@index')->name('permissions.index');
+        Route::get('dashboard/del-permission/{id}', 'dashboard\systems\SystemTwo\PermissionController@del_permission')->name('permissions.delete');
+        Route::post('dashboard/del-permission', 'dashboard\systems\SystemTwo\PermissionController@del_permission_post')->name('permissions.delete_post');
+        Route::post('dashboard/edit-permission', 'dashboard\systems\SystemTwo\PermissionController@update_permission_post');
+        Route::post('dashboard/add-permission', 'dashboard\systems\SystemTwo\PermissionController@add_permission_post')->name('permissions.add');
+        Route::post('dashboard/permission-state', 'dashboard\systems\SystemTwo\PermissionController@update_status_post');
+        Route::Resource('dashboard/permissions', 'dashboard\systems\SystemTwo\PermissionController')->except('update', 'destroy');
+        Route::post('dashboard/permissions/update', 'dashboard\systems\SystemTwo\PermissionController@update')->name('permissions.update');
+        Route::post('dashboard/permissions/destroy', 'dashboard\systems\SystemTwo\PermissionController@destroy')->name('permissions.destroy');
+
+        /********** PermissionGroups ***********/
+        Route::get('dashboard/permissiongroups', 'dashboard\systems\SystemTwo\PermissionGroupController@index')->name('permissiongroups.index');
+        Route::get('dashboard/del-permissiongroup/{id}', 'dashboard\systems\SystemTwo\PermissionGroupController@del_permissiongroup')->name('permissiongroups.delete');
+        Route::post('dashboard/del-permissiongroup', 'dashboard\systems\SystemTwo\PermissionGroupController@del_permissiongroup_post')->name('permissiongroups.delete_post');
+        Route::post('dashboard/edit-permissiongroup', 'dashboard\systems\SystemTwo\PermissionGroupController@update_permissiongroup_post');
+        Route::post('dashboard/add-permissiongroup', 'dashboard\systems\SystemTwo\PermissionGroupController@add_permissiongroup_post')->name('permissiongroups.add');
+        Route::post('dashboard/permissiongroup-state', 'dashboard\systems\SystemTwo\PermissionGroupController@update_status_post');
+        Route::Resource('dashboard/permissiongroups', 'dashboard\systems\SystemTwo\PermissionGroupController')->except('update', 'destroy');
+        Route::post('dashboard/permissiongroups/update', 'dashboard\systems\SystemTwo\PermissionGroupController@update')->name('permissiongroups.update');
+        Route::post('dashboard/permissiongroups/destroy', 'dashboard\systems\SystemTwo\PermissionGroupController@destroy')->name('permissiongroups.destroy');
+        Route::get('dashboard/permissiongroup-detail/{id}', 'dashboard\systems\SystemTwo\PermissionGroupController@detail')->name('permissiongroups.detail');
+
+
+
+
+
+            /********** CompanyDomains ***********/
+        Route::get('dashboard/companydomains', 'dashboard\systems\SystemFive\CompanyDomainController@index')->name('companydomains.index');
+        Route::get('dashboard/del-companydomain/{id}', 'dashboard\systems\SystemFive\CompanyDomainController@del_companydomain')->name('companydomains.delete');
+        Route::post('dashboard/del-companydomain', 'dashboard\systems\SystemFive\CompanyDomainController@del_companydomain_post')->name('companydomains.delete_post');
+        Route::post('dashboard/edit-companydomain', 'dashboard\systems\SystemFive\CompanyDomainController@update_companydomain_post');
+        Route::post('dashboard/add-companydomain', 'dashboard\systems\SystemFive\CompanyDomainController@add_companydomain_post')->name('companydomains.add');
+        Route::post('dashboard/companydomain-state', 'dashboard\systems\SystemFive\CompanyDomainController@update_status_post');
+        Route::Resource('dashboard/companydomains', 'dashboard\systems\SystemFive\CompanyDomainController')->except('update', 'destroy');
+        Route::post('dashboard/companydomains/update', 'dashboard\systems\SystemFive\CompanyDomainController@update')->name('companydomains.update');
+        Route::post('dashboard/companydomains/destroy', 'dashboard\systems\SystemFive\CompanyDomainController@destroy')->name('companydomains.destroy');
+
+        /********** Companies ***********/
+        Route::get('dashboard/companies', 'dashboard\systems\SystemFive\CompanyController@index')->name('companies.index');
+        Route::get('dashboard/del-company/{id}', 'dashboard\systems\SystemFive\CompanyController@del_company')->name('companies.delete');
+        Route::get('dashboard/view-company/{id}', 'dashboard\systems\SystemFive\CompanyController@view_company')->name('companies.view');
+        Route::get('dashboard/detail-company/{id}', 'dashboard\systems\SystemFive\CompanyController@detail')->name('companies.detail');
+        Route::post('dashboard/del-company', 'dashboard\systems\SystemFive\CompanyController@del_company_post')->name('companies.delete_post');
+        Route::post('dashboard/edit-company', 'dashboard\systems\SystemFive\CompanyController@update_company_post');
+        Route::post('dashboard/add-company', 'dashboard\systems\SystemFive\CompanyController@add_company_post')->name('companies.add');
+        Route::post('dashboard/company-state', 'dashboard\systems\SystemFive\CompanyController@update_status_post');
+        Route::Resource('dashboard/companies', 'dashboard\systems\SystemFive\CompanyController')->except('update', 'destroy');
+        Route::post('dashboard/companies/update', 'dashboard\systems\SystemFive\CompanyController@update')->name('companies.update');
+        Route::post('dashboard/companies/destroy', 'dashboard\systems\SystemFive\CompanyController@destroy')->name('companies.destroy');
+
+        /********** Offers ***********/
+        Route::get('dashboard/offers', 'dashboard\systems\SystemFive\OfferController@index')->name('offers.index');
+        Route::get('dashboard/offers/edit/{id}', 'dashboard\systems\SystemFive\OfferController@edit')->name('offers.edit');
+        Route::get('dashboard/del-offer/{id}', 'dashboard\systems\SystemFive\OfferController@del_offer')->name('offers.delete');
+        Route::post('dashboard/del-offer', 'dashboard\systems\SystemFive\OfferController@del_offer_post')->name('offers.delete_post');
+        Route::post('dashboard/edit-offer', 'dashboard\systems\SystemFive\OfferController@update_offer_post');
+        Route::post('dashboard/add-offer', 'dashboard\systems\SystemFive\OfferController@add_offer_post')->name('offers.add');
+        Route::post('dashboard/filter-offer', 'dashboard\systems\SystemFive\OfferController@filter_post')->name('offers.filter');
+        Route::post('dashboard/offer-state', 'dashboard\systems\SystemFive\OfferController@update_status_post');
+        Route::Resource('dashboard/offers', 'dashboard\systems\SystemFive\OfferController')->except('update', 'destroy');
+        Route::post('dashboard/offers/update', 'dashboard\systems\SystemFive\OfferController@update')->name('offers.update');
+        Route::post('dashboard/offers/destroy', 'dashboard\systems\SystemFive\OfferController@destroy')->name('offers.destroy');
+
+        /********** Delegates ***********/
+        Route::get('dashboard/delegates', 'dashboard\systems\SystemFive\DelegateController@index')->name('delegates.index');
+        Route::get('dashboard/delegates/edit/{id}', 'dashboard\systems\SystemFive\DelegateController@edit')->name('delegates.edit');
+        Route::get('dashboard/del-delegate/{id}', 'dashboard\systems\SystemFive\DelegateController@del_offer')->name('delegates.delete');
+        Route::post('dashboard/del-delegate', 'dashboard\systems\SystemFive\DelegateController@del_delegate_post')->name('delegates.delete_post');
+        Route::post('dashboard/edit-delegate', 'dashboard\systems\SystemFive\DelegateController@update_delegate_post');
+        Route::post('dashboard/add-delegate', 'dashboard\systems\SystemFive\DelegateController@add_delegate_post')->name('delegates.add');
+        Route::post('dashboard/filter-delegate', 'dashboard\systems\SystemFive\DelegateController@filter_post')->name('delegates.filter');
+        Route::post('dashboard/delegate-state', 'dashboard\systems\SystemFive\DelegateController@update_status_post');
+        Route::Resource('dashboard/delegates', 'dashboard\systems\SystemFive\DelegateController')->except('update', 'destroy');
+        Route::post('dashboard/delegates/update', 'dashboard\systems\SystemFive\DelegateController@update')->name('delegates.update');
+        Route::post('dashboard/delegates/destroy', 'dashboard\systems\SystemFive\DelegateController@destroy')->name('delegates.destroy');
+
+
+            /********** JobTypes ***********/
         Route::get('dashboard/jobtypes', 'dashboard\systems\SystemTwo\JobTypeController@index')->name('jobtypes.index');
         Route::get('dashboard/del-jobtype/{id}', 'dashboard\systems\SystemTwo\JobTypeController@del_jobtype')->name('jobtypes.delete');
         Route::post('dashboard/del-jobtype', 'dashboard\systems\SystemTwo\JobTypeController@del_jobtype_post')->name('jobtypes.delete_post');

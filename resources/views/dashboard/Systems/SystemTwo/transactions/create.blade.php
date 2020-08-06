@@ -84,6 +84,31 @@
                                                placeholder="name" required="">
                                     </div>
                                 </div>
+                                <div class="col-lg-3 mb-4">
+                                    <div class="form-group mb-0">
+                                        <label for="ar_name">{{__('Systems/SystemTwo/transactions.ar_name')}}</label>
+                                        <input type="text" class="form-control" id="code" name="ar_name"
+                                               placeholder="ar_name" required="">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 mb-4">
+                                    <div class="form-group mb-0">
+                                        <label for="person">{{__('Systems/SystemTwo/transactions.name')}}</label>
+                                        <select id="person" name="person" class="form-control">
+                                            <option disabled>Select the person</option>
+                                            @if(isset($persons) && count($persons))
+
+                                                @foreach($persons as $key => $person)
+                                                    <option value="{{$person->firstname}}">{{$person->firstname}}</option>
+                                                    @endforeach
+
+                                            @endif
+                                        </select>
+                                        {{--<input type="text" class="form-control" id="code" name="name"--}}
+                                               {{--placeholder="name" required="">--}}
+                                    </div>
+                                </div>
 
                                 <div class="col-lg-3 mb-4">
                                     <div class="form-group mb-0">

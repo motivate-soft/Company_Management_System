@@ -77,10 +77,7 @@
                        
                     </ul>
                 </li> 
-                
-                
-                
-                
+
 
                 <li>
                     <a href="{{ route('customers.index') }}">
@@ -147,17 +144,51 @@
                 </li>
 
                 <li>
+                    <a href="{{route('letterstatuses.index')}}">
+                        <i class="fa fa-paper-plane" aria-hidden="true"></i><span>{{__('Systems/SystemTwo/sidebar.letterstatuses')}}</span>
+                    </a>
+                </li>
+
+                <li>
                     <a href="{{route('transactions.index')}}">
-                        <i class="fa fa-wechat" aria-hidden="true"></i><span>{{__('Systems/SystemTwo/sidebar.transactions')}}</span>
+                        <i class="fa fa-balance-scale" aria-hidden="true"></i><span>{{__('Systems/SystemTwo/sidebar.transactions')}}</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="{{route('jobtypes.index')}}">
-                        <i class="fa fa-wechat" aria-hidden="true"></i><span>{{__('Systems/SystemTwo/sidebar.jobtypes')}}</span>
+                        <i class="fa fa-briefcase" aria-hidden="true"></i><span>{{__('Systems/SystemTwo/sidebar.jobtypes')}}</span>
                     </a>
                 </li>
-                
+                <li>
+                    <a href="{{route('companydomains.index')}}">
+                        <i class="fa fa-globe" aria-hidden="true"></i><span>{{__('Systems/SystemFive/sidebar.companydomains')}}</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{route('companies.index')}}">
+                        <i class="fa fa-building" aria-hidden="true"></i><span>{{__('Systems/SystemFive/sidebar.companies')}}</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{route('offers.index')}}">
+                        <i class="fa fa-cart-plus" aria-hidden="true"></i><span>{{__('Systems/SystemFive/sidebar.offers')}}</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{route('permissions.index')}}">
+                        <i class="fa fa-bookmark" aria-hidden="true"></i><span>{{__('Systems/SystemTwo/sidebar.permissions')}}</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{route('permissiongroups.index')}}">
+                        <i class="fa fa-group" aria-hidden="true"></i><span>{{__('Systems/SystemTwo/sidebar.permissiongroups')}}</span>
+                    </a>
+                </li>
 
             </ul>
         </div>

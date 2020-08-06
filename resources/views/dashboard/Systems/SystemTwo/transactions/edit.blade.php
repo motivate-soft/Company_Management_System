@@ -51,7 +51,29 @@
                         <div class="col-lg-3 mb-4">
                             <div class="form-group mb-0">
                                 <label>{{__('Systems/SystemTwo/transactions.name')}}</label>
-                                <input type="text" placeholder="name" class="form-control" @if(isset($transaction->name)) value="{{ $transaction->name }}"@endif name="name" placeholder="No name" required="">
+                                <input type="text" placeholder="name" class="form-control" @if(isset($transaction->name)) value="{{ $transaction->name }}"@endif name="name" required="">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 mb-4">
+                            <div class="form-group mb-0">
+                                <label>{{__('Systems/SystemTwo/transactions.name')}}</label>
+                                <input type="text" placeholder="ar_name" class="form-control" @if(isset($transaction->ar_name)) value="{{ $transaction->ar_name }}"@endif name="ar_name" required="">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 mb-4">
+                            <div class="form-group mb-0">
+                                <label for="person">{{__('Systems/SystemTwo/transactions.name')}}</label>
+                                <select id="person" name="person" class="form-control">
+                                    @if(isset($persons) && count($persons))
+                                        @foreach($persons as $key => $person)
+                                            <option @if($person->firstname == $transaction->person) selected @endif value="{{$person->firstname}}">{{$person->firstname}}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
+                                {{--<input type="text" class="form-control" id="code" name="name"--}}
+                                       {{--placeholder="name" required="">--}}
                             </div>
                         </div>
 

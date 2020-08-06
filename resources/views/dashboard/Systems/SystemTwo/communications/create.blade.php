@@ -74,10 +74,12 @@
                                         <label for="transaction_type">{{__('Systems/SystemTwo/communications.transaction_type')}}</label>
                                         <select class="form-control" name="transaction_type" required="" id="type">
 
+                                            <option disabled="">Select the transaction</option>
+
                                             @if(isset($transactions) && count($transactions) > 0)
                                                 @foreach($transactions as $key => $transaction)
                                                     <option value="{{$transaction->name}}">{{$transaction->name}}</option>
-                                                    @endforeach
+                                                @endforeach
 
                                             @endif
 
@@ -144,8 +146,16 @@
                                 <div class="col-lg-3 mb-4">
                                     <div class="form-group mb-0">
                                         <label for="status_letter">{{__('Systems/SystemTwo/communications.status_letter')}}</label>
-                                        <input type="number" class="form-control" id="total_usage" name="status_letter"
-                                               placeholder="status_letter" required="">
+                                        <select class="form-control" id="status_letter" name="status_letter">
+                                            <option disabled="">Select the status</option>
+                                            @if(isset($letterstatuses) && count($letterstatuses))
+                                                @foreach($letterstatuses as $key => $letterstatus)
+                                                    <option value="{{$letterstatus->name}}">@if(app()->getLocale() == "en"){{$letterstatus->name}} @else{{$letterstatus->ar_name}} @endif</option>
+                                                @endforeach
+                                            @endif
+                                        </select>
+                                        {{--<input type="number" class="form-control" id="total_usage" name="status_letter"--}}
+                                               {{--placeholder="status_letter" required="">--}}
                                     </div>
                                 </div>
 

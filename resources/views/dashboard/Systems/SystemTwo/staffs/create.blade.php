@@ -126,13 +126,13 @@
                                                placeholder="email" required="">
                                     </div>
                                 </div>
-                                <div class="col-lg-3 mb-4">
-                                    <div class="form-group mb-0">
-                                        <label for="address">{{__('Systems/SystemTwo/staffs.address')}}</label>
-                                        <input type="text" class="form-control" id="code" name="address"
-                                               placeholder="address" required="">
-                                    </div>
-                                </div>
+                                {{--<div class="col-lg-3 mb-4">--}}
+                                    {{--<div class="form-group mb-0">--}}
+                                        {{--<label for="address">{{__('Systems/SystemTwo/staffs.address')}}</label>--}}
+                                        {{--<input type="text" class="form-control" id="code" name="address"--}}
+                                               {{--placeholder="address" required="">--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
                                 <div class="col-lg-3 mb-4">
                                     <div class="form-group mb-0">
                                         <label for="country">{{__('Systems/SystemTwo/staffs.country')}}</label>
@@ -151,8 +151,6 @@
 
                                             @endif
                                         </select>
-                                        {{--<input type="text" class="form-control" id="code" name="country"--}}
-                                               {{--placeholder="country" required="">--}}
                                     </div>
                                 </div>
                                 <div class="col-lg-3 mb-4">
@@ -161,8 +159,6 @@
                                         <select id="province" name="province" class="form-control" onchange="region('province')">
 
                                         </select>
-                                        {{--<input type="text" class="form-control" id="code" name="province"--}}
-                                               {{--placeholder="province" required="">--}}
                                     </div>
                                 </div>
                                 <div class="col-lg-3 mb-4">
@@ -171,8 +167,6 @@
                                         <select id="city" name="city" class="form-control" onchange="region('city')">
 
                                         </select>
-                                        {{--<input type="text" class="form-control" id="code" name="city"--}}
-                                               {{--placeholder="city" required="">--}}
                                     </div>
                                 </div>
 
@@ -181,10 +175,7 @@
                                         <label for="neighborhood">{{__('Systems/SystemTwo/staffs.neighborhood')}}</label>
                                         <select id="neighborhood" name="neighborhood" class="form-control" onchange="region('neighborhood')">
 
-
                                         </select>
-                                        {{--<input type="text" class="form-control" id="code" name="city"--}}
-                                        {{--placeholder="city" required="">--}}
                                     </div>
                                 </div>
 
@@ -192,11 +183,19 @@
                                     <div class="form-group mb-0">
                                         <label for="permission">{{__('Systems/SystemTwo/staffs.permission')}}</label>
                                         <select id="permission" name="permission" class="form-control">
-                                            <option value="user">user</option>
-                                            <option value="blogger">blogger</option>
-                                            <option value="visitor">visitor</option>
-
+                                            <option selected disabled>Select the permission group</option>
+                                            @if(isset($permissiongroups) && count($permissiongroups) > 0)
+                                                @foreach($permissiongroups as $key => $permissiongroup)
+                                                    <option value="{{$permissiongroup->name}}">@if(app()->getLocale() == "en"){{$permissiongroup->name}} @else {{$permissiongroup->ar_name}} @endif</option>
+                                                    @endforeach
+                                                @endif
                                         </select>
+                                        {{--<select id="permission" name="permission" class="form-control">--}}
+                                            {{--<option value="user">user</option>--}}
+                                            {{--<option value="blogger">blogger</option>--}}
+                                            {{--<option value="visitor">visitor</option>--}}
+
+                                        {{--</select>--}}
                                     </div>
                                 </div>
 
@@ -221,6 +220,7 @@
     </div>
 
     <!-- End Contentbar -->
+
 @endsection
 @section('script')
 

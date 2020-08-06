@@ -59,7 +59,7 @@
                                     <th>{{__('Systems/SystemTwo/staffs.monthly_salary')}}</th>
                                     <th>{{__('Systems/SystemTwo/staffs.working_hours')}}</th>
                                     <th>{{__('Systems/SystemTwo/staffs.email')}}</th>
-                                    <th>{{__('Systems/SystemTwo/staffs.address')}}</th>
+                                    {{--<th>{{__('Systems/SystemTwo/staffs.address')}}</th>--}}
                                     <th>{{__('Systems/SystemTwo/staffs.country')}}</th>
                                     <th>{{__('Systems/SystemTwo/staffs.province')}}</th>
                                     <th>{{__('Systems/SystemTwo/staffs.city')}}</th>
@@ -83,7 +83,7 @@
                                             <td>{{ $staff->monthly_salary }}</td>
                                             <td>{{ $staff->working_hours }}</td>
                                             <td>{{ $staff->email }}</td>
-                                            <td>{{ $staff->address }}</td>
+                                            {{--<td>{{ $staff->address }}</td>--}}
                                             <td>
                                                 @if(isset($countries) && count($countries) > 0)
                                                     @foreach($countries as $key => $country)
