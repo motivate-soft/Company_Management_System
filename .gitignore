@@ -2,6 +2,7 @@
 storage/logs
 /public
 /vendor
+.idea
 /.idea
 /.env
 .env.backup
