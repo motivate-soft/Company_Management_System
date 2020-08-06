@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\dashboard\brands;
+namespace App\Http\Controllers\dashboard\products;
 
 use App\Model\dashboard\productManagment\Brand;
 use App\Model\dashboard\productManagment\Category;
@@ -16,10 +16,10 @@ class BrandsController extends Controller
     /*==================================
     =            Brands            =
     ==================================*/
-
+    
     public function index(){
         $brands = Brand::orderBy('id', 'asc')->get();
-        return view('dashboard/brands/index', compact('brands'));
+        return view('dashboard/Systems/SystemThree/brands/index', compact('brands'));
     }
 
     public function add_brands(Request $request){
@@ -59,20 +59,20 @@ class BrandsController extends Controller
 
     public function create(){
         $categories = Category::orderBy('id', 'asc')->get();
-        return view('dashboard/brands/create', compact('categories'));
+        return view('dashboard/Systems/SystemThree/brands/create', compact('categories'));
     }
 
     public function edit($id)
     {
         $data = Brand::findOrFail($id);
         $categories = Category::orderBy('id', 'asc')->get();
-        return view('dashboard/brands/edit', compact('data', 'categories'));
+        return view('dashboard/Systems/SystemThree/brands/edit', compact('data', 'categories'));
     }
 
     public function detail_brand($id)
     {
         $data = Brand::findOrFail($id);
-        return view('dashboard/brands/detail', compact('data'));
+        return view('dashboard/Systems/SystemThree/brands/detail', compact('data'));
     }
 
     public function edit_brand(Request $request){

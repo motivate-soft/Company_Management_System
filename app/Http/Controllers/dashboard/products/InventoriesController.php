@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers\dashboard\products;
 
-use App\Model\System3_Product;
-use App\Model\Category;
-use App\Model\Brand;
+use App\Model\dashboard\productManagment\Inventory;
+use App\Model\dashboard\productManagment\Category;
+use App\Model\dashboard\productManagment\Brand;
 use App\Model\Country;
 use Illuminate\Support\Facades\Validator;
 use DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class ProductsController extends Controller
+class InventoriesController extends Controller
 {
-    //
     public $successStatus = 200;
 
     /*==================================
@@ -21,7 +20,7 @@ class ProductsController extends Controller
     ==================================*/
 
     public function index(){
-        $cuttings = System3_Product::orderBy('id', 'asc')->get();
+        $cuttings = Inventory::orderBy('id', 'asc')->get();
         return view('dashboard\Systems\SystemThree\products\index', compact('cuttings'));
     }
 
@@ -52,7 +51,7 @@ class ProductsController extends Controller
         $fileUrlPDF = "upload/Systems/SystemThree/Products/".$request->productName.".". $fileExtension;
 
 
-        $data_added = DB::table('system3_products')->insert([
+        $data_added = DB::table('inventories')->insert([
             'product_name' => $request->productName,
             'product_code' => $request->productCode,
             'name_of_who_added' => auth()->user()->name,
@@ -83,7 +82,7 @@ class ProductsController extends Controller
     {
         $sortnames = Country::orderBy('id', 'asc')->distinct()->get('sortname');
         $countries = Country::orderBy('id', 'asc')->get();
-        $data = System3_Product::findOrFail($id);
+        $data = Inventory::findOrFail($id);
         $categories = Category::orderBy('id', 'asc')->get();
         $brands = Brand::orderBy('id', 'asc')->get();
         return view('dashboard\Systems\SystemThree\products\edit', compact('data', 'categories', 'brands','sortnames', 'countries'));
@@ -91,7 +90,7 @@ class ProductsController extends Controller
 
     public function detail_product($id)
     {
-        $data = System3_Product::findOrFail($id);
+        $data = Inventory::findOrFail($id);
         return view('dashboard\Systems\SystemThree\products\detail', compact('data'));
     }
 
@@ -123,7 +122,7 @@ class ProductsController extends Controller
         $fileUrlPDF = "upload/Systems/SystemThree/Products/".$request->productName.".". $fileExtension;
 
 
-        $data_added = DB::table('system3_products')->where('id',$request->productId)->update([
+        $data_added = DB::table('inventories')->where('id',$request->productId)->update([
             'product_name' => $request->productName,
             'product_code' => $request->productCode,
             'name_of_who_added' => $request->nameOfAdd,
@@ -143,7 +142,7 @@ class ProductsController extends Controller
     }
 
     public function delete_product(Request $request){
-        $deleted = DB::table('system3_products')->where('id', $request->id)->delete();
+        $deleted = DB::table('inventories')->where('id', $request->id)->delete();
         if ($deleted) {
             return 1;
         } else {

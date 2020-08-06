@@ -1,14 +1,16 @@
 @section('title')
-{{ __('brand.brandEditTitle') }}
+{{ __('products\brand.brandEditTitle') }}
 @endsection
 @extends('dashboard.layouts.layout')
 @section('style')
-
-<link href="{{ asset('assets/dashboard/plugins/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
-<link href="{{ asset('assets/dashboard/plugins/datatables/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
-<!-- Responsive Datatable css -->
-<link href="{{ asset('assets/dashboard/plugins/datatables/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
-<link href="{{ asset('assets/dashboard/plugins/datepicker/datepicker.min.css') }}" rel="stylesheet" type="text/css">
+    @php
+        $lang_current = Config::get('app.locale');
+    @endphp
+    <link href="{{ asset('assets/dashboard/plugins/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/dashboard/plugins/datatables/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+    <!-- Responsive Datatable css -->
+    <link href="{{ asset('assets/dashboard/plugins/datatables/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/dashboard/plugins/datepicker/datepicker.min.css') }}" rel="stylesheet" type="text/css">
 
 @endsection
 @section('rightbar-content')
@@ -16,20 +18,20 @@
 <div class="breadcrumbbar">
     <div class="row align-items-center">
         <div class="col-md-8 col-lg-8">
-            <h4 class="page-title">{{ __('brand.brandEditTitle') }}</h4>
+            <h4 class="page-title">{{ __('products\brand.brandEditTitle') }}</h4>
             <div class="breadcrumb-list">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{url('/home')}}">{{ __('side.dashboard') }}</a></li>
                     <li class="breadcrumb-item">{{ __('side.products') }}</li>
                     <li class="breadcrumb-item active" aria-current="page"><a
                                 href="{{route('brands.index')}}">{{__('side.brands')}}</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{ __('brand.brandEditTitle') }}</li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ __('products\brand.brandEditTitle') }}</li>
                 </ol>
             </div>
         </div>
         <div class="col-md-4 col-lg-4">
             <div class="widgetbar">
-                <a class="btn btn-primary-rgba" href="{{ route('brands.index') }}" >{{ __('brand.brandBack') }}</a>
+                <a class="btn btn-primary-rgba" href="{{ route('brands.index') }}" >{{ __('products\brand.brandBack') }}</a>
             </div>
         </div>
     </div>
@@ -49,48 +51,47 @@
                     <div class="row">
                         <div class="col-lg-6 mb-4">
                             <div class="form-group mb-0">
-                                <label for="cutting_method" class="col-form-label">{{ __('brand.brandName') }}</label>
-                                <input type="text" @if(isset($data->brand_name)) value="{{ $data->brand_name }}"@endif name="brandName" class="form-control" placeholder="{{__('brand.AddnewName')}}" required="">
+                                <label for="cutting_method" class="col-form-label">{{ __('products\brand.brandName') }}</label>
+                                <input type="text" @if(isset($data->name)) value="{{ $data->name }}"@endif name="brandName" class="form-control" placeholder="{{__('products\brand.AddnewName')}}" required="">
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-6 mb-4">
+                            <div class="form-group mb-0">
+                                <label for="cutting_method" class="col-form-label">{{ __('products\brand.brandNameAr') }}</label>
+                                <input type="text" @if(isset($data->name_ar)) value="{{ $data->name_ar }}"@endif name="brandNameAr" class="form-control" placeholder="{{__('products\brand.AddnewName')}}" required="">
                             </div>
                         </div>
 
                         <div class="col-lg-6 mb-4">
                             <div class="form-group mb-0">
-                                <label for="cutting_method" class="col-form-label">{{ __('brand.brandCode') }}</label>
-                                <input type="text" @if(isset($data->brand_code)) value="{{ $data->brand_code }}"@endif name="brandCode" class="form-control" placeholder="{{__('brand.AddnewCode')}}" required="">
+                                <label for="cutting_method" class="col-form-label">{{ __('products\brand.brandCode') }}</label>
+                                <input type="text" @if(isset($data->code)) value="{{ $data->code }}"@endif name="brandCode" class="form-control" placeholder="{{__('products\brand.AddnewCode')}}" required="">
                             </div>
                         </div>
 
                         <div class="col-lg-6 mb-4">
                             <div class="form-group mb-0">
-                                <label for="type">{{ __('brand.categoryType') }}</label>
+                                <label for="type">{{ __('products\brand.brandCategory') }}</label>
                                 <select class="form-control" name="categoryType" required="" id="categoryType">
-                                    <option disabled selected
-                                            value="">{{ __('brand.categorySelection') }}</option>
+                                    <option disabled selected value="">{{ __('products\brand.categorySelection') }}</option>
                                     @foreach($categories as $cate)
-                                        <option value="{{$cate->category_name}}" @if(isset($data->category_type) && $data->category_type == "$cate->category_name") selected @endif>{{$cate->category_name}}</option>
+                                        <option value="{{$cate->name}}" @if(isset($data->category_type) && $data->category_type == "$cate->name") selected @endif>@if($lang_current == 'ar') {{$cate->name_ar}} @else {{$cate->name}} @endif</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
 
+                        <!-- <div class="col-lg-6 mb-4">
+                            <div class="form-group mb-0">
+                                <label for="cutting_method" class="col-form-label">{{ __('products\brand.nameOfAdd') }}</label>
+                                <input type="text" @if(isset($data->created_by)) value="{{ $data->created_by }}"@endif name="nameOfAdd" class="form-control" placeholder="{{__('products\brand.AddnewNameof')}}" required="" readonly>
+                            </div>
+                        </div>
+
                         <div class="col-lg-6 mb-4">
                             <div class="form-group mb-0">
-                                <label for="cutting_method" class="col-form-label">{{ __('brand.brandImage') }}</label>
-                                <input type="file" @if(isset($data->brand_image)) value="{{ $data->brand_image }}"@endif name="brandImage" class="form-control" placeholder="{{__('brand.SelectnewImage')}}" required="">
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6 mb-4" hidden>
-                            <div class="form-group mb-0">
-                                <label for="cutting_method" class="col-form-label">{{ __('brand.nameOfAdd') }}</label>
-                                <input type="text" @if(isset($data->name_of_who_added)) value="{{ $data->name_of_who_added }}"@endif name="nameOfAdd" class="form-control" placeholder="{{__('brand.AddnewNameof')}}" required="">
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6 mb-4" hidden>
-                            <div class="form-group mb-0">
-                                <label>{{ __('brand.dateOfAdd') }}</label>
+                                <label>{{ __('products\brand.dateOfAdd') }}</label>
                                 <div class="input-group">
                                     <input type="text" id="default-date12" class="form-control"
                                            placeholder="yyyy/mm/dd" aria-describedby="basic-addon2"
@@ -101,7 +102,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
 
 
@@ -109,7 +110,7 @@
                         <div class="col-lg-12 mt-4">
                             <div class="form-group mb-0">
                                 <button type="submit"
-                                        class="btn btn-primary pl-5 pr-5">{{ __('brand.brandSave') }}</button>
+                                        class="btn btn-primary pl-5 pr-5">{{ __('products\brand.brandSave') }}</button>
                             </div>
                         </div>
 

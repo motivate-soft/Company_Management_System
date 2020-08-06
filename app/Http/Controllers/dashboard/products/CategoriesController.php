@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\dashboard\categories;
+namespace App\Http\Controllers\dashboard\products;
 
 use App\Model\dashboard\productManagment\Category;
 use Illuminate\Http\Request;
@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use DB;
 use App\Http\Controllers\Controller;
 
-class CategoriesController  extends Controller
+class CategoriesController extends Controller
 {
     public $successStatus = 200;
 
@@ -18,7 +18,7 @@ class CategoriesController  extends Controller
 
     public function index(){
         $cuttings = Category::orderBy('id', 'asc')->get();
-        return view('dashboard/categories/index', compact('cuttings'));
+        return view('dashboard/Systems/SystemThree/categories/index', compact('cuttings'));
     }
 
     public function add_categories(Request $request){
@@ -46,19 +46,19 @@ class CategoriesController  extends Controller
     }
 
     public function create(){
-        return view('dashboard/categories/create');
+        return view('dashboard/Systems/SystemThree/categories/create');
     }
 
     public function edit($id)
     {
         $data = Category::findOrFail($id);
-        return view('dashboard/categories/edit', compact('data'));
+        return view('dashboard/Systems/SystemThree/categories/edit', compact('data'));
     }
 
     public function detail_category($id)
     {
         $data = Category::findOrFail($id);
-        return view('dashboard/categories/detail', compact('data'));
+        return view('dashboard/Systems/SystemThree/categories/detail', compact('data'));
     }
 
     public function edit_category(Request $request){
