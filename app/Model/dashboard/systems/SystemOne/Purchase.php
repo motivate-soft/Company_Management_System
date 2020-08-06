@@ -12,6 +12,6 @@ class Purchase extends Model
     ];
 
     public function customer() {
-        return $this->belongsTo('App\Model\Customers', 'customer_id', 'id');
+        return $this->belongsTo('App\Model\dashboard\systems\SystemOne\Customer', 'customer_id', 'id');
     }
 }

@@ -37,9 +37,6 @@
         <!-- End col -->
         <div class="col-lg-12">
             <div class="card m-b-30">
-                <div class="card-header">
-                    
-                </div>
                 <div class="card-body">
                     <div class="row justify-content-center">
                         <div class="col-lg-8 col-xl-6">
@@ -50,28 +47,33 @@
                                     <section>
                                         <h4 class="font-22 mb-3">Add New Customer !!!</h4>
                                         <div class="form-group">
-                                            <label>{{ __('customers/customers.customerSalesEmployee') }}</label>
-                                        <input type="text" class="form-control" name="salesemployee" placeholder="{{ __('customers/customers.customerSalesEmployee') }}" required>
+                                            <label for="employee">{{__('Systems/SystemFour/quotations.employee')}}</label>
+                                            <select type="text" class="form-control" id="employee" name="employee_id" required="">
+                                                <option>Select Employee</option>
+                                                @foreach($employees as $employee)
+                                                    <option value="{{$employee->id}}">{{$employee->firstname}} {{$employee->secondname}} {{$employee->lastname}}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                         <div class="form-group">
                                             <label>{{ __('customers/customers.customerNickname') }}</label>
-                                        <input type="text" class="form-control" name="nickname" placeholder="{{ __('customers/customers.customerNickname') }}" required>
+                                            <input type="text" class="form-control" name="nickname" placeholder="{{ __('customers/customers.customerNickname') }}" required>
                                         </div>
                                         <div class="form-group">
                                             <label>{{ __('customers/customers.customerName') }}</label>
-                                        <input type="text" class="form-control" name="name" placeholder="{{ __('customers/customers.customerName') }}" required="">
+                                            <input type="text" class="form-control" name="name" placeholder="{{ __('customers/customers.customerName') }}" required="">
                                         </div>
                                         <div class="form-group">
                                             <label>{{ __('customers/customers.entryType') }}</label>
-                                        <input type="text" class="form-control" name="entrytype" placeholder="{{ __('customers/customers.entryType') }}" required="">
+                                            <input type="text" class="form-control" name="entrytype" placeholder="{{ __('customers/customers.entryType') }}" required="">
                                         </div>
                                         <div class="form-group">
                                             <label>{{ __('customers/customers.entryName') }}</label>
-                                        <input type="text" class="form-control" name="entryname" placeholder="{{ __('customers/customers.entryName') }}" required="">
+                                            <input type="text" class="form-control" name="entryname" placeholder="{{ __('customers/customers.entryName') }}" required="">
                                         </div>
                                         <div class="form-group">
                                             <label>{{ __('customers/customers.position') }}</label>
-                                        <input type="text" class="form-control" name="position" placeholder="{{ __('customers/customers.position') }}" required="">
+                                            <input type="text" class="form-control" name="position" placeholder="{{ __('customers/customers.position') }}" required="">
                                         </div>
                                     </section>
                                     <h3>Contact</h3>
@@ -104,7 +106,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="country">Country</label>
-                                            <select name="country" id="country" class="form-control" onchange="region('country')">
+                                            <select name="country" id="country" class="form-control" onchange="region('country')" required>
                                                 <option value="">Select Country</option>
                                                 @if(isset($sortnames) && count($sortnames) > 0)
                                                     @foreach($sortnames as $key => $sortname)
@@ -121,21 +123,21 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="province">Province</label>
-                                            <select name="province" id="province" class="form-control" onchange="region('province')">
+                                            <select name="province" id="province" class="form-control" onchange="region('province')" required>
                                                 <option value="">Select Province</option>
                                             </select>
 
                                         </div>
                                         <div class="form-group">
                                             <label for="city">City</label>
-                                            <select name="city" id="city" class="form-control" onchange="region('city')">
+                                            <select name="city" id="city" class="form-control" onchange="region('city')" required>
                                                 <option value="">Select City</option>
                                             </select>
 
                                         </div>
                                         <div class="form-group">
                                             <label for="city">Street</label>
-                                            <select name="street" id="street" class="form-control" onchange="region('street')">
+                                            <select name="street" id="street" class="form-control" onchange="region('street')" required>
                                                 <option value="">Select Street</option>
                                             </select>
 
@@ -157,7 +159,12 @@
                                           <label class="custom-control-label" for="acceptTerms" onclick="enable()">I Agree with the Terms and Conditions.</label>
                                         </div>
                                     </section>
-                                    <button type="submit" id="create" class="btn-blue" value="Add" disabled>Add</button>
+                                    <div class="col-lg-12 mt-4">
+                                        <div class="form-group mb-0">
+                                            <button type="submit" id="create" disabled
+                                                    class="btn btn-primary pl-5 pr-5">{{__('Systems/SystemFour/quotations.add')}}</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </form>  
                         </div>  

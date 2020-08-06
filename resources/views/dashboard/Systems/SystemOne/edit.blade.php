@@ -50,8 +50,14 @@
                                         <section>
                                             <h4 class="font-22 mb-3">Add New Customer !!!</h4>
                                             <div class="form-group">
-                                                <label>{{ __('customers/customers.customerSalesEmployee') }}</label>
-                                                <input type="text" class="form-control" name="salesemployee" value={{$customer->sales_employee}} required>
+                                                <label for="employee">{{ __('customers/customers.customerSalesEmployee') }}</label>
+                                                <select type="text" class="form-control" id="employee" name="salesemployee"
+                                                        required="">
+                                                    <option value="">Select Employee</option>
+                                                    @foreach($employees as $key => $employee)
+                                                        <option value="{{$employee->id}}" @if($employee->id == $customer->employee_id) selected @endif>{{$employee->firstname}} {{$employee->second_name}} {{$employee->last_name}}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                             <div class="form-group">
                                                 <label>{{ __('customers/customers.customerNickname') }}</label>
@@ -104,7 +110,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="country">Country</label>
-                                                <select name="country" id="country" class="form-control" onchange="region('country')">
+                                                <select name="country_id" id="country" class="form-control" onchange="region('country')">
                                                     <option value="">Select Country</option>
                                                     @if(isset($sortnames) && count($sortnames) > 0)
                                                         @foreach($sortnames as $key => $sortname)
@@ -121,7 +127,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="province">Province</label>
-                                                <select name="province" id="province" class="form-control" onchange="region('province')">
+                                                <select name="province_id" id="province" class="form-control" onchange="region('province')">
                                                     @if(isset($provinces) && count($provinces) > 0)
                                                         @foreach($provinces as $key => $province)
                                                             <option @if(isset($customer->province_id) && $customer->province->name == $province->name) selected @endif value="{{$province->id}}">{{$province->name}}</option>
@@ -132,7 +138,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="city">City</label>
-                                                <select name="city" id="city" class="form-control" onchange="region('city')">
+                                                <select name="city_id" id="city" class="form-control" onchange="region('city')">
                                                     @if(isset($cities) && count($cities) > 0)
                                                         @foreach($cities as $key => $city)
                                                             <option @if(isset($customer->city) && $customer->city->name == $city->name) selected @endif value="{{$city->id}}">{{$city->name}}</option>
@@ -142,8 +148,8 @@
 
                                             </div>
                                             <div class="form-group">
-                                                <label for="street">Street</label>
-                                                <select name="street" id="street" class="form-control" onchange="region('street')">
+                                                <label for="street_id">Street</label>
+                                                <select name="street_id" id="street" class="form-control" onchange="region('street')">
                                                     @if(isset($streets) && count($streets) > 0)
                                                         @foreach($streets as $key => $street)
                                                             <option @if(isset($customer->street) && $customer->street->name == $street->name) selected @endif value="{{$street->id}}">{{$street->name}}</option>
@@ -179,7 +185,12 @@
                                                 <label class="custom-control-label" for="acceptTerms">I Agree with the Terms and Conditions.</label>
                                             </div>
                                         </section>
-                                        <button type="submit" id="update" class="btn-blue" value="Update" disabled>Update</button>
+                                        <div class="col-lg-12 mt-4">
+                                            <div class="form-group mb-0">
+                                                <button type="submit" id="update" disabled
+                                                        class="btn btn-primary pl-5 pr-5">{{__('Systems/SystemOne/customers.update')}}</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </form>
                             </div>

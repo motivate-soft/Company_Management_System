@@ -1,5 +1,5 @@
 @section('title')
-    Profile
+    {{__('Systems/SystemOne/customers.profile')}}
 @endsection
 @extends('dashboard.layouts.layout')
 @section('style')
