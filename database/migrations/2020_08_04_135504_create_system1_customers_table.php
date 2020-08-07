@@ -15,9 +15,10 @@ class CreateSystem1CustomersTable extends Migration
     {
         Schema::create('system1_customers', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('sales_employee');
-            $table->string('nickname');
+            $table->bigInteger('employee_id');
             $table->string('customer_name');
+            $table->string('customer_id');
+            $table->string('membership');
             $table->string('entry_type');
             $table->string('entry_name');
             $table->string('position');
@@ -26,10 +27,10 @@ class CreateSystem1CustomersTable extends Migration
             $table->string('fax', 10);
             $table->string('email')->unique();
             $table->string('zipcode');
-            $table->string('country_id');
-            $table->string('city_id');
-            $table->string('province_id');
-            $table->string('street_id');
+            $table->bigInteger('country_id');
+            $table->bigInteger('city_id');
+            $table->bigInteger('province_id');
+            $table->bigInteger('street_id');
             $table->string('address');
             $table->timestamps();
         });

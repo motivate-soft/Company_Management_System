@@ -6,10 +6,12 @@ use App\Model\City;
 use App\Model\Country;
 use App\Model\dashboard\systems\SystemOne\Customer;
 use App\Model\dashboard\systems\SystemOne\Purchase;
+use App\Model\dashboard\systems\SystemTwo\Staff;
 use App\Model\State;
 use App\Model\Street;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Redirect;
 
 class CustomerController extends Controller
 {
@@ -26,15 +28,22 @@ class CustomerController extends Controller
     {
         $sortnames = Country::select('sortname')->distinct()->get();
         $countries = Country::orderBy('sortname', 'asc')->get();
-        return view('dashboard.Systems.SystemOne.create', compact('sortnames', 'countries'));
+        $employees = Staff::all();
+        return view('dashboard.Systems.SystemOne.create', compact('sortnames', 'countries', 'employees'));
     }
 
     public function store(Request $request){
-
+        $customers = Customer::all();
+        foreach ($customers as $customer){
+            if($customer->email == $request->email){
+                return redirect('dashboard/customers')->with('error', 'Duplicated Email!');
+            }
+        }
         $inserted = ([
-            'sales_employee'=> $request->salesemployee,
-            'nickname' => $request->nickname,
+            'employee_id'=> $request->employee_id,
+            'customer_id' => $request->nickname,
             'customer_name' => $request->name,
+            'membership' => 'C-'.date('Ymd').$request->nickname,
             'entry_type' => $request->entrytype,
             'entry_name' => $request->entryname,
             'position' => $request->position,
@@ -71,10 +80,26 @@ class CustomerController extends Controller
         return redirect('dashboard/customers');
     }
 
+    public function destroy_post(Request $request){
+        $client = Customer::where('id', $request->id)->first();
+
+        if ($client) {
+            $deleted = Customer::where('id',$request->id)->delete();
+            if ($deleted) {
+                return redirect('dashboard/customers')->with('success', 'Customer Successfully Delete!');
+            }else{
+                return redirect('dashboard/customers')->with('error', 'Something Went Wrong!');
+            }
+        }
+        return redirect('dashboard/customers');
+    }
+
+
     /**
      * single customer detail
      */
     public function edit ($id) {
+        $employees = Staff::all();
         $customer = Customer::where('id', $id)->first();
         $sortnames = Country::select('sortname')->distinct()->get();
         $countries = Country::orderBy('sortname', 'asc')->get();
@@ -82,14 +107,21 @@ class CustomerController extends Controller
         $provinces = State::all();
         $streets = Street::all();
 
-        return view('dashboard.Systems.SystemOne.edit', compact('customer', 'sortnames', 'countries', 'provinces', 'cities', 'streets'));
+        return view('dashboard.Systems.SystemOne.edit', compact('employees','customer', 'sortnames', 'countries', 'provinces', 'cities', 'streets'));
     }
 
     public function update(Request $request, $id)
     {
+        $customers = Customer::all();
+        foreach ($customers as $customer){
+            if($customer->email == $request->email){
+                if($customer->id != $id)
+                return redirect('dashboard/customers')->with('error', 'Duplicated Email!');
+            }
+        }
         $data = ([
             'id' => $id,
-            'sales_employee'=> $request->salesemployee,
+            'sales_employee'=> $request->employee_id,
             'nickname' => $request->nickname,
             'customer_name' => $request->name,
             'entry_type' => $request->entrytype,
@@ -100,10 +132,10 @@ class CustomerController extends Controller
             'fax' => $request->fax,
             'email' => $request->email,
             'zipcode' => $request->zipcode,
-            'country_id' => $request->country,
-            'city_id' => $request->city,
-            'province_id' => $request->province,
-            'street_id' => $request->street,
+            'country_id' => $request->country_id,
+            'city_id' => $request->city_id,
+            'province_id' => $request->province_id,
+            'street_id' => $request->street_id,
             'address' => $request->address,
         ]);
 

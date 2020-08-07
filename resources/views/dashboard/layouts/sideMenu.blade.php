@@ -80,14 +80,26 @@
 
 
                 <li>
-                    <a href="{{ route('customers.index') }}">
-                      <img src="{{ url('/') }}/assets/dashboard/images/svg-icon/user.svg" class="img-fluid" alt="dashboard"><span>{{ __('side.customers') }}</span><i class="feather icon-chevron-right pull-right"></i>
+                    <a href="javascript:void(0);">
+                        <img src="{{ url('/') }}/assets/dashboard/images/svg-icon/user.svg" class="img-fluid" alt="dashboard">
+                        <span>{{ __('side.customers') }}</span><i class="feather icon-chevron-right pull-right"></i>
                     </a>
                     <ul class="vertical-submenu">
-{{--                    <li><a href="{{ route('customer.create') }}">{{ __('customers/customers.customerAdd') }}</a></li>--}}
+                    <li><a href="{{ route('customers.create') }}">{{ __('customers/customers.customerAdd') }}</a></li>
                     <li><a href="{{ route('customers.index') }}">{{ __('side.customersList') }}</a></li>
-                    <li><a href="{{ route('customers.purchases') }}">Customer Purchases</a></li>
-                    <li><a href="{{ route('customers.disbursements') }}">Customer Disbursements</a></li>
+                    <li><a href="{{ route('customers.purchases') }}">{{__('Systems/SystemOne/sidebar.customerPurchases')}}</a></li>
+                    <li><a href="{{ route('customers.disbursements') }}">{{__('Systems/SystemOne/sidebar.customerDisbursements')}}</a></li>
+
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:void(0);">
+                        <i class="fa fa-sticky-note-o" aria-hidden="true"></i><span>{{ __('Systems/SystemFour/quotations.quotations') }}</span><i class="feather icon-chevron-right pull-right"></i>
+                    </a>
+                    <ul class="vertical-submenu">
+                        {{--                    <li><a href="{{ route('customer.create') }}">{{ __('customers/customers.customerAdd') }}</a></li>--}}
+                        <li><a href="{{ route('quotations.create') }}">{{ __('Systems/SystemFour/quotations.addQuotation') }}</a></li>
+                        <li><a href="{{ route('quotations.completed') }}">{{ __('Systems/SystemFour/quotations.listQuotation') }}</a></li>
 
                     </ul>
                 </li>
