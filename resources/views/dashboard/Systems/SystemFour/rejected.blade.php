@@ -61,12 +61,12 @@
                                 <th>{{ __('Systems/SystemFour/quotations.invoiceNumber') }}</th>
                                 <th>{{ __('Systems/SystemFour/quotations.invoiceDate') }}</th>
                                 <th>{{ __('Systems/SystemFour/quotations.employee') }}</th>
-                                <th>{{ __('Systems/SystemFour/quotations.status') }}</th>
-
                                 <th>{{ __('Systems/SystemFour/quotations.detail') }}</th>
                                 <th>{{ __('Systems/SystemFour/quotations.edit') }}</th>
                                 <th>{{ __('Systems/SystemFour/quotations.delete') }}</th>
                                 <th>{{ __('Systems/SystemFour/quotations.report') }}</th>
+                                <th>{{ __('Systems/SystemFour/quotations.status') }}</th>
+
                             </tr>
                             </thead>
                             <tbody>

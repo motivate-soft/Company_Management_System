@@ -76,10 +76,88 @@
                                         <input type="text" class="form-control" id="discount_rate" name="discount_rate"
                                                value="{{$quotation->discount_rate}}" required="">
                                     </div>
+                                    <div class="form-group row product1 morePro">
+                                        <div class="col-md-8">
+                                            <label>{{__('Systems/SystemFour/quotations.selectProduct')}}</label>
+                                            <select class="form-control" name="product" required onchange="addMoreProducts(2)">
+                                                {{--@foreach($products as $product)--}}
+                                                {{--<option value={{$product->id}}>{{$product->name}}   <input type="number" min="0" id='{{$product->id}}qunt' name="{{$product->id}}qunt"></option>--}}
+                                                {{--@endforeach--}}
+                                                <option>Select Product</option>
+                                                <option>Car</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="quantity">{{__('Systems/SystemFour/quotations.quantity')}}</label>
+                                            <input type="number" min="0" class="form-control" id="quantity" name="quantity" value="{{$quotation->quantity}}" required="">
+                                        </div>
+                                    </div>
                                     <div class="form-group">
-                                        <label for="quantity">{{__('Systems/SystemFour/quotations.quantity')}}</label>
-                                        <input type="text" class="form-control" id="quantity" name="quantity"
-                                               value="{{$quotation->quantity}}" required="">
+
+                                    </div>
+                                    <div class="form-group row product2 morePro">
+                                        <div class="col-md-8">
+                                            <label>{{__('Systems/SystemFour/quotations.selectProduct')}}</label>
+                                            <select class="form-control" name="product2" required onchange="addMoreProducts(3)">
+                                                {{--@foreach($products as $product)--}}
+                                                {{--<option value={{$product->id}}>{{$product->name}}   <input type="number" min="0" id='{{$product->id}}qunt' name="{{$product->id}}qunt"></option>--}}
+                                                {{--@endforeach--}}
+                                                <option>Select Product</option>
+                                                <option>Car</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="quantity2">{{__('Systems/SystemFour/quotations.quantity')}}</label>
+                                            <input type="number" min="0" class="form-control" id="quantity2" name="quantity2" placeholder="Quantity">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row product3 morePro">
+                                        <div class="col-md-8">
+                                            <label>{{__('Systems/SystemFour/quotations.selectProduct')}}</label>
+                                            <select class="form-control" name="product3" required onchange="addMoreProducts(4)">
+                                                {{--@foreach($products as $product)--}}
+                                                {{--<option value={{$product->id}}>{{$product->name}}   <input type="number" min="0" id='{{$product->id}}qunt' name="{{$product->id}}qunt"></option>--}}
+                                                {{--@endforeach--}}
+                                                <option>Select Product</option>
+                                                <option>Car</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="quantity3">{{__('Systems/SystemFour/quotations.quantity')}}</label>
+                                            <input type="number" min="0" class="form-control" id="quantity3" name="quantity3" placeholder="Quantity">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row product4 morePro">
+                                        <div class="col-md-8">
+                                            <label>{{__('Systems/SystemFour/quotations.selectProduct')}}</label>
+                                            <select class="form-control" name="product4" onchange="addMoreProducts(5)" required>
+                                                {{--@foreach($products as $product)--}}
+                                                {{--<option value={{$product->id}}>{{$product->name}}   <input type="number" min="0" id='{{$product->id}}qunt' name="{{$product->id}}qunt"></option>--}}
+                                                {{--@endforeach--}}
+                                                <option>Select Product</option>
+                                                <option>Car</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="quantity4">{{__('Systems/SystemFour/quotations.quantity')}}</label>
+                                            <input type="number" min="0" class="form-control" id="quantity4" name="quantity4" placeholder="Quantity">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row product5 morePro">
+                                        <div class="col-md-8">
+                                            <label>{{__('Systems/SystemFour/quotations.selectProduct')}}</label>
+                                            <select class="form-control" name="product4" required>
+                                                {{--@foreach($products as $product)--}}
+                                                {{--<option value={{$product->id}}>{{$product->name}}   <input type="number" min="0" id='{{$product->id}}qunt' name="{{$product->id}}qunt"></option>--}}
+                                                {{--@endforeach--}}
+                                                <option>Select Product</option>
+                                                <option>Car</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="quantity5">{{__('Systems/SystemFour/quotations.quantity')}}</label>
+                                            <input type="number" min="0" class="form-control" id="quantity5" name="quantity5" placeholder="Quantity">
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="fileUp">{{__('Systems/SystemFour/quotations.quantity')}}</label>

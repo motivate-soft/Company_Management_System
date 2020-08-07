@@ -13,6 +13,12 @@ use function Sodium\compare;
 class QuotationController extends Controller
 {
 
+    public function all()
+    {
+        $quotations = Quotation::orderBy('id', 'asc')->get();
+        return view('dashboard.Systems.SystemFour.all', compact('quotations'));
+    }
+
     public function completed()
     {
         $quotations = Quotation::where('status', 'Completed')->orderBy('id', 'asc')->get();

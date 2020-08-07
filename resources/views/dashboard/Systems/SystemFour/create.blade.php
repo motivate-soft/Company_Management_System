@@ -48,7 +48,7 @@
                                     @csrf
                                     <div class="form-group">
                                         <label for="employee">{{__('Systems/SystemFour/quotations.employee')}}</label>
-                                        <select type="text" class="form-control" id="employee" name="employee_id"
+                                        <select class="form-control" id="employee" name="employee_id"
                                                 required="">
                                             <option>Select Employee</option>
                                             @foreach($employees as $employee)
@@ -58,7 +58,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="customer">{{__('Systems/SystemFour/quotations.customer')}}</label>
-                                        <select type="text" class="form-control" id="customer" name="customer_id"
+                                        <select class="form-control" id="customer" name="customer_id"
                                                 required="">
                                             <option>Select Customer</option>
                                             @foreach($customers as $customer)
@@ -68,43 +68,106 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="project_name">{{__('Systems/SystemFour/quotations.projectName')}}</label>
-                                        <input type="text" class="form-control" id="project_name" name="project_name"
-                                               placeholder="Project Name" required="">
+                                        <input type="text" class="form-control" id="project_name" name="project_name" placeholder="Project Name" required="">
                                     </div>
                                     <div class="form-group">
                                         <label for="discount_rate">{{__('Systems/SystemFour/quotations.discountRate')}}</label>
                                         <input type="text" class="form-control" id="discount_rate" name="discount_rate"
                                                placeholder="Discount Rate" required="">
                                     </div>
-                                    <div class="form-group">
-                                        <label for="products">{{__('Systems/SystemFour/quotations.selectProducts')}}</label>
-                                        <select type="select" class="form-control" id="products" name="products"
-                                                placeholder="Quantity" required="">
-                                            @foreach($products as $product)
-                                                <option value={{$product->id}}>{{$product->name}}   <input type="number" min="0" id='{{$product->id}}qunt' name="{{$product->id}}qunt"></option>
-                                            @endforeach
-                                        </select>
+                                    <div class="form-group row product1">
+                                        <div class="col-md-8">
+                                            <label>{{__('Systems/SystemFour/quotations.selectProduct')}}</label>
+                                            <select class="form-control" name="product" required onchange="addMoreProducts(2)">
+                                                {{--@foreach($products as $product)--}}
+                                                    {{--<option value={{$product->id}}>{{$product->name}}   <input type="number" min="0" id='{{$product->id}}qunt' name="{{$product->id}}qunt"></option>--}}
+                                                {{--@endforeach--}}
+                                                <option>Select Product</option>
+                                                <option>Car</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="quantity">{{__('Systems/SystemFour/quotations.quantity')}}</label>
+                                            <input type="number" min="0" class="form-control" id="quantity" name="quantity" placeholder="Quantity">
+                                        </div>
                                     </div>
-                                    {{--<div class="form-group">--}}
-                                        {{--<label for="quantity">{{__('Systems/SystemFour/quotations.quantity')}}</label>--}}
-                                        {{--<input type="text" class="form-control" id="quantity" name="quantity"--}}
-                                               {{--placeholder="Quantity" required="">--}}
-                                    {{--</div>--}}
+                                    <div class="form-group row product2 morePro">
+                                        <div class="col-md-8">
+                                            <label>{{__('Systems/SystemFour/quotations.selectProduct')}}</label>
+                                            <select class="form-control" name="product2" required onchange="addMoreProducts(3)">
+                                                {{--@foreach($products as $product)--}}
+                                                {{--<option value={{$product->id}}>{{$product->name}}   <input type="number" min="0" id='{{$product->id}}qunt' name="{{$product->id}}qunt"></option>--}}
+                                                {{--@endforeach--}}
+                                                <option>Select Product</option>
+                                                <option>Car</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="quantity2">{{__('Systems/SystemFour/quotations.quantity')}}</label>
+                                            <input type="number" min="0" class="form-control" id="quantity2" name="quantity2" placeholder="Quantity">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row product3 morePro">
+                                        <div class="col-md-8">
+                                            <label>{{__('Systems/SystemFour/quotations.selectProduct')}}</label>
+                                            <select class="form-control" name="product3" required onchange="addMoreProducts(4)">
+                                                {{--@foreach($products as $product)--}}
+                                                {{--<option value={{$product->id}}>{{$product->name}}   <input type="number" min="0" id='{{$product->id}}qunt' name="{{$product->id}}qunt"></option>--}}
+                                                {{--@endforeach--}}
+                                                <option>Select Product</option>
+                                                <option>Car</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="quantity3">{{__('Systems/SystemFour/quotations.quantity')}}</label>
+                                            <input type="number" min="0" class="form-control" id="quantity3" name="quantity3" placeholder="Quantity">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row product4 morePro">
+                                        <div class="col-md-8">
+                                            <label>{{__('Systems/SystemFour/quotations.selectProduct')}}</label>
+                                            <select class="form-control" name="product4" onchange="addMoreProducts(5)" required>
+                                                {{--@foreach($products as $product)--}}
+                                                {{--<option value={{$product->id}}>{{$product->name}}   <input type="number" min="0" id='{{$product->id}}qunt' name="{{$product->id}}qunt"></option>--}}
+                                                {{--@endforeach--}}
+                                                <option>Select Product</option>
+                                                <option>Car</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="quantity4">{{__('Systems/SystemFour/quotations.quantity')}}</label>
+                                            <input type="number" min="0" class="form-control" id="quantity4" name="quantity4" placeholder="Quantity">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row product5 morePro">
+                                        <div class="col-md-8">
+                                            <label>{{__('Systems/SystemFour/quotations.selectProduct')}}</label>
+                                            <select class="form-control" name="product4" required>
+                                                {{--@foreach($products as $product)--}}
+                                                {{--<option value={{$product->id}}>{{$product->name}}   <input type="number" min="0" id='{{$product->id}}qunt' name="{{$product->id}}qunt"></option>--}}
+                                                {{--@endforeach--}}
+                                                <option>Select Product</option>
+                                                <option>Car</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="quantity5">{{__('Systems/SystemFour/quotations.quantity')}}</label>
+                                            <input type="number" min="0" class="form-control" id="quantity5" name="quantity5" placeholder="Quantity">
+                                        </div>
+                                    </div>
                                     <div class="form-group">
                                         <label for="fileUp">{{__('Systems/SystemFour/quotations.attachment')}}</label>
                                         <input type="file" class="form-control" id="fileUp" name="fileUp">
                                     </div>
 
-
-                                    <div class="custom-control custom-checkbox">
+                                    <div class="custom-control custom-checkbox col-md-12">
                                         <input type="checkbox" class="custom-control-input" id="acceptTerms" onclick="enable()">
                                         <label class="custom-control-label" for="acceptTerms">I Agree with the Terms and Conditions.</label>
                                     </div>
 
                                     <div class="col-lg-12 mt-4">
                                         <div class="form-group mb-0">
-                                            <button type="submit" disabled="" id="create"
-                                                    class="btn btn-primary pl-5 pr-5">{{__('Systems/SystemFour/quotations.add')}}</button>
+                                            <button type="submit" disabled="" id="create" class="btn btn-primary pl-5 pr-5">{{__('Systems/SystemFour/quotations.add')}}</button>
                                         </div>
                                     </div>
                                 </form>
@@ -131,6 +194,8 @@
     <script src="{{ asset('assets/dashboard//js/custom/custom-toasts.js') }}"></script>
 
     <script>
+        var index = 1;
+
 
         function enable() {
             if ($("#create").attr('disabled') === 'disabled'){
@@ -140,7 +205,27 @@
             }
         }
 
+        function addMoreProducts(index) {
+
+            if(index === 2){
+                $(".product2").show();
+            }
+            if(index === 3){
+                $(".product3").show();
+            }
+            if(index === 4){
+                $(".product4").show();
+            }
+            if(index === 5){
+                $(".product5").show();
+            }
+        }
+
+
+
         $(document).ready(function () {
+
+            $('.morePro').hide();
 
             $('#default-date').datepicker({
                 language: 'en',
