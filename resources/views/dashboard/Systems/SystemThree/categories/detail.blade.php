@@ -81,7 +81,7 @@
                                 <div class="input-group">
                                     <input type="text" id="default-date12" class="form-control"
                                            placeholder="yyyy/mm/dd" aria-describedby="basic-addon2"
-                                           name="dateOfAdd" @if(isset($data->add_date)) value="{{ $data->add_date }}"@endif autocomplete="off" disabled/>
+                                           name="dateOfAdd" value="{{ $data->created_at }}" autocomplete="off" disabled/>
                                     <div class="input-group-append">
                                                 <span class="input-group-text" id="basic-addon2"><i
                                                             class="feather icon-calendar"></i></span>

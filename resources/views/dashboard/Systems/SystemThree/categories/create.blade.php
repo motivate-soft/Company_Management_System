@@ -54,7 +54,7 @@
                                 <div class="col-lg-6 mb-4">
                                     <div class="form-group mb-0">
                                         <label for="cutting_method" class="col-form-label">{{ __('products\category.categoryNameAr') }}</label>
-                                        <input type="text" name="categoryNameAr" class="form-control" placeholder="{{__('products\category.AddnewName')}}" required="">
+                                        <input type="text" name="categoryNameAr" class="form-control" placeholder="{{__('products\category.AddnewNameAr')}}" required="">
                                     </div>
                                 </div>
 

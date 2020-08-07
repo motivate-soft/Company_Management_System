@@ -66,7 +66,7 @@
                                             <td>{{ $cut->name_ar }}</td>
                                             <td>{{ $cut->code }}</td>
                                             <td>{{ $cut->created_by }}</td>
-                                            <td>{{ $cut->add_date }}</td>
+                                            <td>{{ $cut->created_at }}</td>
                                             <td>
                                                 <div class="button-list">
                                                     <a href="{{route('categories.detail', $cut->id)}}" class="btn btn-success-rgba"><i class="feather icon-eye"></i></a>

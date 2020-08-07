@@ -83,11 +83,11 @@
                                 <div class="col-lg-6 mb-4">
                                     <div class="form-group mb-0">
                                         <label for="type">{{ __('products\inventory.categoryType') }}</label>
-                                        <select class="form-control" name="categoryType" required="" id="categoryType">
+                                        <select class="form-control" name="categoryId" required="" id="categoryId">
                                             <option selected
                                                     value="">{{ __('products\inventory.categorySelection') }}</option>
                                             @foreach($categories as $cate)
-                                                <option value="{{$cate->name}}">{{$cate->name}}</option>
+                                                <option value="{{$cate->id}}">{{$cate->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -96,11 +96,11 @@
                                 <div class="col-lg-6 mb-4">
                                     <div class="form-group mb-0">
                                         <label for="type">{{ __('products\inventory.brandType') }}</label>
-                                        <select class="form-control" name="brandType" required="" id="brandType">
+                                        <select class="form-control" name="brandId" required="" id="brandId">
                                             <option selected
                                                     value="">{{ __('products\inventory.brandSelection') }}</option>
                                             @foreach($brands as $bra)
-                                                <option value="{{$bra->name}}">{{$bra->name}}</option>
+                                                <option value="{{$bra->id}}">{{$bra->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -123,7 +123,7 @@
                                                     <optgroup label="{{$sortname->sortname}}">
                                                         @foreach($countries as $key => $country)
                                                             @if($sortname->sortname == $country->sortname)
-                                                                <option value="{{$country->name}}">@if(app()->getLocale() == "en"){{$country->name}} @else {{$country->ar_name}} @endif</option>
+                                                                <option value="{{$country->id}}">@if(app()->getLocale() == "en"){{$country->name}} @else {{$country->ar_name}} @endif</option>
                                                             @endif
                                                         @endforeach
                                                     </optgroup>

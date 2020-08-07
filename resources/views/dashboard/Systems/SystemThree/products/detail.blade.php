@@ -50,14 +50,14 @@
                         <div class="col-lg-6 mb-4">
                             <div class="form-group mb-0">
                                 <label for="cutting_method" class="col-form-label">{{ __('products\inventory.productName') }}</label>
-                                <input type="text" @if(isset($data->product_name)) value="{{ $data->product_name }}"@endif name="productName" class="form-control" placeholder="{{__('products\inventory.AddnewName')}}" required="" disabled>
+                                <input type="text" @if(isset($data->name)) value="{{ $data->name }}"@endif name="productName" class="form-control" placeholder="{{__('products\inventory.AddnewName')}}" required="" disabled>
                             </div>
                         </div>
 
                         <div class="col-lg-6 mb-4">
                             <div class="form-group mb-0">
                                 <label for="cutting_method" class="col-form-label">{{ __('products\inventory.productCode') }}</label>
-                                <input type="text" @if(isset($data->product_code)) value="{{ $data->product_code }}"@endif name="productCode" class="form-control" placeholder="{{__('products\inventory.AddnewCode')}}" required="" disabled>
+                                <input type="text" @if(isset($data->code)) value="{{ $data->code }}"@endif name="productCode" class="form-control" placeholder="{{__('products\inventory.AddnewCode')}}" required="" disabled>
                             </div>
                         </div>
 
@@ -86,36 +86,36 @@
                         <div class="col-lg-6 mb-4">
                             <div class="form-group mb-0">
                                 <label for="cutting_method" class="col-form-label">{{ __('products\inventory.categoryType') }}</label>
-                                <input type="text" @if(isset($data->category_type)) value="{{ $data->category_type }}"@endif name="categoryType" class="form-control" placeholder="{{__('products\inventory.category_type')}}" required="" disabled>
+                                <input type="text" @if(isset($data->category_id)) value="{{ $data->category->name }}"@endif name="categoryId" class="form-control" placeholder="{{__('products\inventory.category_type')}}" required="" disabled>
                             </div>
                         </div>
 
                         <div class="col-lg-6 mb-4">
                             <div class="form-group mb-0">
                                 <label for="cutting_method" class="col-form-label">{{ __('products\inventory.brandType') }}</label>
-                                <input type="text" @if(isset($data->brand_type)) value="{{ $data->brand_type }}"@endif name="brandType" class="form-control" placeholder="{{__('products\inventory.brand_type')}}" required="" disabled>
+                                <input type="text" @if(isset($data->brand_id)) value="{{ $data->brand->name }}"@endif name="brandId" class="form-control" placeholder="{{__('products\inventory.brand_type')}}" required="" disabled>
                             </div>
                         </div>
 
                         <div class="col-lg-6 mb-4">
                             <div class="form-group mb-0">
                                 <label for="cutting_method" class="col-form-label">{{ __('products\inventory.country') }}</label>
-                                <input type="text" @if(isset($data->country_of_origin)) value="{{ $data->country_of_origin }}"@endif name="country" class="form-control" placeholder="{{__('products\inventory.country')}}" required="" disabled>
+                                <input type="text" @if(isset($data->country)) value="{{ $data->country }}"@endif name="country" class="form-control" placeholder="{{__('products\inventory.country')}}" required="" disabled>
                             </div>
                         </div>
 
                         <div class="col-lg-6 mb-4">
                             <div class="form-group mb-0">
                                 <label for="cutting_method" class="col-form-label">{{ __('products\inventory.productPDF') }}</label>
-                                <input type="text" @if(isset($data->product_pdf)) value="{{ $data->product_pdf }}"@endif name="productPDF" class="form-control" placeholder="{{__('products\inventory.SelectnewPDF')}}" required="" disabled>
+                                <input type="text" @if(isset($data->pdf)) value="{{ $data->pdf }}"@endif name="productPDF" class="form-control" placeholder="{{__('products\inventory.SelectnewPDF')}}" required="" disabled>
                             </div>
                         </div>
 
                         <div class="col-lg-6 mb-4">
                             <div class="form-group mb-0">
                                 <label for="cutting_method" class="col-form-label">{{ __('products\inventory.productImage') }}</label>
-                                <img src="{{asset('../'.$data->product_image)}}" alt="productImage" class="img-thumbnail circle">
-                                <input type="text" @if(isset($data->product_image)) value="{{ $data->product_image }}"@endif name="productImage" class="form-control" placeholder="{{__('products\inventory.SelectnewImage')}}" required="" disabled>
+                                <img src="{{asset('../'.$data->image)}}" alt="productImage" class="img-thumbnail circle">
+                                <input type="text" @if(isset($data->image)) value="{{ $data->image }}"@endif name="productImage" class="form-control" placeholder="{{__('products\inventory.SelectnewImage')}}" required="" disabled>
                             </div>
                         </div>
 

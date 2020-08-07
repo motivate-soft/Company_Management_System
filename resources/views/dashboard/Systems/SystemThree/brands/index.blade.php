@@ -71,10 +71,10 @@
                                             @endif
                                             
                                             <td>{{ $brand->code }}</td>
-                                            <td>{{ $brand->category_type }}</td>
+                                            <td>{{ $brand->category->name }}</td>
 
                                             <td>{{ $brand->created_by }}</td>
-                                            <td>{{ $brand->add_date }}</td>
+                                            <td>{{ $brand->created_at }}</td>
                                             <td>
                                                 <div class="button-list">
                                                     <a href="{{route('brands.detail', $brand->id)}}" class="btn btn-success-rgba"><i class="feather icon-eye"></i></a>

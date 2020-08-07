@@ -60,9 +60,9 @@
                                     @foreach($cuttings as $key => $cut)
                                         <tr>
                                             <td scope="row">{{ $key+1 }}</td>
-                                            <td>{{ $cut->category_type }}</td>
-                                            <td>{{ $cut->product_name }}</td>
-                                            <td>{{ $cut->brand_type }}</td>
+                                            <td>{{ $cut->category->name }}</td>
+                                            <td>{{ $cut->name }}</td>
+                                            <td>{{ $cut->brand->name }}</td>
 
                                             <td>
                                                 <div class="button-list">

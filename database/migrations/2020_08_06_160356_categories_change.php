@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class SomeFieldsChange extends Migration
+class CategoriesChange extends Migration
 {
     /**
      * Run the migrations.
@@ -14,10 +14,9 @@ class SomeFieldsChange extends Migration
     public function up()
     {
         Schema::table('categories', function (Blueprint $table) {
-            // $table->string('parent')->nullable()->change();
             $table->string('code');
             $table->string('created_by')->nullable();
-            $table->date('add_date')->nullable();
+            $table->string('parent')->nullable()->change();
         });
     }
 

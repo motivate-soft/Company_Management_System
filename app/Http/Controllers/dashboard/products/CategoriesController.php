@@ -30,15 +30,14 @@ class CategoriesController extends Controller
                 'categoryCode' => 'required|string',
             ]);
 
-        $data_added = DB::table('categories')->insert([
-            'name' => $request->categoryName,
-            'name_ar' => $request->categoryNameAr,
-            'code' => $request->categoryCode,
-            'created_by' => auth()->user()->name,
-            'add_date' => now(),
-        ]);
+        $category = new Category;
+        $category->name = $request->categoryName;
+        $category->name_ar = $request->categoryNameAr;
+        $category->code = $request->categoryCode;
+        $category->created_by = auth()->user()->name;
+        $category->save();
 
-        if ($data_added) {
+        if ($category) {
             return redirect('dashboard/categories')->with('success','Successfully Add Category!');
         }else{
             return redirect('dashboard/categories')->with('error','Something Went Wrong!');
@@ -70,15 +69,14 @@ class CategoriesController extends Controller
                 'categoryCode' => 'required|string',
             ]);
 
-
-        $data_added = DB::table('categories')->where('id',$request->categoryId)->update([
+        
+        $category = Category::where('id', $request->categoryId)->update([
             'name' => $request->categoryName,
             'name_ar' => $request->categoryNameAr,
             'code' => $request->categoryCode,
-            'created_by' => auth()->user()->name,
         ]);
 
-        if ($data_added) {
+        if ($category) {
             return redirect('dashboard/categories')->with('success','Successfully Update Category!');
         }else{
             return redirect('dashboard/categories')->with('error','Something Went Wrong!');
@@ -86,8 +84,8 @@ class CategoriesController extends Controller
     }
 
     public function delete_category(Request $request){
-        $deleted = DB::table('categories')->where('id', $request->id)->delete();
-        if ($deleted) {
+        $category = Category::where('id', $request->id)->delete();
+        if ($category) {
             return 1;
         } else {
             return 0;

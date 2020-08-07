@@ -70,7 +70,7 @@
                         <div class="col-lg-6 mb-4">
                             <div class="form-group mb-0">
                                 <label for="cutting_method" class="col-form-label">{{ __('products\brand.brandCategory') }}</label>
-                                <input type="text" @if(isset($data->category_type)) value="{{ $data->category_type }}"@endif name="categoryType" class="form-control" placeholder="{{__('products\brand.category_type')}}" required="" disabled>
+                                <input type="text" @if(isset($data->category_id)) value="{{ $data->category->name }}"@endif name="categoryId" class="form-control" placeholder="{{__('products\brand.category_type')}}" required="" disabled>
                             </div>
                         </div>
 
@@ -85,7 +85,7 @@
                             <div class="form-group mb-0">
                                 <label>{{ __('products\brand.dateOfAdd') }}</label>
                                 <div class="input-group">
-                                    <input type="text" id="default-date12" class="form-control" placeholder="yyyy/mm/dd" aria-describedby="basic-addon2" name="dateOfAdd" @if(isset($data->add_date)) value="{{ $data->add_date }}"@endif autocomplete="off" disabled/>
+                                    <input type="text" id="default-date12" class="form-control" placeholder="yyyy/mm/dd" aria-describedby="basic-addon2" name="dateOfAdd" value="{{ $data->created_at }}" autocomplete="off" disabled/>
                                     <div class="input-group-append">
                                         <span class="input-group-text" id="basic-addon2"><i class="feather icon-calendar"></i></span>
                                     </div>

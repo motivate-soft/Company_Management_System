@@ -68,10 +68,10 @@
                                 <div class="col-lg-6 mb-4">
                                     <div class="form-group mb-0">
                                         <label for="type">{{ __('products/brand.brandCategory') }}</label>
-                                        <select class="form-control" name="categoryType" id="categoryType">
+                                        <select class="form-control" name="categoryId" id="categoryId">
                                             <option selected value="">{{ __('products/brand.categorySelection') }}</option>
                                             @foreach($categories as $cate)
-                                                <option value="{{$cate->name}}">@if($lang_current == 'ar') {{$cate->name_ar}} @else {{$cate->name}} @endif</option>
+                                                <option value="{{$cate->id}}">@if($lang_current == 'ar') {{$cate->name_ar}} @else {{$cate->name}} @endif</option>
                                             @endforeach
                                         </select>
                                     </div>

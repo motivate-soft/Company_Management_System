@@ -30,8 +30,8 @@ class InventoriesController extends Controller
             [
                 'productName' => 'required|string',
                 'productCode' => 'required|string',
-                'category_type' => 'required|string',
-                'brand_type' => 'required|string',
+                'category_id' => 'required|string',
+                'brand_id' => 'required|string',
                 'country' => 'required|string',
             ]);
 
@@ -51,19 +51,17 @@ class InventoriesController extends Controller
         $fileUrlPDF = "upload/Systems/SystemThree/Products/".$request->productName.".". $fileExtension;
 
 
-        $data_added = DB::table('inventories')->insert([
-            'product_name' => $request->productName,
-            'product_code' => $request->productCode,
-            'name_of_who_added' => auth()->user()->name,
-            'date_of_addition' => now(),
-            'category_type' => $request->categoryType,
-            'brand_type' => $request->brandType,
-            'country_of_origin' => $request->country,
-            'product_image' => $fileUrlImage,
-            'product_pdf' => $fileUrlPDF,
-        ]);
+        $inventory = new Inventory;
+        $inventory->name = $request->productName;
+        $inventory->code = $request->productCode;
+        $inventory->category_id = $request->categoryId;
+        $inventory->brand_id = $request->brandId;
+        $inventory->country = $request->country;
+        $inventory->image = $fileUrlImage;
+        $inventory->pdf = $fileUrlPDF;
+        $inventory->save();
 
-        if ($data_added) {
+        if ($inventory) {
             return redirect('dashboard/products')->with('success','Successfully Add Product!');
         }else{
             return redirect('dashboard/products')->with('error','Something Went Wrong!');
@@ -100,8 +98,8 @@ class InventoriesController extends Controller
             [
                 'productName' => 'required|string',
                 'productCode' => 'required|string',
-                'category_type' => 'required|string',
-                'brand_type' => 'required|string',
+                'category_id' => 'required|string',
+                'brand_id' => 'required|string',
                 'country' => 'required|string',
             ]);
 
@@ -122,16 +120,14 @@ class InventoriesController extends Controller
         $fileUrlPDF = "upload/Systems/SystemThree/Products/".$request->productName.".". $fileExtension;
 
 
-        $data_added = DB::table('inventories')->where('id',$request->productId)->update([
-            'product_name' => $request->productName,
-            'product_code' => $request->productCode,
-            'name_of_who_added' => $request->nameOfAdd,
-            'date_of_addition' => $request->dateOfAdd,
-            'category_type' => $request->categoryType,
-            'brand_type' => $request->brandType,
-            'country_of_origin' => $request->country,
-            'product_image' => $fileUrlImage,
-            'product_pdf' => $fileUrlPDF,
+        $data_added = Inventory::where('id',$request->productId)->update([
+            'name' => $request->productName,
+            'code' => $request->productCode,
+            'category_id' => $request->categoryId,
+            'brand_id' => $request->brandId,
+            'country' => $request->country,
+            'image' => $fileUrlImage,
+            'pdf' => $fileUrlPDF,
         ]);
 
         if ($data_added) {
@@ -142,7 +138,7 @@ class InventoriesController extends Controller
     }
 
     public function delete_product(Request $request){
-        $deleted = DB::table('inventories')->where('id', $request->id)->delete();
+        $deleted = Inventory::where('id', $request->id)->delete();
         if ($deleted) {
             return 1;
         } else {
