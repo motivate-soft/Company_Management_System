@@ -17,7 +17,7 @@ class Inventory extends Model
         return $this->belongsTo(Brand::class);
     }
 
-    public function get_country(){
+    public function country(){
         return $this->belongsTo(Country::class);
     }
 }

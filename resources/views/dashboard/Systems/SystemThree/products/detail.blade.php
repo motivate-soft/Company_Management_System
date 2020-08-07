@@ -100,7 +100,7 @@
                         <div class="col-lg-6 mb-4">
                             <div class="form-group mb-0">
                                 <label for="cutting_method" class="col-form-label">{{ __('products\inventory.country') }}</label>
-                                <input type="text" @if(isset($data->country)) value="{{ $data->country }}"@endif name="country" class="form-control" placeholder="{{__('products\inventory.country')}}" required="" disabled>
+                                <input type="text" @if(isset($data->country_id)) value="{{ $data->country->name }}"@endif name="country" class="form-control" placeholder="{{__('products\inventory.country')}}" required="" disabled>
                             </div>
                         </div>
 

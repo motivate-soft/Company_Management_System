@@ -28,8 +28,8 @@ class CreateInventoriesTable extends Migration
                 ->references('id')->on('brands')
                 ->onDelete('cascade');
                 
-            $table->unsignedBigInteger('country');
-            $table->foreign('country')
+            $table->unsignedBigInteger('country_id');
+            $table->foreign('country_id')
                 ->references('id')->on('countries')
                 ->onDelete('cascade');
     

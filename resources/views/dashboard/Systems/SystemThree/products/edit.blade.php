@@ -90,14 +90,14 @@
                         <div class="col-lg-6 mb-4">
                             <div class="form-group mb-0">
                                 <label for="country">{{__('products\inventory.country')}}</label>
-                                <select id="country" name="country" class="form-control" onchange="">
+                                <select id="countryId" name="countryId" class="form-control" onchange="">
                                     <option disabled selected value="">select country</option>
                                     @if(isset($sortnames) && count($sortnames) > 0)
                                         @foreach($sortnames as $key => $sortname)
                                             <optgroup label="{{$sortname->sortname}}">
                                                 @foreach($countries as $key => $country)
                                                     @if($sortname->sortname == $country->sortname)
-                                                        <option value="{{$country->id}}" @if(isset($data->country) && $data->country == $country->id) selected @endif>@if(app()->getLocale() == "en"){{$country->name}} @else {{$country->ar_name}} @endif</option>
+                                                        <option value="{{$country->id}}" @if(isset($data->country) && $data->country->id == $country->id) selected @endif>@if(app()->getLocale() == "en"){{$country->name}} @else {{$country->ar_name}} @endif</option>
                                                     @endif
                                                 @endforeach
                                             </optgroup>
@@ -110,14 +110,17 @@
                         <div class="col-lg-6 mb-4">
                             <div class="form-group mb-0">
                                 <label for="cutting_method" class="col-form-label">{{ __('products\inventory.productPDF') }}</label>
-                                <input type="file" @if(isset($data->pdf)) value="{{ $data->pdf }}"@endif name="productPDF" class="form-control" placeholder="{{__('products\inventory.SelectnewPDF')}}" required="">
+                                <input type="text" @if(isset($data->pdf)) value="{{ $data->pdf }}"@endif class="form-control" placeholder="{{__('products\inventory.SelectnewPDF')}}" required="" readonly>
+                                <input type="file" name="productPDF" class="form-control" placeholder="{{__('products\inventory.SelectnewPDF')}}">
                             </div>
                         </div>
 
                         <div class="col-lg-6 mb-4">
                             <div class="form-group mb-0">
                                 <label for="cutting_method" class="col-form-label">{{ __('products\inventory.productImage') }}</label>
-                                <input type="file" @if(isset($data->image)) value="{{ $data->image }}"@endif name="productImage" class="form-control" placeholder="{{__('products\inventory.SelectnewImage')}}" required="">
+                                <img src="{{asset('../'.$data->image)}}" alt="productImage" class="img-thumbnail circle">
+                                <input type="text" @if(isset($data->image)) value="{{ $data->image }}"@endif class="form-control" placeholder="{{__('products\inventory.SelectnewImage')}}" required="" readonly>
+                                <input type="file" name="productImage" class="form-control" placeholder="{{__('products\inventory.SelectnewImage')}}">
                             </div>
                         </div>
 

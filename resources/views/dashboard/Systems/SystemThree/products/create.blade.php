@@ -116,7 +116,7 @@
                                 <div class="col-lg-6 mb-4">
                                     <div class="form-group mb-0">
                                         <label for="country">{{__('products\inventory.country')}}</label>
-                                        <select id="country" name="country" class="form-control" onchange="">
+                                        <select id="countryId" name="countryId" class="form-control" onchange="">
                                             <option disabled selected value="">select country</option>
                                             @if(isset($sortnames) && count($sortnames) > 0)
                                                 @foreach($sortnames as $key => $sortname)

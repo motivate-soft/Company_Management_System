@@ -32,7 +32,7 @@ class InventoriesController extends Controller
                 'productCode' => 'required|string',
                 'category_id' => 'required|string',
                 'brand_id' => 'required|string',
-                'country' => 'required|string',
+                'country_id' => 'required|string',
             ]);
 
         $imgFile = $request->productImage;
@@ -56,7 +56,7 @@ class InventoriesController extends Controller
         $inventory->code = $request->productCode;
         $inventory->category_id = $request->categoryId;
         $inventory->brand_id = $request->brandId;
-        $inventory->country = $request->country;
+        $inventory->country_id = $request->countryId;
         $inventory->image = $fileUrlImage;
         $inventory->pdf = $fileUrlPDF;
         $inventory->save();
@@ -100,34 +100,38 @@ class InventoriesController extends Controller
                 'productCode' => 'required|string',
                 'category_id' => 'required|string',
                 'brand_id' => 'required|string',
-                'country' => 'required|string',
+                'country_id' => 'required|string',
             ]);
 
+        $data_added = Inventory::where('id',$request->productId);
+        if(isset($request->productImage)) {
+            $imgFile = $request->productImage;
+            $fileExtension = $imgFile->getClientOriginalExtension();
+            if ($fileExtension != "png" && $fileExtension != "jpg" && $fileExtension != "jpeg" && $fileExtension != "gif")
+                return redirect()->back()->withErrors("error", "Not validate image");
 
-        $imgFile = $request->productImage;
-        $fileExtension = $imgFile->getClientOriginalExtension();
-        if($fileExtension != "png" && $fileExtension != "jpg" && $fileExtension != "jpeg" && $fileExtension != "gif")
-            return redirect()->back()->withErrors("error", "Not validate image");
-
-        $imgFile->move("upload/Systems/SystemThree/Products/", $request->productName . ".". $fileExtension);
-        $fileUrlImage = "upload/Systems/SystemThree/Products/".$request->productName . ".". $fileExtension;
-
-
-        $pdfFile = $request->productPDF;
-        $fileExtension = $pdfFile->getClientOriginalExtension();
-        if($fileExtension != "pdf") return redirect()->back()->withErrors("error", "Not validate pdf");
-        $pdfFile->move("upload/Systems/SystemThree/Products/", $request->productName.".". $fileExtension);
-        $fileUrlPDF = "upload/Systems/SystemThree/Products/".$request->productName.".". $fileExtension;
+            $imgFile->move("upload/Systems/SystemThree/Products/", $request->productName . "." . $fileExtension);
+            $fileUrlImage = "upload/Systems/SystemThree/Products/" . $request->productName . "." . $fileExtension;
+            $data_added->update(['image' => $fileUrlImage]);
+        }
 
 
-        $data_added = Inventory::where('id',$request->productId)->update([
+        if(isset($request->productPDF)) {
+            $pdfFile = $request->productPDF;
+            $fileExtension = $pdfFile->getClientOriginalExtension();
+            if ($fileExtension != "pdf") return redirect()->back()->withErrors("error", "Not validate pdf");
+            $pdfFile->move("upload/Systems/SystemThree/Products/", $request->productName . "." . $fileExtension);
+            $fileUrlPDF = "upload/Systems/SystemThree/Products/" . $request->productName . "." . $fileExtension;
+            $data_added->update(['pdf' => $fileUrlPDF]);
+        }
+
+
+        $data_added ->update([
             'name' => $request->productName,
             'code' => $request->productCode,
             'category_id' => $request->categoryId,
             'brand_id' => $request->brandId,
-            'country' => $request->country,
-            'image' => $fileUrlImage,
-            'pdf' => $fileUrlPDF,
+            'country_id' => $request->countryId,
         ]);
 
         if ($data_added) {
