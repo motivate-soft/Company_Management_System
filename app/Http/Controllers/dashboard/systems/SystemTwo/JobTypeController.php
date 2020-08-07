@@ -44,6 +44,7 @@ class JobTypeController extends Controller
         $validator = Validator::make($request->all(),
             [
                 'name' => 'required|string',
+                'ar_name' => 'required|string',
                 'state' => 'required|numeric',
             ]);
 
@@ -59,6 +60,7 @@ class JobTypeController extends Controller
 
         $data = ([
             'name' => $request->name,
+            'ar_name' => $request->ar_name,
             'state' => $request->state,
         ]);
         
@@ -76,6 +78,7 @@ class JobTypeController extends Controller
         $validator = Validator::make($request->all(),
             [
                 'name' => 'required|string',
+                'ar_name' => 'required|string',
                 'state' => 'required|numeric',
             ]);
 
@@ -92,6 +95,7 @@ class JobTypeController extends Controller
 
         $data = ([
             'name' => $request->name,
+            'ar_name' => $request->ar_name,
             'state' => $request->state,
         ]);
 

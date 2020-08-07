@@ -8,5 +8,8 @@ return [
     'communications' => 'Communications',
     'transactions' => 'Transactions',
     'jobtypes' => 'JobTypes',
+    'letterstatuses' => 'LetterStatuses',
+    'permissions' => 'Permissions',
+    'permissiongroups' => 'PermissionGroups',
 
 ];

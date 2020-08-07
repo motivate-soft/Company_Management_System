@@ -6,6 +6,7 @@ return [
     'jobtype_add' => 'JobTypes|Add',
     'jobtype_edit' => 'JobTypes|Edit',
     'name' => 'Name',
+    'ar_name' => 'Ar_Name',
     'state' => 'State',
     'delete' => 'Delete',
     'edit' => 'Edit',

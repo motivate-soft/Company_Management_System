@@ -16,6 +16,8 @@ class CreateSystem2Transactions extends Migration
         Schema::create('system2_transactions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            $table->string('ar_name');
+            $table->string('person');
             $table->unsignedBigInteger('state')->default(0);
             $table->timestamps();
         });

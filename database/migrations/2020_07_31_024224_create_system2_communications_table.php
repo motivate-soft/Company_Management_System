@@ -21,7 +21,7 @@ class CreateSystem2CommunicationsTable extends Migration
             $table->string('employee_responsible');
             $table->unsignedBigInteger('number');
             $table->date('date_letter');
-            $table->unsignedBigInteger('status_letter');
+            $table->string('status_letter');
             $table->string('transaction_explanation');
             $table->string('prepayments');
             $table->string('response')->nullable();
