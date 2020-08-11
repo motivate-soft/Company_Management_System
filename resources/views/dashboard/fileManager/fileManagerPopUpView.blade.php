@@ -127,7 +127,7 @@
                                     <!--Folder, Or Image-->
                                     <img id="fileManagerItem" src="{{ asset('assets/dashboard/images/dashboard/fileManager/folder.png') }}" alt="Folder Name, Or Image Nmae">
                                 </td>
-                                
+
                                 <td style="@if(app()->getLocale() == "en") text-align: left; @else text-align: right; @endif" class="folder_name-{{$folder->name}}">
                                     <!--Folder Name, Or Image Nmae-->
                                     {{$folder->name}}
@@ -146,7 +146,6 @@
                                 </td>
                             </tr>
                         @endforeach
-                        </div>
                     </tbody>
                 </table>
             </div>
@@ -160,7 +159,7 @@
 @include('dashboard.fileManager.modules.fileManagerCreateFolder')
 
 <!--Rename Folder Window-->
-@include('dashboard.fileManager.modules.fileManagerRenameFolder', compact('folder'))
+@include('dashboard.fileManager.modules.fileManagerRenameFolder')
 
 <!--Delete Confirmation Module-->
 @include('dashboard.fileManager.modules.FileDeleteConfirmationFolder')

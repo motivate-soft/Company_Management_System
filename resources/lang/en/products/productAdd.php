@@ -20,5 +20,6 @@ return [
     'name' => 'Product Name',
     'titleAdd' => 'Add Product',
     'publish' => 'Publish',
-    
+    'back' => 'Back to Product List',
+    'selectImage' => 'Select Image',
 ];

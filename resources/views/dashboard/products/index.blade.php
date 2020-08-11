@@ -34,8 +34,8 @@
                 <div class="widgetbar">
                     <a class="btn btn-primary-rgba" href="{{ route('products.create') }}"><i class="feather icon-plus mr-2"></i>{{ __('products/productsList.titleAdd') }}</a>
                     <!--File Manager Dialog: To Bo Removed-->
-                    <button data-toggle="modal" data-target="#fileManager_Popup" class="col-12 btn btn-primary-rgba my-1 fileManager_Popup_btn">File Manager</button>
-                    @include('dashboard.fileManager.fileManagerPopUpView')
+                    {{--<button data-toggle="modal" data-target="#fileManager_Popup" class="col-12 btn btn-primary-rgba my-1 fileManager_Popup_btn">File Manager</button>--}}
+                    {{--@include('dashboard.fileManager.fileManagerPopUpView')--}}
                 </div>
             </div>
         </div>
@@ -58,6 +58,8 @@
                                     <th>{{ __('products/productsList.name') }}</th>
                                     <th>{{ __('products/productsList.price') }}</th>
                                     <th>{{ __('products.codes') }}</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
 
                                     <!--/====================================\-->
                                     <!--|======  Meat Application END  ======|-->
@@ -131,6 +133,9 @@
                                             <td>
                                                 <div class="button-list">
                                                     <a class="btn btn-success-rgba" href="{{ route('products.edit',$product->id) }}"><i class="feather icon-edit-2"></i></a>
+                                                </div>
+                                            <td>
+                                                <div class="button-list">
                                                     <a href="javascript:;" class="btn btn-danger-rgba delete"><input type="hidden" value="{{$product->id}}" class="product_id"><i class="feather icon-trash"></i></a>
                                                 </div>
                                             </td>

@@ -9,4 +9,5 @@ return [
     'name' => 'Product Name',
     'titleAdd' => 'Add Product',
     'productList' => 'Product List',
+    'save' => 'Save Product',
 ];
