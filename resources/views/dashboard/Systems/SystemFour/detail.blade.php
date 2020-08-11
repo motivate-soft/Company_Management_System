@@ -49,21 +49,21 @@
                             <div class="col-lg-3 mb-4">
                                 <div class="form-group mb-0">
                                     <span>{{__('Systems/SystemFour/quotations.membership')}}</span>
-                                    <p class="text-dark">@if(isset($quotation->lastname)){{ $quotation->customer->membership }}@endif</p>
+                                    <p class="text-dark">{{ $quotation->customer->membership }}</p>
                                 </div>
                             </div>
-                            <div class="col-lg-3 mb-4">
-                                <div class="form-group mb-0">
-                                    <span>{{__('Systems/SystemFour/quotations.invoice_number')}}</span>
-                                    <p class="text-dark">{{ $quotation->invoice->id }}</p>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 mb-4">
-                                <div class="form-group mb-0">
-                                    <span>{{__('Systems/SystemFour/quotations.invoice_date')}}</span>
-                                    <p class="text-dark">{{ $quotation->invoice->created_at }}</p>
-                                </div>
-                            </div>
+                            {{--<div class="col-lg-3 mb-4">--}}
+                                {{--<div class="form-group mb-0">--}}
+                                    {{--<span>{{__('Systems/SystemFour/quotations.invoice_number')}}</span>--}}
+                                    {{--<p class="text-dark">{{ $quotation->invoice->id }}</p>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                            {{--<div class="col-lg-3 mb-4">--}}
+                                {{--<div class="form-group mb-0">--}}
+                                    {{--<span>{{__('Systems/SystemFour/quotations.invoice_date')}}</span>--}}
+                                    {{--<p class="text-dark">{{ $quotation->invoice->created_at }}</p>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
                             <div class="col-lg-3 mb-4">
                                 <div class="form-group mb-0">
                                     <span>{{__('Systems/SystemFour/quotations.projectName')}}</span>
@@ -82,24 +82,24 @@
                                     <p class="text-dark">{{ $quotation->status }}</p>
                                 </div>
                             </div>
-                            <div class="col-lg-3 mb-4">
-                                <div class="form-group mb-0">
-                                    <span>{{__('Systems/SystemFour/quotations.products')}}</span>
-                                    <p class="text-dark">{{ $quotation->product->name }}</p>
-                                </div>
-                            </div>
+                            {{--<div class="col-lg-3 mb-4">--}}
+                                {{--<div class="form-group mb-0">--}}
+                                    {{--<span>{{__('Systems/SystemFour/quotations.products')}}</span>--}}
+                                    {{--<p class="text-dark">{{ $quotation->product->name }}</p>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
                             <div class="col-lg-3 mb-4">
                                 <div class="form-group mb-0">
                                     <span>{{__('Systems/SystemFour/quotations.quantity')}}</span>
                                     <p class="text-dark">{{ $quotation->quantity }}</p>
                                 </div>
                             </div>
-                            <div class="col-lg-3 mb-4">
-                                <div class="form-group mb-0">
-                                    <span>{{__('Systems/SystemFour/quotations.report')}}</span>
-                                    <p class="text-dark">{{ $quotation->report->description }}</p>
-                                </div>
-                            </div>
+                            {{--<div class="col-lg-3 mb-4">--}}
+                                {{--<div class="form-group mb-0">--}}
+                                    {{--<span>{{__('Systems/SystemFour/quotations.report')}}</span>--}}
+                                    {{--<p class="text-dark">{{ $quotation->report->description }}</p>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
                         </div>
                     </div>
                 </div>

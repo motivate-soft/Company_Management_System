@@ -9,8 +9,7 @@ class Quotation extends Model
     protected $table = "system4_quotations";
 
     protected $fillable = [
-        'employee_id', 'customer_id', 'membership_number', 'filename', 'invoice_number', 'invoice_date',
-        'project_name', 'discount_rate', 'status', 'products', 'quantity', 'report_id'
+        'employee_id', 'customer_id', 'membership_number', 'project_name', 'discount_rate', 'status', 'report_id'
     ];
 
     public function customer(){
@@ -19,5 +18,11 @@ class Quotation extends Model
 
     public function staff(){
         return $this->belongsTo('App\Model\dashboard\systems\SystemTwo\Staff', 'employee_id', 'id');
+    }
+
+    public function products() {
+
+        return $this->belongsToMany('App\Model\Products', 'product_quotation', 'quotation_id', 'product_id');
+
     }
 }

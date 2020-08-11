@@ -353,6 +353,8 @@
         Route::get('dashboard/quotations/create', 'Systems\SystemFour\QuotationController@create')->name('quotations.create');
         Route::get('dashboard/quotations/store', 'Systems\SystemFour\QuotationController@store')->name('quotations.store');
         Route::post('dashboard/quotations/store', 'Systems\SystemFour\QuotationController@store')->name('quotations.store');
+        Route::get('dashboard/quotations/all', 'Systems\SystemFour\QuotationController@all')->name('quotations.all');
+
         Route::get('dashboard/quotations/completed', 'Systems\SystemFour\QuotationController@completed')->name('quotations.completed');
         Route::get('dashboard/quotations/pending', 'Systems\SystemFour\QuotationController@pending')->name('quotations.pending');
         Route::get('dashboard/quotations/rejected', 'Systems\SystemFour\QuotationController@rejected')->name('quotations.rejected');

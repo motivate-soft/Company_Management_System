@@ -18,13 +18,12 @@ class CreateSystem4QuotationsTable extends Migration
             $table->bigInteger('employee_id');
             $table->bigInteger('customer_id');
             $table->biginteger('membership_number')->nullable();
-            $table->string('filename')->nullable();
-            $table->bigInteger('invoice_id')->nullable();
+//            $table->string('filename')->nullable();
             $table->string('project_name');
             $table->double('discount_rate');
             $table->string('status')->default('UnderStudying');
-            $table->string('products_id')->nullable();
-            $table->string('quantity');
+//            $table->string('products_id')->nullable();
+//            $table->string('quantity');
             $table->bigInteger('report_id')->nullable();
             $table->timestamps();
         });

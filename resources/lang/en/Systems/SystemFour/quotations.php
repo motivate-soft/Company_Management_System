@@ -3,6 +3,7 @@
 return [
     'quotations' => 'Quotations',
     'add' => 'Add',
+    'all' => 'All',
     'customer' => 'Customer',
     'membershipNumber' => 'Membership Number',
     'invoiceNumber' => 'Invoice Number',
@@ -26,5 +27,9 @@ return [
     'attachment' => 'Attachment',
     'listQuotation' => 'Quotation List',
     'showOtherQuotations' => 'Show Other Quotations',
-    'selectProducts' => 'Select Products'
+    'selectProducts' => 'Select Products',
+    'selectProduct' => 'Select Product',
+    'membership' => 'Membership Number',
+    'addMoreProduct' => 'Add More',
+    'removeProduct' => 'Remove'
 ];

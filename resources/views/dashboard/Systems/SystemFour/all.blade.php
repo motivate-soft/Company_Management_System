@@ -1,5 +1,5 @@
 @section('title')
-    {{ __('Systems/SystemFour/quotations.quotations') }} | {{ __('Systems/SystemFour/quotations.pending') }}
+    {{ __('Systems/SystemFour/quotations.quotations') }}
 @endsection
 @extends('dashboard.layouts.layout')
 @section('style')
@@ -21,7 +21,7 @@
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{url('/dashboard')}}">{{ __('side.dashboard') }}</a></li>
                         <li class="breadcrumb-item active">{{ __('Systems/SystemFour/quotations.quotations') }}</li>
-                        <li class="breadcrumb-item active">{{ __('Systems/SystemFour/quotations.pending') }}</li>
+                        <li class="breadcrumb-item active">{{ __('Systems/SystemFour/quotations.all') }}</li>
                     </ol>
                 </div>
             </div>
@@ -40,6 +40,7 @@
             <!-- Start col -->
             <div class="col-lg-12">
                 <div class="card m-b-30">
+
                     <div class="card-body">
                         <div class="col-md-3 col-lg-3 pull-right">
                             <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
@@ -47,7 +48,6 @@
                             </button>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="{{route('quotations.all')}}">{{__('Systems/SystemFour/quotations.all')}}</a>
-
                                 <a class="dropdown-item" href="{{route('quotations.completed')}}">{{__('Systems/SystemFour/quotations.completed')}}</a>
                                 <a class="dropdown-item" href="{{route('quotations.pending')}}">{{__('Systems/SystemFour/quotations.pending')}}</a>
                                 <a class="dropdown-item" href="{{route('quotations.rejected')}}">{{__('Systems/SystemFour/quotations.rejected')}}</a>
@@ -60,6 +60,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>{{ __('Systems/SystemFour/quotations.customer') }}</th>
+                                    <th>{{ __('Systems/SystemFour/quotations.membershipNumber') }}</th>
                                     <th>{{ __('Systems/SystemFour/quotations.invoiceNumber') }}</th>
                                     <th>{{ __('Systems/SystemFour/quotations.invoiceDate') }}</th>
                                     <th>{{ __('Systems/SystemFour/quotations.employee') }}</th>
@@ -67,6 +68,7 @@
                                     <th>{{ __('Systems/SystemFour/quotations.edit') }}</th>
                                     <th>{{ __('Systems/SystemFour/quotations.delete') }}</th>
                                     <th>{{ __('Systems/SystemFour/quotations.report') }}</th>
+                                    <th>{{ __('Systems/SystemFour/quotations.file') }}</th>
                                     <th>{{ __('Systems/SystemFour/quotations.status') }}</th>
 
                                 </tr>
@@ -78,6 +80,7 @@
                                         <tr>
                                             <td>{{ $key+1 }}</td>
                                             <td>{{ $quotation->customer->customer_name }}</td>
+                                            <td>{{ $quotation->customer->membership }}</td>
                                             <td>{{ $quotation->invoice_number }}</td>
                                             <td>{{ $quotation->invoice_date }}</td>
                                             <td>{{ $quotation->staff->firstname }}</td>
@@ -99,9 +102,11 @@
                                             </td>
                                             <td>
                                                 <div class="button-list">
-                                                    <a title="Report" href='javascript:void(0);' class="btn btn-warning-rgba" onclick="confirm_delete({{$quotation->id}})"><i class="fa fa-sticky-note-o"></i></a>
+                                                    <a title="Report" href='javascript:void(0);' class="btn btn-warning-rgba"><i class="fa fa-sticky-note-o"></i></a>
                                                 </div>
                                             </td>
+                                            <td>@if($quotation->filename)<a title="Report" href='{{$quotation->filename}}' target="_blank" class="btn btn-warning-rgba"><i class="fa fa-file-archive-o"></i>@endif</a></td>
+
                                             <td>
                                                 <select onchange="status_change('{{$quotation->id}}', value)" class="dropdown-toggle btn-dark btn" id="status{{$key}}">
                                                     <option @if($quotation->status == 'UnderStudying') selected @endif value="UnderStudying">{{__('Systems/SystemFour/quotations.understudying')}}</option>
@@ -109,6 +114,7 @@
                                                     <option @if($quotation->status == 'Pending') selected @endif value="Pending">{{__('Systems/SystemFour/quotations.pending')}}</option>
                                                     <option @if($quotation->status == 'Rejected') selected @endif value="Rejected">{{__('Systems/SystemFour/quotations.rejected')}}</option>
                                                 </select>
+                                                {{--<label class="custom-control-label" for="customSwitch{{$key}}"></label>--}}
                                             </td>
                                         </tr>
                                     @endforeach
@@ -170,15 +176,6 @@
                     $.extend( true, {}, buttonCommon, {
                         extend: 'print',
                     } ),
-                    // $.extend( true, {}, buttonCommon, {
-                    //     extend: 'csvHtml5',
-                    // } ),
-                    // $.extend( true, {}, buttonCommon, {
-                    //     extend: 'excelHtml5'
-                    // } ),
-                    // $.extend( true, {}, buttonCommon, {
-                    //     extend: 'pdfHtml5'
-                    // } ),
                 ]
             });
         });

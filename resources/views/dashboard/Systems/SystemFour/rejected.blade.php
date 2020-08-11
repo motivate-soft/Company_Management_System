@@ -46,6 +46,8 @@
                             {{__('Systems/SystemFour/quotations.showOtherQuotations')}}
                         </button>
                         <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{{route('quotations.all')}}">{{__('Systems/SystemFour/quotations.all')}}</a>
+
                             <a class="dropdown-item" href="{{route('quotations.completed')}}">{{__('Systems/SystemFour/quotations.completed')}}</a>
                             <a class="dropdown-item" href="{{route('quotations.pending')}}">{{__('Systems/SystemFour/quotations.pending')}}</a>
                             <a class="dropdown-item" href="{{route('quotations.rejected')}}">{{__('Systems/SystemFour/quotations.rejected')}}</a>
@@ -61,12 +63,12 @@
                                 <th>{{ __('Systems/SystemFour/quotations.invoiceNumber') }}</th>
                                 <th>{{ __('Systems/SystemFour/quotations.invoiceDate') }}</th>
                                 <th>{{ __('Systems/SystemFour/quotations.employee') }}</th>
-                                <th>{{ __('Systems/SystemFour/quotations.status') }}</th>
-
                                 <th>{{ __('Systems/SystemFour/quotations.detail') }}</th>
                                 <th>{{ __('Systems/SystemFour/quotations.edit') }}</th>
                                 <th>{{ __('Systems/SystemFour/quotations.delete') }}</th>
                                 <th>{{ __('Systems/SystemFour/quotations.report') }}</th>
+                                <th>{{ __('Systems/SystemFour/quotations.status') }}</th>
+
                             </tr>
                             </thead>
                             <tbody>
