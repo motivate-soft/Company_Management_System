@@ -8,7 +8,7 @@ class Customer extends Model
 {
     protected $table = "system1_customers";
     protected $fillable = [
-        'sales_employee', 'nickname', 'customer_name', 'entry_type', 'entry_name', 'position',
+        'employee_id', 'customer_id', 'customer_name', 'membership', 'entry_type', 'entry_name', 'position',
         'mobile_number', 'landline_number', 'fax', 'zipcode', 'email', 'country_id','province_id', 'city_id','street_id',
         'address'
     ];
@@ -33,5 +33,13 @@ class Customer extends Model
 
     public function credit(){
         return $this->belongsTo('App\Model\Credit', 'credit_id', 'id');
+    }
+
+    public function quotation() {
+        return $this->hasMany('App\Model\dashboard\systems\SystemOne\Quotation', 'id', 'id');
+    }
+
+    public function staff() {
+        return $this->belongsTo('App\Model\dashboard\systems\SystemTwo\Staff', 'employee_id', 'id');
     }
 }

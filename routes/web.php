@@ -312,7 +312,6 @@
         Route::post('dashboard/jobtypes/update', 'dashboard\systems\SystemTwo\JobTypeController@update')->name('jobtypes.update');
         Route::post('dashboard/jobtypes/destroy', 'dashboard\systems\SystemTwo\JobTypeController@destroy')->name('jobtypes.destroy');
 
-
         /********** Fields ***********/
         Route::get('dashboard/fields', 'dashboard\systems\SystemFive\FieldController@index')->name('fields.index');
         Route::get('dashboard/del-field/{id}', 'dashboard\systems\SystemFive\FieldController@del_field')->name('fields.delete');
@@ -325,17 +324,33 @@
         Route::post('dashboard/fields/destroy', 'dashboard\systems\SystemFive\FieldController@destroy')->name('fields.destroy');
 
 
-            /********** Customers Routs ***********/
+
+        /********** Customers Routes ***********/
+
         Route::get('dashboard/customers/purchases', 'Systems\SystemOne\CustomerController@purchases')->name('customers.purchases');
         Route::get('dashboard/customers/disbursements', 'Systems\SystemOne\CustomerController@disbursements')->name('customers.disbursements');
         Route::post('dashboard/customers/update/{id}', 'Systems\SystemOne\CustomerController@update')->name('customers.update');
         Route::get('dashboard/customers/edit/{id}', 'Systems\SystemOne\CustomerController@edit')->name('customers.edit');
         Route::get('dashboard/customers/destroy/{id}', 'Systems\SystemOne\CustomerController@destroy')->name('customers.destroy');
+        Route::post('dashboard/customers/destroy', 'Systems\SystemOne\CustomerController@destroy_post')->name('customers.destroy_post');
         Route::get('dashboard/customers/profile/{id}', 'Systems\SystemOne\CustomerController@profile')->name('customers.profile');
         Route::post('/dashboard/customers/region', 'Systems\SystemOne\CustomerController@region_post')->name('customers.region');
         Route::Resource('dashboard/customers', 'Systems\SystemOne\CustomerController')->except('update', 'destroy', 'edit');
 
-//      Route::post('dashboard/products/codes', 'dashboard\customers\CustomerController@codes')->name('products.codes');
+        /********** Quotations Routes ***********/
+        Route::get('dashboard/quotations/destroy/{id}', 'Systems\SystemFour\QuotationController@destroy')->name('quotations.destroy');
+        Route::post('dashboard/quotations/destroy', 'Systems\SystemFour\QuotationController@destroy_post')->name('quotations.destroy_post');
+        Route::get('dashboard/quotations/detail/{id}', 'Systems\SystemFour\QuotationController@detail')->name('quotations.detail');
+        Route::get('dashboard/quotations/edit/{id}', 'Systems\SystemFour\QuotationController@edit')->name('quotations.edit');
+        Route::post('dashboard/quotations/changeStatus', 'Systems\SystemFour\QuotationController@changeStatus')->name('quotations.changeStatus');
+        Route::get('dashboard/quotations/create', 'Systems\SystemFour\QuotationController@create')->name('quotations.create');
+        Route::get('dashboard/quotations/store', 'Systems\SystemFour\QuotationController@store')->name('quotations.store');
+        Route::post('dashboard/quotations/store', 'Systems\SystemFour\QuotationController@store')->name('quotations.store');
+        Route::get('dashboard/quotations/completed', 'Systems\SystemFour\QuotationController@completed')->name('quotations.completed');
+        Route::get('dashboard/quotations/pending', 'Systems\SystemFour\QuotationController@pending')->name('quotations.pending');
+        Route::get('dashboard/quotations/rejected', 'Systems\SystemFour\QuotationController@rejected')->name('quotations.rejected');
+        Route::get('dashboard/quotations/understudying', 'Systems\SystemFour\QuotationController@understudying')->name('quotations.understudying');
+
 
 
             /********** Countries ***********/
