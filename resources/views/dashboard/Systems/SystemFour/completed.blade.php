@@ -47,6 +47,8 @@
                             {{__('Systems/SystemFour/quotations.showOtherQuotations')}}
                         </button>
                         <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{{route('quotations.all')}}">{{__('Systems/SystemFour/quotations.all')}}</a>
+
                             <a class="dropdown-item" href="{{route('quotations.completed')}}">{{__('Systems/SystemFour/quotations.completed')}}</a>
                             <a class="dropdown-item" href="{{route('quotations.pending')}}">{{__('Systems/SystemFour/quotations.pending')}}</a>
                             <a class="dropdown-item" href="{{route('quotations.rejected')}}">{{__('Systems/SystemFour/quotations.rejected')}}</a>

@@ -5,9 +5,7 @@
 @extends('dashboard.layouts.layout')
 @section('style')
 
-
-    <link href="{{ asset('assets/dashboard//plugins/datepicker/datepicker.min.css') }}" rel="stylesheet" type="text/css">
-
+    <link rel="stylesheet" href="{{ asset('assets/dashboard/plugins/dropify/dropify.css') }}">
 
 @endsection
 @section('rightbar-content')
@@ -76,7 +74,7 @@
                                         <input type="text" class="form-control" id="discount_rate" name="discount_rate"
                                                value="{{$quotation->discount_rate}}" required="">
                                     </div>
-                                    <div class="form-group row product1 morePro">
+                                    <div class="form-group row product1">
                                         <div class="col-md-8">
                                             <label>{{__('Systems/SystemFour/quotations.selectProduct')}}</label>
                                             <select class="form-control" name="product" required onchange="addMoreProducts(2)">
@@ -160,8 +158,8 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="fileUp">{{__('Systems/SystemFour/quotations.quantity')}}</label>
-                                        <input type="file" class="form-control" id="fileUp" name="fileUp" value="{{$quotation->filename}}">
+                                        <label for="fileUp">{{__('Systems/SystemFour/quotations.attachment')}}</label>
+                                        <input type="file" id="fileUp" name="fileUp" data-plugin="dropify" data-default-file="{{$quotation->filename}}"/>
                                     </div>
 
 
@@ -192,11 +190,23 @@
 @endsection
 @section('script')
 
+    <!-- Dropify js -->
+    <script src="{{ asset('assets/dashboard/plugins/dropify/babel-external-helpers.js') }}"></script>
+    <script src="{{ asset('assets/dashboard/plugins/dropify/jquery.js') }}"></script>
 
-    <script src="{{ asset('assets/dashboard//plugins/datepicker/datepicker.min.js') }}"></script>
-    <script src="{{ asset('assets/dashboard//plugins/datepicker/i18n/datepicker.en.js') }}"></script>
 
 
+    <script src="{{ asset('assets/dashboard/plugins/dropify/dropify.min.js') }}"></script>
+
+    <script src="{{ asset('assets/dashboard/plugins/dropify/Component.js') }}"></script>
+    <script src="{{ asset('assets/dashboard/plugins/dropify/Plugin.js') }}"></script>
+    <script src="{{ asset('assets/dashboard/plugins/dropify/Base.js') }}"></script>
+
+    <!-- Page -->
+    <script src="{{ asset('assets/dashboard/plugins/dropify/Site.js') }}"></script>
+
+
+    <script src="{{ asset('assets/dashboard/plugins/dropify/uploads.js') }}"></script>
     <script src="{{ asset('assets/dashboard//js/custom/custom-toasts.js') }}"></script>
 
     <script>
@@ -209,16 +219,27 @@
             }
         }
 
+        function addMoreProducts(index) {
+
+            if(index === 2){
+                $(".product2").show();
+            }
+            if(index === 3){
+                $(".product3").show();
+            }
+            if(index === 4){
+                $(".product4").show();
+            }
+            if(index === 5){
+                $(".product5").show();
+            }
+        }
+
+
+
         $(document).ready(function () {
 
-            $('#default-date').datepicker({
-                language: 'en',
-                dateFormat: 'yyyy/mm/dd',
-            });
-            $('#default-date12').datepicker({
-                language: 'en',
-                dateFormat: 'yyyy/mm/dd',
-            });
+            $('.morePro').hide();
 
             $('#default-datatable').DataTable();
 

@@ -28,5 +28,8 @@ return [
     'listQuotation' => 'Quotation List',
     'showOtherQuotations' => 'Show Other Quotations',
     'selectProducts' => 'Select Products',
-    'selectProduct' => 'Select Product'
+    'selectProduct' => 'Select Product',
+    'membership' => 'Membership Number',
+    'addMoreProduct' => 'Add More',
+    'removeProduct' => 'Remove'
 ];

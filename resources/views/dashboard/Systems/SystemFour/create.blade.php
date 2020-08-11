@@ -5,9 +5,8 @@
 @extends('dashboard.layouts.layout')
 @section('style')
 
-
-    <link href="{{ asset('assets/dashboard//plugins/datepicker/datepicker.min.css') }}" rel="stylesheet" type="text/css">
-
+    <!--Dropify css -->
+    <link rel="stylesheet" href="{{ asset('assets/dashboard/plugins/dropify/dropify.css') }}">
 
 @endsection
 @section('rightbar-content')
@@ -15,7 +14,7 @@
     <div class="breadcrumbbar">
         <div class="row align-items-center">
             <div class="col-md-8 col-lg-8">
-                <h4 class="page-title">{{__('Systems/SystemFour/staffs.addQuotation')}}</h4>
+                <h4 class="page-title">{{__('Systems/SystemFour/quotations.addQuotation')}}</h4>
                 <div class="breadcrumb-list">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{url('/home')}}">{{ __('side.dashboard') }}</a></li>
@@ -44,13 +43,11 @@
                     <div class="card-body">
                         <div class="row justify-content-center">
                             <div class="col-lg-8 col-xl-6">
-                                <form method="post" action="{{ route('quotations.store') }}" enctype="multipart/form-data">
-                                    @csrf
+                                <div id="create_form">
                                     <div class="form-group">
                                         <label for="employee">{{__('Systems/SystemFour/quotations.employee')}}</label>
                                         <select class="form-control" id="employee" name="employee_id"
                                                 required="">
-                                            <option>Select Employee</option>
                                             @foreach($employees as $employee)
                                                 <option value={{$employee->id}}>{{$employee->firstname}} {{$employee->secondname}} {{$employee->lastname}}</option>
                                             @endforeach
@@ -60,7 +57,6 @@
                                         <label for="customer">{{__('Systems/SystemFour/quotations.customer')}}</label>
                                         <select class="form-control" id="customer" name="customer_id"
                                                 required="">
-                                            <option>Select Customer</option>
                                             @foreach($customers as $customer)
                                                 <option value={{$customer->id}}>{{$customer->customer_name}}</option>
                                             @endforeach
@@ -70,95 +66,46 @@
                                         <label for="project_name">{{__('Systems/SystemFour/quotations.projectName')}}</label>
                                         <input type="text" class="form-control" id="project_name" name="project_name" placeholder="Project Name" required="">
                                     </div>
+
                                     <div class="form-group">
                                         <label for="discount_rate">{{__('Systems/SystemFour/quotations.discountRate')}}</label>
                                         <input type="text" class="form-control" id="discount_rate" name="discount_rate"
                                                placeholder="Discount Rate" required="">
                                     </div>
-                                    <div class="form-group row product1">
-                                        <div class="col-md-8">
-                                            <label>{{__('Systems/SystemFour/quotations.selectProduct')}}</label>
-                                            <select class="form-control" name="product" required onchange="addMoreProducts(2)">
-                                                {{--@foreach($products as $product)--}}
-                                                    {{--<option value={{$product->id}}>{{$product->name}}   <input type="number" min="0" id='{{$product->id}}qunt' name="{{$product->id}}qunt"></option>--}}
-                                                {{--@endforeach--}}
-                                                <option>Select Product</option>
-                                                <option>Car</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label for="quantity">{{__('Systems/SystemFour/quotations.quantity')}}</label>
-                                            <input type="number" min="0" class="form-control" id="quantity" name="quantity" placeholder="Quantity">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row product2 morePro">
-                                        <div class="col-md-8">
-                                            <label>{{__('Systems/SystemFour/quotations.selectProduct')}}</label>
-                                            <select class="form-control" name="product2" required onchange="addMoreProducts(3)">
-                                                {{--@foreach($products as $product)--}}
-                                                {{--<option value={{$product->id}}>{{$product->name}}   <input type="number" min="0" id='{{$product->id}}qunt' name="{{$product->id}}qunt"></option>--}}
-                                                {{--@endforeach--}}
-                                                <option>Select Product</option>
-                                                <option>Car</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label for="quantity2">{{__('Systems/SystemFour/quotations.quantity')}}</label>
-                                            <input type="number" min="0" class="form-control" id="quantity2" name="quantity2" placeholder="Quantity">
+                                    <div id="products">
+                                        <div class="form-group row product-row">
+                                            <div class="col-md-7">
+                                                <label>{{__('Systems/SystemFour/quotations.selectProduct')}}</label>
+                                                <select class="form-control product" required id="pro1">
+                                                    @foreach($products as $product)
+                                                    <option value={{$product->id}}>{{$product->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label for="quantity">{{__('Systems/SystemFour/quotations.quantity')}}</label>
+                                                <input type="number" min="0" class="form-control quantity" id="quantity1">
+                                            </div>
+                                            {{--<div class="col-md-2">--}}
+                                                {{--<label>Del</label>--}}
+                                                {{--<a href="javascript:void(0);" class="removeButton form-control"><i class="fa fa-minus"></i></a>--}}
+                                            {{--</div>--}}
                                         </div>
                                     </div>
-                                    <div class="form-group row product3 morePro">
-                                        <div class="col-md-8">
-                                            <label>{{__('Systems/SystemFour/quotations.selectProduct')}}</label>
-                                            <select class="form-control" name="product3" required onchange="addMoreProducts(4)">
-                                                {{--@foreach($products as $product)--}}
-                                                {{--<option value={{$product->id}}>{{$product->name}}   <input type="number" min="0" id='{{$product->id}}qunt' name="{{$product->id}}qunt"></option>--}}
-                                                {{--@endforeach--}}
-                                                <option>Select Product</option>
-                                                <option>Car</option>
-                                            </select>
+                                    <div class="col-lg-12 mt-4">
+                                        <div class="form-group mb-0 pull-right">
+                                            <a type="button" title="Add More Products" class="btn btn-info-rgba" id="addPro">{{__('Systems/SystemFour/quotations.addMoreProduct')}}</a>
                                         </div>
-                                        <div class="col-md-4">
-                                            <label for="quantity3">{{__('Systems/SystemFour/quotations.quantity')}}</label>
-                                            <input type="number" min="0" class="form-control" id="quantity3" name="quantity3" placeholder="Quantity">
-                                        </div>
+                                        <br/>
+                                        <br/>
                                     </div>
-                                    <div class="form-group row product4 morePro">
-                                        <div class="col-md-8">
-                                            <label>{{__('Systems/SystemFour/quotations.selectProduct')}}</label>
-                                            <select class="form-control" name="product4" onchange="addMoreProducts(5)" required>
-                                                {{--@foreach($products as $product)--}}
-                                                {{--<option value={{$product->id}}>{{$product->name}}   <input type="number" min="0" id='{{$product->id}}qunt' name="{{$product->id}}qunt"></option>--}}
-                                                {{--@endforeach--}}
-                                                <option>Select Product</option>
-                                                <option>Car</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label for="quantity4">{{__('Systems/SystemFour/quotations.quantity')}}</label>
-                                            <input type="number" min="0" class="form-control" id="quantity4" name="quantity4" placeholder="Quantity">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row product5 morePro">
-                                        <div class="col-md-8">
-                                            <label>{{__('Systems/SystemFour/quotations.selectProduct')}}</label>
-                                            <select class="form-control" name="product4" required>
-                                                {{--@foreach($products as $product)--}}
-                                                {{--<option value={{$product->id}}>{{$product->name}}   <input type="number" min="0" id='{{$product->id}}qunt' name="{{$product->id}}qunt"></option>--}}
-                                                {{--@endforeach--}}
-                                                <option>Select Product</option>
-                                                <option>Car</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label for="quantity5">{{__('Systems/SystemFour/quotations.quantity')}}</label>
-                                            <input type="number" min="0" class="form-control" id="quantity5" name="quantity5" placeholder="Quantity">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="fileUp">{{__('Systems/SystemFour/quotations.attachment')}}</label>
-                                        <input type="file" class="form-control" id="fileUp" name="fileUp">
-                                    </div>
+
+                                    {{--<div class="form-group" style="margin-top: 30px">--}}
+                                        {{--<label for="fileUp">{{__('Systems/SystemFour/quotations.attachment')}}</label>--}}
+                                        {{--<input type="file" id="fileUp" name="fileUp" data-plugin="dropify" />--}}
+                                    {{--</div>--}}
+                                    <!-- End Example Default Value -->
+
 
                                     <div class="custom-control custom-checkbox col-md-12">
                                         <input type="checkbox" class="custom-control-input" id="acceptTerms" onclick="enable()">
@@ -167,10 +114,10 @@
 
                                     <div class="col-lg-12 mt-4">
                                         <div class="form-group mb-0">
-                                            <button type="submit" disabled="" id="create" class="btn btn-primary pl-5 pr-5">{{__('Systems/SystemFour/quotations.add')}}</button>
+                                            <button id="submit" class="btn btn-primary pl-5 pr-5">{{__('Systems/SystemFour/quotations.add')}}</button>
                                         </div>
                                     </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -182,20 +129,33 @@
     </div>
         <p id="locale" style="display: none;"><?php echo app()->getLocale()?></p>
 
+
     <!-- End Contentbar -->
 @endsection
 @section('script')
 
+    <script src="{{ asset('assets/dashboard/js/custom/custom-toasts.js') }}"></script>
+    <!-- Dropify js -->
+    <script src="{{ asset('assets/dashboard/plugins/dropify/babel-external-helpers.js') }}"></script>
+    <script src="{{ asset('assets/dashboard/plugins/dropify/jquery.js') }}"></script>
 
-    <script src="{{ asset('assets/dashboard//plugins/datepicker/datepicker.min.js') }}"></script>
-    <script src="{{ asset('assets/dashboard//plugins/datepicker/i18n/datepicker.en.js') }}"></script>
 
 
-    <script src="{{ asset('assets/dashboard//js/custom/custom-toasts.js') }}"></script>
+    <script src="{{ asset('assets/dashboard/plugins/dropify/dropify.min.js') }}"></script>
+
+    <script src="{{ asset('assets/dashboard/plugins/dropify/Component.js') }}"></script>
+    <script src="{{ asset('assets/dashboard/plugins/dropify/Plugin.js') }}"></script>
+    <script src="{{ asset('assets/dashboard/plugins/dropify/Base.js') }}"></script>
+
+    <!-- Page -->
+    <script src="{{ asset('assets/dashboard/plugins/dropify/Site.js') }}"></script>
+
+
+    <script src="{{ asset('assets/dashboard/plugins/dropify/uploads.js') }}"></script>
 
     <script>
-        var index = 1;
-
+        var index = 2;
+        var products = <?php echo $products ?>
 
         function enable() {
             if ($("#create").attr('disabled') === 'disabled'){
@@ -205,40 +165,95 @@
             }
         }
 
-        function addMoreProducts(index) {
 
-            if(index === 2){
-                $(".product2").show();
-            }
-            if(index === 3){
-                $(".product3").show();
-            }
-            if(index === 4){
-                $(".product4").show();
-            }
-            if(index === 5){
-                $(".product5").show();
-            }
-        }
+        $("#submit").click(function(){
 
+            var productInfo = [];
 
+            $(".product-row").each(function(){
+                var productId = $(this).find(".product").val();
+                var quantity = Number($(this).find(".quantity").val());
+                if(productInfo[productId] === undefined){
+                    productInfo[productId] = quantity;
+                }
+                else{
+                    productInfo[productId] += quantity;
+                }
 
-        $(document).ready(function () {
-
-            $('.morePro').hide();
-
-            $('#default-date').datepicker({
-                language: 'en',
-                dateFormat: 'yyyy/mm/dd',
-            });
-            $('#default-date12').datepicker({
-                language: 'en',
-                dateFormat: 'yyyy/mm/dd',
             });
 
-            $('#default-datatable').DataTable();
+            var reqProductInfo = [];
+            productInfo.forEach(function(value, index){
+                reqProductInfo.push({
+                    product: index,
+                    quantity: value
+                })
+            });
+            console.log(reqProductInfo);
 
+
+            var employee = $("#employee").val();
+            var customer = $("#customer").val();
+            var discount_rate = $('#discount_rate').val();
+            var project_name = $('#project_name').val();
+
+
+
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': '<?= csrf_token() ?>'
+                }
+            });
+
+
+            $.ajax ({
+
+                url: "{{url('dashboard/quotations/store')}}",
+                data: {
+                    employee_id: employee,
+                    customer_id: customer,
+                    project_name: project_name,
+                    discount_rate: discount_rate,
+                    purchase_info: reqProductInfo
+                },
+                type: 'POST',
+                datatype: 'json',
+                success: function (result) {
+
+                    console.log(result);
+
+                }
+            });
         });
+
+        $("#addPro").click(function () {
+            // var content = $('#products').html();
+            $('#products').append("<div class=\"form-group product-row row \">\n" +
+                "                                            <div class=\"col-md-7\">\n" +
+                "                                                <label>{{__('Systems/SystemFour/quotations.selectProduct')}}</label>\n" +
+                "                                                <select class=\"form-control product\" required id=\"pro"+index+"\">\n" +
+                "                                                    @foreach($products as $product)\n" +
+                "                                                    <option value={{$product->id}}>{{$product->name}}</option>\n" +
+                "                                                    @endforeach\n" +
+                "                                                </select>\n" +
+                "                                            </div>\n" +
+                "                                            <div class=\"col-md-3\">\n" +
+                "                                                <label for=\"quantity\">{{__('Systems/SystemFour/quotations.quantity')}}</label>\n" +
+                "                                                <input type=\"number\" min=\"0\" class=\"form-control quantity\" id=\"quantity"+index+"\">\n" +
+                "                                            </div>\n" +
+                "                                            <div class=\"col-md-2\">\n" +
+                "                                                <label>_</label>\n" +
+                "                                                <a href=\"javascript:void(0);\" class=\"removeButton btn-danger-rgba form-control\">x</a>\n" +
+                "                                            </div>\n" +
+                "                                        </div>");
+            $(document).on('click','.removeButton',function() {
+                $(this).closest("div.row").remove();
+            });
+            index += 1;
+        });
+
+
 
     </script>
 @endsection

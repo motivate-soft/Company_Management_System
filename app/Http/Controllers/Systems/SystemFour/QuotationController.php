@@ -5,10 +5,9 @@ namespace App\Http\Controllers\Systems\SystemFour;
 use App\Model\dashboard\systems\SystemFour\Quotation;
 use App\Model\dashboard\systems\SystemOne\Customer;
 use App\Model\dashboard\systems\SystemTwo\Staff;
+use App\Model\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Mpdf\Tag\Q;
-use function Sodium\compare;
 
 class QuotationController extends Controller
 {
@@ -47,43 +46,101 @@ class QuotationController extends Controller
 
     public function create()
     {
-
+        $products = Product::all();
         $customers = Customer::all();
         $employees = Staff::all();
-        return view('dashboard.Systems.SystemFour.create', compact('customers', 'employees'));
+        return view('dashboard.Systems.SystemFour.create', compact('customers', 'employees', 'products'));
     }
 
     public function store(Request $request){
 
         $inserted = ([
-            'employee_id'=> $request->employee_id,
-            'customer_id' => $request->customer_id,
-            'project_name' => $request->project_name,
+            'employee_id'   => $request->employee_id,
+            'customer_id'   => $request->customer_id,
+            'project_name'  => $request->project_name,
             'discount_rate' => $request->discount_rate,
-            'quantity' => $request->quantity,
+            'purchase_info' => $request->purchase_info,
         ]);
 
-        if ($request->hasFile('fileUp')) {
-            $file = $request->file('fileUp');
-            $extension = $file->getClientOriginalExtension();
-            if($extension == "jpg" || $extension=="pdf")
-            {$filename = uniqid() . '_' . time() . '.' . $extension;
-                $file->move('upload/Systems/SystemFour/', $filename);
-                $fullname = '/upload/Systems/SystemFour/'.$filename;
-            } else{
-                return back()->with('error', 'File extension must be .jpg or .pdf');
-            }
-            $inserted['filename'] = $fullname;
+        $new = new Quotation();
+
+        $new->employee_id = $request->employee_id;
+        $new->customer_id = $request->customer_id;
+        $new->project_name = $request->project_name;
+        $new->discount_rate = $request->discount_rate;
+
+        $new->save();
+
+        $quotation = Quotation::where('id', $new->id)->first();
+
+        $index = [];
+
+        for($x = 0 ; $x < count($request->purchase_info) ; $x ++) {
+
+            $productid = $request->purchase_info[$x]['product'];
+
+//            ['quantity' => $request->purchase_info[$x]['quantity']]
+
+//            $quotation->products()->save($productid, ['quantity' => $request->purchase_info[$x]['quantity']]);
+
+            array_push($index, $productid);
+
+//            $quotation->products()->save($productid);
 
         }
 
+//        $quotation->products()->save([0 => "1", 1 => "2", 2 => "3"]);
+        $quotation->products()->sync([1, 2]);
 
-        $data = Quotation::create($inserted);
-        if ($data) {
-            return back()->with('success', 'Successfully Added!');
-        }else{
-            return back()->with('error', 'Something Went Wrong!');
-        }
+        return $quotation;
+
+
+
+//        $quotation->products()->save(Product::find($index));
+
+
+
+//        $quotation->products()->attach(Quotation::find($index));
+
+
+//        $permissiongroup->permissions()->detach();
+
+
+        return $index;
+
+
+
+
+        //echo json_encode($request);
+//        return $inserted;
+
+
+
+
+
+//        if ($request->fileUp) {
+//            $file = $request->file('fileUp');
+//            $extension = $file->getClientOriginalExtension();
+//            if($extension == "jpg" || $extension=="pdf")
+//            {$filename = $file->getClientOriginalName();
+//                $file->move('upload/Systems/SystemFour/', $filename);
+//                $fullname = '/upload/Systems/SystemFour/'.$filename;
+//            } else{
+//                return back()->with('error', 'File extension must be .jpg or .pdf');
+//            }
+//            $inserted['filename'] = $fullname;
+//        }
+//
+//        $data = Quotation::create($inserted);
+
+//        print_r($data);
+
+
+//        if ($data) {
+//            return back()->with('success', 'Successfully Added!');
+//        }else{
+//            return back()->with('error', 'Something Went Wrong!');
+//        }
     }
 
     public function edit($id) {
@@ -132,5 +189,9 @@ class QuotationController extends Controller
     public function detail($id){
         $quotation = Quotation::where('id', $id)->first();
         return view('dashboard.Systems.SystemFour.detail', compact('quotation'));
+    }
+
+    public function invoice() {
+        return view('dashboard.Systems.SystemFour.invoice');
     }
 }
