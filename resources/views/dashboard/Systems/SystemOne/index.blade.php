@@ -1,16 +1,16 @@
-@section('title') 
-{{ __('customers/customers.customersList') }}
-@endsection 
+@section('title')
+    {{ __('customers/customers.customersList') }}
+@endsection
 @extends('dashboard.layouts.layout')
 @section('style')
 
-<link href="{{ asset('assets/dashboard/plugins/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
-<link href="{{ asset('assets/dashboard/plugins/datatables/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
-<!-- Responsive Datatable css -->
-<link href="{{ asset('assets/dashboard/plugins/datatables/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
-<link href="{{ asset('assets/dashboard/plugins/sweet-alert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/dashboard/plugins/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/dashboard/plugins/datatables/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+    <!-- Responsive Datatable css -->
+    <link href="{{ asset('assets/dashboard/plugins/datatables/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/dashboard/plugins/sweet-alert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
 
-@endsection 
+@endsection
 @section('rightbar-content')
 <!-- Start Breadcrumbbar -->                    
 <div class="breadcrumbbar">
@@ -72,8 +72,8 @@
                                 @foreach($customers as $key => $customer)
                                 <tr>
                                     <td>{{ $key+1 }}</td>
-                                    <td>{{ $customer->sales_employee }}</td>
-                                    <td>{{ $customer->nickname }}</td>
+                                    <td>{{ $customer->staff->firstname }}</td>
+                                    <td>{{ $customer->customer_id }}</td>
                                     <td>{{ $customer->customer_name }}</td>
                                     <td>{{ $customer->entry_type }}</td>
                                     <td>{{ $customer->entry_name }}</td>
@@ -146,7 +146,7 @@
                         body: function ( data, row, column, node ) {
                             // Strip $ from salary column to make it numeric
                             console.log(row);
-                            if(row == 4){
+                            if(row === 4){
                                 return $('#customSwitch' + column).is(":checked") ? 'Active' : 'Inactive' ;
                             }
                             return data;
