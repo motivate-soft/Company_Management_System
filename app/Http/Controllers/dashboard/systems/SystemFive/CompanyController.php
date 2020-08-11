@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\dashboard\systems\SystemFive;
 
+use App\Model\City;
 use App\Model\Country;
 use App\Model\dashboard\systems\SystemFive\AttachFile;
 use App\Model\dashboard\systems\SystemFive\Company;
 use App\Model\dashboard\systems\SystemFive\Delegate;
 use App\Model\dashboard\systems\systemFive\Field;
+use App\Model\Neighborhood;
+use App\Model\State;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -18,14 +21,29 @@ class CompanyController extends Controller
 
     public function index()
     {
+        $countries = Country::all();
+        $regions = State::all();
+        $cities = City::all();
+        $neighborhoods = Neighborhood::all();
+
         $companies = Company::orderBy('id', 'desc')->get();
-        return view('dashboard.Systems.SystemFive.companies.index', compact('companies'));
+        return view('dashboard.Systems.SystemFive.companies.index', compact('companies', 'countries', 'regions', 'cities', 'neighborhoods'));
     }
 
     public function edit($id)
     {
+
+        $fields = Field::all();
+        $sortnames = Country::distinct()->get('sortname');
+        $countries = Country::all();
+
         $company = Company::findOrFail($id);
-        return view('dashboard.Systems.SystemFive.companies.edit', compact('company'));
+
+        $regions = State::where('country_id', $company->country)->get();
+        $cities = City::where('state_id', $company->region)->get();
+        $neighborhoods = Neighborhood::where('city_id', $company->city)->get();
+
+        return view('dashboard.Systems.SystemFive.companies.edit', compact('company', 'fields', 'sortnames', 'countries', 'regions', 'cities', 'neighborhoods'));
     }
 
     public function detail($id)
@@ -35,13 +53,28 @@ class CompanyController extends Controller
         return view('dashboard.Systems.SystemFive.companies.detail', compact('company', 'delegates'));
     }
 
+    public function view($id)
+    {
+        $company = Company::findOrFail($id);
+
+        $countries = Country::all();
+
+        $regions = State::where('country_id', $company->country)->get();
+        $cities = City::where('state_id', $company->region)->get();
+        $neighborhoods = Neighborhood::where('city_id', $company->city)->get();
+
+        return view('dashboard.Systems.SystemFive.companies.view', compact('company','countries', 'regions', 'cities', 'neighborhoods'));
+    }
+
 
     public function create()
     {
         $fields = Field::all();
         $sortnames = Country::distinct()->get('sortname');
         $countries = Country::all();
-        return view('dashboard.Systems.SystemFive.companies.create', compact('fields', 'sortnames', 'countries'));
+
+        $defaultimage = "upload/Systems/SystemFive/default.png";
+        return view('dashboard.Systems.SystemFive.companies.create', compact('fields', 'sortnames', 'countries', 'defaultimage'));
     }
 
     public function add_company_post(Request $request)
@@ -60,7 +93,6 @@ class CompanyController extends Controller
                 'email' => 'required|email',
                 'telephone' => 'required|numeric',
                 'bankname' => 'required|string',
-                'bankaccount' => 'required|string',
                 'accountname' => 'required|string',
                 'accountnumber' => 'required|string',
                 'accountiban' => 'required|string',
@@ -77,6 +109,13 @@ class CompanyController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
+        $destinationPath = 'upload/Systems/SystemFive';
+
+        if($cardimage = $request->file('cardimage')) {
+
+            $cardimage->move($destinationPath, $cardimage->getClientOriginalName());
+        }
+
         $new = new Company();
 
         $new->name = $request->name;
@@ -89,11 +128,13 @@ class CompanyController extends Controller
         $new->mobile = $request->mobile;
         $new->email = $request->email;
         $new->telephone = $request->telephone;
-        $new->bankname = $request->telephone;
-        $new->bankaccount = $request->telephone;
-        $new->banknumber = $request->telephone;
+        $new->bankname = $request->bankname;
+        $new->accountname = $request->accountname;
+        $new->accountnumber = $request->accountnumber;
         $new->accountiban = $request->telephone;
-        $new->swiftcode = $request->telephone;
+        $new->swiftcode = $request->swiftcode;
+        $new->person = auth()->user()->name;
+        $new->cardimage = ($cardimage) ? $destinationPath."/".$cardimage->getClientOriginalName() : $destinationPath."/"."default.png";
 
         $created = $new->save();
 
@@ -134,13 +175,11 @@ class CompanyController extends Controller
                 'telephone' => $request->telephone,
                 'email' => $request->email,
                 'address' => $request->address,
-                'bankname' => $request->bankaccount,
-                'accountname' => $request->bankaccount,
-                'accountnumber' => $request->bankaccount,
-                'accountiban' => $request->bankaccount,
-                'a' => $request->bankaccount,
-                'bankaccount' => $request->bankaccount,
-                'cardimage' => $request->cardimage
+                'bankname' => $request->bankname,
+                'accountname' => $request->accountname,
+                'accountnumber' => $request->accountnumber,
+                'accountiban' => $request->accountiban,
+                'swiftcode' => $request->swiftcode,
             ];
 
         $validator = Validator::make($request->all(),
@@ -156,8 +195,8 @@ class CompanyController extends Controller
                 'email' => 'required|email',
                 'address' => 'required|string',
                 'bankname' => 'required|string',
-                'bankaccount' => 'required|string',
-                'banknumber' => 'required|string',
+                'accountname' => 'required|string',
+                'accountnumber' => 'required|string',
                 'accountiban' => 'required|string',
                 'swiftcode' => 'required|string',
             ]);
@@ -172,33 +211,46 @@ class CompanyController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
+        $destinationPath = 'upload/Systems/SystemFive';
+
+        if($cardimage = $request->file('cardimage')) {
+
+            $cardimage->move($destinationPath, $cardimage->getClientOriginalName());
+        }
 
         $data = ([
             'name' => $request->name,
             'field' => $request->field,
             'country' => $request->country,
+            'region' => $request->region,
             'city' => $request->city,
+            'neighborhood' => $request->neighborhood,
             'mobile' => $request->mobile,
             'telephone' => $request->telephone,
             'email' => $request->email,
             'address' => $request->address,
-            'bankaccount' => $request->bankaccount,
-            'cardimage' => $request->cardimage,
+            'bankname' => $request->bankname,
+            'accountname' => $request->accountname,
+            'accountnumber' => $request->accountnumber,
+            'accountiban' => $request->accountiban,
+            'swiftcode' => $request->swiftcode,
+            'cardimage' => ($cardimage) ? $destinationPath."/".$cardimage->getClientOriginalName() : $destinationPath."/"."placeholder.png",
+
+
         ]);
 
-        $attachdata = ([
-            'company_id' => $request->company_id,
-            'catalogfile' => isset($request->catalogfile) ? $request->catalogfile : null,
-            'pricelistfile' => isset($request->pricelistfile) ? $request->pricelistfile : null,
-        ]);
+//        $attachdata = ([
+//            'company_id' => $request->company_id,
+//            'catalogfile' => isset($request->catalogfile) ? $request->catalogfile : null,
+//            'pricelistfile' => isset($request->pricelistfile) ? $request->pricelistfile : null,
+//        ]);
+//
+//
+//        AttachFile::updateOrCreate($attachdata);
 
+        $updated = Company::where('id', $request->company_id)->update($data);
 
-        AttachFile::updateOrCreate($attachdata);
-
-
-        $created = DB::table('system5_companies')->where('id', $request->company_id)->update($data);
-
-        if ($created) {
+        if ($updated) {
             return redirect()->route('companies.index')->with('success', 'company Updated');
         } else {
             return redirect()->back()->with('error', 'Something went wrong!');
@@ -208,7 +260,7 @@ class CompanyController extends Controller
 
     public function del_company($id)
     {
-        $deleted = DB::table('system5_companies')->where('id', $id)->delete();
+        $deleted = Company::where('id', $id)->delete();
         if ($deleted) {
             return redirect()->route('companies.index')->with('success', 'company Deleted');
         } else {
@@ -217,7 +269,7 @@ class CompanyController extends Controller
     }
     public function del_company_post(Request $request)
     {
-        $deleted = DB::table('system5_companies')->where('id', $request->id)->delete();
+        $deleted = Company::where('id', $request->id)->delete();
         if ($deleted) {
             return 1;
         } else {

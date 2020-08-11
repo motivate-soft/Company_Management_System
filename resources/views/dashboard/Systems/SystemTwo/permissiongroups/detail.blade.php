@@ -16,6 +16,72 @@
     .textcolor-black { color:black; }
 </style>
 
+<style>
+    /* The switch - the box around the slider */
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 34px;
+    }
+
+    /* Hide default HTML checkbox */
+    .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    /* The slider */
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    input:checked + .slider {
+        background-color: #2196F3;
+    }
+
+    input:focus + .slider {
+        box-shadow: 0 0 1px #2196F3;
+    }
+
+    input:checked + .slider:before {
+        -webkit-transform: translateX(26px);
+        -ms-transform: translateX(26px);
+        transform: translateX(26px);
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+        border-radius: 34px;
+    }
+
+    .slider.round:before {
+        border-radius: 50%;
+    }
+</style>
+
+
 @endsection
 @section('rightbar-content')
 <!-- Start Breadcrumbbar -->
@@ -79,12 +145,24 @@
                         <div class="col-lg-12 mb-4">
                             <div class="form-group mb-0">
                                 <label>{{__('Systems/SystemTwo/permissiongroups.permissions')}}</label>
-                                @if(isset($permissions) && count($permissions) > 0)
-                                    @foreach($permissions as $key => $permission)
-                                        <label for="{{$permission->id}}">@if(app()->getLocale() == "en"){{$permission->name}} @else {{$permission->ar_name}}@endif</label>
-                                        <input type="checkbox" @if(isset($permissions_granted) && count($permissions_granted) > 0) @foreach($permissions_granted as $key => $permission_granted) @if($permission_granted->id == $permission->id) checked @endif @endforeach @endif id="{{$permission->id}}" name="{{$permission->id}}" disabled/>
-                                    @endforeach
-                                @endif
+                                <div class="row">
+                                    @if(isset($permissions) && count($permissions) > 0)
+                                        @foreach($permissions as $key => $permission)
+                                            <div class="col-sm-6 text-center">
+                                                <label for="{{$permission->id}}">@if(app()->getLocale() == "en"){{$permission->name}} @else {{$permission->ar_name}}@endif</label>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label class="switch text-center">
+                                                    <input type="checkbox" @if(isset($permissions_granted) && count($permissions_granted) > 0) @foreach($permissions_granted as $key => $permission_granted) @if($permission_granted->id == $permission->id) checked @endif @endforeach @endif name="{{$permission->id}}" disabled/>
+                                                    <span class="slider round"></span>
+                                                </label>
+                                            </div>
+
+                                            {{--<input type="checkbox" @if(isset($permissions_granted) && count($permissions_granted) > 0) @foreach($permissions_granted as $key => $permission_granted) @if($permission_granted->id == $permission->id) checked @endif @endforeach @endif id="{{$permission->id}}" name="{{$permission->id}}" disabled/>--}}
+                                        @endforeach
+                                    @endif
+                                </div>
+
                             </div>
                         </div>
 

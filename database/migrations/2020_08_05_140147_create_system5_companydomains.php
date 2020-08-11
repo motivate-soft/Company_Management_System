@@ -16,6 +16,7 @@ class CreateSystem5Companydomains extends Migration
         Schema::create('system5_companydomains', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            $table->string('ar_name');
             $table->string('person');
             $table->timestamps();
         });

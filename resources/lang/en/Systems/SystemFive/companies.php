@@ -15,7 +15,11 @@ return [
     'telephone' => 'Telephone',
     'email' => 'Email',
     'address' => 'Address',
-    'bankaccount' => 'BankAccount',
+    'bankname' => 'BankName',
+    'accountname' => 'AccountName',
+    'accountnumber' => 'AccountNumber',
+    'accountiban' => 'AccountIBAN',
+    'swiftcode' => 'SwiftCode',
     'cardimage' => 'CardImage',
     'catalogfile' => 'CatalogFile',
     'pricelistfile' => 'PriceListFile',
@@ -29,7 +33,10 @@ return [
     'companies_list' => 'All',
     'edit_company' => 'Edit',
     'view' => 'View',
+    'edit' => 'Edit',
     'back' => 'Back',
-    'companyname' => 'CompanyName'
+    'person' => 'Person',
+    'created_at' => 'Date',
+    'companyname' => 'CompanyName',
 
 ];

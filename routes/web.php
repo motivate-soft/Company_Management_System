@@ -271,14 +271,14 @@
         /********** Companies ***********/
         Route::get('dashboard/companies', 'dashboard\systems\SystemFive\CompanyController@index')->name('companies.index');
         Route::get('dashboard/del-company/{id}', 'dashboard\systems\SystemFive\CompanyController@del_company')->name('companies.delete');
-        Route::get('dashboard/view-company/{id}', 'dashboard\systems\SystemFive\CompanyController@view_company')->name('companies.view');
+        Route::get('dashboard/view-company/{id}', 'dashboard\systems\SystemFive\CompanyController@view')->name('companies.view');
         Route::get('dashboard/detail-company/{id}', 'dashboard\systems\SystemFive\CompanyController@detail')->name('companies.detail');
         Route::post('dashboard/del-company', 'dashboard\systems\SystemFive\CompanyController@del_company_post')->name('companies.delete_post');
         Route::post('dashboard/edit-company', 'dashboard\systems\SystemFive\CompanyController@update_company_post');
         Route::post('dashboard/add-company', 'dashboard\systems\SystemFive\CompanyController@add_company_post')->name('companies.add');
         Route::post('dashboard/company-state', 'dashboard\systems\SystemFive\CompanyController@update_status_post');
         Route::Resource('dashboard/companies', 'dashboard\systems\SystemFive\CompanyController')->except('update', 'destroy');
-        Route::post('dashboard/companies/update', 'dashboard\systems\SystemFive\CompanyController@update')->name('companies.update');
+        Route::post('dashboard/companies/update', 'dashboard\systems\SystemFive\CompanyController@update_company_post')->name('companies.update');
         Route::post('dashboard/companies/destroy', 'dashboard\systems\SystemFive\CompanyController@destroy')->name('companies.destroy');
 
         /********** Offers ***********/
