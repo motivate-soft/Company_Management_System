@@ -30,9 +30,9 @@ class CreateSystem5Companies extends Migration
             $table->string('accountnumber');
             $table->string('accountiban');
             $table->string('swiftcode');
+            $table->string('cardimage')->nullable();
             $table->string('person');
             $table->string('catalogfile')->nullable();
-            $table->string('cardimage')->nullable();
             $table->timestamps();
         });
     }

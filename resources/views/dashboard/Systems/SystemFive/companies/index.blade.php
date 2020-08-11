@@ -9,9 +9,9 @@
 <!-- Responsive Datatable css -->
 <link href="{{ asset('assets/dashboard/plugins/datatables/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
 
-{{--<style>--}}
-    {{--td { text-align: center; }--}}
-{{--</style>--}}
+<style>
+    td { text-align: center; }
+</style>
 
 <link href="{{ asset('assets/dashboard/plugins/sweet-alert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
 
@@ -53,10 +53,23 @@
                                 <tr>
                                     <th>#</th>
                                     <th>{{__('Systems/SystemFive/companies.name')}}</th>
-                                    <th>{{__('Systems/SystemFive/companies.domain')}}</th>
-                                    <th>{{__('Systems/SystemFive/companies.edit_company')}}</th>
-                                    <th>{{__('Systems/SystemFive/companies.view')}}</th>
+                                    <th>{{__('Systems/SystemFive/companies.field')}}</th>
+                                    <th>{{__('Systems/SystemFive/companies.country')}}</th>
+                                    <th>{{__('Systems/SystemFive/companies.region')}}</th>
+                                    <th>{{__('Systems/SystemFive/companies.city')}}</th>
+                                    <th>{{__('Systems/SystemFive/companies.neighborhood')}}</th>
+                                    <th>{{__('Systems/SystemFive/companies.address')}}</th>
+                                    <th>{{__('Systems/SystemFive/companies.mobile')}}</th>
+                                    <th>{{__('Systems/SystemFive/companies.email')}}</th>
+                                    <th>{{__('Systems/SystemFive/companies.telephone')}}</th>
+                                    <th>{{__('Systems/SystemFive/companies.bankname')}}</th>
+                                    <th>{{__('Systems/SystemFive/companies.accountname')}}</th>
+                                    <th>{{__('Systems/SystemFive/companies.accountnumber')}}</th>
+                                    <th>{{__('Systems/SystemFive/companies.accountiban')}}</th>
+                                    <th>{{__('Systems/SystemFive/companies.swiftcode')}}</th>
+                                    <th>{{__('Systems/SystemFive/companies.cardimage')}}</th>
                                     <th>{{__('Systems/SystemFive/companies.detail')}}</th>
+                                    <th>{{__('Systems/SystemFive/companies.edit')}}</th>
                                     <th>{{__('Systems/SystemFive/companies.delete')}}</th>
 
 
@@ -68,10 +81,58 @@
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
                                             <td>{{ $company->name }}</td>
-                                            <td>{{ $company->domain }}</td>
-                                            <td><a href="{{route('companies.edit', $company->id)}}" class="btn btn-success-rgba"><i class="feather icon-edit-2"></i></a></td>
+                                            <td>{{ $company->field }}</td>
+                                            <td>
+                                                @if(isset($company->country))
+                                                    @foreach($countries as $key => $country)
+                                                        @if($country->id == $company->country)
+                                                            {{$country->name}}
+                                                        @endif
+                                                        @endforeach
+                                                    @endif
+                                            </td>
+                                            <td>
+                                                @if(isset($company->region))
+                                                    @foreach($regions as $key => $region)
+                                                        @if($region->id == $company->region)
+                                                            {{$region->name}}
+                                                        @endif
+                                                    @endforeach
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if(isset($company->city))
+                                                    @foreach($cities as $key => $city)
+                                                        @if($city->id == $company->city)
+                                                            {{$city->name}}
+                                                        @endif
+                                                    @endforeach
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if(isset($company->neighborhood))
+                                                    @foreach($neighborhoods as $key => $neighborhood)
+                                                        @if($neighborhood->id == $company->neighborhood)
+                                                            {{$neighborhood->name}}
+                                                        @endif
+                                                    @endforeach
+                                                @endif
+                                            </td>
+                                            <td>{{ $company->address }}</td>
+                                            <td>{{ $company->mobile }}</td>
+                                            <td>{{ $company->email }}</td>
+                                            <td>{{ $company->telephone }}</td>
+                                            <td>{{ $company->bankname }}</td>
+                                            <td>{{ $company->accountname }}</td>
+                                            <td>{{ $company->accountnumber }}</td>
+                                            <td>{{ $company->accountiban }}</td>
+                                            <td>{{ $company->swiftcode }}</td>
+                                            <td>
+                                                <img style="width:30px;" alt="cardimage" src="{{asset($company->cardimage)}}"/>
+                                            </td>
                                             <td><a href="{{route('companies.view', $company->id)}}" class="btn btn-success-rgba"><i class="feather icon-eye"></i></a></td>
-                                            <td><a href="{{route('companies.detail', $company->id)}}" class="btn btn-success-rgba"><i class="feather icon-eye"></i></a></td>
+                                            <td><a href="{{route('companies.edit', $company->id)}}" class="btn btn-success-rgba"><i class="feather icon-edit-2"></i></a></td>
+                                            {{--<td><a href="{{route('companies.detail', $company->id)}}" class="btn btn-success-rgba"><i class="feather icon-eye"></i></a></td>--}}
                                             <td><a onclick="deleteConfirm({{$company->id}})" class="btn btn-danger-rgba"><i class="feather icon-trash"></i></a></td>
                                       </tr>
                                     @endforeach
