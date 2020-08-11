@@ -82,7 +82,7 @@
                             <li class="breadcrumb-item"><a href="{{url('/home')}}">{{ __('side.dashboard') }}</a></li>
                             <li class="breadcrumb-item">{{ __('side.products') }}</li>
                             <li class="breadcrumb-item"><a
-                                    href="{{route('products.index')}}">{{ __('side.productList') }}</a></li>
+                                        href="{{route('products.index')}}">{{ __('side.productList') }}</a></li>
                             <li class="breadcrumb-item active"
                                 aria-current="page">{{ __('products/productAdd.titleAdd') }}</li>
                         </ol>
@@ -90,15 +90,18 @@
                 </div>
                 <div class="col-md-4 col-lg-4">
                     <div class="widgetbar">
-                        <button class="btn btn-primary save"
-                                type="button">{{ __('products/productAdd.publish') }}</button>
-                        <div class="loadingMask">
-                            <img src="{{asset('assets/dashboard/images/loader.gif')}}" alt="">
-                        </div>
+                        <a class = "btn btn-primary-rgba" href="{{route('products.index')}}">{{ __('products/productAdd.back') }}</a>
+
+                        {{--<div class="loadingMask">--}}
+                        {{--<img src="{{asset('assets/dashboard/images/loader.gif')}}" alt="">--}}
+                        {{--</div>--}}
+
                     </div>
                 </div>
+
             </div>
         </div>
+
         <!-- End Breadcrumbbar -->
         <!-- Start Contentbar -->
         <div class="contentbar">
@@ -178,17 +181,17 @@
                                         <a class="nav-link mb-2 active" id="v-pills-general-tab" data-toggle="pill"
                                            href="#v-pills-general" role="tab" aria-controls="v-pills-general"
                                            aria-selected="true"><i
-                                                class="feather icon-feather mr-2"></i>{{ __('products/productAdd.general') }}
+                                                    class="feather icon-feather mr-2"></i>{{ __('products/productAdd.general') }}
                                         </a>
                                         <a class="nav-link mb-2" id="v-pills-stock-tab" data-toggle="pill"
                                            href="#v-pills-stock" role="tab" aria-controls="v-pills-stock"
                                            aria-selected="false"><i
-                                                class="feather icon-box mr-2"></i>{{ __('products/productAdd.stock') }}
+                                                    class="feather icon-box mr-2"></i>{{ __('products/productAdd.stock') }}
                                         </a>
                                         <a class="nav-link mb-2" id="v-pills-shipping-tab" data-toggle="pill"
                                            href="#v-pills-shipping" role="tab" aria-controls="v-pills-shipping"
                                            aria-selected="false"><i
-                                                class="feather icon-truck mr-2"></i>{{ __('products/productAdd.shipping') }}
+                                                    class="feather icon-truck mr-2"></i>{{ __('products/productAdd.shipping') }}
                                         </a>
                                         <!--<a class="nav-link mb-2" id="v-pills-advanced-tab" data-toggle="pill" href="#v-pills-advanced" role="tab" aria-controls="v-pills-advanced" aria-selected="false"><i class="feather icon-settings mr-2"></i>Advanced</a>-->
                                     </div>
@@ -479,9 +482,18 @@
                             <div class="error error_image"></div>
                         </div>
                         <div class="card-footer">
-                            <input type="file" name="image" id="imageUpload"
-                                   class="btn btn-primary-rgba btn-lg btn-block">
+                            {{--<input type="file" name="image" id="imageUpload"--}}
+                            {{--class="btn btn-primary-rgba btn-lg btn-block">--}}
+                            <button data-toggle="modal" data-target="#fileManager_Popup" class="col-12 btn btn-primary-rgba my-1 fileManager_Popup_btn">{{ __('products/productAdd.selectImage') }}</button>
+                            @include('dashboard.fileManager.fileManagerPopUpView')
+
                         </div>
+                    </div>
+                </div>
+
+                <div class = "col-lg-12 col-xl-3">
+                    <div class="card m-b-30">
+                        <button type="submit" class="btn btn-primary pl-5 pr-5 save">{{ __('products/productsList.save') }}</button>
                     </div>
                 </div>
                 <!-- End col -->
@@ -494,4 +506,10 @@
     </form>
     <!-- End Contentbar -->
 @endsection
-@include('dashboard.products.scripts.create')
+{{--@include('dashboard.products.scripts.create')--}}
+
+@section('script')
+    @include('dashboard.products.scripts.index')
+    <!--File Manager Scripts-->
+    @include('dashboard.fileManager.fileManagerScript')
+@endsection

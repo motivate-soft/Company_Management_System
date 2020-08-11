@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\dashboard\categories;
+namespace App\Http\Controllers\dashboard\products;
 
 use App\Model\dashboard\productManagment\Category;
 use Illuminate\Http\Request;
@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use DB;
 use App\Http\Controllers\Controller;
 
-class CategoriesController  extends Controller
+class CategoriesController extends Controller
 {
     public $successStatus = 200;
 
@@ -18,7 +18,7 @@ class CategoriesController  extends Controller
 
     public function index(){
         $cuttings = Category::orderBy('id', 'asc')->get();
-        return view('dashboard/categories/index', compact('cuttings'));
+        return view('dashboard/Systems/SystemThree/categories/index', compact('cuttings'));
     }
 
     public function add_categories(Request $request){
@@ -30,15 +30,14 @@ class CategoriesController  extends Controller
                 'categoryCode' => 'required|string',
             ]);
 
-        $data_added = DB::table('categories')->insert([
-            'name' => $request->categoryName,
-            'name_ar' => $request->categoryNameAr,
-            'code' => $request->categoryCode,
-            'created_by' => auth()->user()->name,
-            'add_date' => now(),
-        ]);
+        $category = new Category;
+        $category->name = $request->categoryName;
+        $category->name_ar = $request->categoryNameAr;
+        $category->code = $request->categoryCode;
+        $category->created_by = auth()->user()->name;
+        $category->save();
 
-        if ($data_added) {
+        if ($category) {
             return redirect('dashboard/categories')->with('success','Successfully Add Category!');
         }else{
             return redirect('dashboard/categories')->with('error','Something Went Wrong!');
@@ -46,19 +45,19 @@ class CategoriesController  extends Controller
     }
 
     public function create(){
-        return view('dashboard/categories/create');
+        return view('dashboard/Systems/SystemThree/categories/create');
     }
 
     public function edit($id)
     {
         $data = Category::findOrFail($id);
-        return view('dashboard/categories/edit', compact('data'));
+        return view('dashboard/Systems/SystemThree/categories/edit', compact('data'));
     }
 
     public function detail_category($id)
     {
         $data = Category::findOrFail($id);
-        return view('dashboard/categories/detail', compact('data'));
+        return view('dashboard/Systems/SystemThree/categories/detail', compact('data'));
     }
 
     public function edit_category(Request $request){
@@ -70,15 +69,14 @@ class CategoriesController  extends Controller
                 'categoryCode' => 'required|string',
             ]);
 
-
-        $data_added = DB::table('categories')->where('id',$request->categoryId)->update([
+        
+        $category = Category::where('id', $request->categoryId)->update([
             'name' => $request->categoryName,
             'name_ar' => $request->categoryNameAr,
             'code' => $request->categoryCode,
-            'created_by' => auth()->user()->name,
         ]);
 
-        if ($data_added) {
+        if ($category) {
             return redirect('dashboard/categories')->with('success','Successfully Update Category!');
         }else{
             return redirect('dashboard/categories')->with('error','Something Went Wrong!');
@@ -86,8 +84,8 @@ class CategoriesController  extends Controller
     }
 
     public function delete_category(Request $request){
-        $deleted = DB::table('categories')->where('id', $request->id)->delete();
-        if ($deleted) {
+        $category = Category::where('id', $request->id)->delete();
+        if ($category) {
             return 1;
         } else {
             return 0;

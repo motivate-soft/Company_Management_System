@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers\dashboard\products;
 
-use App\Model\System3_Product;
-use App\Model\Category;
-use App\Model\Brand;
+use App\Model\dashboard\productManagment\Inventory;
+use App\Model\dashboard\productManagment\Category;
+use App\Model\dashboard\productManagment\Brand;
 use App\Model\Country;
 use Illuminate\Support\Facades\Validator;
 use DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class ProductsController extends Controller
+class InventoriesController extends Controller
 {
-    //
     public $successStatus = 200;
 
     /*==================================
@@ -21,7 +20,7 @@ class ProductsController extends Controller
     ==================================*/
 
     public function index(){
-        $cuttings = System3_Product::orderBy('id', 'asc')->get();
+        $cuttings = Inventory::orderBy('id', 'asc')->get();
         return view('dashboard\Systems\SystemThree\products\index', compact('cuttings'));
     }
 
@@ -31,9 +30,9 @@ class ProductsController extends Controller
             [
                 'productName' => 'required|string',
                 'productCode' => 'required|string',
-                'category_type' => 'required|string',
-                'brand_type' => 'required|string',
-                'country' => 'required|string',
+                'category_id' => 'required|string',
+                'brand_id' => 'required|string',
+                'country_id' => 'required|string',
             ]);
 
         $imgFile = $request->productImage;
@@ -52,19 +51,17 @@ class ProductsController extends Controller
         $fileUrlPDF = "upload/Systems/SystemThree/Products/".$request->productName.".". $fileExtension;
 
 
-        $data_added = DB::table('system3_products')->insert([
-            'product_name' => $request->productName,
-            'product_code' => $request->productCode,
-            'name_of_who_added' => auth()->user()->name,
-            'date_of_addition' => now(),
-            'category_type' => $request->categoryType,
-            'brand_type' => $request->brandType,
-            'country_of_origin' => $request->country,
-            'product_image' => $fileUrlImage,
-            'product_pdf' => $fileUrlPDF,
-        ]);
+        $inventory = new Inventory;
+        $inventory->name = $request->productName;
+        $inventory->code = $request->productCode;
+        $inventory->category_id = $request->categoryId;
+        $inventory->brand_id = $request->brandId;
+        $inventory->country_id = $request->countryId;
+        $inventory->image = $fileUrlImage;
+        $inventory->pdf = $fileUrlPDF;
+        $inventory->save();
 
-        if ($data_added) {
+        if ($inventory) {
             return redirect('dashboard/products')->with('success','Successfully Add Product!');
         }else{
             return redirect('dashboard/products')->with('error','Something Went Wrong!');
@@ -83,7 +80,7 @@ class ProductsController extends Controller
     {
         $sortnames = Country::orderBy('id', 'asc')->distinct()->get('sortname');
         $countries = Country::orderBy('id', 'asc')->get();
-        $data = System3_Product::findOrFail($id);
+        $data = Inventory::findOrFail($id);
         $categories = Category::orderBy('id', 'asc')->get();
         $brands = Brand::orderBy('id', 'asc')->get();
         return view('dashboard\Systems\SystemThree\products\edit', compact('data', 'categories', 'brands','sortnames', 'countries'));
@@ -91,7 +88,7 @@ class ProductsController extends Controller
 
     public function detail_product($id)
     {
-        $data = System3_Product::findOrFail($id);
+        $data = Inventory::findOrFail($id);
         return view('dashboard\Systems\SystemThree\products\detail', compact('data'));
     }
 
@@ -101,38 +98,40 @@ class ProductsController extends Controller
             [
                 'productName' => 'required|string',
                 'productCode' => 'required|string',
-                'category_type' => 'required|string',
-                'brand_type' => 'required|string',
-                'country' => 'required|string',
+                'category_id' => 'required|string',
+                'brand_id' => 'required|string',
+                'country_id' => 'required|string',
             ]);
 
+        $data_added = Inventory::where('id',$request->productId);
+        if(isset($request->productImage)) {
+            $imgFile = $request->productImage;
+            $fileExtension = $imgFile->getClientOriginalExtension();
+            if ($fileExtension != "png" && $fileExtension != "jpg" && $fileExtension != "jpeg" && $fileExtension != "gif")
+                return redirect()->back()->withErrors("error", "Not validate image");
 
-        $imgFile = $request->productImage;
-        $fileExtension = $imgFile->getClientOriginalExtension();
-        if($fileExtension != "png" && $fileExtension != "jpg" && $fileExtension != "jpeg" && $fileExtension != "gif")
-            return redirect()->back()->withErrors("error", "Not validate image");
-
-        $imgFile->move("upload/Systems/SystemThree/Products/", $request->productName . ".". $fileExtension);
-        $fileUrlImage = "upload/Systems/SystemThree/Products/".$request->productName . ".". $fileExtension;
-
-
-        $pdfFile = $request->productPDF;
-        $fileExtension = $pdfFile->getClientOriginalExtension();
-        if($fileExtension != "pdf") return redirect()->back()->withErrors("error", "Not validate pdf");
-        $pdfFile->move("upload/Systems/SystemThree/Products/", $request->productName.".". $fileExtension);
-        $fileUrlPDF = "upload/Systems/SystemThree/Products/".$request->productName.".". $fileExtension;
+            $imgFile->move("upload/Systems/SystemThree/Products/", $request->productName . "." . $fileExtension);
+            $fileUrlImage = "upload/Systems/SystemThree/Products/" . $request->productName . "." . $fileExtension;
+            $data_added->update(['image' => $fileUrlImage]);
+        }
 
 
-        $data_added = DB::table('system3_products')->where('id',$request->productId)->update([
-            'product_name' => $request->productName,
-            'product_code' => $request->productCode,
-            'name_of_who_added' => $request->nameOfAdd,
-            'date_of_addition' => $request->dateOfAdd,
-            'category_type' => $request->categoryType,
-            'brand_type' => $request->brandType,
-            'country_of_origin' => $request->country,
-            'product_image' => $fileUrlImage,
-            'product_pdf' => $fileUrlPDF,
+        if(isset($request->productPDF)) {
+            $pdfFile = $request->productPDF;
+            $fileExtension = $pdfFile->getClientOriginalExtension();
+            if ($fileExtension != "pdf") return redirect()->back()->withErrors("error", "Not validate pdf");
+            $pdfFile->move("upload/Systems/SystemThree/Products/", $request->productName . "." . $fileExtension);
+            $fileUrlPDF = "upload/Systems/SystemThree/Products/" . $request->productName . "." . $fileExtension;
+            $data_added->update(['pdf' => $fileUrlPDF]);
+        }
+
+
+        $data_added ->update([
+            'name' => $request->productName,
+            'code' => $request->productCode,
+            'category_id' => $request->categoryId,
+            'brand_id' => $request->brandId,
+            'country_id' => $request->countryId,
         ]);
 
         if ($data_added) {
@@ -143,7 +142,7 @@ class ProductsController extends Controller
     }
 
     public function delete_product(Request $request){
-        $deleted = DB::table('system3_products')->where('id', $request->id)->delete();
+        $deleted = Inventory::where('id', $request->id)->delete();
         if ($deleted) {
             return 1;
         } else {

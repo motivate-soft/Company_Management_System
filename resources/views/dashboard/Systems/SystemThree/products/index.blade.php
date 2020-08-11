@@ -1,5 +1,5 @@
 @section('title')
-{{__('product.title')}}
+{{__('products\inventory.title')}}
 @endsection
 @extends('dashboard.layouts.layout')
 @section('style')
@@ -17,7 +17,7 @@
 <div class="breadcrumbbar">
     <div class="row align-items-center">
         <div class="col-md-8 col-lg-8">
-            <h4 class="page-title">{{__('product.title')}}</h4>
+            <h4 class="page-title">{{__('products\inventory.title')}}</h4>
             <div class="breadcrumb-list">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{url('/home')}}">{{ __('side.dashboard') }}</a></li>
@@ -28,7 +28,7 @@
         </div>
         <div class="col-md-4 col-lg-4">
             <div class="widgetbar">
-                <a href="{{ route('products.create') }}" class="btn btn-primary-rgba"><i class="feather icon-plus mr-2"></i>{{__('product.productAdd')}}</a>
+                <a href="{{ route('products.create') }}" class="btn btn-primary-rgba"><i class="feather icon-plus mr-2"></i>{{__('products\inventory.productAdd')}}</a>
             </div>
         </div>
     </div>
@@ -46,13 +46,13 @@
                         <table class="table table-borderless" id="default-datatable">
                             <thead>
                                 <tr>
-                                    <th>{{ __('product.id') }}</th>
-                                    <th>{{ __('product.categoryType') }}</th>
-                                    <th>{{ __('product.productName') }}</th>
-                                    <th>{{ __('product.brandType') }}</th>
-                                    <th>{{ __('product.productDetail') }}</th>
-                                    <th>{{ __('product.productEdit') }}</th>
-                                    <th>{{ __('product.productDelete') }}</th>
+                                    <th>{{ __('products\inventory.id') }}</th>
+                                    <th>{{ __('products\inventory.categoryType') }}</th>
+                                    <th>{{ __('products\inventory.productName') }}</th>
+                                    <th>{{ __('products\inventory.brandType') }}</th>
+                                    <th>{{ __('products\inventory.productDetail') }}</th>
+                                    <th>{{ __('products\inventory.productEdit') }}</th>
+                                    <th>{{ __('products\inventory.productDelete') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -60,9 +60,9 @@
                                     @foreach($cuttings as $key => $cut)
                                         <tr>
                                             <td scope="row">{{ $key+1 }}</td>
-                                            <td>{{ $cut->category_type }}</td>
-                                            <td>{{ $cut->product_name }}</td>
-                                            <td>{{ $cut->brand_type }}</td>
+                                            <td>{{ $cut->category->name }}</td>
+                                            <td>{{ $cut->name }}</td>
+                                            <td>{{ $cut->brand->name }}</td>
 
                                             <td>
                                                 <div class="button-list">

@@ -1,5 +1,5 @@
 @section('title')
-{{ __('product.productEditTitle') }}
+{{ __('products\inventory.productEditTitle') }}
 @endsection
 @extends('dashboard.layouts.layout')
 @section('style')
@@ -16,20 +16,20 @@
 <div class="breadcrumbbar">
     <div class="row align-items-center">
         <div class="col-md-8 col-lg-8">
-            <h4 class="page-title">{{ __('product.productEditTitle') }}</h4>
+            <h4 class="page-title">{{ __('products\inventory.productEditTitle') }}</h4>
             <div class="breadcrumb-list">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{url('/home')}}">{{ __('side.dashboard') }}</a></li>
                     <li class="breadcrumb-item">{{ __('side.products') }}</li>
                     <li class="breadcrumb-item active" aria-current="page"><a
                                 href="{{route('products.index')}}">{{__('side.products')}}</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{ __('product.productEditTitle') }}</li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ __('products\inventory.productEditTitle') }}</li>
                 </ol>
             </div>
         </div>
         <div class="col-md-4 col-lg-4">
             <div class="widgetbar">
-                <a class="btn btn-primary-rgba" href="{{ route('products.index') }}" >{{ __('product.productBack') }}</a>
+                <a class="btn btn-primary-rgba" href="{{ route('products.index') }}" >{{ __('products\inventory.productBack') }}</a>
             </div>
         </div>
     </div>
@@ -49,48 +49,26 @@
                     <div class="row">
                         <div class="col-lg-6 mb-4">
                             <div class="form-group mb-0">
-                                <label for="cutting_method" class="col-form-label">{{ __('product.productName') }}</label>
-                                <input type="text" @if(isset($data->product_name)) value="{{ $data->product_name }}"@endif name="productName" class="form-control" placeholder="{{__('product.AddnewName')}}" required="">
+                                <label for="cutting_method" class="col-form-label">{{ __('products\inventory.productName') }}</label>
+                                <input type="text" @if(isset($data->name)) value="{{ $data->name }}"@endif name="productName" class="form-control" placeholder="{{__('products\inventory.AddnewName')}}" required="">
                             </div>
                         </div>
 
                         <div class="col-lg-6 mb-4">
                             <div class="form-group mb-0">
-                                <label for="cutting_method" class="col-form-label">{{ __('product.productCode') }}</label>
-                                <input type="text" @if(isset($data->product_code)) value="{{ $data->product_code }}"@endif name="productCode" class="form-control" placeholder="{{__('product.AddnewCode')}}" required="">
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6 mb-4" hidden>
-                            <div class="form-group mb-0">
-                                <label for="cutting_method" class="col-form-label">{{ __('product.nameOfAdd') }}</label>
-                                <input type="text" @if(isset($data->name_of_who_added)) value="{{ $data->name_of_who_added }}"@endif name="nameOfAdd" class="form-control" placeholder="{{__('product.AddnewNameof')}}" required="">
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6 mb-4" hidden>
-                            <div class="form-group mb-0">
-                                <label>{{ __('product.dateOfAdd') }}</label>
-                                <div class="input-group">
-                                    <input type="text" id="default-date12" class="form-control"
-                                           placeholder="yyyy/mm/dd" aria-describedby="basic-addon2"
-                                           name="dateOfAdd" @if(isset($data->date_of_addition)) value="{{ $data->date_of_addition }}"@endif autocomplete="off"/>
-                                    <div class="input-group-append">
-                                                <span class="input-group-text" id="basic-addon2"><i
-                                                            class="feather icon-calendar"></i></span>
-                                    </div>
-                                </div>
+                                <label for="cutting_method" class="col-form-label">{{ __('products\inventory.productCode') }}</label>
+                                <input type="text" @if(isset($data->code)) value="{{ $data->code }}"@endif name="productCode" class="form-control" placeholder="{{__('products\inventory.AddnewCode')}}" required="">
                             </div>
                         </div>
 
                         <div class="col-lg-6 mb-4">
                             <div class="form-group mb-0">
-                                <label for="type">{{ __('product.categoryType') }}</label>
-                                <select class="form-control" name="categoryType" required="" id="categoryType">
+                                <label for="type">{{ __('products\inventory.categoryType') }}</label>
+                                <select class="form-control" name="categoryId" required="" id="categoryId">
                                     <option disabled selected
-                                            value="">{{ __('product.categorySelection') }}</option>
+                                            value="">{{ __('products\inventory.categorySelection') }}</option>
                                     @foreach($categories as $cate)
-                                        <option value="{{$cate->name}}" @if(isset($data->category_type) && $data->category_type == "$cate->name") selected @endif>{{$cate->name}}</option>
+                                        <option value="{{$cate->id}}" @if(isset($data->category_id) && $data->category->name == "$cate->name") selected @endif>{{$cate->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -98,12 +76,12 @@
 
                         <div class="col-lg-6 mb-4">
                             <div class="form-group mb-0">
-                                <label for="type">{{ __('product.brandType') }}</label>
-                                <select class="form-control" name="brandType" required="" id="brandType">
+                                <label for="type">{{ __('products\inventory.brandType') }}</label>
+                                <select class="form-control" name="brandId" required="" id="brandId">
                                     <option disabled selected
-                                            value="">{{ __('product.brandSelection') }}</option>
+                                            value="">{{ __('products\inventory.brandSelection') }}</option>
                                     @foreach($brands as $bra)
-                                        <option value="{{$bra->name}}" @if(isset($data->brand_type) && $data->brand_type == "$bra->name") selected @endif>{{$bra->name}}</option>
+                                        <option value="{{$bra->id}}" @if(isset($data->brand_id) && $data->brand->name == "$bra->name") selected @endif>{{$bra->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -111,15 +89,15 @@
 
                         <div class="col-lg-6 mb-4">
                             <div class="form-group mb-0">
-                                <label for="country">{{__('product.country')}}</label>
-                                <select id="country" name="country" class="form-control" onchange="">
+                                <label for="country">{{__('products\inventory.country')}}</label>
+                                <select id="countryId" name="countryId" class="form-control" onchange="">
                                     <option disabled selected value="">select country</option>
                                     @if(isset($sortnames) && count($sortnames) > 0)
                                         @foreach($sortnames as $key => $sortname)
                                             <optgroup label="{{$sortname->sortname}}">
                                                 @foreach($countries as $key => $country)
                                                     @if($sortname->sortname == $country->sortname)
-                                                        <option value="{{$country->name}}" @if(isset($data->country_of_origin) && $data->country_of_origin == "$country->name") selected @endif>@if(app()->getLocale() == "en"){{$country->name}} @else {{$country->ar_name}} @endif</option>
+                                                        <option value="{{$country->id}}" @if(isset($data->country) && $data->country->id == $country->id) selected @endif>@if(app()->getLocale() == "en"){{$country->name}} @else {{$country->ar_name}} @endif</option>
                                                     @endif
                                                 @endforeach
                                             </optgroup>
@@ -131,22 +109,25 @@
 
                         <div class="col-lg-6 mb-4">
                             <div class="form-group mb-0">
-                                <label for="cutting_method" class="col-form-label">{{ __('product.productPDF') }}</label>
-                                <input type="file" @if(isset($data->product_pdf)) value="{{ $data->product_pdf }}"@endif name="productPDF" class="form-control" placeholder="{{__('product.SelectnewPDF')}}" required="">
+                                <label for="cutting_method" class="col-form-label">{{ __('products\inventory.productPDF') }}</label>
+                                <input type="text" @if(isset($data->pdf)) value="{{ $data->pdf }}"@endif class="form-control" placeholder="{{__('products\inventory.SelectnewPDF')}}" required="" readonly>
+                                <input type="file" name="productPDF" class="form-control" placeholder="{{__('products\inventory.SelectnewPDF')}}">
                             </div>
                         </div>
 
                         <div class="col-lg-6 mb-4">
                             <div class="form-group mb-0">
-                                <label for="cutting_method" class="col-form-label">{{ __('product.productImage') }}</label>
-                                <input type="file" @if(isset($data->product_image)) value="{{ $data->product_image }}"@endif name="productImage" class="form-control" placeholder="{{__('product.SelectnewImage')}}" required="">
+                                <label for="cutting_method" class="col-form-label">{{ __('products\inventory.productImage') }}</label>
+                                <img src="{{asset('../'.$data->image)}}" alt="productImage" class="img-thumbnail circle">
+                                <input type="text" @if(isset($data->image)) value="{{ $data->image }}"@endif class="form-control" placeholder="{{__('products\inventory.SelectnewImage')}}" required="" readonly>
+                                <input type="file" name="productImage" class="form-control" placeholder="{{__('products\inventory.SelectnewImage')}}">
                             </div>
                         </div>
 
                         <div class="col-lg-12 mt-4">
                             <div class="form-group mb-0">
                                 <button type="submit"
-                                        class="btn btn-primary pl-5 pr-5">{{ __('product.productSave') }}</button>
+                                        class="btn btn-primary pl-5 pr-5">{{ __('products\inventory.productSave') }}</button>
                             </div>
                         </div>
 

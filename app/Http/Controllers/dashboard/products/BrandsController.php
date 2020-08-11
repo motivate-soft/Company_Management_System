@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\dashboard\brands;
+namespace App\Http\Controllers\dashboard\products;
 
 use App\Model\dashboard\productManagment\Brand;
 use App\Model\dashboard\productManagment\Category;
@@ -16,10 +16,10 @@ class BrandsController extends Controller
     /*==================================
     =            Brands            =
     ==================================*/
-
+    
     public function index(){
         $brands = Brand::orderBy('id', 'asc')->get();
-        return view('dashboard/brands/index', compact('brands'));
+        return view('dashboard/Systems/SystemThree/brands/index', compact('brands'));
     }
 
     public function add_brands(Request $request){
@@ -40,17 +40,16 @@ class BrandsController extends Controller
         $imgFile->move("upload/Brands/", $request->brandName . ".". $fileExtension);
         $fileUrl = "upload/Brands/".$request->brandName . ".". $fileExtension;
 
-        $data_added = DB::table('brands')->insert([
-            'name' => $request->brandName,
-            'name_ar' => $request->brandNameAr,
-            'code' => $request->brandCode,
-            'created_by' => auth()->user()->name,
-            'category_type' => $request->categoryType,
-            'add_date' => now(),
-            'image' => $fileUrl,
-        ]);
+        $brand = new Brand;
+        $brand->name = $request->brandName;
+        $brand->name_ar = $request->brandNameAr;
+        $brand->code = $request->brandCode;
+        $brand->created_by = auth()->user()->name;
+        $brand->category_id = $request->categoryId;
+        $brand->image = $fileUrl;
+        $brand->save();
 
-        if ($data_added) {
+        if ($brand) {
             return redirect('dashboard/brands')->with('success','Successfully Add Brand!');
         }else{
             return redirect('dashboard/brands')->with('error','Something Went Wrong!');
@@ -59,20 +58,20 @@ class BrandsController extends Controller
 
     public function create(){
         $categories = Category::orderBy('id', 'asc')->get();
-        return view('dashboard/brands/create', compact('categories'));
+        return view('dashboard/Systems/SystemThree/brands/create', compact('categories'));
     }
 
     public function edit($id)
     {
         $data = Brand::findOrFail($id);
         $categories = Category::orderBy('id', 'asc')->get();
-        return view('dashboard/brands/edit', compact('data', 'categories'));
+        return view('dashboard/Systems/SystemThree/brands/edit', compact('data', 'categories'));
     }
 
     public function detail_brand($id)
     {
         $data = Brand::findOrFail($id);
-        return view('dashboard/brands/detail', compact('data'));
+        return view('dashboard/Systems/SystemThree/brands/detail', compact('data'));
     }
 
     public function edit_brand(Request $request){
@@ -85,16 +84,14 @@ class BrandsController extends Controller
                 'categoryType' => 'string',
             ]);
 
-
-        $data_added = DB::table('brands')->where('id',$request->brandId)->update([
+        $brand = Brand::where('id', $request->brandId)->update([
             'name' => $request->brandName,
             'name_ar' => $request->brandNameAr,
             'code' => $request->brandCode,
-            'created_by' => auth()->user()->name,
-            'category_type' => $request->categoryType,
+            'category_id' => $request->categoryId,
         ]);
 
-        if ($data_added) {
+        if ($brand) {
             return redirect('dashboard/brands')->with('success','Successfully Update Brand!');
         }else{
             return redirect('dashboard/brands')->with('error','Something Went Wrong!');
@@ -110,8 +107,8 @@ class BrandsController extends Controller
         //     return redirect('dashboard/brands')->with('error','Something Went Wrong!');
         // }
 
-        $deleted = DB::table('brands')->where('id', $request->id)->delete();
-        if ($deleted) {
+        $brand = Brand::where('id', $request->id)->delete();
+        if ($brand) {
             return 1;
         } else {
             return 0;
