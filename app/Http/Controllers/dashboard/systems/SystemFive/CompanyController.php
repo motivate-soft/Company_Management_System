@@ -133,6 +133,7 @@ class CompanyController extends Controller
         $new->accountnumber = $request->accountnumber;
         $new->accountiban = $request->telephone;
         $new->swiftcode = $request->swiftcode;
+        $new->person = auth()->user()->name;
         $new->cardimage = ($cardimage) ? $destinationPath."/".$cardimage->getClientOriginalName() : $destinationPath."/"."default.png";
 
         $created = $new->save();

@@ -35,6 +35,8 @@ return [
     'view' => 'View',
     'edit' => 'Edit',
     'back' => 'Back',
+    'person' => 'Person',
+    'created_at' => 'Date',
     'companyname' => 'CompanyName',
 
 ];

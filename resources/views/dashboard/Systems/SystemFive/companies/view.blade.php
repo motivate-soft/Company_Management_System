@@ -229,6 +229,24 @@
                                     </div>
                                 </div>
 
+                                <div class="col-lg-3 mb-4">
+                                    <div class="form-group mb-0">
+                                        <label for="swiftcode">{{__('Systems/SystemFive/companies.person')}}</label>
+                                        <p class="textcolor-black">
+                                            @if(isset($company->swiftcode)) {{$company->person}} @endif
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 mb-4">
+                                    <div class="form-group mb-0">
+                                        <label for="swiftcode">{{__('Systems/SystemFive/companies.created_at')}}</label>
+                                        <p class="textcolor-black">
+                                            @if(isset($company->swiftcode)) {{$company->created_at}} @endif
+                                        </p>
+                                    </div>
+                                </div>
+
                                 <div class="col-lg-12 mb-4">
                                     <div class="form-group mb-0">
                                         <label for="cardimage">{{__('Systems/SystemFive/companies.cardimage')}}</label><br/>

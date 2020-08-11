@@ -177,6 +177,17 @@
                             </a>
                         </li>
 
+                        <li>
+                            <a href="{{route('permissions.index')}}">
+                                {{__('Systems/SystemTwo/sidebar.permissions')}}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('permissiongroups.index')}}">
+                                {{__('Systems/SystemTwo/sidebar.permissiongroups')}}
+                            </a>
+                        </li>
+
                     </ul>
                 </li>
 
@@ -200,16 +211,6 @@
                         <li>
                             <a href="{{route('offers.index')}}">
                                {{__('Systems/SystemFive/sidebar.offers')}}
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{route('permissions.index')}}">
-                                {{__('Systems/SystemTwo/sidebar.permissions')}}
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{route('permissiongroups.index')}}">
-                                {{__('Systems/SystemTwo/sidebar.permissiongroups')}}
                             </a>
                         </li>
 
