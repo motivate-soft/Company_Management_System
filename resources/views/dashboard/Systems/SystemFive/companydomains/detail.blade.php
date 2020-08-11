@@ -1,5 +1,5 @@
 @section('title')
-    {{__('Systems/SystemFive/entryexits.companydomain_add')}}
+    {{__('Systems/SystemFive/companydomains.detail')}}
 @endsection
 @extends('dashboard.layouts.layout')
 @section('style')
@@ -22,18 +22,18 @@
 <div class="breadcrumbbar">
     <div class="row align-items-center">
         <div class="col-md-8 col-lg-8">
-            <h4 class="page-title">{{__('Systems/SystemFive/entryexits.detail')}}</h4>
+            <h4 class="page-title">{{__('Systems/SystemFive/companydomains.detail')}}</h4>
             <div class="breadcrumb-list">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{url('/home')}}">{{ __('side.dashboard') }}</a></li>
-                    <li class="breadcrumb-item active"><a href="{{route('entryexits.index')}}">{{__('Systems/SystemFive/entryexits.entryexits')}}</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{__('Systems/SystemFive/entryexits.detail')}}</li>
+                    <li class="breadcrumb-item active"><a href="{{route('companydomains.index')}}">{{__('Systems/SystemFive/companydomains.companydomains')}}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{__('Systems/SystemFive/companydomains.detail')}}</li>
                 </ol>
             </div>
         </div>
         <div class="col-md-4 col-lg-4">
             <div class="widgetbar">
-                <a class="btn btn-primary-rgba" href="{{ route('entryexits.index') }}" >{{__('Systems/SystemFive/entryexits.back')}}</a>
+                <a class="btn btn-primary-rgba" href="{{ route('companydomains.index') }}" >{{__('Systems/SystemFive/companydomains.back')}}</a>
             </div>
         </div>
     </div>
@@ -51,34 +51,28 @@
 
                         <div class="col-lg-3 mb-4">
                             <div class="form-group mb-0">
-                                <span>{{__('Systems/SystemFive/entryexits.name')}}</span>
-                                <p class="textcolor-black">@if(isset($entryexit->name)) {{ $entryexit->name }}@endif</p>
+                                <span>{{__('Systems/SystemFive/companydomains.name')}}</span>
+                                <p class="textcolor-black">@if(isset($companydomain->name)) {{ $companydomain->name }}@endif</p>
                             </div>
                         </div>
 
                         <div class="col-lg-3 mb-4">
                             <div class="form-group mb-0">
-                                <span>{{__('Systems/SystemFive/entryexits.date')}}</span>
-                                <p class="textcolor-black">@if(isset($entryexit->date)) {{ $entryexit->date }}@endif</p>
+                                <span>{{__('Systems/SystemFive/companydomains.ar_name')}}</span>
+                                <p class="textcolor-black">@if(isset($companydomain->ar_name)) {{ $companydomain->ar_name }}@endif</p>
                             </div>
                         </div>
 
                         <div class="col-lg-3 mb-4">
                             <div class="form-group mb-0">
-                                <span>{{__('Systems/SystemFive/entryexits.entry_hour')}}</span>
-                                <p class="textcolor-black">@if(isset($entryexit->entry_hour)) {{ $entryexit->entry_hour }}@endif</p>
+                                <span>{{__('Systems/SystemFive/companydomains.person')}}</span>
+                                <p class="textcolor-black">@if(isset($companydomain->person)) {{ $companydomain->person }}@endif</p>
                             </div>
                         </div>
                         <div class="col-lg-3 mb-4">
                             <div class="form-group mb-0">
-                                <span>{{__('Systems/SystemFive/entryexits.exit_hour')}}</span>
-                                <p class="textcolor-black">@if(isset($entryexit->exit_hour)) {{ $entryexit->exit_hour }}@endif</p>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 mb-4">
-                            <div class="form-group mb-0">
-                                <span>{{__('Systems/SystemFive/entryexits.working_time')}}</span>
-                                <p class="textcolor-black">@if(isset($entryexit->working_time)) {{ $entryexit->working_time }}@endif</p>
+                                <span>{{__('Systems/SystemFive/companydomains.created_at')}}</span>
+                                <p class="textcolor-black">@if(isset($companydomain->created_at)) {{ $companydomain->created_at }}@endif</p>
                             </div>
                         </div>
 

@@ -125,81 +125,100 @@
                     
                 </li>
 
-                <li>
-                    <a href="javaScript:void(0)">
-                      <i class="fa fa-tasks"></i><span>{{__('Systems/SystemTwo/sidebar.job_tasks')}}</span><i class="feather icon-chevron-right pull-right"></i>
-                    </a>
-                    <ul class="vertical-submenu">
-                        
-                        <li><a href="{{ route('jobtasks.index') }}">All</a></li>
+                {{--<li>--}}
+                    {{--<a href="javaScript:void(0)">--}}
+                      {{--<i class="fa fa-tasks"></i><span>{{__('Systems/SystemTwo/sidebar.job_tasks')}}</span><i class="feather icon-chevron-right pull-right"></i>--}}
+                    {{--</a>--}}
+                    {{--<ul class="vertical-submenu">--}}
+                        {{----}}
+                        {{--<li><a href="{{ route('jobtasks.index') }}">All</a></li>--}}
                         {{--<li><a href="{{ route('countries.index') }}">not_finished</a></li>--}}
                         {{--<li><a href="{{ route('tax.index') }}">expired</a></li>--}}
+                    {{--</ul>--}}
+                {{--</li>--}}
+
+                <li>
+                    <a href="javaScript:void(0)">
+                        <i class="fa fa-tasks"></i><span>{{__('Systems/SystemTwo/sidebar.human_resource_systems')}}</span><i class="feather icon-chevron-right pull-right"></i>
+                    </a>
+                    <ul class="vertical-submenu">
+
+                        <li><a href="{{ route('jobtasks.index') }}">{{__('Systems/SystemTwo/sidebar.job_tasks')}}</a></li>
+
+                        <li><a href="{{route('staffs.index')}}">{{__('Systems/SystemTwo/sidebar.staffs')}}</a></li>
+
+                        <li>
+                            <a href="{{route('entryexits.index')}}">
+                                {{__('Systems/SystemTwo/sidebar.entry_exits')}}
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{{route('communications.index')}}">
+                                {{__('Systems/SystemTwo/sidebar.communications')}}
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{{route('letterstatuses.index')}}">
+                                {{__('Systems/SystemTwo/sidebar.letterstatuses')}}
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{{route('transactions.index')}}">
+                                {{__('Systems/SystemTwo/sidebar.transactions')}}
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{{route('jobtypes.index')}}">
+                                {{__('Systems/SystemTwo/sidebar.jobtypes')}}
+                            </a>
+                        </li>
+
                     </ul>
                 </li>
 
                 <li>
-                    <a href="{{route('staffs.index')}}">
-                     <i class="fa fa-user-o" aria-hidden="true"></i><span>{{__('Systems/SystemTwo/sidebar.staffs')}}</span>
+                    <a href="javaScript:void(0)">
+                        <i class="fa fa-tasks"></i><span>{{__('Systems/SystemTwo/sidebar.supplier_management_system')}}</span><i class="feather icon-chevron-right pull-right"></i>
                     </a>
-                </li>
+                    <ul class="vertical-submenu">
+                        <li>
+                            <a href="{{route('companydomains.index')}}">
+                                {{__('Systems/SystemFive/sidebar.companydomains')}}
+                            </a>
+                        </li>
 
-                <li>
-                    <a href="{{route('entryexits.index')}}">
-                     <i class="fa fa-exchange" aria-hidden="true"></i><span>{{__('Systems/SystemTwo/sidebar.entry_exits')}}</span>
-                    </a>
-                </li>
 
-                <li>
-                    <a href="{{route('communications.index')}}">
-                     <i class="fa fa-wechat" aria-hidden="true"></i><span>{{__('Systems/SystemTwo/sidebar.communications')}}</span>
-                    </a>
-                </li>
+                        <li>
+                            <a href="{{route('companies.index')}}">
+                                {{__('Systems/SystemFive/sidebar.companies')}}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('offers.index')}}">
+                               {{__('Systems/SystemFive/sidebar.offers')}}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('permissions.index')}}">
+                                {{__('Systems/SystemTwo/sidebar.permissions')}}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('permissiongroups.index')}}">
+                                {{__('Systems/SystemTwo/sidebar.permissiongroups')}}
+                            </a>
+                        </li>
 
-                <li>
-                    <a href="{{route('letterstatuses.index')}}">
-                        <i class="fa fa-paper-plane" aria-hidden="true"></i><span>{{__('Systems/SystemTwo/sidebar.letterstatuses')}}</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{{route('transactions.index')}}">
-                        <i class="fa fa-balance-scale" aria-hidden="true"></i><span>{{__('Systems/SystemTwo/sidebar.transactions')}}</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{{route('jobtypes.index')}}">
-                        <i class="fa fa-briefcase" aria-hidden="true"></i><span>{{__('Systems/SystemTwo/sidebar.jobtypes')}}</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{route('companydomains.index')}}">
-                        <i class="fa fa-globe" aria-hidden="true"></i><span>{{__('Systems/SystemFive/sidebar.companydomains')}}</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{{route('companies.index')}}">
-                        <i class="fa fa-building" aria-hidden="true"></i><span>{{__('Systems/SystemFive/sidebar.companies')}}</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{{route('offers.index')}}">
-                        <i class="fa fa-cart-plus" aria-hidden="true"></i><span>{{__('Systems/SystemFive/sidebar.offers')}}</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{{route('permissions.index')}}">
-                        <i class="fa fa-bookmark" aria-hidden="true"></i><span>{{__('Systems/SystemTwo/sidebar.permissions')}}</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{{route('permissiongroups.index')}}">
-                        <i class="fa fa-group" aria-hidden="true"></i><span>{{__('Systems/SystemTwo/sidebar.permissiongroups')}}</span>
-                    </a>
+                        <li>
+                            <a href="{{route('fields.index')}}">
+                                {{__('Systems/SystemTwo/sidebar.fields')}}
+                            </a>
+                        </li>
+                    </ul>
                 </li>
 
             </ul>

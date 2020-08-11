@@ -47,7 +47,7 @@ class CompanyDomainController extends Controller
         $validator = Validator::make($request->all(),
             [
                 'name' => 'required|string',
-                'person' => 'required|string',
+                'ar_name' => 'required|string',
             ]);
 
         $attributeNames = array(
@@ -60,13 +60,15 @@ class CompanyDomainController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        $data = ([
-            'name' => $request->name,
-            'person' => $request->person,
-        ]);
+        $new = new CompanyDomain();
 
+        $new->name = $request->name;
+        $new->ar_name = $request->ar_name;
+        $new->person = auth()->user()->name;
 
-        $created = DB::table('system5_companydomains')->insert($data);
+        $created = $new->save();
+
+//        $created = DB::table('system5_companydomains')->insert($data);
 
         if ($created) {
             return redirect()->route('companydomains.index')->with('success', 'CompanyDomain Added');
@@ -81,7 +83,7 @@ class CompanyDomainController extends Controller
         $validator = Validator::make($request->all(),
             [
                 'name' => 'required|string',
-                'person' => 'required|string',
+                'ar_name' => 'required|string',
             ]);
 
         $attributeNames = array(
@@ -97,10 +99,10 @@ class CompanyDomainController extends Controller
 
         $data = ([
             'name' => $request->name,
-            'person' => $request->person,
+            'ar_name' => $request->ar_name,
         ]);
 
-        $created = DB::table('system5_companydomains')->where('id', $request->companydomain_id)->update($data);
+        $created = CompanyDomain::where('id', $request->companydomain_id)->update($data);
 
         if ($created) {
             return redirect()->route('companydomains.index')->with('success', 'CompanyDomain Updated');
@@ -111,7 +113,7 @@ class CompanyDomainController extends Controller
 
     public function update_status_post(Request $request)
     {
-        $created = DB::table('system5_companydomains')->where('id', $request->id)->first();
+        $created = CompanyDomain::where('id', $request->id)->first();
         if ($created->state == 0) {
             DB::table('system2_companydomains')->where('id', $request->id)->update(['state' => 1]);
         } else {

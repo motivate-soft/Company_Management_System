@@ -1,5 +1,5 @@
 @section('title')
-    {{__('Systems/SystemFive/companydomains.companydomains')}}
+    {{__('Systems/SystemFive/fields.fields')}}
 @endsection
 @extends('dashboard.layouts.layout')
 @section('style')
@@ -22,18 +22,18 @@
 <div class="breadcrumbbar">
     <div class="row align-items-center">
         <div class="col-md-8 col-lg-8">
-            <h4 class="page-title">{{__('Systems/SystemFive/companydomains.companydomains_list')}}</h4>
+            <h4 class="page-title">{{__('Systems/SystemFive/fields.fields_list')}}</h4>
             <div class="breadcrumb-list">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{url('/home')}}">{{ __('side.dashboard') }}</a></li>
-                    <li class="breadcrumb-item">{{__('Systems/SystemFive/companydomains.companydomains')}}</li>
-                    <li class="breadcrumb-item active" aria-current="page">{{__('Systems/SystemFive/companydomains.companydomains_list')}}</li>
+                    <li class="breadcrumb-item">{{__('Systems/SystemFive/fields.fields')}}</li>
+                    <li class="breadcrumb-item active" aria-current="page">{{__('Systems/SystemFive/fields.fields_list')}}</li>
                 </ol>
             </div>
         </div>
         <div class="col-md-4 col-lg-4">
             <div class="widgetbar">
-                <a href="{{ route('companydomains.create') }}" class="btn btn-primary-rgba"><i class="feather icon-plus mr-2"></i>{{__('Systems/SystemFive/companydomains.add_companydomain')}}</a>
+                <a href="{{ route('fields.create') }}" class="btn btn-primary-rgba"><i class="feather icon-plus mr-2"></i>{{__('Systems/SystemFive/fields.add_field')}}</a>
             </div>
         </div>
     </div>
@@ -52,26 +52,27 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>{{__('Systems/SystemFive/companydomains.name')}}</th>
-                                    <th>{{__('Systems/SystemFive/companydomains.person')}}</th>
-                                    <th>{{__('Systems/SystemFive/companydomains.created_at')}}</th>
-                                    <th>{{__('Systems/SystemFive/companydomains.view')}}</th>
-                                    <th>{{__('Systems/SystemFive/companydomains.edit')}}</th>
-                                    <th>{{__('Systems/SystemFive/companydomains.delete')}}</th>
+                                    <th>{{__('Systems/SystemFive/fields.name')}}</th>
+                                    <th>{{__('Systems/SystemFive/fields.state')}}</th>
+                                    <th>{{__('Systems/SystemFive/fields.edit')}}</th>
+                                    <th>{{__('Systems/SystemFive/fields.delete')}}</th>
 
                                 </tr>
                             </thead>
                             <tbody>
-                                @if(isset($companydomains) && count($companydomains) > 0)
-                                    @foreach($companydomains as $key => $companydomain)
+                                @if(isset($fields) && count($fields) > 0)
+                                    @foreach($fields as $key => $field)
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
-                                            <td>@if(app()->getLocale() == "en") {{ $companydomain->name }}@else {{ $companydomain->ar_name }} @endif</td>
-                                            <td>{{ $companydomain->person }}</td>
-                                            <td>{{ $companydomain->created_at }}</td>
-                                            <td><a href="{{route('companydomains.view', $companydomain->id)}}" class="btn btn-success-rgba"><i class="feather icon-eye"></i></a></td>
-                                            <td><a href="{{route('companydomains.edit', $companydomain->id)}}" class="btn btn-success-rgba"><i class="feather icon-eye"></i></a></td>
-                                            <td><a onclick="deleteConfirm({{$companydomain->id}})" class="btn btn-danger-rgba"><i class="feather icon-trash"></i></a></td>
+                                            <td>{{ $field->name }}</td>
+                                            <td>
+                                                <div class="custom-control custom-switch" >
+                                                    <input type="checkbox" onclick="status_change('{{csrf_token()}}','{{$field->id}}','{{url('dashboard/field-state')}} ')" {{ $field->state == 1 ? 'checked':''}} class="custom-control-input" id="customSwitch{{$key}}">
+                                                    <label class="custom-control-label" for="customSwitch{{$key}}"></label>
+                                                </div>
+                                            </td>
+                                            <td><a href="{{route('fields.edit', $field->id)}}" class="btn btn-success-rgba"><i class="feather icon-eye"></i></a></td>
+                                            <td><a onclick="deleteConfirm({{$field->id}})" class="btn btn-danger-rgba"><i class="feather icon-trash"></i></a></td>
                                       </tr>
                                     @endforeach
                                     @endif
@@ -166,12 +167,6 @@
 
     });
 
-    function deletecompanydomain(id) {
-
-        $("#deleteBtn").attr("href", "{{url('dashboard/del-companydomain')}}/" + id);
-
-        return true;
-    }
 </script>
 <script>
     function deleteConfirm(id) {
@@ -189,7 +184,7 @@
 
             $.ajax({
                 method: "post",
-                url: "{{url('dashboard/del-companydomain')}}",
+                url: "{{url('dashboard/del-field')}}",
                 headers: {
                     'X-CSRF-TOKEN': '<?= csrf_token() ?>'
                 },
@@ -216,7 +211,7 @@
                             'Deleted Successfully',
                             'success'
                         ).then(function (){
-                            window.location = "{{route('companydomains.index')}}"
+                            window.location = "{{route('fields.index')}}"
                         });
                     }
                 },
@@ -233,7 +228,7 @@
             if (dismiss === 'cancel') {
                 swal(
                     'Cancelled',
-                    'Your companydomain data is safe :)',
+                    'Your field data is safe :)',
                     'error'
                 )
             }

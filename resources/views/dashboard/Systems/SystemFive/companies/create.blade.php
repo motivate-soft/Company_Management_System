@@ -8,14 +8,7 @@
     <link href="{{ asset('assets/dashboard//plugins/datepicker/datepicker.min.css') }}" rel="stylesheet" type="text/css">
 
     <style>
-        /*::placeholder { color: #77ff25;!important; font-size: 40px; }*/
-        /*:-moz-placeholder { color:blue;!important; }*/
-        /*::-moz-placeholder { color:blue;!important; }*/
 
-        /*input::-moz-placeholder {*/
-        /*color: blue;*/
-        /*font-weight: bold;*/
-        /*}*/
         ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
             color: pink;!important;
             text-decoration-color: #0a6aa1;
@@ -90,29 +83,58 @@
                                     <div class="form-group mb-0">
                                         <label for="field">{{__('Systems/SystemFive/companies.field')}}</label>
                                         <select class="form-control" id="field" name="field">
-                                            <option value="economics">economics</option>
-                                            <option value="stock">stock</option>
-                                            <option value="account">account</option>
+                                            <option disabled="" selected>Select the field</option>
+                                            @if(isset($fields))
+                                                @foreach($fields as $key => $field)
+                                                    <option value="{{$field->name}}">{{$field->name}}</option>
+                                                @endforeach
+                                            @endif
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 mb-4">
                                     <div class="form-group mb-0">
                                         <label for="country">{{__('Systems/SystemFive/companies.country')}}</label>
-                                        <select class="form-control" id="country" name="country">
-                                            <option value="economics">economics</option>
-                                            <option value="stock">stock</option>
-                                            <option value="account">account</option>
+                                        <select class="form-control" id="country" name="country" onchange="onselectChanged('country')">
+                                            <option disabled selected value="">select country</option>
+                                            @if(isset($sortnames) && count($sortnames) > 0)
+                                                @foreach($sortnames as $key => $sortname)
+                                                    <optgroup label="{{$sortname->sortname}}">
+                                                        @foreach($countries as $key => $country)
+                                                            @if($sortname->sortname == $country->sortname)
+                                                                <option value="{{$country->id}}">@if(app()->getLocale() == "en"){{$country->name}} @else {{$country->ar_name}} @endif</option>
+                                                            @endif
+                                                        @endforeach
+                                                    </optgroup>
+                                                @endforeach
+
+                                            @endif
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 mb-4">
                                     <div class="form-group mb-0">
+                                        <label for="region">{{__('Systems/SystemFive/companies.region')}}</label>
+                                        <select class="form-control" id="region" name="region" onchange="onselectChanged('province')">
+
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 mb-4">
+                                    <div class="form-group mb-0">
                                         <label for="city">{{__('Systems/SystemFive/companies.city')}}</label>
-                                        <select class="form-control" id="city" name="city">
-                                            <option value="economics">economics</option>
-                                            <option value="stock">stock</option>
-                                            <option value="account">account</option>
+                                        <select class="form-control" id="city" name="city" onchange="onselectChanged('city')">
+
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 mb-4">
+                                    <div class="form-group mb-0">
+                                        <label for="neighborhood">{{__('Systems/SystemFive/companies.neighborhood')}}</label>
+                                        <select class="form-control" id="neighborhood" name="neighborhood">
+
                                         </select>
                                     </div>
                                 </div>
@@ -174,6 +196,8 @@
 
             </div>
 
+            <p id="locale" style="display: none;"><?php echo app()->getLocale()?></p>
+
 
         </div>
     </div>
@@ -182,6 +206,78 @@
     </div>
     <!-- End row -->
     </div>
+
+    <script>
+        function onselectChanged(area) {
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': '<?= csrf_token() ?>'
+                }
+            });
+
+            $.ajax({
+                url: "/dashboard/region",
+                headers: { 'csrftoken' : '{{ csrf_token() }}' },
+                data: JSON.stringify({country:$("#country").val(),
+                    province:$("#region").val(),
+                    city:$("#city").val(),
+                    neighborhood:$("#neighborhood").val(),
+                    area:area}),
+                type: 'POST',
+                datatype: 'JSON',
+                contentType: 'application/json',
+                success: function (response) {
+
+                    console.log(response[0]);
+                    var index;
+                    var content = "";
+                    for ( index = 0 ; index < response.length ; index ++ ) {
+
+                        content += "<option";
+                        content += " value=";
+                        content += "'";
+                        content += response[index].id;
+                        content += "'";
+                        content += ">";
+                        if($("#locale") === "en")
+                            content += response[index].name;
+                        else
+                            content += response[index].ar_name;
+                        content += "</option>";
+
+                    }
+
+                    var preoption;
+
+                    if (area === "country") {
+                        preoption = "<option disabled selected value=\"\">select region</option>";
+                        $("#region").html(preoption + content);
+                        $("#city").html("");
+                        $("#neighborhood").html("");
+                    }
+                    if (area === "province") {
+                        preoption = "<option disabled selected value=\"\">select city</option>";
+                        $("#city").html(preoption + content);
+                        $("#neighborhood").html("");
+                    }
+                    if (area === "city") {
+                        preoption = "<option disabled selected value=\"\">select neighborhood</option>";
+                        $("#neighborhood").html(preoption + content);
+                    }
+
+                    // console.log(response);
+
+
+                },
+                error: function (response) {
+                    $('#errormessage').html(response.message);
+                }
+            });
+        }
+
+    </script>
+
 
     <!-- End Contentbar -->
 @endsection
@@ -193,6 +289,7 @@
 
 
     <script src="{{ asset('assets/dashboard//js/custom/custom-toasts.js') }}"></script>
+
 
 
 @endsection 
