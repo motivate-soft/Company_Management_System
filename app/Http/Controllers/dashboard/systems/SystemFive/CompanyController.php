@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\dashboard\systems\SystemFive;
 
+use App\Model\Country;
 use App\Model\dashboard\systems\SystemFive\AttachFile;
 use App\Model\dashboard\systems\SystemFive\Company;
 use App\Model\dashboard\systems\SystemFive\Delegate;
+use App\Model\dashboard\systems\systemFive\Field;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -36,7 +38,10 @@ class CompanyController extends Controller
 
     public function create()
     {
-        return view('dashboard.Systems.SystemFive.companies.create');
+        $fields = Field::all();
+        $sortnames = Country::distinct()->get('sortname');
+        $countries = Country::all();
+        return view('dashboard.Systems.SystemFive.companies.create', compact('fields', 'sortnames', 'countries'));
     }
 
     public function add_company_post(Request $request)
@@ -47,13 +52,19 @@ class CompanyController extends Controller
                 'name' => 'required|string',
                 'field' => 'required|string',
                 'country' => 'required|string',
+                'region' => 'required|string',
                 'city' => 'required|string',
-                'mobile' => 'required|numeric',
-                'telephone' => 'required|numeric',
-                'email' => 'required|email',
+                'neighborhood' => 'required|string',
                 'address' => 'required|string',
+                'mobile' => 'required|numeric',
+                'email' => 'required|email',
+                'telephone' => 'required|numeric',
+                'bankname' => 'required|string',
                 'bankaccount' => 'required|string',
-                'cardimage' => 'required|string',
+                'accountname' => 'required|string',
+                'accountnumber' => 'required|string',
+                'accountiban' => 'required|string',
+                'swiftcode' => 'required|string',
             ]);
 
         $attributeNames = array(
@@ -66,21 +77,27 @@ class CompanyController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        $data = ([
-            'name' => $request->name,
-            'field' => $request->field,
-            'country' => $request->country,
-            'city' => $request->city,
-            'mobile' => $request->mobile,
-            'telephone' => $request->telephone,
-            'email' => $request->email,
-            'address' => $request->address,
-            'bankaccount' => $request->bankaccount,
-            'cardimage' => $request->cardimage,
-        ]);
+        $new = new Company();
 
+        $new->name = $request->name;
+        $new->field = $request->field;
+        $new->country = $request->country;
+        $new->region = $request->region;
+        $new->city = $request->city;
+        $new->neighborhood = $request->neighborhood;
+        $new->address = $request->address;
+        $new->mobile = $request->mobile;
+        $new->email = $request->email;
+        $new->telephone = $request->telephone;
+        $new->bankname = $request->telephone;
+        $new->bankaccount = $request->telephone;
+        $new->banknumber = $request->telephone;
+        $new->accountiban = $request->telephone;
+        $new->swiftcode = $request->telephone;
 
-        $created = DB::table('system5_companies')->insert($data);
+        $created = $new->save();
+
+//        $created = DB::table('system5_companies')->insert($data);
 
         if ($created) {
             return redirect()->route('companies.index')->with('success', 'company Created');
@@ -110,11 +127,18 @@ class CompanyController extends Controller
                 'name' => $request->name,
                 'field' => $request->field,
                 'country' => $request->country,
+                'region' => $request->region,
                 'city' => $request->city,
+                'neighborhood' => $request->neighborhood,
                 'mobile' => $request->mobile,
                 'telephone' => $request->telephone,
                 'email' => $request->email,
                 'address' => $request->address,
+                'bankname' => $request->bankaccount,
+                'accountname' => $request->bankaccount,
+                'accountnumber' => $request->bankaccount,
+                'accountiban' => $request->bankaccount,
+                'a' => $request->bankaccount,
                 'bankaccount' => $request->bankaccount,
                 'cardimage' => $request->cardimage
             ];
@@ -124,13 +148,18 @@ class CompanyController extends Controller
                 'name' => 'required|string',
                 'field' => 'required|string',
                 'country' => 'required|string',
+                'region' => 'required|string',
                 'city' => 'required|string',
+                'neighborhood' => 'required|string',
                 'mobile' => 'required|numeric',
                 'telephone' => 'required|numeric',
                 'email' => 'required|email',
                 'address' => 'required|string',
+                'bankname' => 'required|string',
                 'bankaccount' => 'required|string',
-                'cardimage' => 'required|string',
+                'banknumber' => 'required|string',
+                'accountiban' => 'required|string',
+                'swiftcode' => 'required|string',
             ]);
 
         $attributeNames = array(

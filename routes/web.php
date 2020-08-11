@@ -253,6 +253,7 @@
         Route::get('dashboard/companydomains', 'dashboard\systems\SystemFive\CompanyDomainController@index')->name('companydomains.index');
         Route::get('dashboard/del-companydomain/{id}', 'dashboard\systems\SystemFive\CompanyDomainController@del_companydomain')->name('companydomains.delete');
         Route::post('dashboard/del-companydomain', 'dashboard\systems\SystemFive\CompanyDomainController@del_companydomain_post')->name('companydomains.delete_post');
+        Route::get('dashboard/view-companydomain/{id}', 'dashboard\systems\SystemFive\CompanyDomainController@detail')->name('companydomains.view');
         Route::post('dashboard/edit-companydomain', 'dashboard\systems\SystemFive\CompanyDomainController@update_companydomain_post');
         Route::post('dashboard/add-companydomain', 'dashboard\systems\SystemFive\CompanyDomainController@add_companydomain_post')->name('companydomains.add');
         Route::post('dashboard/companydomain-state', 'dashboard\systems\SystemFive\CompanyDomainController@update_status_post');
@@ -311,7 +312,20 @@
         Route::post('dashboard/jobtypes/update', 'dashboard\systems\SystemTwo\JobTypeController@update')->name('jobtypes.update');
         Route::post('dashboard/jobtypes/destroy', 'dashboard\systems\SystemTwo\JobTypeController@destroy')->name('jobtypes.destroy');
 
-        /********** Customers Routs ***********/
+
+        /********** Fields ***********/
+        Route::get('dashboard/fields', 'dashboard\systems\SystemFive\FieldController@index')->name('fields.index');
+        Route::get('dashboard/del-field/{id}', 'dashboard\systems\SystemFive\FieldController@del_field')->name('fields.delete');
+        Route::post('dashboard/del-field', 'dashboard\systems\SystemFive\FieldController@del_field_post')->name('fields.delete_post');
+        Route::post('dashboard/edit-field', 'dashboard\systems\SystemFive\FieldController@update_field_post');
+        Route::post('dashboard/add-field', 'dashboard\systems\SystemFive\FieldController@add_field_post')->name('fields.add');
+        Route::post('dashboard/field-state', 'dashboard\systems\SystemFive\FieldController@update_status_post');
+        Route::Resource('dashboard/fields', 'dashboard\systems\SystemFive\FieldController')->except('update', 'destroy');
+        Route::post('dashboard/fields/update', 'dashboard\systems\SystemFive\FieldController@update')->name('fields.update');
+        Route::post('dashboard/fields/destroy', 'dashboard\systems\SystemFive\FieldController@destroy')->name('fields.destroy');
+
+
+            /********** Customers Routs ***********/
         Route::get('dashboard/customers/purchases', 'Systems\SystemOne\CustomerController@purchases')->name('customers.purchases');
         Route::get('dashboard/customers/disbursements', 'Systems\SystemOne\CustomerController@disbursements')->name('customers.disbursements');
         Route::post('dashboard/customers/update/{id}', 'Systems\SystemOne\CustomerController@update')->name('customers.update');

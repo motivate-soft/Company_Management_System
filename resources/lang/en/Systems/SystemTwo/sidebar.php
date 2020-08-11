@@ -11,5 +11,7 @@ return [
     'letterstatuses' => 'LetterStatuses',
     'permissions' => 'Permissions',
     'permissiongroups' => 'PermissionGroups',
-
+    'human_resource_systems' => 'Human Resources',
+    'supplier_management_system' => 'Supplier Management',
+    'fields' => 'Fields',
 ];
