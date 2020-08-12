@@ -7,6 +7,11 @@
 
     <!--Dropify css -->
     <link rel="stylesheet" href="{{ asset('assets/dashboard/plugins/dropify/dropify.css') }}">
+    <style>
+        .add_css{
+            border: 1px solid red; !important;
+        }
+    </style>
 
 @endsection
 @section('rightbar-content')
@@ -69,8 +74,13 @@
 
                                     <div class="form-group">
                                         <label for="discount_rate">{{__('Systems/SystemFour/quotations.discountRate')}}</label>
-                                        <input type="text" class="form-control" id="discount_rate" name="discount_rate"
+                                        <input type="number" class="form-control" id="discount_rate" name="discount_rate"
                                                placeholder="Discount Rate" required="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="description">{{__('Systems/SystemFour/quotations.description')}}</label>
+                                        <textarea class="form-control" id="quo_description"
+                                                  placeholder="Description" required=""></textarea>
                                     </div>
                                     <div id="products">
                                         <div class="form-group row product-row">
@@ -173,6 +183,13 @@
             $(".product-row").each(function(){
                 var productId = $(this).find(".product").val();
                 var quantity = Number($(this).find(".quantity").val());
+                if (quantity == ''){
+                    $(this).find(".quantity").css("border", "1px solid red");
+                    return;
+                }else{
+                    $(this).find(".quantity").css("border", "1px solid rgb(184 190 204 / 50%)");
+
+                }
                 if(productInfo[productId] === undefined){
                     productInfo[productId] = quantity;
                 }
@@ -189,24 +206,38 @@
                     quantity: value
                 })
             });
-            console.log(reqProductInfo);
-
-
             var employee = $("#employee").val();
             var customer = $("#customer").val();
             var discount_rate = $('#discount_rate').val();
             var project_name = $('#project_name').val();
+            var quo_description  = $('#quo_description').val();
+            if (discount_rate == '' || project_name == '' || quo_description == ''){
+                if (project_name == ''){
+                    $('#project_name').css("border", "1px solid red");
+                }else{
+                    $('#project_name').css("border", "1px solid rgb(184 190 204 / 50%)");
 
+                }
+                if (discount_rate == ''){
+                    $('#discount_rate').css("border", "1px solid red");
+                }else {
+                    $('#discount_rate').css("border", "1px solid rgb(184 190 204 / 50%)");
 
+                }
+                if (quo_description == ''){
+                    $('#quo_description').css("border", "1px solid red");
+                }else {
+                    $('#quo_description').css("border", "1px solid rgb(184 190 204 / 50%)");
+                }
+                return;
 
-
+            }
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': '<?= csrf_token() ?>'
                 }
             });
-
-
+            // alert(quo_description);
             $.ajax ({
 
                 url: "{{url('dashboard/quotations/store')}}",
@@ -215,13 +246,17 @@
                     customer_id: customer,
                     project_name: project_name,
                     discount_rate: discount_rate,
-                    purchase_info: reqProductInfo
+                    purchase_info: reqProductInfo,
+                    quo_description:quo_description
                 },
                 type: 'POST',
                 datatype: 'json',
                 success: function (result) {
+                    var obj = JSON.parse(result);
+                    if (obj == "success"){
+                        window.location.assign("/dashboard/quotations/all");
+                    }
 
-                    console.log(result);
 
                 }
             });

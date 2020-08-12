@@ -22,7 +22,7 @@ class Quotation extends Model
 
     public function products() {
 
-        return $this->belongsToMany('App\Model\Products', 'product_quotation', 'quotation_id', 'product_id');
+        return $this->belongsToMany('App\Model\Product', 'product_quotation', 'quotation_id', 'product_id');
 
     }
 }

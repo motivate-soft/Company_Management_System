@@ -99,7 +99,7 @@
                     <ul class="vertical-submenu">
                         {{--                    <li><a href="{{ route('customer.create') }}">{{ __('customers/customers.customerAdd') }}</a></li>--}}
                         <li><a href="{{ route('quotations.create') }}">{{ __('Systems/SystemFour/quotations.addQuotation') }}</a></li>
-                        <li><a href="{{ route('quotations.completed') }}">{{ __('Systems/SystemFour/quotations.listQuotation') }}</a></li>
+                        <li><a href="{{ route('quotations.all') }}">{{ __('Systems/SystemFour/quotations.listQuotation') }}</a></li>
 
                     </ul>
                 </li>
