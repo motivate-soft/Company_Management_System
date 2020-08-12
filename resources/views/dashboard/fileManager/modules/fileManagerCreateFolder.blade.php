@@ -12,10 +12,13 @@
                 <fieldset class="form-group">
                     <input type="hidden" name="id" class="fileManager_AddNewFolder_hidden">
                     <label for="fileManager_folder">Folder Name</label>
+                    <input type = "hidden" id="parent" name= "parent" value="3">
                     <input type="text" id="fileManager_folder" data-route = "{{ route('folder.store') }}" data-folder-id="null" name="fileManager_folder" placeholder="Folder Name" class="form-control">
                     <p id="fileManager_error"></p>
+
                 </fieldset>
-                <button type="submit" onclick="addFolder()" class="btn btn-primary">Add</button>
+                {{--<button type="submit" onclick="addFolder()" class="btn btn-primary">Add</button>--}}
+                <a style="color:white" onclick="addFolder()" class="btn btn-primary">Add</a>
             </div>
         </div>
     </div>

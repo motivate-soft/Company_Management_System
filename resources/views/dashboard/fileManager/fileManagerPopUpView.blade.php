@@ -82,6 +82,7 @@
                                 </button>
                             </th>
                             <th style="width: 5%; @if(app()->getLocale() == "en") text-align: right; @else text-align: left; @endif">
+                                @csrf
                                 <form method="post" id="image_form" enctype="multipart/form-data">
                                     <div class="fileManager-UploadButton">
                                         <button type="button" class="btn btn-round btn-warning" id="image_btn_input" data-route="{{ route('image.store') }}">
@@ -121,7 +122,7 @@
                         </tr>
                     </thead>
                     <tbody class="states_model" id="allFolders">
-                        @foreach (\App\Model\Folder::where('folder_id', null)->get() as $folder)
+                        @foreach (\App\Model\Folder::where('parent', 0)->get() as $folder)
                             <tr>
                                 <td style="width: 10%; text-align: center;">
                                     <!--Folder, Or Image-->

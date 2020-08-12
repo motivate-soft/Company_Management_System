@@ -70,7 +70,7 @@
     </style>
 @endsection
 @section('rightbar-content')
-    <form id="product_form" method="post" enctype="multipart/form-data">
+    <form id="product_form" method="post" enctype="multipart/form-data" action="{{route('products.add')}}">
         <!-- Start Breadcrumbbar -->
         <div class="breadcrumbbar">
             @csrf
@@ -484,7 +484,7 @@
                         <div class="card-footer">
                             {{--<input type="file" name="image" id="imageUpload"--}}
                             {{--class="btn btn-primary-rgba btn-lg btn-block">--}}
-                            <button data-toggle="modal" data-target="#fileManager_Popup" class="col-12 btn btn-primary-rgba my-1 fileManager_Popup_btn">{{ __('products/productAdd.selectImage') }}</button>
+                            <a style="color:black" data-toggle="modal" data-target="#fileManager_Popup" class="col-12 btn btn-primary-rgba my-1 fileManager_Popup_btn">{{ __('products/productAdd.selectImage') }}</a>
                             @include('dashboard.fileManager.fileManagerPopUpView')
 
                         </div>
@@ -496,6 +496,7 @@
                         <button type="submit" class="btn btn-primary pl-5 pr-5 save">{{ __('products/productsList.save') }}</button>
                     </div>
                 </div>
+                <p>@if(isset($message)) {{$message}}@endif</p>
                 <!-- End col -->
             </div>
             <!-- End row -->

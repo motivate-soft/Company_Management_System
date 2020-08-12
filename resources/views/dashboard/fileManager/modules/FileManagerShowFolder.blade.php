@@ -78,8 +78,10 @@
                                 <button type="button" class="btn btn-round btn-success fileManager_AddNewFolder_Window" data-id="{{$folder->id}}">
                                     <i class="feather icon-plus"></i> 
                                 </button>
+                                {{--<input type = "hidden" id ="parent_id" value="{{$folder->id}}">--}}
                             </th>
                             <th style="width: 5%; @if(app()->getLocale() == "en") text-align: right; @else text-align: left; @endif">
+                                @csrf
                                 <form method="post" id="image_form" enctype="multipart/form-data">
                                     <div class="fileManager-UploadButton">
                                         <button type="button" class="btn btn-round btn-warning" id="image_btn_input" data-route="{{ route('image.store') }}">
@@ -119,13 +121,13 @@
                         </tr>
                     </thead>
                     <tbody class="states_model" id="allShowFolders">
-                        @foreach (\App\Model\Folder::where('folder_id', $folder->id)->get() as $folder)
+                        @foreach (\App\Model\Folder::where('parent', $folder->id)->get() as $folder)
                             <tr>
                                 <td style="width: 10%; text-align: center;">
                                     <!--Folder, Or Image-->
                                     <img id="fileManagerItem" src="{{ asset('assets/dashboard/images/dashboard/fileManager/folder.png') }}" alt="Folder Name, Or Image Nmae">
                                 </td>
-                                
+
                                 <td style="@if(app()->getLocale() == "en") text-align: left; @else text-align: right; @endif" class="folder_name-{{$folder->name}}">
                                     <!--Folder Name, Or Image Nmae-->
                                     {{$folder->name}}
@@ -150,3 +152,7 @@
         </div>
     </div>
 </div>
+
+@include('dashboard.products.scripts.index')
+<!--File Manager Scripts-->
+@include('dashboard.fileManager.fileManagerScript')
