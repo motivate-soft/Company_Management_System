@@ -93,7 +93,7 @@
 //        Route::get('dashboard/product/detail/{id}', 'dashboard\products\InventoriesController@detail_product')->name('products.detail');
         Route::get('dashboard/products', 'dashboard\products\ProductController@index')->name('products.index');
         Route::get('dashboard/product/create', 'dashboard\products\ProductController@create')->name('products.create');
-        Route::post('dashboard/add_product', 'dashboard\products\ProductController@add_products')->name('products.add');
+        Route::post('dashboard/add_product', 'dashboard\products\ProductController@store')->name('products.add');
         Route::get('dashboard/product/edit/{id}', 'dashboard\products\ProductController@edit')->name('products.edit');
         Route::get('dashboard/delete_product/{id}', 'dashboard\products\ProductController@delete_product');
         Route::get('dashboard/product/detail/{id}', 'dashboard\products\ProductController@detail_product')->name('products.detail');

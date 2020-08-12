@@ -4,7 +4,7 @@ return [
     'size' => 'Sizes',
     'cuttingMethod' => 'Cutting Method',
     'packagingMethod' => 'Packaging Method',
-    'image' => 'Product Imgae',
+    'image' => 'Product Image',
     'price' => 'Price',
     'name' => 'Product Name',
     'titleAdd' => 'Add Product',

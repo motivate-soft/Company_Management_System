@@ -39,7 +39,29 @@
                 });
 
             }
-            
+
+            function readURL(input, previewId) {
+                if (input.files && input.files[0]) {
+
+                    console.log(input.files[0]);
+                    console.log(input);
+
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $(previewId).attr('src', e.target.result);
+                        $(previewId).hide();
+                        $(previewId).fadeIn(650);
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            $("#image_input").change(function () {
+                // console.log(this);
+                readURL(this, '#imagePreview');
+            });
+
+
             // For Digital Codes Popup Starts
             $('.get-codes').on('click', function () {
                 var id = $(this).attr('data-id');

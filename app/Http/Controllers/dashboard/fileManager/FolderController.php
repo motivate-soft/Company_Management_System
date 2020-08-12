@@ -19,11 +19,16 @@ class FolderController extends Controller
     //store a folder
     public function store(Request $request)
     {
-        if (!$this->checkName($request->get('name'), $request->get('folder_id'))) return response()->json(['status'=> 'error', 
+        if (!$this->checkName($request->get('name'), $request->get('folder_id'))) return response()->json(['status'=> 'error',
                                                                     'message' => 'The name has already been taken.']);
         
         if($request->get('name')) {
-            $model = Model::create($request->all());
+            print_r($request->parent);
+            $model = new Model();
+            $model->name = $request->name;
+//            $model->parent = $request->parent;
+            $model->save();
+
             return response()->json(['status' => 'success',
                                         'message' => 'Product created successfully.',
                                         'folder'=> $model,

@@ -98,9 +98,11 @@
                 </div>
                 <div class="col-md-4 col-lg-4">
                     <div class="widgetbar">
-                        <button class="btn btn-primary save" type="button">{{ __('products.update') }}</button>
+                        <a class = "btn btn-primary-rgba" href="{{route('products.index')}}">{{ __('products/productAdd.back') }}</a>
+
                     </div>
                 </div>
+
             </div>
         </div>
         <!-- End Breadcrumbbar -->
@@ -291,7 +293,7 @@
                 </div>
                 <!-- End col -->
                 <!-- Start col -->
-                <div class="col-lg-4 col-xl-3">
+            <div class="col-lg-4 col-xl-3">
                     <div class="card m-b-30">
                         <div class="card-header">
                             <h5 class="card-title">{{ __('products/productEdit.categories') }}</h5>
@@ -462,6 +464,11 @@
                     <!--</div>-->
 
                 </div>
+            <div class="col-md-4 col-lg-4">
+                <div class="widgetbar">
+                    <button class="btn btn-primary save" type="button">{{ __('products/productsList.save') }}</button>
+                </div>
+            </div>
                 <!-- End col -->
             </div>
             <!-- End row -->

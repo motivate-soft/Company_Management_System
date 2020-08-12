@@ -52,7 +52,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
 
-        $validator = \Validator::make($request->all(), [
+        $validator = Validator::make($request->all(), [
             'name_en' => 'required|max:190',
             'name_ar' => 'required|max:190',
             'description_en' => 'required',
@@ -60,19 +60,12 @@ class ProductController extends Controller
             'price' => 'required|numeric',
             'purchase_price' => 'required|numeric',
             'stock_quantity' => 'required|numeric',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:10000',
+//            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:10000',
         ]);
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->messages()]);
         }
 
-        if ($request->hasFile('image')) {
-            $image = $request->image;
-            $extension = $image->getClientOriginalExtension();
-            $filename = uniqid() . '_' . time() . '.' . $extension;
-            $image->move('uploads/product_images/', $filename);
-
-        }
         $categories = null;
         if ($request->has('categories')) {
             $categories = implode('|', $request->categories);
@@ -88,6 +81,8 @@ class ProductController extends Controller
         }else{
             $digitalProductt = 0;
         }
+
+//        return $request->myfile;
 
         $data = ([
             "user_id" => auth()->id(),
@@ -105,7 +100,7 @@ class ProductController extends Controller
             "description_ar" => $request->description_ar,
             "categories" => $categories,
             "digital_product" => $digitalProductt,
-            "image" => $filename
+            "image" => "adsfads",
         ]);
         $product = Product::create($data);
         $digitalProduct = $request->digital_product;
@@ -152,12 +147,14 @@ class ProductController extends Controller
         }
         }
 
-        return response()->json(
-            [
-                'message' => 'Added successfully',
-            ],
-            200
-        );
+         if($data) return redirect('dashboard/products')->with('success','Successfully Add Product!');
+         else return redirect('dashboard/products')->with('error','Something Went Wrong!');
+//        return response()->json(
+//            [
+//                'message' => 'Added successfully',
+//            ],
+//            200
+//        );
     }
 
     public function edit($id)

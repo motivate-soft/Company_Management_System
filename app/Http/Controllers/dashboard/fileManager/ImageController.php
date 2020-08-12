@@ -20,26 +20,45 @@ class ImageController extends Controller
     // Store an image
     public function store(Request $request)
     {
-        if($request->get('image')) {
-
+//        return response()->json([$request]);
+        if($request->hasFile('file')) {
             //Get image name
-            $clientFileName = $request->file('image')->getClientOriginalName();
-            $fileExtension = request()->file('image')->getClientOriginalExtension();
+            $imgFile = $request->file('file');
+            $fileExtension = $imgFile->getClientOriginalExtension();
+            $imgName = $request->file('file')->getClientOriginalName();
+            $fileName =uniqid() . '_' . time() . '.' . $fileExtension;
+            $imgFile->move("uploads/product_images/", $fileName);
 
-            $fileName = pathinfo($clientFileName, PATHINFO_FILENAME);
-            $fileNameToStore = $fileName.'_'.time().'.'.$fileExtension;
-
-            $file = request()->file('image');
-            $file->store('myfiles', ['disk' => 'my_files']);
-
-            $request->file = $fileNameToStore;
-            return response()->json(['status' => 'success',
+            return response()->json([
+                'status' => 'success',
                 'message' => 'Product updated successfully.',
-                'name' => $request->get('image')]);
+                'name' => $fileName,
+             ]);
 
-            // //Store image
-             $path = request()->file('image')->move(public_path('images/product'), $fileNameToStore);
-
+//
+//
+//             $clientFileName = $request->file('image')->getClientOriginalName();
+//
+//             $fileName = pathinfo($clientFileName, PATHINFO_FILENAME);
+//
+//             $fileExtension = $request->file('image')->getClientOriginalExtension();
+//             $fileNameToStore = $fileName.'_'.time().'.'.$fileExtension;
+//
+////             $file = request()->file('image');
+////             $file->store('myfiles', ['disk' => 'my_files']);
+//
+//             $request->file = $fileNameToStore;
+//
+//
+//            // //Store image
+//             $path = $request->file('image')->move(public_path("upload/Systems/SystemThree/Products/", $fileNameToStore.".". $fileExtension));
+//
+//             return response()->json([
+//                'status' => 'success',
+//                'message' => 'Product updated successfully.',
+//                'name' => $request->get('image'),
+//             ]);
+//
 //             $product = new Product();
 
 

@@ -27,7 +27,7 @@
             }
         }
 
-        $("#imageUpload").change(function () {
+        $("#image_input").change(function () {
             readURL(this, '#imagePreview');
         });
 

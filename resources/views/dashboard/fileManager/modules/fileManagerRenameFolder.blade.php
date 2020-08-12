@@ -14,7 +14,8 @@
                     <label for="fileManager_Rename">Rename File</label>
                     <input value="" type="text" data-route="" data-name="" data-folder-id="null" id="fileManager_Rename" name="fileManager_Rename" placeholder="Enter New Name" class="form-control">
                 </fieldset>
-                <button type="submit" onclick="renameFile()" class="btn btn-primary">Add</button>
+                {{--<button type="submit" onclick="renameFile()" class="btn btn-primary">Add</button>--}}
+                <a style="color:white" onclick="renameFile()" class="btn btn-primary">Rename</a>
             </div>
         </div>
     </div>

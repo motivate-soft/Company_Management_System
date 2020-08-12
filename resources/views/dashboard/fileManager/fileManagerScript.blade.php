@@ -15,7 +15,7 @@
                     cancelButtonClass: 'btn btn-danger m-l-10',
                     buttonsStyling: false
                 }).then(function () {
-                    $('.fileManager_Popup_btn').hide();
+                    // $('.fileManager_Popup_btn').hide();
                     $('.card-code').hide();
 
                 }, function (dismiss) {
@@ -30,6 +30,8 @@
         // Add new folder Popup Window
         $(document).on("click", ".fileManager_AddNewFolder_Window" , function() {
             var id = $(this).data('id');
+            console.log(id);
+            $("#parent").val(id);
             $('#fileManager_folder').data('folder-id', id);
             $('#fileManager_AddNewFolder').modal('show');
         });
@@ -268,7 +270,7 @@
         form_data.append('file',file_data);
         // alert(file_data);
         sendImageAjax(form_data, route, function(response) {
-            alert(123);
+            alert("You selected image!");
         });
     });
 
@@ -323,10 +325,10 @@
             $.ajax({
                 url: route,
                 type: 'POST',
-                data: {
-                    image: image
-                },
-                dataType: 'text',
+                data:image,
+
+                processData: false,
+                contentType: false,
                 success: function (response) {
                     processing = false;
                     if(response.status == 'error') {

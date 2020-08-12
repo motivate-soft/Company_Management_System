@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Folder extends Model
 {
     protected $fillable = [
-        'name'
+        'name', 'parent', 'type'
     ];
     
     public function images()

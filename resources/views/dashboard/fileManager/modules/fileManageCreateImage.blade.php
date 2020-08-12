@@ -20,7 +20,8 @@
                     <input type="file" class="form-control-file" name="image" id="image_file_input" accept="image/x-png,image/jpg,image/jpeg"/>
                     <p id="fileManager_error"></p>
                 </fieldset>
-                <button type="submit" onclick="addFolder()" class="btn btn-primary">Add</button>
+                {{--<button type="submit" onclick="addFolder()" class="btn btn-primary">Add</button>--}}
+                <a style="color:white" onclick="addFolder()" class="btn btn-primary">Add</a>
             </div>
         </div>
     </div>
