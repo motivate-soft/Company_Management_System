@@ -2,6 +2,7 @@
 
 namespace App\Model;
 
+use App\Model\dashboard\productManagment\Inventory;
 use Illuminate\Database\Eloquent\Model;
 
 class Country extends Model
@@ -12,5 +13,10 @@ class Country extends Model
 
     protected function customer(){
         return $this->hasMany('App\Model\dashboard\systems\SystemOne\Customer', 'id', 'id');
+    }
+
+    public function inventory()
+    {
+        return $this->hasMany(Inventory::class);
     }
 }

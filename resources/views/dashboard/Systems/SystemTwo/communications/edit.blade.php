@@ -50,16 +50,14 @@
                         <div class="col-lg-3 mb-4">
                             <div class="form-group mb-0">
                                 <label for="transaction_type">{{__('Systems/SystemTwo/communications.transaction_type')}}</label>
+                                <select class="form-control" name="transaction_type" required="" id="type">
+                                    @if(isset($transactions) && count($transactions) > 0)
+                                        @foreach($transactions as $key => $transaction)
+                                            <option @if(isset($communication->transaction_type) && $communication->transaction_type == $transaction->name) selected @endif value="{{$transaction->name}}">{{$transaction->name}}</option>
+                                        @endforeach
 
-                                <select id="transaction_type" class="form-control" name="transaction_type" required="">
-                                    {{--<option disabled selected value="">Select the transaction type</option>--}}
-                                    <option value="atm" @if(isset($communication->transaction_type) && $communication->transaction_type == "atm") selected @endif>ATM</option>
-                                    <option value="charge" @if(isset($communication->transaction_type) && $communication->transaction_type == "charge") selected @endif>CHARGE</option>
-                                    <option value="check" @if(isset($communication->transaction_type) && $communication->transaction_type == "check") selected @endif>CHECK</option>
-                                    <option value="deposit" @if(isset($communication->transaction_type) && $communication->transaction_type == "deposit") selected @endif>DEPOSIT</option>
-                                    <option value="online" @if(isset($communication->transaction_type) && $communication->transaction_type == "online") selected @endif>ONLINE</option>
+                                    @endif
                                 </select>
-
                                 {{--<input type="text" placeholder="transaction_type" class="form-control" @if(isset($communication->transaction_type)) value="{{ $communication->transaction_type }}"@endif name="transaction_type" placeholder="No transaction_type" required="">--}}
                             </div>
                         </div>
@@ -67,25 +65,32 @@
                         <div class="col-lg-3 mb-4">
                             <div class="form-group mb-0">
                                 <label>{{__('Systems/SystemTwo/communications.entity_name')}}</label>
-                                <input type="text" placeholder="entity_name" class="form-control" @if(isset($communication->entity_name)) value="{{ $communication->entity_name }}"@endif name="entity_name" placeholder="No entity_name" required="">
+                                <input type="text" placeholder="entity_name" class="form-control" @if(isset($communication->entity_name)) value="{{ $communication->entity_name }}" @endif name="entity_name" required="">
                             </div>
                         </div>
                         <div class="col-lg-3 mb-4">
                             <div class="form-group mb-0">
                                 <label>{{__('Systems/SystemTwo/communications.letter_authorized')}}</label>
-                                <input type="text" placeholder="letter_authorized" class="form-control" @if(isset($communication->letter_authorized)) value="{{ $communication->letter_authorized }}"@endif name="letter_authorized" placeholder="No letter_authorized" required="">
+                                <input type="text" placeholder="letter_authorized" class="form-control" @if(isset($communication->letter_authorized)) value="{{ $communication->letter_authorized }}" @endif name="letter_authorized" required="">
                             </div>
                         </div>
                         <div class="col-lg-3 mb-4">
                             <div class="form-group mb-0">
                                 <label>{{__('Systems/SystemTwo/communications.employee_responsible')}}</label>
-                                <input type="text" placeholder="employee_responsible" class="form-control" @if(isset($communication->employee_responsible)) value="{{ $communication->employee_responsible }}"@endif name="employee_responsible" placeholder="No employee_responsible" required="">
+                                <select class="form-control" id="employee_responsible" name="employee_responsible" required>
+                                    @if(isset($employees) && count($employees) > 0)
+                                        @foreach($employees as $key => $employee)
+                                            <option @if(isset($communication->employee_responsible) && $communication->employee_responsible == $employee->firstname) selected @endif value="{{$employee->firstname}}">{{$employee->firstname}}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
+                                {{--<input type="text" placeholder="employee_responsible" class="form-control" @if(isset($communication->employee_responsible)) value="{{ $communication->employee_responsible }}"@endif name="employee_responsible" placeholder="No employee_responsible" required="">--}}
                             </div>
                         </div>
                         <div class="col-lg-3 mb-4">
                             <div class="form-group mb-0">
                                 <label>number</label>
-                                <input type="number" placeholder="number" min="0" class="form-control" @if(isset($communication->number)) value="{{ $communication->number }}"@endif name="number" placeholder="No number" required="">
+                                <input type="number" placeholder="number" min="0" class="form-control" @if(isset($communication->number)) value="{{ $communication->number }}" @endif name="number" required="">
                             </div>
                         </div>
                         <div class="col-lg-3 mb-4">
@@ -102,13 +107,20 @@
                         <div class="col-lg-3 mb-4">
                             <div class="form-group mb-0">
                                 <label>{{__('Systems/SystemTwo/communications.status_letter')}}</label>
-                                <input type="number" class="form-control" @if(isset($communication->status_letter)) value="{{ $communication->status_letter }}"@endif name="status_letter" placeholder="No status_letter" required="">
+                                <select class="form-control" id="status_letter" name="status_letter">
+                                    @if(isset($letterstatuses) && count($letterstatuses) > 0)
+                                        @foreach($letterstatuses as $key => $letterstatus)
+                                            <option @if(isset($communication->status_letter) && $communication->status_letter == $letterstatus->name) selected @endif value="{{$letterstatus->name}}">@if(app()->getLocale() == "en"){{$letterstatus->name}} @else{{$letterstatus->ar_name}} @endif</option>
+                                        @endforeach
+                                    @endif
+                                </select>
+                                {{--<input type="number" class="form-control" @if(isset($communication->status_letter)) value="{{ $communication->status_letter }}"@endif name="status_letter" placeholder="No status_letter" required="">--}}
                             </div>
                         </div>
                         <div class="col-lg-3 mb-4">
                             <div class="form-group mb-0">
                                 <label>{{__('Systems/SystemTwo/communications.prepayments')}}</label>
-                                <input type="text" class="form-control" @if(isset($communication->prepayments)) value="{{ $communication->prepayments }}"@endif name="prepayments" placeholder="No prepayments" required="">
+                                <input type="text" class="form-control" @if(isset($communication->prepayments)) value="{{ $communication->prepayments }}" @endif name="prepayments" placeholder="No prepayments" required="">
 
                             </div>
                         </div>
@@ -122,14 +134,13 @@
                             </div>
                         </div>
 
+                        <div class="col-lg-12 mt-4">
+                            <div class="form-group mb-0">
+                                <label for="response">{{__('Systems/SystemTwo/communications.response')}}</label>
+                                <textarea id="response" name="response" class="form-control">@if(isset($communication->response)){{ $communication->response }}@endif</textarea>
 
-                        {{--<div class="col-lg-12 mt-4">--}}
-                            {{--<div class="form-group mb-0">--}}
-                                {{--<label for="reponse">response</label>--}}
-                                {{--<textarea id="reponse" name="reponse">@if(isset($communication->response)){{ $communication->reponse }}@endif</textarea>--}}
-
-                            {{--</div>--}}
-                        {{--</div>--}}
+                            </div>
+                        </div>
 
                         <div class="col-lg-12 mt-4">
                             <div class="form-group mb-0">

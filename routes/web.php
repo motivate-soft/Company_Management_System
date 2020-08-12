@@ -10,32 +10,32 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-    
+
     Route::get('detect', function()
     {
         $agent = new \Jenssegers\Agent\Agent;
-       
+
         $result = $agent->isMobile();
-        
+
         dd($result);
     });
     Route::get('detect', function()
     {
         $agent = new \Jenssegers\Agent\Agent;
-       
+
         $result = $agent->isDesktop();
-        
+
         dd($result);
     });
     Route::get('detect', function()
     {
         $agent = new \Jenssegers\Agent\Agent;
-       
+
         $result = $agent->isTablet();
-                        
+
         dd($result);
     });
-    
+
 
     /*======Languages locate Starts */
     Route::get('locale/{locale}', 'HomeController@change_lng');
@@ -44,46 +44,47 @@
     /*==============================
     =   Admin Dashboard Starts     =
     ==============================*/
-    
+
         Auth::routes();
         Route::middleware(['auth','CheckAdmin'])->group(function () {
-        
+
         Route::get('themes/theme', function () {
             return view('frontend.themes.desktop_themes.theme_1.index');
         });
-        
+
         /********** Main Dashboard ***********/
         Route::get('/dashboard', 'HomeController@admin_dashabord')->name('dashboard');
-        
+
         /********** Products Routs ***********/
         Route::Resource('dashboard/products', 'dashboard\products\ProductController')->except('update', 'destroy');
         Route::post('dashboard/products/update', 'dashboard\products\ProductController@update')->name('products.update');
         Route::post('dashboard/products/destroy', 'dashboard\products\ProductController@destroy')->name('products.destroy');
-        Route::post('dashboard/products/codes', 'dashboard\products\ProductController@codes')->name('products.codes'); 
+        Route::post('dashboard/products/codes', 'dashboard\products\ProductController@codes')->name('products.codes');
             /********** Digital Products Codes ***********/
             Route::post('dashboard/codes', 'dashboard\products\CodeController@Store')->name('codes.store');
             Route::post('dashboard/codes/update', 'dashboard\products\CodeController@update')->name('codes.update');
             Route::post('dashboard/codes/destroy', 'dashboard\products\CodeController@destroy')->name('codes.destroy');
-        
+
         /********** Categories ***********/
-        Route::get('dashboard/categories', 'dashboard\categories\CategoriesController@index')->name('categories.index');
-        Route::get('dashboard/category/create', 'dashboard\categories\CategoriesController@create')->name('categories.create');
-        Route::post('dashboard/add_category', 'dashboard\categories\CategoriesController@add_categories')->name('categories.add');
-        Route::get('dashboard/category/edit/{id}', 'dashboard\categories\CategoriesController@edit')->name('categories.editview');
-        Route::post('dashboard/category/edit', 'dashboard\categories\CategoriesController@edit_category')->name('categories.edit');
-        Route::post('dashboard/delete_category', 'dashboard\categories\CategoriesController@delete_category');
-        Route::get('dashboard/category/detail/{id}', 'dashboard\categories\CategoriesController@detail_category')->name('categories.detail');
+        Route::get('dashboard/categories', 'dashboard\products\CategoriesController@index')->name('categories.index');
+        Route::get('dashboard/category/create', 'dashboard\products\CategoriesController@create')->name('categories.create');
+        Route::post('dashboard/add_category', 'dashboard\products\CategoriesController@add_categories')->name('categories.add');
+        Route::get('dashboard/category/edit/{id}', 'dashboard\products\CategoriesController@edit')->name('categories.editview');
+        Route::post('dashboard/category/edit', 'dashboard\products\CategoriesController@edit_category')->name('categories.edit');
+        Route::post('dashboard/delete_category', 'dashboard\products\CategoriesController@delete_category');
+        Route::get('dashboard/category/detail/{id}', 'dashboard\products\CategoriesController@detail_category')->name('categories.detail');
 
         /********** Brands ***********/
-        Route::get('dashboard/brands', 'dashboard\brands\BrandsController@index')->name('brands.index');
-        Route::get('dashboard/brand/create', 'dashboard\brands\BrandsController@create')->name('brands.create');
-        Route::post('dashboard/add_brand', 'dashboard\brands\BrandsController@add_brands')->name('brands.add');
-        Route::get('dashboard/brand/edit/{id}', 'dashboard\brands\BrandsController@edit')->name('brands.editview');
-        Route::post('dashboard/brand/edit', 'dashboard\brands\BrandsController@edit_brand')->name('brands.edit');
-        Route::post('dashboard/delete_brand', 'dashboard\brands\BrandsController@delete_brand');
-        Route::get('dashboard/brand/detail/{id}', 'dashboard\brands\BrandsController@detail_brand')->name('brands.detail');
+        Route::get('dashboard/brands', 'dashboard\products\BrandsController@index')->name('brands.index');
+        Route::get('dashboard/brand/create', 'dashboard\products\BrandsController@create')->name('brands.create');
+        Route::post('dashboard/add_brand', 'dashboard\products\BrandsController@add_brands')->name('brands.add');
+        Route::get('dashboard/brand/edit/{id}', 'dashboard\products\BrandsController@edit')->name('brands.editview');
+        Route::post('dashboard/brand/edit', 'dashboard\products\BrandsController@edit_brand')->name('brands.edit');
+        Route::post('dashboard/delete_brand', 'dashboard\products\BrandsController@delete_brand');
+        Route::get('dashboard/brand/detail/{id}', 'dashboard\products\BrandsController@detail_brand')->name('brands.detail');
 
             /********** Products ***********/
+
 //        Route::get('dashboard/product', 'dashboard\products\ProductsController@index')->name('products.index');
 //        Route::get('dashboard/product/create', 'dashboard\products\ProductsController@create')->name('products.create');
 //        Route::post('dashboard/add_product', 'dashboard\products\ProductsController@add_products')->name('products.add');
@@ -92,22 +93,38 @@
 //        Route::post('dashboard/delete_product', 'dashboard\products\ProductsController@delete_product');
 //        Route::get('dashboard/product/detail/{id}', 'dashboard\products\ProductsController@detail_product')->name('products.detail');
 
+//        Route::get('dashboard/products', 'dashboard\products\InventoriesController@index')->name('products.index');
+//        Route::get('dashboard/product/create', 'dashboard\products\InventoriesController@create')->name('products.create');
+//        Route::post('dashboard/add_product', 'dashboard\products\InventoriesController@add_products')->name('products.add');
+//        Route::get('dashboard/product/edit/{id}', 'dashboard\products\InventoriesController@edit')->name('products.editview');
+//        Route::post('dashboard/product/edit', 'dashboard\products\InventoriesController@edit_product')->name('products.edit');
+//        Route::post('dashboard/delete_product', 'dashboard\products\InventoriesController@delete_product');
+//        Route::get('dashboard/product/detail/{id}', 'dashboard\products\InventoriesController@detail_product')->name('products.detail');
+        Route::get('dashboard/products', 'dashboard\products\ProductController@index')->name('products.index');
+        Route::get('dashboard/product/create', 'dashboard\products\ProductController@create')->name('products.create');
+        Route::post('dashboard/add_product', 'dashboard\products\ProductController@add_products')->name('products.add');
+        Route::get('dashboard/product/edit/{id}', 'dashboard\products\ProductController@edit')->name('products.edit');
+        Route::get('dashboard/delete_product/{id}', 'dashboard\products\ProductController@delete_product');
+        Route::get('dashboard/product/detail/{id}', 'dashboard\products\ProductController@detail_product')->name('products.detail');
+
+
+
             /********** Sliders ***********/
         Route::Resource('dashboard/sliders', 'dashboard\sliders\MobileThemesSliderController')->except('update', 'destroy');
         Route::get('dashboard/sliders', 'dashboard\sliders\MobileThemesSliderController@index')->name('sliders.index');
         Route::post('dashboard/sliders/update', 'dashboard\sliders\MobileThemesSliderController@update')->name('sliders.update');
         Route::post('dashboard/sliders/destroy', 'dashboard\sliders\MobileThemesSliderController@destroy')->name('sliders.destroy');
-        
+
         /********** Folders ***********/
         Route::post('dashboard/products/folder', 'dashboard\fileManager\FolderController@store')->name('folder.store');
         Route::post('dashboard/products/update/{id}', 'dashboard\fileManager\FolderController@update')->name('folder.update');
         Route::post('dashboard/products/folder/delete/{id}', 'dashboard\fileManager\FolderController@delete')->name('folder.delete');
         Route::post('dashboard/products/folder/getAll', 'dashboard\fileManager\FolderController@getAllHtml')->name('folder.getAllHtml');
-        
+
         /********** Images ***********/
         Route::post('dashboard/products/image', 'dashboard\fileManager\ImageController@store')->name('image.store');
-        
-        
+
+
         /********** Orders ***********/
         Route::post('dashboard/orders', 'dashboard\orders\OrderController@index')->name('orders.index');
         Route::get('dashboard/orders', 'dashboard\orders\OrderController@list');
@@ -211,7 +228,97 @@
         Route::post('dashboard/transactions/update', 'dashboard\systems\SystemTwo\TransactionController@update')->name('transactions.update');
         Route::post('dashboard/transactions/destroy', 'dashboard\systems\SystemTwo\TransactionController@destroy')->name('transactions.destroy');
 
-        /********** JobTypes ***********/
+        /********** Transactions ***********/
+        Route::get('dashboard/letterstatuses', 'dashboard\systems\SystemTwo\LetterStatusController@index')->name('letterstatuses.index');
+        Route::get('dashboard/del-letterstatus/{id}', 'dashboard\systems\SystemTwo\LetterStatusController@del_letterstatus')->name('letterstatuses.delete');
+        Route::post('dashboard/del-letterstatus', 'dashboard\systems\SystemTwo\LetterStatusController@del_letterstatus_post')->name('letterstatuses.delete_post');
+        Route::post('dashboard/edit-letterstatus', 'dashboard\systems\SystemTwo\LetterStatusController@update_letterstatus_post');
+        Route::post('dashboard/add-letterstatus', 'dashboard\systems\SystemTwo\LetterStatusController@add_letterstatus_post')->name('letterstatuses.add');
+        Route::post('dashboard/letterstatus-state', 'dashboard\systems\SystemTwo\LetterStatusController@update_status_post');
+        Route::Resource('dashboard/letterstatuses', 'dashboard\systems\SystemTwo\LetterStatusController')->except('update', 'destroy');
+        Route::post('dashboard/letterstatuses/update', 'dashboard\systems\SystemTwo\LetterStatusController@update')->name('letterstatuses.update');
+        Route::post('dashboard/letterstatuses/destroy', 'dashboard\systems\SystemTwo\LetterStatusController@destroy')->name('letterstatuses.destroy');
+
+        /********** Permissions ***********/
+        Route::get('dashboard/permissions', 'dashboard\systems\SystemTwo\PermissionController@index')->name('permissions.index');
+        Route::get('dashboard/del-permission/{id}', 'dashboard\systems\SystemTwo\PermissionController@del_permission')->name('permissions.delete');
+        Route::post('dashboard/del-permission', 'dashboard\systems\SystemTwo\PermissionController@del_permission_post')->name('permissions.delete_post');
+        Route::post('dashboard/edit-permission', 'dashboard\systems\SystemTwo\PermissionController@update_permission_post');
+        Route::post('dashboard/add-permission', 'dashboard\systems\SystemTwo\PermissionController@add_permission_post')->name('permissions.add');
+        Route::post('dashboard/permission-state', 'dashboard\systems\SystemTwo\PermissionController@update_status_post');
+        Route::Resource('dashboard/permissions', 'dashboard\systems\SystemTwo\PermissionController')->except('update', 'destroy');
+        Route::post('dashboard/permissions/update', 'dashboard\systems\SystemTwo\PermissionController@update')->name('permissions.update');
+        Route::post('dashboard/permissions/destroy', 'dashboard\systems\SystemTwo\PermissionController@destroy')->name('permissions.destroy');
+
+        /********** PermissionGroups ***********/
+        Route::get('dashboard/permissiongroups', 'dashboard\systems\SystemTwo\PermissionGroupController@index')->name('permissiongroups.index');
+        Route::get('dashboard/del-permissiongroup/{id}', 'dashboard\systems\SystemTwo\PermissionGroupController@del_permissiongroup')->name('permissiongroups.delete');
+        Route::post('dashboard/del-permissiongroup', 'dashboard\systems\SystemTwo\PermissionGroupController@del_permissiongroup_post')->name('permissiongroups.delete_post');
+        Route::post('dashboard/edit-permissiongroup', 'dashboard\systems\SystemTwo\PermissionGroupController@update_permissiongroup_post');
+        Route::post('dashboard/add-permissiongroup', 'dashboard\systems\SystemTwo\PermissionGroupController@add_permissiongroup_post')->name('permissiongroups.add');
+        Route::post('dashboard/permissiongroup-state', 'dashboard\systems\SystemTwo\PermissionGroupController@update_status_post');
+        Route::Resource('dashboard/permissiongroups', 'dashboard\systems\SystemTwo\PermissionGroupController')->except('update', 'destroy');
+        Route::post('dashboard/permissiongroups/update', 'dashboard\systems\SystemTwo\PermissionGroupController@update')->name('permissiongroups.update');
+        Route::post('dashboard/permissiongroups/destroy', 'dashboard\systems\SystemTwo\PermissionGroupController@destroy')->name('permissiongroups.destroy');
+        Route::get('dashboard/permissiongroup-detail/{id}', 'dashboard\systems\SystemTwo\PermissionGroupController@detail')->name('permissiongroups.detail');
+
+
+
+
+
+            /********** CompanyDomains ***********/
+        Route::get('dashboard/companydomains', 'dashboard\systems\SystemFive\CompanyDomainController@index')->name('companydomains.index');
+        Route::get('dashboard/del-companydomain/{id}', 'dashboard\systems\SystemFive\CompanyDomainController@del_companydomain')->name('companydomains.delete');
+        Route::post('dashboard/del-companydomain', 'dashboard\systems\SystemFive\CompanyDomainController@del_companydomain_post')->name('companydomains.delete_post');
+        Route::get('dashboard/view-companydomain/{id}', 'dashboard\systems\SystemFive\CompanyDomainController@detail')->name('companydomains.view');
+        Route::post('dashboard/edit-companydomain', 'dashboard\systems\SystemFive\CompanyDomainController@update_companydomain_post');
+        Route::post('dashboard/add-companydomain', 'dashboard\systems\SystemFive\CompanyDomainController@add_companydomain_post')->name('companydomains.add');
+        Route::post('dashboard/companydomain-state', 'dashboard\systems\SystemFive\CompanyDomainController@update_status_post');
+        Route::Resource('dashboard/companydomains', 'dashboard\systems\SystemFive\CompanyDomainController')->except('update', 'destroy');
+        Route::post('dashboard/companydomains/update', 'dashboard\systems\SystemFive\CompanyDomainController@update')->name('companydomains.update');
+        Route::post('dashboard/companydomains/destroy', 'dashboard\systems\SystemFive\CompanyDomainController@destroy')->name('companydomains.destroy');
+
+        /********** Companies ***********/
+        Route::get('dashboard/companies', 'dashboard\systems\SystemFive\CompanyController@index')->name('companies.index');
+        Route::get('dashboard/del-company/{id}', 'dashboard\systems\SystemFive\CompanyController@del_company')->name('companies.delete');
+        Route::get('dashboard/view-company/{id}', 'dashboard\systems\SystemFive\CompanyController@view')->name('companies.view');
+        Route::get('dashboard/detail-company/{id}', 'dashboard\systems\SystemFive\CompanyController@detail')->name('companies.detail');
+        Route::post('dashboard/del-company', 'dashboard\systems\SystemFive\CompanyController@del_company_post')->name('companies.delete_post');
+        Route::post('dashboard/edit-company', 'dashboard\systems\SystemFive\CompanyController@update_company_post');
+        Route::post('dashboard/add-company', 'dashboard\systems\SystemFive\CompanyController@add_company_post')->name('companies.add');
+        Route::post('dashboard/company-state', 'dashboard\systems\SystemFive\CompanyController@update_status_post');
+        Route::Resource('dashboard/companies', 'dashboard\systems\SystemFive\CompanyController')->except('update', 'destroy');
+        Route::post('dashboard/companies/update', 'dashboard\systems\SystemFive\CompanyController@update_company_post')->name('companies.update');
+        Route::post('dashboard/companies/destroy', 'dashboard\systems\SystemFive\CompanyController@destroy')->name('companies.destroy');
+
+        /********** Offers ***********/
+        Route::get('dashboard/offers', 'dashboard\systems\SystemFive\OfferController@index')->name('offers.index');
+        Route::get('dashboard/offers/edit/{id}', 'dashboard\systems\SystemFive\OfferController@edit')->name('offers.edit');
+        Route::get('dashboard/del-offer/{id}', 'dashboard\systems\SystemFive\OfferController@del_offer')->name('offers.delete');
+        Route::post('dashboard/del-offer', 'dashboard\systems\SystemFive\OfferController@del_offer_post')->name('offers.delete_post');
+        Route::post('dashboard/edit-offer', 'dashboard\systems\SystemFive\OfferController@update_offer_post');
+        Route::post('dashboard/add-offer', 'dashboard\systems\SystemFive\OfferController@add_offer_post')->name('offers.add');
+        Route::post('dashboard/filter-offer', 'dashboard\systems\SystemFive\OfferController@filter_post')->name('offers.filter');
+        Route::post('dashboard/offer-state', 'dashboard\systems\SystemFive\OfferController@update_status_post');
+        Route::Resource('dashboard/offers', 'dashboard\systems\SystemFive\OfferController')->except('update', 'destroy');
+        Route::post('dashboard/offers/update', 'dashboard\systems\SystemFive\OfferController@update')->name('offers.update');
+        Route::post('dashboard/offers/destroy', 'dashboard\systems\SystemFive\OfferController@destroy')->name('offers.destroy');
+
+        /********** Delegates ***********/
+        Route::get('dashboard/delegates', 'dashboard\systems\SystemFive\DelegateController@index')->name('delegates.index');
+        Route::get('dashboard/delegates/edit/{id}', 'dashboard\systems\SystemFive\DelegateController@edit')->name('delegates.edit');
+        Route::get('dashboard/del-delegate/{id}', 'dashboard\systems\SystemFive\DelegateController@del_offer')->name('delegates.delete');
+        Route::post('dashboard/del-delegate', 'dashboard\systems\SystemFive\DelegateController@del_delegate_post')->name('delegates.delete_post');
+        Route::post('dashboard/edit-delegate', 'dashboard\systems\SystemFive\DelegateController@update_delegate_post');
+        Route::post('dashboard/add-delegate', 'dashboard\systems\SystemFive\DelegateController@add_delegate_post')->name('delegates.add');
+        Route::post('dashboard/filter-delegate', 'dashboard\systems\SystemFive\DelegateController@filter_post')->name('delegates.filter');
+        Route::post('dashboard/delegate-state', 'dashboard\systems\SystemFive\DelegateController@update_status_post');
+        Route::Resource('dashboard/delegates', 'dashboard\systems\SystemFive\DelegateController')->except('update', 'destroy');
+        Route::post('dashboard/delegates/update', 'dashboard\systems\SystemFive\DelegateController@update')->name('delegates.update');
+        Route::post('dashboard/delegates/destroy', 'dashboard\systems\SystemFive\DelegateController@destroy')->name('delegates.destroy');
+
+
+            /********** JobTypes ***********/
         Route::get('dashboard/jobtypes', 'dashboard\systems\SystemTwo\JobTypeController@index')->name('jobtypes.index');
         Route::get('dashboard/del-jobtype/{id}', 'dashboard\systems\SystemTwo\JobTypeController@del_jobtype')->name('jobtypes.delete');
         Route::post('dashboard/del-jobtype', 'dashboard\systems\SystemTwo\JobTypeController@del_jobtype_post')->name('jobtypes.delete_post');
@@ -222,7 +329,21 @@
         Route::post('dashboard/jobtypes/update', 'dashboard\systems\SystemTwo\JobTypeController@update')->name('jobtypes.update');
         Route::post('dashboard/jobtypes/destroy', 'dashboard\systems\SystemTwo\JobTypeController@destroy')->name('jobtypes.destroy');
 
+        /********** Fields ***********/
+        Route::get('dashboard/fields', 'dashboard\systems\SystemFive\FieldController@index')->name('fields.index');
+        Route::get('dashboard/del-field/{id}', 'dashboard\systems\SystemFive\FieldController@del_field')->name('fields.delete');
+        Route::post('dashboard/del-field', 'dashboard\systems\SystemFive\FieldController@del_field_post')->name('fields.delete_post');
+        Route::post('dashboard/edit-field', 'dashboard\systems\SystemFive\FieldController@update_field_post');
+        Route::post('dashboard/add-field', 'dashboard\systems\SystemFive\FieldController@add_field_post')->name('fields.add');
+        Route::post('dashboard/field-state', 'dashboard\systems\SystemFive\FieldController@update_status_post');
+        Route::Resource('dashboard/fields', 'dashboard\systems\SystemFive\FieldController')->except('update', 'destroy');
+        Route::post('dashboard/fields/update', 'dashboard\systems\SystemFive\FieldController@update')->name('fields.update');
+        Route::post('dashboard/fields/destroy', 'dashboard\systems\SystemFive\FieldController@destroy')->name('fields.destroy');
+
+
+
         /********** Customers Routes ***********/
+
         Route::get('dashboard/customers/purchases', 'Systems\SystemOne\CustomerController@purchases')->name('customers.purchases');
         Route::get('dashboard/customers/disbursements', 'Systems\SystemOne\CustomerController@disbursements')->name('customers.disbursements');
         Route::post('dashboard/customers/update/{id}', 'Systems\SystemOne\CustomerController@update')->name('customers.update');
@@ -278,20 +399,20 @@
         Route::get('dashboard/settings/get_countries/{id}', 'dashboard\settings\CountryController@_get_countries');
         Route::get('dashboard/settings/get_zones/{id}', 'dashboard\settings\CountryController@get_zones_ala');
         Route::get('dashboard/settings/get_neighborhood/{id}', 'dashboard\settings\CountryController@get_neighborhood_ala');
-        
+
         /********** Social Links ***********/
         Route::get('dashboard/socialMedia', 'dashboard\settings\SocialMediaController@social_links')->name('social.index');
         Route::post('dashboard/socialMedia-save', 'dashboard\settings\SocialMediaController@save_social_links')->name('social.save');
-        
+
         /********** Help & Privacy ***********/
         /********** TODO: 1. Make help in another page, and create new page for terms & conditions ***********/
         Route::get('dashboard/pages/PrivacyPolicy', 'dashboard\pages\PrivacyPolicyController@policy');
         Route::post('dashboard/pages/PrivacyPolicy', 'dashboard\pages\PrivacyPolicyController@save_policy');
-        
+
         /********** Under Mainenace ***********/
         Route::get('dashboard/settings/under-maintenance', 'dashboard\settings\UnderMaintenanceController@underMaintenanceView')->name('settings.underMaintenanceView');
         Route::post('dashboard/settings/under-maintenance', 'dashboard\settings\UnderMaintenanceController@underMaintenanceUpdate')->name('settings.underMaintenanceUpdate');
-        
+
         /*========================================
         =    Admin Dashboard Plugins Starts      =
         ========================================*/
@@ -303,32 +424,32 @@
             Route::post('dashboard/add_plugin', 'dashboard\plugins\PluginsController@add_plugin');
             Route::post('dashboard/edit_plugin', 'dashboard\plugins\PluginsController@edit_plugin');
             Route::get('dashboard/payments/bank-rajhi', 'dashboard\plugins\PluginsController@bank_rj');
-        
+
             /****** Malath *****/
             Route::get('dashboard/plugins/sms/malath', 'dashboard\plugins\sms\MalathController@malath_index')->name('malath.index');
             Route::post('dashboard/plugins/sms/malath', 'dashboard\plugins\sms\MalathController@malath_store')->name('malath.store');
             Route::get('dashboard/plugins/sms/malath/sendSMS', 'dashboard\plugins\sms\MalathController@malath_smsView')->name('malath.smsView');
             Route::post('dashboard/plugins/sms/malath/send-sms', 'dashboard\plugins\sms\MalathController@malath_sendSMS')->name('malath.sendSMS');
             Route::post('dashboard/plugins/sms/malath/change-status', 'dashboard\plugins\sms\MalathController@malath_changeStatus')->name('malath.changeStatus');
-            
+
             /****** Meat System *****/
             /********** TODO: 1. Add "dashboard/plugins/systems/" before the main URL ***********/
             Route::get('dashboard/plugins/systems/cutting-methods', 'dashboard\plugins\products\MeatSystemController@cutting_index')->name('cuttings.index');
             Route::post('dashboard/plugins/systems/cutting-methods', 'dashboard\plugins\products\MeatSystemController@cutting_save')->name('cuttings.store');
             Route::post('dashboard/plugins/systems/cutting-methods/update', 'dashboard\plugins\products\MeatSystemController@cutting_update')->name('cuttings.update');
             Route::get('dashboard/plugins/systems/delete_cutting/{id}', 'dashboard\plugins\products\MeatSystemController@cutting_delete');
-            
+
             Route::get('dashboard/plugins/systems/packing-methods', 'dashboard\plugins\products\MeatSystemController@packing_index')->name('packings.index');
             Route::post('dashboard/plugins/systems/packing-methods', 'dashboard\plugins\products\MeatSystemController@packing_save')->name('packings.store');
             Route::post('dashboard/plugins/systems/packing-methods/update', 'dashboard\plugins\products\MeatSystemController@packing_update')->name('packings.update');
             Route::get('dashboard/plugins/systems/delete_packing/{id}', 'dashboard\plugins\products\MeatSystemController@packing_delete')->name('packings.destroy');
-            
+
             Route::post('dashboard/plugins/systems/size_add', 'dashboard\plugins\products\MeatSystemController@size_add');
             Route::get('dashboard/plugins/systems/size-del/{id}', 'dashboard\plugins\products\MeatSystemController@size_del');
             Route::post('dashboard/plugins/systems/edit_size', 'dashboard\plugins\products\MeatSystemController@edit_size');
             Route::get('dashboard/plugins/systems/sizes', 'dashboard\plugins\products\MeatSystemController@sizes_index')->name('sizes.index');
-            
-            
+
+
 
             /****** Banks Informaion *****/
             /********** TODO: 1. Add an option on the plugins page to enable or disable ***********/
@@ -340,27 +461,27 @@
             Route::post('dashboard/add_bank', 'dashboard\plugins\payment\BankTransferController@add_bank')->name('bank-information.add');
             Route::post('dashboard/edit_bank', 'dashboard\plugins\payment\BankTransferController@edit_bank')->name('bank-information.edit');
             Route::get('dashboard/delete_bank/{id}', 'dashboard\plugins\payment\BankTransferController@delete_bank');
-            
+
             /********** TODO: TAX - VAT ***********/
             /********** TODO: 1. Add "dashboard/plugins/others/" before the main URL, 2. Add an option on the plugins page to enable or disable ***********/
             Route::get('dashboard/plugins/others/tax', 'dashboard\settings\TaxController@vat_tax')->name('tax.index');
             Route::post('dashboard/save_vat_tax', 'dashboard\settings\TaxController@save_vat_tax')->name('tax.save');
-            
+
             /****** My Fatoorah Payment Gateway *****/
             Route::get('dashboard/my-fatoorah', 'dashboard\plugins\payments\MyFatoorahController@index')->name('my_fatoorah.index');
             Route::post('dashboard/my-fatoorah', 'dashboard\plugins\payments\MyFatoorahController@store')->name('my_fatoorah.store');
             Route::post('dashboard/my-fatoorah/change-status', 'dashboard\plugins\payments\MyFatoorahController@changeStatus')->name('my_fatoorah.changeStatus');
-            
+
             /****** Firebase Notifications *****/
             /********** TODO: 1. Add "dashboard/plugins/others/" before the main URL, 2. Add an option on the plugins page to enable or disable ***********/
             // تحتاج تفاهم بالعربي
             Route::get('sendnotifications','CustomerController@SendNotification')->name('notification.send');
             Route::post('notification/submit','CustomerController@PushNotification')->name('submitnotification');
-            
+
         /*========================================
         =     Admin Dashboard Plugins Ends       =
         ========================================*/
-        
+
     /*==============================
     =    Admin Dashboard Ends      =
     ==============================*/

@@ -22,13 +22,11 @@ class CreateSystem2StaffsTable extends Migration
             $table->string('monthly_salary');
             $table->float('working_hours');
             $table->string('email');
-            $table->string('address');
             $table->string('country');
             $table->string('province');
             $table->string('city');
             $table->string('neighborhood');
             $table->string('permission');
-            $table->string('selection_powers');
             $table->timestamps();
 
         });

@@ -1,10 +1,11 @@
 @section('title')
-    {{ __('brand.brandAdd') }}
+    {{ __('products/brand.brandAdd') }}
 @endsection
 @extends('dashboard.layouts.layout')
 @section('style')
-
-
+    @php
+        $lang_current = Config::get('app.locale');
+    @endphp
     <link href="{{ asset('assets/dashboard//plugins/datepicker/datepicker.min.css') }}" rel="stylesheet" type="text/css">
 
 @endsection
@@ -13,21 +14,21 @@
     <div class="breadcrumbbar">
         <div class="row align-items-center">
             <div class="col-md-8 col-lg-8">
-                <h4 class="page-title">{{ __('brand.brandAdd') }}</h4>
+                <h4 class="page-title">{{ __('products/brand.brandAdd') }}</h4>
                 <div class="breadcrumb-list">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{url('/home')}}">{{ __('side.dashboard') }}</a></li>
                         <li class="breadcrumb-item">{{ __('side.products') }}</li>
                         <li class="breadcrumb-item active" aria-current="page"><a
                                     href="{{route('brands.index')}}">{{__('side.brands')}}</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">{{ __('brand.brandAdd') }}</li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ __('products/brand.brandAdd') }}</li>
                     </ol>
                 </div>
             </div>
             <div class="col-md-4 col-lg-4">
                 <div class="widgetbar">
                     <a class="btn btn-primary-rgba"
-                       href="{{ route('brands.index') }}">{{ __('brand.brandBack') }}</a>
+                       href="{{ route('brands.index') }}">{{ __('products/brand.brandBack') }}</a>
                 </div>
             </div>
         </div>
@@ -46,26 +47,31 @@
                             <div class="row">
                                 <div class="col-lg-6 mb-4">
                                     <div class="form-group mb-0">
-                                        <label for="cutting_method" class="col-form-label">{{ __('brand.brandName') }}</label>
-                                        <input type="text" name="brandName" class="form-control" placeholder="{{__('brand.AddnewName')}}" required="">
+                                        <label for="brandName" class="col-form-label">{{ __('products/brand.brandName') }}</label>
+                                        <input type="text" name="brandName" class="form-control" placeholder="{{__('products/brand.AddnewName')}}" required="">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 mb-4">
+                                    <div class="form-group mb-0">
+                                        <label for="brandNameAr" class="col-form-label">{{ __('products/brand.brandNameAr') }}</label>
+                                        <input type="text" name="brandNameAr" class="form-control" placeholder="{{__('products/brand.AddnewArabicName')}}" required="">
                                     </div>
                                 </div>
 
                                 <div class="col-lg-6 mb-4">
                                     <div class="form-group mb-0">
-                                        <label for="cutting_method" class="col-form-label">{{ __('brand.brandCode') }}</label>
-                                        <input type="text" name="brandCode" class="form-control" placeholder="{{__('brand.AddnewCode')}}" required="">
+                                        <label for="brandCode" class="col-form-label">{{ __('products/brand.brandCode') }}</label>
+                                        <input type="text" name="brandCode" class="form-control" placeholder="{{__('products/brand.AddnewCode')}}" required="">
                                     </div>
                                 </div>
 
                                 <div class="col-lg-6 mb-4">
                                     <div class="form-group mb-0">
-                                        <label for="type">{{ __('brand.categoryType') }}</label>
-                                        <select class="form-control" name="categoryType" required="" id="categoryType">
-                                            <option disabled selected
-                                                    value="">{{ __('brand.categorySelection') }}</option>
+                                        <label for="type">{{ __('products/brand.brandCategory') }}</label>
+                                        <select class="form-control" name="categoryId" id="categoryId">
+                                            <option selected value="">{{ __('products/brand.categorySelection') }}</option>
                                             @foreach($categories as $cate)
-                                                <option value="{{$cate->category_name}}">{{$cate->category_name}}</option>
+                                                <option value="{{$cate->id}}">@if($lang_current == 'ar') {{$cate->name_ar}} @else {{$cate->name}} @endif</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -73,40 +79,21 @@
 
                                 <div class="col-lg-6 mb-4">
                                     <div class="form-group mb-0">
-                                        <label for="cutting_method" class="col-form-label">{{ __('brand.brandImage') }}</label>
-                                        <input type="file" name="brandImage" class="form-control" placeholder="{{__('brand.SelectnewImage')}}" required="">
+                                        <label for="nameOfAdd" class="col-form-label">{{ __('products/brand.nameOfAdd') }}</label>
+                                        <input type="text" name="nameOfAdd" class="form-control" placeholder="{{auth()->user()->name}}" required="" readonly>
                                     </div>
                                 </div>
 
-                                {{--<div class="col-lg-6 mb-4">--}}
-                                    {{--<div class="form-group mb-0">--}}
-                                        {{--<label for="cutting_method" class="col-form-label">{{ __('brand.nameOfAdd') }}</label>--}}
-                                        {{--<input type="text" name="nameOfAdd" class="form-control" placeholder="{{auth()->user()->name}}" required="" readonly>--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
-
-                                {{--<div class="col-lg-6 mb-4">--}}
-                                    {{--<div class="form-group mb-0">--}}
-                                        {{--<label>{{ __('brand.dateOfAdd') }}</label>--}}
-                                        {{--<div class="input-group">--}}
-                                            {{--<input type="text" id="default-date12" class="form-control"--}}
-                                                   {{--placeholder="yyyy/mm/dd" aria-describedby="basic-addon2"--}}
-                                                   {{--name="dateOfAdd" autocomplete="off"/>--}}
-                                            {{--<div class="input-group-append">--}}
-                                                {{--<span class="input-group-text" id="basic-addon2"><i--}}
-                                                        {{--class="feather icon-calendar"></i></span>--}}
-                                            {{--</div>--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
-
-
-
+                                <div class="col-lg-6 mb-4">
+                                    <div class="form-group mb-0">
+                                        <label for="cutting_method" class="col-form-label">{{ __('products/brand.brandImage') }}</label>
+                                        <input type="file" name="brandImage" class="form-control" placeholder="{{__('products/brand.SelectnewImage')}}" required="">
+                                    </div>
+                                </div>
 
                                 <div class="col-lg-12 mt-4">
                                     <div class="form-group mb-0">
-                                        <button type="submit"
-                                                class="btn btn-primary pl-5 pr-5">{{ __('brand.brandSave') }}</button>
+                                        <button type="submit" class="btn btn-primary pl-5 pr-5">{{ __('products/brand.brandSave') }}</button>
                                     </div>
                                 </div>
                             </div>

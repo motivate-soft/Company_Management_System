@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\dashboard\systems\SystemTwo;
 
+use App\Model\dashboard\systems\SystemTwo\Staff;
 use App\Model\dashboard\systems\SystemTwo\Transaction;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -21,8 +22,9 @@ class TransactionController extends Controller
 
     public function edit($id)
     {
+        $persons = Staff::orderBy('id', 'asc')->get();
         $transaction = Transaction::findOrFail($id);
-        return view('dashboard.Systems.SystemTwo.transactions.edit', compact('transaction'));
+        return view('dashboard.Systems.SystemTwo.transactions.edit', compact('transaction', 'persons'));
     }
 
     public function detail($id)
@@ -33,7 +35,8 @@ class TransactionController extends Controller
 
     public function create()
     {
-        return view('dashboard.Systems.SystemTwo.transactions.create');
+        $persons = Staff::orderBy('id', 'asc')->get();
+        return view('dashboard.Systems.SystemTwo.transactions.create', compact('persons'));
     }
 
     public function add_transaction_post(Request $request)
@@ -44,6 +47,8 @@ class TransactionController extends Controller
         $validator = Validator::make($request->all(),
             [
                 'name' => 'required|string',
+                'ar_name' => 'required|string',
+                'person' => 'required|string',
                 'state' => 'required|numeric',
             ]);
 
@@ -59,18 +64,10 @@ class TransactionController extends Controller
 
         $data = ([
             'name' => $request->name,
+            'ar_name' => $request->ar_name,
+            'person' => $request->person,
             'state' => $request->state,
         ]);
-
-        $transactions = Transaction::OrderBy('id', 'asc')->get();
-
-        for( $x = 0 ; $x < sizeof($transactions) ; $x ++ ){
-
-            if($transactions[$x]->name == $request->name) {
-
-            }
-
-        }
 
 
         $created = DB::table('system2_transactions')->insert($data);
@@ -88,6 +85,8 @@ class TransactionController extends Controller
         $validator = Validator::make($request->all(),
             [
                 'name' => 'required|string',
+                'ar_name' => 'required|string',
+                'person' => 'required|string',
                 'state' => 'required|numeric',
             ]);
 
@@ -104,6 +103,8 @@ class TransactionController extends Controller
 
         $data = ([
             'name' => $request->name,
+            'ar_name' => $request->ar_name,
+            'person' => $request->person,
             'state' => $request->state,
         ]);
 

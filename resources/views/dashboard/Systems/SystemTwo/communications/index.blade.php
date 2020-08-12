@@ -78,14 +78,13 @@
                                             </td>
                                             <td>{{ $communication->letter_authorized }}</td>
                                             <td>{{ $communication->employee_responsible }}</td>
-                                            <td>
-
-                                                <div class="custom-control custom-switch" >
-                                                    <input type="checkbox" onclick="status_change('{{csrf_token()}}','{{$communication->id}}','{{url('communication-status')}} ')" {{ $communication->status_letter == 1?'checked':''}} class="custom-control-input" id="customSwitch{{$key}}">
-                                                    <label class="custom-control-label" for="customSwitch{{$key}}"></label>
-                                                </div>
-
-                                            </td>
+                                            <td>{{ $communication->status_letter }}</td>
+                                            {{--<td>--}}
+                                                {{--<div class="custom-control custom-switch" >--}}
+                                                    {{--<input type="checkbox" onclick="status_change('{{csrf_token()}}','{{$communication->id}}','{{url('communication-status')}} ')" {{ $communication->status_letter == 1?'checked':''}} class="custom-control-input" id="customSwitch{{$key}}">--}}
+                                                    {{--<label class="custom-control-label" for="customSwitch{{$key}}"></label>--}}
+                                                {{--</div>--}}
+                                            {{--</td>--}}
                                             <td>{{ $communication->date_letter }}</td>
 
                                             <td><a href="{{route('communications.detail', $communication->id)}}" class="btn btn-info-rgba"><i class="feather icon-eye"></i></a></td>

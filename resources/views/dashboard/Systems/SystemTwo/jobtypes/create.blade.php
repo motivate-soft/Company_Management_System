@@ -87,6 +87,14 @@
 
                                 <div class="col-lg-3 mb-4">
                                     <div class="form-group mb-0">
+                                        <label for="ar_name">{{__('Systems/SystemTwo/jobtypes.ar_name')}}</label>
+                                        <input type="text" class="form-control" id="ar_name" name="ar_name"
+                                               placeholder="ar_name" required="">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 mb-4">
+                                    <div class="form-group mb-0">
                                         <label for="state">{{__('Systems/SystemTwo/jobtypes.state')}}</label>
                                         <select id="state" name="state" class="form-control">
                                             <option value="1">{{__('Systems/SystemTwo/jobtypes.state_enabled')}}</option>

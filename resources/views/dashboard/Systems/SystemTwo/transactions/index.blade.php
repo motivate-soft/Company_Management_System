@@ -53,6 +53,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>{{__('Systems/SystemTwo/transactions.name')}}</th>
+                                    <th>{{__('Systems/SystemTwo/transactions.person')}}</th>
                                     <th>{{__('Systems/SystemTwo/transactions.state')}}</th>
                                     <th>{{__('Systems/SystemTwo/transactions.edit')}}</th>
                                     <th>{{__('Systems/SystemTwo/transactions.delete')}}</th>
@@ -64,7 +65,14 @@
                                     @foreach($transactions as $key => $transaction)
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
-                                            <td>{{ $transaction->name }}</td>
+                                            <td>
+                                                @if(app()->getLocale() == 'en')
+                                                    {{$transaction->name}}
+                                                @else
+                                                    {{$transaction->ar_name}}
+                                                @endif
+                                            </td>
+                                            <td>{{ $transaction->person }}</td>
                                             <td>
                                                 <div class="custom-control custom-switch" >
                                                     <input type="checkbox" onclick="status_change('{{csrf_token()}}','{{$transaction->id}}','{{url('dashboard/transaction-state')}} ')" {{ $transaction->state == 1 ? 'checked':''}} class="custom-control-input" id="customSwitch{{$key}}">
