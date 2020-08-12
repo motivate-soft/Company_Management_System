@@ -31,5 +31,8 @@ return [
     'selectProduct' => 'Select Product',
     'membership' => 'Membership Number',
     'addMoreProduct' => 'Add More',
-    'removeProduct' => 'Remove'
+    'removeProduct' => 'Remove',
+    'product_name' => 'Product Name',
+    'modify' => 'Modify',
+    'description' => 'Description'
 ];

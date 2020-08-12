@@ -43,7 +43,7 @@
                                         <th>{{ __('Systems/SystemOne/customers.date') }}</th>
                                         <th>{{ __('Systems/SystemOne/customers.customerName') }}</th>
                                         <th>{{ __('Systems/SystemOne/customers.description') }}</th>
-                                        <th>{{ __('Systems/SystemOne/customers.couponNumber') }}</th>
+                                        <th>{{ __('Systems/SystemFour/quotations.invoiceNumber') }}</th>
                                         <th>{{ __('Systems/SystemOne/customers.amount') }}</th>
                                     </tr>
                                 </thead>
@@ -56,9 +56,10 @@
                                         {{--<td>{{ $customer->email }}</td>--}}
                                         {{--<td>{{ $customer->phone }}</td>--}}
                                         <td>{{ $purchase->created_at }}</td>
-                                        <td>{{ $purchase->customer->customer_name }}</td>
+                                        <td>{{ $purchase->customer_name }}</td>
                                         <td>{{ $purchase->description }}</td>
-                                        <td>{{ $purchase->coupon_number }}</td>
+                                        <td>#{{str_pad($purchase->quotation_id, 6, '0', STR_PAD_LEFT)}}</td>
+{{--                                        <td>#{{str_pad($quotation_id, 6, '0', STR_PAD_LEFT)}}</td>--}}
                                         <td>{{ $purchase->amount }}</td>
                                         {{--<td>--}}
                                             {{--<div class="custom-control custom-switch" >--}}

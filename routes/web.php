@@ -84,13 +84,13 @@
         Route::get('dashboard/brand/detail/{id}', 'dashboard\brands\BrandsController@detail_brand')->name('brands.detail');
 
             /********** Products ***********/
-        Route::get('dashboard/products', 'dashboard\products\ProductsController@index')->name('products.index');
-        Route::get('dashboard/product/create', 'dashboard\products\ProductsController@create')->name('products.create');
-        Route::post('dashboard/add_product', 'dashboard\products\ProductsController@add_products')->name('products.add');
-        Route::get('dashboard/product/edit/{id}', 'dashboard\products\ProductsController@edit')->name('products.editview');
-        Route::post('dashboard/product/edit', 'dashboard\products\ProductsController@edit_product')->name('products.edit');
-        Route::post('dashboard/delete_product', 'dashboard\products\ProductsController@delete_product');
-        Route::get('dashboard/product/detail/{id}', 'dashboard\products\ProductsController@detail_product')->name('products.detail');
+//        Route::get('dashboard/product', 'dashboard\products\ProductsController@index')->name('products.index');
+//        Route::get('dashboard/product/create', 'dashboard\products\ProductsController@create')->name('products.create');
+//        Route::post('dashboard/add_product', 'dashboard\products\ProductsController@add_products')->name('products.add');
+//        Route::get('dashboard/product/edit/{id}', 'dashboard\products\ProductsController@edit')->name('products.editview');
+//        Route::post('dashboard/product/edit', 'dashboard\products\ProductsController@edit_product')->name('products.edit');
+//        Route::post('dashboard/delete_product', 'dashboard\products\ProductsController@delete_product');
+//        Route::get('dashboard/product/detail/{id}', 'dashboard\products\ProductsController@detail_product')->name('products.detail');
 
             /********** Sliders ***********/
         Route::Resource('dashboard/sliders', 'dashboard\sliders\MobileThemesSliderController')->except('update', 'destroy');
@@ -238,11 +238,12 @@
         Route::post('dashboard/quotations/destroy', 'Systems\SystemFour\QuotationController@destroy_post')->name('quotations.destroy_post');
         Route::get('dashboard/quotations/detail/{id}', 'Systems\SystemFour\QuotationController@detail')->name('quotations.detail');
         Route::get('dashboard/quotations/edit/{id}', 'Systems\SystemFour\QuotationController@edit')->name('quotations.edit');
-        Route::post('dashboard/quotations/changeStatus', 'Systems\SystemFour\QuotationController@changeStatus')->name('quotations.changeStatus');
+        Route::post('dashboard/quotations/modify', 'Systems\SystemFour\QuotationController@modify');
+        Route::post('dashboard/quotations/changeStatus', 'Systems\SystemFour\QuotationController@changeStatus');
         Route::get('dashboard/quotations/create', 'Systems\SystemFour\QuotationController@create')->name('quotations.create');
-        Route::get('dashboard/quotations/store', 'Systems\SystemFour\QuotationController@store')->name('quotations.store');
         Route::post('dashboard/quotations/store', 'Systems\SystemFour\QuotationController@store')->name('quotations.store');
         Route::get('dashboard/quotations/all', 'Systems\SystemFour\QuotationController@all')->name('quotations.all');
+        Route::get('dashboard/quotations/invoice', 'Systems\SystemFour\QuotationController@invoice')->name('quotations.invoice');
 
         Route::get('dashboard/quotations/completed', 'Systems\SystemFour\QuotationController@completed')->name('quotations.completed');
         Route::get('dashboard/quotations/pending', 'Systems\SystemFour\QuotationController@pending')->name('quotations.pending');
@@ -265,7 +266,7 @@
         Route::post('dashboard/settings/edit_countries', 'dashboard\settings\CountryController@post_edit_countries')->name('countries.edit');
         Route::post('dashboard/settings/add_state', 'dashboard\settings\CountryController@post_add_state')->name('countries.states.add');
         Route::post('dashboard/settings/add_city', 'dashboard\settings\CountryController@post_add_city')->name('countries.cities.add');
-        Route::get('dashboard/settings/add-country', 'dashboard\settings\CountryController@add_country')->name('countries.countries.add');
+        Route::get('dashboard/settings/add_country', 'dashboard\settings\CountryController@add_country')->name('countries.countries.add');
         Route::post('dashboard/settings/add_country', 'dashboard\settings\CountryController@post_add_country')->name('countries.add');
         Route::get('dashboard/settings/get_neiber/{id}', 'dashboard\settings\CountryController@get_neiber');
         Route::post('dashboard/settings/add_neiber', 'dashboard\settings\CountryController@add_neiber')->name('countries.neiber.add');

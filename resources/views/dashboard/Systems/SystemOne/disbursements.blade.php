@@ -53,11 +53,11 @@
                                     @foreach($customers as $key => $customer)
                                         <tr>
                                             <td>{{ $key+1 }}</td>
-                                            <td>{{ $customer->customer->customer_name }}</td>
-                                            <td>{{ $customer->customer->address }}</td>
-                                            <td>{{ $customer->customer->mobile_number }}</td>
-                                            <td>{{ $customer->customer->email }}</td>
-                                            <td>{{ $customer->disbursement }}</td>
+                                            <td>{{ $customer->customer_name }}</td>
+                                            <td>{{ $customer->address }}</td>
+                                            <td>{{ $customer->mobile_number }}</td>
+                                            <td>{{ $customer->email }}</td>
+                                            <td>{{ $customer->amount }}</td>
                                             {{--<td>--}}
                                                 {{--<div class="custom-control custom-switch" >--}}
                                                     {{--<a class="btn btn-info-rgba" href="{{ route('customers.profile',$customer->id) }}" title="Profile"><i class="feather icon-info"></i></a>--}}

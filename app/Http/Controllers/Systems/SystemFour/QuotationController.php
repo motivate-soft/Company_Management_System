@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Systems\SystemFour;
 
+use App\Model\dashboard\systems\SystemFour\ProductQuotation;
 use App\Model\dashboard\systems\SystemFour\Quotation;
 use App\Model\dashboard\systems\SystemOne\Customer;
 use App\Model\dashboard\systems\SystemTwo\Staff;
 use App\Model\Product;
+use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -54,45 +56,43 @@ class QuotationController extends Controller
 
     public function store(Request $request){
 
-        $inserted = ([
-            'employee_id'   => $request->employee_id,
-            'customer_id'   => $request->customer_id,
-            'project_name'  => $request->project_name,
-            'discount_rate' => $request->discount_rate,
-            'purchase_info' => $request->purchase_info,
-        ]);
+        try {
+            $inserted = ([
+                'employee_id'   => $request->employee_id,
+                'customer_id'   => $request->customer_id,
+                'project_name'  => $request->project_name,
+                'discount_rate' => $request->discount_rate,
+                'purchase_info' => $request->purchase_info,
+                'quo_description' => $request->quo_description
+            ]);
 
-        $new = new Quotation();
+            $quotation = new Quotation();
 
-        $new->employee_id = $request->employee_id;
-        $new->customer_id = $request->customer_id;
-        $new->project_name = $request->project_name;
-        $new->discount_rate = $request->discount_rate;
+            $quotation->employee_id = $inserted['employee_id'];
+            $quotation->customer_id = $inserted['customer_id'];
+            $quotation->project_name = $inserted['project_name'];
+            $quotation->discount_rate = $inserted['discount_rate'];
+            $quotation->description = $inserted['quo_description'];
+            $quotation->save();
 
-        $new->save();
+            for($x = 0 ; $x < count($request->purchase_info) ; $x ++) {
 
-        $quotation = Quotation::where('id', $new->id)->first();
+                $productid = $request->purchase_info[$x]['product'];
+                $quotation->products()->attach($productid, ["quantity" => $request->purchase_info[$x]["quantity"]]);
+            }
+            print_r(json_encode("success"));
 
-        $index = [];
+        } catch (Exception $e)
+        {
 
-        for($x = 0 ; $x < count($request->purchase_info) ; $x ++) {
-
-            $productid = $request->purchase_info[$x]['product'];
-
-//            ['quantity' => $request->purchase_info[$x]['quantity']]
-
-//            $quotation->products()->save($productid, ['quantity' => $request->purchase_info[$x]['quantity']]);
-
-            array_push($index, $productid);
-
-//            $quotation->products()->save($productid);
-
+            return json_encode($e);
         }
 
-//        $quotation->products()->save([0 => "1", 1 => "2", 2 => "3"]);
-        $quotation->products()->sync([1, 2]);
-
-        return $quotation;
+//
+////        $quotation->products()->save([0 => "1", 1 => "2", 2 => "3"]);
+//        $quotation->products()->sync([1, 2]);
+//
+//        return $quotation;
 
 
 
@@ -106,7 +106,7 @@ class QuotationController extends Controller
 //        $permissiongroup->permissions()->detach();
 
 
-        return $index;
+//        return $index;
 
 
 
@@ -147,7 +147,9 @@ class QuotationController extends Controller
         $quotation = Quotation::where('id', $id)->first();
         $customers = Customer::all();
         $employees = Staff::all();
-        return view('dashboard.Systems.SystemFour.edit', compact('customers', 'employees', 'quotation'));
+        $products  = Product::all();
+        $select_products  = ProductQuotation::where('quotation_id', $id)->get();
+        return view('dashboard.Systems.SystemFour.edit', compact('select_products', 'products', 'customers', 'employees', 'quotation'));
 
     }
 
@@ -179,11 +181,47 @@ class QuotationController extends Controller
         return back();
     }
 
-    public function changeStatus(Request $request){
+    public function modify(Request $request){
 
-        Quotation::where('id', $request->id)
-            ->update(['status' => $request->input('status')]);
-        return back()->with('success', 'Status changed Successfully!');
+        try {
+            $inserted = ([
+                'employee_id'   => $request->employee_id,
+                'customer_id'   => $request->customer_id,
+                'project_name'  => $request->project_name,
+                'discount_rate' => $request->discount_rate,
+                'purchase_info' => $request->purchase_info,
+                'quo_description' => $request->quo_description
+
+            ]);
+            $product_quotation = ProductQuotation::where('quotation_id', $request->quotation_id);
+            $product_quotation->delete();
+            $quotation = Quotation::find($request->quotation_id);
+
+            $quotation->employee_id = $inserted['employee_id'];
+            $quotation->customer_id = $inserted['customer_id'];
+            $quotation->project_name = $inserted['project_name'];
+            $quotation->discount_rate = $inserted['discount_rate'];
+            $quotation->description = $inserted['quo_description'];
+            $quotation->save();
+
+            for($x = 0 ; $x < count($request->purchase_info) ; $x ++) {
+
+                $productid = $request->purchase_info[$x]['product'];
+                $quotation->products()->attach($productid, ["quantity" => $request->purchase_info[$x]["quantity"]]);
+            }
+            print_r(json_encode("success"));
+
+        } catch (Exception $e)
+        {
+
+            return json_encode($e);
+        }
+    }
+    public function changeStatus(Request $request){
+        $quotation = Quotation::find($request->id);
+        $quotation-> status = $request->status;
+        $quotation-> save();
+
     }
 
     public function detail($id){

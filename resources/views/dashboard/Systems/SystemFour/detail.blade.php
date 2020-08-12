@@ -43,7 +43,7 @@
                             <div class="col-lg-3 mb-4">
                                 <div class="form-group mb-0">
                                     <span>{{__('Systems/SystemFour/quotations.customer')}}</span>
-                                    <p class="text-dark">{{ $quotation->customer->name }}</p>
+                                    <p class="text-dark">{{ $quotation->customer->customer_name }}</p>
                                 </div>
                             </div>
                             <div class="col-lg-3 mb-4">
@@ -78,6 +78,12 @@
                             </div>
                             <div class="col-lg-3 mb-4">
                                 <div class="form-group mb-0">
+                                    <span>{{__('Systems/SystemFour/quotations.description')}}</span>
+                                    <p class="text-dark">{{ $quotation->description }}</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 mb-4">
+                                <div class="form-group mb-0">
                                     <span>{{__('Systems/SystemFour/quotations.status')}}</span>
                                     <p class="text-dark">{{ $quotation->status }}</p>
                                 </div>
@@ -88,18 +94,34 @@
                                     {{--<p class="text-dark">{{ $quotation->product->name }}</p>--}}
                                 {{--</div>--}}
                             {{--</div>--}}
-                            <div class="col-lg-3 mb-4">
-                                <div class="form-group mb-0">
-                                    <span>{{__('Systems/SystemFour/quotations.quantity')}}</span>
-                                    <p class="text-dark">{{ $quotation->quantity }}</p>
-                                </div>
-                            </div>
+
                             {{--<div class="col-lg-3 mb-4">--}}
                                 {{--<div class="form-group mb-0">--}}
                                     {{--<span>{{__('Systems/SystemFour/quotations.report')}}</span>--}}
                                     {{--<p class="text-dark">{{ $quotation->report->description }}</p>--}}
                                 {{--</div>--}}
                             {{--</div>--}}
+                        </div>
+                        <div class="row">
+                            @foreach($quotation->products as $item)
+                                <div class="col-lg-12" style="display: flex;">
+                                    <div class="form-group mb-0 mr-5">
+                                        <span>{{__('Systems/SystemFour/quotations.product_name')}}</span>
+                                        <p class="text-dark">{{ $item->name}}</p>
+                                    </div>
+                                    @php
+                                        $quo_quantities = \App\Model\dashboard\systems\SystemFour\ProductQuotation::where('quotation_id', $quotation->id)->get();
+                                    @endphp
+                                    @foreach($quo_quantities as $quo_quantity)
+                                        @if($quotation->id == $quo_quantity->quotation_id && $item->id == $quo_quantity->product_id)
+                                        <div class="form-group mb-0">
+                                            <span>{{__('Systems/SystemFour/quotations.quantity')}}</span>
+                                            <p class="text-dark">{{ $quo_quantity->quantity }}</p>
+                                        </div>
+                                        @endif
+                                    @endforeach
+                                </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>

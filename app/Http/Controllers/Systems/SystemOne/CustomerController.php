@@ -11,6 +11,7 @@ use App\Model\State;
 use App\Model\Street;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 
 class CustomerController extends Controller
@@ -154,13 +155,102 @@ class CustomerController extends Controller
 
     public function purchases () {
 
-        $purchases['purchases'] = Purchase::all();
-
-        return view('dashboard.Systems.SystemOne.purchases', $purchases);
+        $purchases['purchases'] = DB::select("SELECT
+                                            quotation_id,
+                                            description_en,
+                                            amount,
+                                            customer_name,
+                                            table1.created_at,
+                                            description
+                                        FROM
+                                            (
+                                                SELECT
+                                                    quotation_id,
+                                                    description_en,
+                                                    amount,
+                                                    customer_id,
+                                                    created_at,
+                                                    description
+                                                FROM
+                                                    (
+                                                        SELECT
+                                                            quotation_id,
+                                                            product_id,
+                                                            description_en,
+                                                            SUM(amount) AS amount
+                                                        FROM
+                                                            (
+                                                                SELECT
+                                                                    quotation_id,
+                                                                    product_id,
+                                                                    description_en,
+                                                                    sale_price * quantity AS amount
+                                                                FROM
+                                                                    product_quotation
+                                                                LEFT JOIN products ON product_quotation.product_id = products.id
+                                                            ) AS table2
+                                                        GROUP BY
+                                                            table2.quotation_id
+                                                    ) AS table0
+                                                LEFT JOIN system4_quotations ON table0.quotation_id = system4_quotations.id
+                                              
+                                                where status = 'Completed'
+                                            ) AS table1
+                                        LEFT JOIN system1_customers ON table1.customer_id = system1_customers.id");
+                    return view('dashboard.Systems.SystemOne.purchases', $purchases);
     }
 
     public function disbursements () {
-        $customers['customers'] = Purchase::all();
+        $customers['customers'] = DB::select("SELECT
+	quotation_id,
+	description_en,
+	amount,
+	customer_name,
+	address,
+	email,
+	mobile_number
+FROM
+	(
+		SELECT
+			quotation_id,
+			description_en,
+			SUM(amount) AS amount,
+			customer_id,
+			created_at,
+			description
+		FROM
+			(
+				SELECT
+					*
+				FROM
+					(
+						SELECT
+							quotation_id,
+							product_id,
+							description_en,
+							SUM(amount) AS amount
+						FROM
+							(
+								SELECT
+									quotation_id,
+									product_id,
+									description_en,
+									sale_price * quantity AS amount
+								FROM
+									product_quotation
+								LEFT JOIN products ON product_quotation.product_id = products.id
+							) AS table2
+						GROUP BY
+							table2.quotation_id
+					) AS table0
+				LEFT JOIN system4_quotations ON table0.quotation_id = system4_quotations.id
+				WHERE
+					STATUS = 'Completed'
+			) AS table9
+		GROUP BY
+			customer_id
+	) AS table1
+LEFT JOIN system1_customers ON table1.customer_id = system1_customers.id");
         return view('dashboard.Systems.SystemOne.disbursements', $customers);
     }
 
@@ -177,8 +267,6 @@ class CustomerController extends Controller
                 $results = Street::where('city_id', $request->city)->orderBy('id', 'asc')->get();
                 break;
         }
-
-
         return response()->json($results, 200);
     }
 }
